@@ -1,9 +1,10 @@
 import "./App.css";
+import { MainScene } from "@/scenes";
 
 function App() {
   return (
     <>
-      <h1>React App Boilerplate</h1>
+      <MainScene />
     </>
   );
 }
