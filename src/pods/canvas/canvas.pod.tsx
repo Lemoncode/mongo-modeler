@@ -7,6 +7,7 @@ interface Size {
 }
 
 export const CanvasPod: React.FC = () => {
+  // Consumo lo que que viene del provider (valores de canvas size y valores de zoom)
   const [zoomFactor, setZoomFactor] = React.useState(1);
   const [size] = React.useState<Size>({ width: 2400, height: 2400 });
 
@@ -20,6 +21,7 @@ export const CanvasPod: React.FC = () => {
 
   return (
     <div>
+      {/* Estos dos botones los llvamos al toolbar */}
       <button onClick={() => setZoomFactor((zoomFactor) => zoomFactor * 0.9)}>
         Zoom in
       </button>
