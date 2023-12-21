@@ -37,10 +37,8 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
 
 export const useCanvasViewSettingsContext = () => {
   const context = React.useContext(CanvasViewSettingsContext);
-  if (!context) {
-    throw new Error(
-      'CanvasViewSettingsContext must be used within an CanvasViewSettingsProvider'
-    );
+  if (context === null) {
+    throw 'useCanvasViewSettingsContext: looks like you have forgotten to add the provider on top of the app :)';
   }
 
   return context;

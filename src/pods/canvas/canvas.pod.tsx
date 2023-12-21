@@ -25,9 +25,9 @@ export const CanvasPod: React.FC = () => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={classes.containerSvg}
-          viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`} // Zoom play
-          width={canvasSize.width} // Explicit SVG canvas width TODO: configure
-          height={canvasSize.height} // Explicit SVG canvas height TODO: configure
+          viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
+          width={canvasSize.width}
+          height={canvasSize.height}
         >
           <rect x={100} y={0} width={190} height={280} fill="green" />
           <rect x={100} y={285} width={190} height={280} fill="yellow" />
