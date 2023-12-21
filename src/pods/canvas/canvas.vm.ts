@@ -13,10 +13,10 @@ export const GenerateGUID = (): GUID => {
 
 export interface TableVm {
   id: string;
-  fields: FieldVm[]; // Asumiendo que Field es la interfaz para los campos de la tabla
+  fields: FieldVm[]; 
   tableName: string;
-  x: number; // Posición X en el canvas
-  y: number; // Posición Y en el canvas
+  x: number; // Canvas X Position
+  y: number; // Canvas Y Position
 }
 
 export interface FieldVm {
