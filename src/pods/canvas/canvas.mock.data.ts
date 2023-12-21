@@ -1,11 +1,16 @@
-import { DatabaseSchema, GenerateGUID, Relation, Table } from "./canvas.model";
+import {
+  DatabaseSchemaVm,
+  GenerateGUID,
+  RelationVm,
+  TableVm,
+} from "./canvas.vm";
 
 const tagTableId = "1";
 const restaurantTableId = "2";
 const tagFieldId = GenerateGUID();
 const restaurantTagFieldGUID = GenerateGUID();
 
-const mockRelations: Relation[] = [
+const mockRelations: RelationVm[] = [
   {
     fromTableId: tagTableId,
     toTableId: restaurantTableId,
@@ -15,7 +20,7 @@ const mockRelations: Relation[] = [
   },
 ];
 
-const mockTables: Table[] = [
+const mockTables: TableVm[] = [
   {
     id: tagTableId,
     x: 100,
@@ -125,7 +130,7 @@ const mockTables: Table[] = [
   },
 ];
 
-export const mockSchema: DatabaseSchema = {
+export const mockSchema: DatabaseSchemaVm = {
   tables: mockTables,
   relations: mockRelations,
 };
