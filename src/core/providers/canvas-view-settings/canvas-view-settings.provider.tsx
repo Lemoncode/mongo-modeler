@@ -35,7 +35,5 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   );
 };
 
-// eslint se queja de que se exportan dos cosas en el archivo, el provider y esto
-// y como esto es un custom hook, lo dejo aquí o lo muevo a un archivo canvas-view-settings.hook.tsx,
 export const useCanvasViewSettingsContext = () =>
   React.useContext(CanvasViewSettingsContext);
