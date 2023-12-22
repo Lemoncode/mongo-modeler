@@ -1,9 +1,10 @@
 import React from "react";
 import { produce } from "immer";
 import { mockSchema } from "./canvas.mock.data";
-import classes from "./canvas.pod.module.css";
 import { FieldVm, GUID } from "./canvas.vm";
 import { DatabaseTable } from "./components/table/database-table.component";
+import { useCanvasViewSettingsContext } from "@/core/providers";
+import classes from "./canvas.pod.module.css";
 
 interface Size {
   width: number;
@@ -12,15 +13,15 @@ interface Size {
 
 export const CanvasPod: React.FC = () => {
   const [schema, setSchema] = React.useState(() => mockSchema);
-  const [zoomFactor, setZoomFactor] = React.useState(1);
-  const [size] = React.useState<Size>({ width: 2400, height: 2400 });
+  const { canvasViewSettings } = useCanvasViewSettingsContext();
+  const { canvasSize, zoomFactor } = canvasViewSettings;
 
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
-      width: size.width * zoomFactor,
-      height: size.height * zoomFactor,
+      width: canvasSize.width * zoomFactor,
+      height: canvasSize.height * zoomFactor,
     }),
-    [zoomFactor, size]
+    [zoomFactor, canvasSize]
   );
 
   const updateTablePosition = (
@@ -73,19 +74,13 @@ export const CanvasPod: React.FC = () => {
 
   return (
     <div>
-      <button onClick={() => setZoomFactor((zoomFactor) => zoomFactor * 0.9)}>
-        Zoom in
-      </button>
-      <button onClick={() => setZoomFactor((zoomFactor) => zoomFactor * 1.1)}>
-        Zoom out
-      </button>
       <div className={classes.container}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={classes.containerSvg}
-          viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`} // Zoom play
-          width={size.width} // Explicit SVG canvas width TODO: configure
-          height={size.height} // Explicit SVG canvas height TODO: configure
+          viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
+          width={canvasSize.width}
+          height={canvasSize.height}
         >
           {schema.tables.map((table) => (
             <DatabaseTable
