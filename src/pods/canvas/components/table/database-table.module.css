@@ -1,0 +1,14 @@
+.text {
+  font-family: "Arial", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.header {
+  fill: #cccccc;
+}
+
+.border {
+  fill: none;
+  stroke: black;
+}
