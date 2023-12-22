@@ -1,0 +1,136 @@
+// Importaciones necesarias
+import React from "react";
+import { FieldVm, TableVm, GUID } from "../../canvas.vm";
+import classes from "./database-table.module.css";
+import { useDraggable } from "./table-drag.hook";
+import {
+  FONT_SIZE,
+  ROW_PADDING,
+  LEVEL_INDENTATION,
+  COLLAPSE_ICON_X,
+  FIELD_NAME_X_OFFSET,
+  FIELD_TYPE_X,
+  TABLE_WIDTH,
+  HEADER_HEIGHT,
+} from "./database-table.const";
+
+interface Props {
+  tableInfo: TableVm;
+  updatePosition: (
+    id: string,
+    newX: number,
+    newY: number,
+    totalHeight: number
+  ) => void;
+  onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
+}
+
+export const DatabaseTable: React.FC<Props> = ({
+  tableInfo,
+  updatePosition,
+  onToggleCollapse,
+}) => {
+  const rowHeight = FONT_SIZE + ROW_PADDING;
+
+  const renderRows = (
+    fields: FieldVm[],
+    level: number,
+    startY: number
+  ): [JSX.Element[], number] => {
+    let currentY = startY;
+    let rows: JSX.Element[] = [];
+
+    fields.forEach((field) => {
+      const isExpandable =
+        field.type === "object" && (field.children?.length ?? 0) > 0;
+      const isExpanded = !field.isCollapsed;
+
+      const row = (
+        <g
+          key={field.id}
+          transform={`translate(${level * LEVEL_INDENTATION}, ${currentY})`}
+        >
+          {isExpandable && (
+            <text
+              x={COLLAPSE_ICON_X}
+              y={FONT_SIZE}
+              className={classes.text}
+              onClick={() => onToggleCollapse(tableInfo.id, field.id)}
+            >
+              {isExpanded ? "▼" : "►"}
+            </text>
+          )}
+          <text
+            x={FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
+            y={FONT_SIZE}
+            className={classes.text}
+          >
+            {field.name}
+          </text>
+          <text x={FIELD_TYPE_X} y={FONT_SIZE} className={classes.text}>
+            {field.type}
+          </text>
+        </g>
+      );
+
+      rows.push(row);
+      currentY += rowHeight;
+
+      if (isExpanded && field.children) {
+        const [childRows, newY] = renderRows(
+          field.children,
+          level + 1,
+          currentY
+        );
+        rows = rows.concat(childRows);
+        currentY = newY;
+      }
+    });
+
+    return [rows, currentY];
+  };
+
+  const [renderedRows, totalHeight] = React.useMemo((): [
+    JSX.Element[],
+    number
+  ] => {
+    const [rows, totalY] = renderRows(tableInfo.fields, 0, HEADER_HEIGHT);
+    return [rows, totalY + ROW_PADDING]; // Ajuste para el padding final
+  }, [tableInfo.fields]);
+
+  const { onMouseDown } = useDraggable(
+    tableInfo.id,
+    tableInfo.x,
+    tableInfo.y,
+    updatePosition,
+    totalHeight
+  );
+
+  return (
+    <g
+      transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
+      onMouseDown={onMouseDown}
+    >
+      <rect
+        x="0"
+        y="0"
+        width={TABLE_WIDTH}
+        height={HEADER_HEIGHT}
+        className={classes.header}
+      />
+      <text x="10" y={FONT_SIZE} className={classes.text}>
+        {tableInfo.tableName}
+      </text>
+
+      {renderedRows}
+
+      <rect
+        x="0"
+        y="0"
+        width={TABLE_WIDTH}
+        height={totalHeight}
+        className={classes.border}
+      />
+    </g>
+  );
+};
