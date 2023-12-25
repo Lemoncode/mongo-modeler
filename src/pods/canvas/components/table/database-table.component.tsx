@@ -46,27 +46,26 @@ export const DatabaseTable: React.FC<Props> = ({
       const isExpanded = !field.isCollapsed;
 
       const row = (
-        <g
-          key={field.id}
-          transform={`translate(${level * LEVEL_INDENTATION}, ${currentY})`}
-        >
-          {isExpandable && (
+        <g key={field.id} transform={`translate(0, ${currentY})`}>
+          <g transform={`translate(${level * LEVEL_INDENTATION}, 0)`}>
+            {isExpandable && (
+              <text
+                x={COLLAPSE_ICON_X}
+                y={FONT_SIZE}
+                className={classes.text}
+                onClick={() => onToggleCollapse(tableInfo.id, field.id)}
+              >
+                {isExpanded ? "▼" : "►"}
+              </text>
+            )}
             <text
-              x={COLLAPSE_ICON_X}
+              x={FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
               y={FONT_SIZE}
               className={classes.text}
-              onClick={() => onToggleCollapse(tableInfo.id, field.id)}
             >
-              {isExpanded ? "▼" : "►"}
+              {field.name}
             </text>
-          )}
-          <text
-            x={FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
-            y={FONT_SIZE}
-            className={classes.text}
-          >
-            {field.name}
-          </text>
+          </g>
           <text x={FIELD_TYPE_X} y={FONT_SIZE} className={classes.text}>
             {field.type}
           </text>
