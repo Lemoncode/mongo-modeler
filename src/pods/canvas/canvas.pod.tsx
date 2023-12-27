@@ -1,10 +1,11 @@
-import React from "react";
-import { produce } from "immer";
-import { mockSchema } from "./canvas.mock.data";
-import { FieldVm, GUID } from "./canvas.vm";
-import { DatabaseTable } from "./components/table/database-table.component";
-import { useCanvasViewSettingsContext } from "@/core/providers";
-import classes from "./canvas.pod.module.css";
+import React from 'react';
+import { produce } from 'immer';
+import { mockSchema } from './canvas.mock.data';
+import { FieldVm, GUID } from './canvas.vm';
+import { DatabaseTable } from './components/table/database-table.component';
+import { useCanvasViewSettingsContext } from '@/core/providers';
+import classes from './canvas.pod.module.css';
+import { ModalDialog } from '@/common/components/modal-dialog/modal-dialog.component';
 
 interface Size {
   width: number;
@@ -19,7 +20,7 @@ export const CanvasPod: React.FC = () => {
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
-      height: canvasSize.height * zoomFactor,
+      height: canvasSize.height * zoomFactor
     }),
     [zoomFactor, canvasSize]
   );
@@ -30,27 +31,27 @@ export const CanvasPod: React.FC = () => {
     newY: number,
     totalHeight: number
   ) => {
-    setSchema((prevSchema) => {
+    setSchema(prevSchema => {
       return {
         ...prevSchema,
-        tables: prevSchema.tables.map((table) => {
+        tables: prevSchema.tables.map(table => {
           if (table.id === id) {
             return {
               ...table,
               x: Math.max(0, Math.min(newX, 1200 - 300)), // Asegurar que x está dentro de los límites
-              y: Math.max(0, Math.min(newY, 800 - totalHeight)), // Asegurar que y está dentro de los límites
+              y: Math.max(0, Math.min(newY, 800 - totalHeight)) // Asegurar que y está dentro de los límites
             };
           }
           return table;
-        }),
+        })
       };
     });
   };
 
   const handleToggleCollapse = (tableId: string, fieldId: GUID) => {
-    setSchema((currentSchema) =>
-      produce(currentSchema, (draft) => {
-        const table = draft.tables.find((t) => t.id === tableId);
+    setSchema(currentSchema =>
+      produce(currentSchema, draft => {
+        const table = draft.tables.find(t => t.id === tableId);
         if (table) {
           const field = findField(table.fields, fieldId);
           if (field) {
@@ -82,7 +83,7 @@ export const CanvasPod: React.FC = () => {
           width={canvasSize.width}
           height={canvasSize.height}
         >
-          {schema.tables.map((table) => (
+          {schema.tables.map(table => (
             <DatabaseTable
               key={table.id}
               tableInfo={table}
@@ -93,6 +94,9 @@ export const CanvasPod: React.FC = () => {
           );
         </svg>
       </div>
+      <ModalDialog isOpen={true}>
+        <p>Modal</p>
+      </ModalDialog>
     </div>
   );
 };
