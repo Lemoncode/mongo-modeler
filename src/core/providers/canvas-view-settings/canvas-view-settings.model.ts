@@ -8,7 +8,7 @@ export interface CanvasViewSettingsModel {
   zoomFactor: number;
 }
 
-export const ceateInitialSettings = () => ({
+export const createInitialSettings = () => ({
   canvasSize: { width: 2400, height: 2400 },
   zoomFactor: 1
 });

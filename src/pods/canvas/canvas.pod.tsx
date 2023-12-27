@@ -5,7 +5,6 @@ import { FieldVm, GUID } from './canvas.vm';
 import { DatabaseTable } from './components/table/database-table.component';
 import { useCanvasViewSettingsContext } from '@/core/providers';
 import classes from './canvas.pod.module.css';
-import { ModalDialog } from '@/common/components/modal-dialog/modal-dialog.component';
 
 interface Size {
   width: number;
@@ -38,8 +37,8 @@ export const CanvasPod: React.FC = () => {
           if (table.id === id) {
             return {
               ...table,
-              x: Math.max(0, Math.min(newX, 1200 - 300)), // Asegurar que x está dentro de los límites
-              y: Math.max(0, Math.min(newY, 800 - totalHeight)) // Asegurar que y está dentro de los límites
+              x: Math.max(0, Math.min(newX, 1200 - 300)), // Ensure x is within limits
+              y: Math.max(0, Math.min(newY, 800 - totalHeight)) // Ensure y is within limits
             };
           }
           return table;
@@ -94,9 +93,6 @@ export const CanvasPod: React.FC = () => {
           );
         </svg>
       </div>
-      <ModalDialog isOpen={true}>
-        <p>Modal</p>
-      </ModalDialog>
     </div>
   );
 };
