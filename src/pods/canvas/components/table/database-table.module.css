@@ -1,14 +1,31 @@
-.text {
+:root{
+  --primary-background: #041729;
+  --primary-table: #04293A;
+  --primary-header: #ECB365;
+  --primary-text: #ffffff;
+}
+
+.tableContainer {
+  filter: drop-shadow(5px 4px 4px rgba(0, 0, 0, 0.5));
+}
+.tableText {
   font-family: "Arial", sans-serif;
   font-size: 14px;
   cursor: pointer;
 }
 
-.header {
-  fill: #cccccc;
+.tableHeader {
+  fill: var(--primary-header);
 }
 
-.border {
+.table {
   fill: none;
-  stroke: black;
+}
+
+.table__background {
+  fill: var(--primary-table);
+}
+
+.tableTextRow {
+  fill: var(--primary-text);
 }
