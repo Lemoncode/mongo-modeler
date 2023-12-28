@@ -1,8 +1,8 @@
 // Importaciones necesarias
-import React from 'react';
-import { FieldVm, TableVm, GUID } from '../../canvas.vm';
-import classes from './database-table.module.css';
-import { useDraggable } from './table-drag.hook';
+import React from "react";
+import { FieldVm, TableVm, GUID } from "../../canvas.vm";
+import classes from "./database-table.module.css";
+import { useDraggable } from "./table-drag.hook";
 import {
   FONT_SIZE,
   ROW_PADDING,
@@ -11,10 +11,10 @@ import {
   FIELD_NAME_X_OFFSET,
   FIELD_TYPE_X,
   TABLE_WIDTH,
-  HEADER_HEIGHT
-} from './database-table.const';
-import { useModalDialogContext } from '@/core/providers';
-import { EditTable } from '@/pods/edit-table';
+  HEADER_HEIGHT,
+} from "./database-table.const";
+import { useModalDialogContext } from "@/core/providers";
+import { EditTable } from "@/pods/edit-table";
 
 interface Props {
   tableInfo: TableVm;
@@ -30,7 +30,7 @@ interface Props {
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
   updatePosition,
-  onToggleCollapse
+  onToggleCollapse,
 }) => {
   const rowHeight = FONT_SIZE + ROW_PADDING;
 
@@ -42,33 +42,32 @@ export const DatabaseTable: React.FC<Props> = ({
     let currentY = startY;
     let rows: JSX.Element[] = [];
 
-    fields.forEach(field => {
+    fields.forEach((field) => {
       const isExpandable =
-        field.type === 'object' && (field.children?.length ?? 0) > 0;
+        field.type === "object" && (field.children?.length ?? 0) > 0;
       const isExpanded = !field.isCollapsed;
 
       const row = (
-        <g
-          key={field.id}
-          transform={`translate(${level * LEVEL_INDENTATION}, ${currentY})`}
-        >
-          {isExpandable && (
+        <g key={field.id} transform={`translate(0, ${currentY})`}>
+          <g transform={`translate(${level * LEVEL_INDENTATION}, 0)`}>
+            {isExpandable && (
+              <text
+                x={COLLAPSE_ICON_X}
+                y={FONT_SIZE}
+                className={classes.text}
+                onClick={() => onToggleCollapse(tableInfo.id, field.id)}
+              >
+                {isExpanded ? "▼" : "►"}
+              </text>
+            )}
             <text
-              x={COLLAPSE_ICON_X}
+              x={FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
               y={FONT_SIZE}
               className={classes.text}
-              onClick={() => onToggleCollapse(tableInfo.id, field.id)}
             >
-              {isExpanded ? '▼' : '►'}
+              {field.name}
             </text>
-          )}
-          <text
-            x={FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
-            y={FONT_SIZE}
-            className={classes.text}
-          >
-            {field.name}
-          </text>
+          </g>
           <text x={FIELD_TYPE_X} y={FONT_SIZE} className={classes.text}>
             {field.type}
           </text>
