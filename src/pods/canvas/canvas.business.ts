@@ -1,5 +1,5 @@
-import { Coords } from '@/core/model';
-import { DatabaseSchemaVm, GUID, Size } from './canvas.vm';
+import { Coords, GUID } from '@/core/model';
+import { DatabaseSchemaVm, FieldVm, Size } from './canvas.vm';
 
 export interface UpdateInfo {
   id: GUID;
@@ -31,3 +31,14 @@ export const calculateTablePosition = (
     return table;
   }),
 });
+
+export const findField = (fields: FieldVm[], id: GUID): FieldVm | undefined => {
+  for (const field of fields) {
+    if (field.id === id) return field;
+    if (field.children) {
+      const found = findField(field.children, id);
+      if (found) return found;
+    }
+  }
+  return undefined;
+};
