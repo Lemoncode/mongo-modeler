@@ -1,10 +1,5 @@
 export type FieldType = 'number' | 'string' | 'object';
 
-export interface Coords {
-  x: number;
-  y: number;
-}
-
 export type GUID = string;
 
 export const GenerateGUID = (): GUID => {
@@ -40,4 +35,9 @@ export interface RelationVm {
 export interface DatabaseSchemaVm {
   tables: TableVm[];
   relations: RelationVm[];
+}
+
+export interface Size {
+  width: number;
+  height: number;
 }

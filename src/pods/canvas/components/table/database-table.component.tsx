@@ -1,6 +1,7 @@
 // Importaciones necesarias
 import React from 'react';
-import { FieldVm, TableVm, GUID } from '../../canvas.vm';
+import { Coords } from '@/core/model';
+import { FieldVm, TableVm, GUID, Size } from '../../canvas.vm';
 import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import {
@@ -20,9 +21,9 @@ interface Props {
   tableInfo: TableVm;
   updatePosition: (
     id: string,
-    newX: number,
-    newY: number,
-    totalHeight: number
+    position: Coords,
+    totalHeight: number,
+    canvasSize: Size
   ) => void;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
 }
