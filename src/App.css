@@ -1,6 +1,10 @@
 #root {
   margin: 0 auto;
   text-align: center;
+  --primary-background: #041729;
+  --primary-table: #04293a;
+  --primary-header: #ecb365;
+  --primary-text: #ffffff;
 }
 
 .logo {
