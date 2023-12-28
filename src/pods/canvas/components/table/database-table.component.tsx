@@ -14,6 +14,8 @@ import {
   TABLE_WIDTH,
   HEADER_HEIGHT
 } from './database-table.const';
+import { useModalDialogContext } from '@/core/providers';
+import { EditTable } from '@/pods/edit-table';
 
 interface Props {
   tableInfo: TableVm;
@@ -53,7 +55,7 @@ export const DatabaseTable: React.FC<Props> = ({
               <text
                 x={COLLAPSE_ICON_X}
                 y={FONT_SIZE}
-                className={classes.text}
+                className={classes.tableTextRow}
                 onClick={() => onToggleCollapse(tableInfo.id, field.id)}
               >
                 {isExpanded ? '▼' : '►'}
@@ -62,12 +64,12 @@ export const DatabaseTable: React.FC<Props> = ({
             <text
               x={FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
               y={FONT_SIZE}
-              className={classes.text}
+              className={classes.tableTextRow}
             >
               {field.name}
             </text>
           </g>
-          <text x={FIELD_TYPE_X} y={FONT_SIZE} className={classes.text}>
+          <text x={FIELD_TYPE_X} y={FONT_SIZE} className={classes.tableTextRow}>
             {field.type}
           </text>
         </g>
@@ -105,20 +107,32 @@ export const DatabaseTable: React.FC<Props> = ({
     updatePosition,
     totalHeight
   );
-
+  const { openModal } = useModalDialogContext();
+  const handleDoubleClick = () => {
+    openModal(<EditTable />);
+  };
   return (
     <g
       transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
       onMouseDown={onMouseDown}
+      className={classes.tableContainer}
     >
       <rect
         x="0"
         y="0"
         width={TABLE_WIDTH}
-        height={HEADER_HEIGHT}
-        className={classes.header}
+        height={totalHeight}
+        className={classes.tableBackground}
       />
-      <text x="10" y={FONT_SIZE} className={classes.text}>
+      <rect
+        x="0"
+        y="0"
+        width={TABLE_WIDTH}
+        height={HEADER_HEIGHT}
+        className={classes.tableHeader}
+        onDoubleClick={handleDoubleClick}
+      />
+      <text x="10" y={FONT_SIZE} className={classes.tableText}>
         {tableInfo.tableName}
       </text>
 
@@ -129,7 +143,7 @@ export const DatabaseTable: React.FC<Props> = ({
         y="0"
         width={TABLE_WIDTH}
         height={totalHeight}
-        className={classes.border}
+        className={classes.table}
       />
     </g>
   );

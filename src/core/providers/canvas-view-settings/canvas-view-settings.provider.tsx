@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   CanvasViewSettingsModel,
-  ceateInitialSettings
+  createInitialSettings
 } from './canvas-view-settings.model';
 import { CanvasViewSettingsContext } from './canvas-view-settings.context';
 
@@ -12,7 +12,7 @@ interface Props {
 export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   const { children } = props;
   const [canvasViewSettings, setCanvasViewSettings] =
-    React.useState<CanvasViewSettingsModel>(ceateInitialSettings());
+    React.useState<CanvasViewSettingsModel>(createInitialSettings());
 
   const zoomIn = () =>
     setCanvasViewSettings({
