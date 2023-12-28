@@ -1,1 +1,4 @@
-export type GUID = string;
+export interface Coords {
+  x: number;
+  y: number;
+}

@@ -1,9 +1,8 @@
 import React from 'react';
 import { produce } from 'immer';
 import { useCanvasViewSettingsContext } from '@/core/providers';
-import { GUID } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
-import { FieldVm } from './canvas.vm';
+import { FieldVm, GUID } from './canvas.vm';
 import { DatabaseTable } from './components/table/database-table.component';
 import classes from './canvas.pod.module.css';
 

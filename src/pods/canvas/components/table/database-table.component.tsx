@@ -2,8 +2,7 @@
 import React from 'react';
 import { useModalDialogContext } from '@/core/providers';
 import { EditTable } from '@/pods/edit-table';
-import { GUID } from '@/core/model';
-import { FieldVm, TableVm } from '../../canvas.vm';
+import { FieldVm, GUID, TableVm } from '../../canvas.vm';
 import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import {
