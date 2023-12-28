@@ -1,8 +1,7 @@
 // Importaciones necesarias
 import React from 'react';
-import { useModalDialogContext } from '@/core/providers';
-import { EditTable } from '@/pods/edit-table';
-import { FieldVm, GUID, TableVm } from '../../canvas.vm';
+import { Coords } from '@/core/model';
+import { FieldVm, TableVm, GUID, Size } from '../../canvas.vm';
 import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import {
@@ -15,14 +14,16 @@ import {
   TABLE_WIDTH,
   HEADER_HEIGHT,
 } from './database-table.const';
+import { useModalDialogContext } from '@/core/providers';
+import { EditTable } from '@/pods/edit-table';
 
 interface Props {
   tableInfo: TableVm;
   updatePosition: (
     id: string,
-    newX: number,
-    newY: number,
-    totalHeight: number
+    position: Coords,
+    totalHeight: number,
+    canvasSize: Size
   ) => void;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
 }
