@@ -13,6 +13,8 @@ import {
   TABLE_WIDTH,
   HEADER_HEIGHT,
 } from "./database-table.const";
+import { useModalDialogContext } from "@/core/providers";
+import { EditTable } from "@/pods/edit-table";
 
 interface Props {
   tableInfo: TableVm;
@@ -104,11 +106,15 @@ export const DatabaseTable: React.FC<Props> = ({
     updatePosition,
     totalHeight
   );
-
+  const { openModal } = useModalDialogContext();
+  const handleClick = () => {
+    openModal(<EditTable />);
+  };
   return (
     <g
       transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
       onMouseDown={onMouseDown}
+      onDoubleClick={handleClick}
     >
       <rect
         x="0"
