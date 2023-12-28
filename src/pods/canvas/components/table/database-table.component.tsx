@@ -107,7 +107,7 @@ export const DatabaseTable: React.FC<Props> = ({
     totalHeight
   );
   const { openModal } = useModalDialogContext();
-  const handleClick = () => {
+  const handleDoubleClick = () => {
     openModal(<EditTable />);
   };
   return (
@@ -115,7 +115,6 @@ export const DatabaseTable: React.FC<Props> = ({
       transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
       onMouseDown={onMouseDown}
       className={classes.tableContainer}
-      onDoubleClick={handleClick}
     >
       <rect
         x="0"
@@ -130,6 +129,7 @@ export const DatabaseTable: React.FC<Props> = ({
         width={TABLE_WIDTH}
         height={HEADER_HEIGHT}
         className={classes.tableHeader}
+        onDoubleClick={handleDoubleClick}
       />
       <text x="10" y={FONT_SIZE} className={classes.tableText}>
         {tableInfo.tableName}
