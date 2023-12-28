@@ -1,1 +1,1 @@
-export * from "./main.scene";
+export * from './main.scene';

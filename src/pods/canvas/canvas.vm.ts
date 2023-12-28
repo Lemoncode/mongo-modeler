@@ -1,11 +1,11 @@
-export type FieldType = "number" | "string" | "object";
+import { GUID } from '@/core/model';
+
+export type FieldType = 'number' | 'string' | 'object';
 
 export interface Coords {
   x: number;
   y: number;
 }
-
-export type GUID = string;
 
 export const GenerateGUID = (): GUID => {
   return crypto.randomUUID();
@@ -13,7 +13,7 @@ export const GenerateGUID = (): GUID => {
 
 export interface TableVm {
   id: string;
-  fields: FieldVm[]; 
+  fields: FieldVm[];
   tableName: string;
   x: number; // Canvas X Position
   y: number; // Canvas Y Position
@@ -27,7 +27,7 @@ export interface FieldVm {
   isCollapsed?: boolean;
 }
 
-export type RelationType = "1:1" | "1:M" | "M:1";
+export type RelationType = '1:1' | '1:M' | 'M:1';
 
 export interface RelationVm {
   fromTableId: string;

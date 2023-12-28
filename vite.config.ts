@@ -1,8 +1,8 @@
-import { defineConfig } from "vite";
-import { fileURLToPath, URL } from "node:url";
-import react from "@vitejs/plugin-react";
-import checker from "vite-plugin-checker";
-import type { UserConfig as VitestUserConfigInterface } from "vitest/config";
+import { defineConfig } from 'vite';
+import { fileURLToPath, URL } from 'node:url';
+import react from '@vitejs/plugin-react';
+import checker from 'vite-plugin-checker';
+import type { UserConfig as VitestUserConfigInterface } from 'vitest/config';
 
 const vitestConfig: VitestUserConfigInterface = {
   test: {
@@ -17,12 +17,12 @@ export default defineConfig({
   test: vitestConfig.test,
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   css: {
     modules: {
-      localsConvention: "camelCaseOnly",
+      localsConvention: 'camelCaseOnly',
     },
   },
 });

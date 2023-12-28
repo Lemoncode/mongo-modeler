@@ -1,8 +1,11 @@
 // Importaciones necesarias
-import React from "react";
-import { FieldVm, TableVm, GUID } from "../../canvas.vm";
-import classes from "./database-table.module.css";
-import { useDraggable } from "./table-drag.hook";
+import React from 'react';
+import { useModalDialogContext } from '@/core/providers';
+import { EditTable } from '@/pods/edit-table';
+import { GUID } from '@/core/model';
+import { FieldVm, TableVm } from '../../canvas.vm';
+import classes from './database-table.module.css';
+import { useDraggable } from './table-drag.hook';
 import {
   FONT_SIZE,
   ROW_PADDING,
@@ -12,9 +15,7 @@ import {
   FIELD_TYPE_X,
   TABLE_WIDTH,
   HEADER_HEIGHT,
-} from "./database-table.const";
-import { useModalDialogContext } from "@/core/providers";
-import { EditTable } from "@/pods/edit-table";
+} from './database-table.const';
 
 interface Props {
   tableInfo: TableVm;
@@ -42,9 +43,9 @@ export const DatabaseTable: React.FC<Props> = ({
     let currentY = startY;
     let rows: JSX.Element[] = [];
 
-    fields.forEach((field) => {
+    fields.forEach(field => {
       const isExpandable =
-        field.type === "object" && (field.children?.length ?? 0) > 0;
+        field.type === 'object' && (field.children?.length ?? 0) > 0;
       const isExpanded = !field.isCollapsed;
 
       const row = (
@@ -57,7 +58,7 @@ export const DatabaseTable: React.FC<Props> = ({
                 className={classes.tableTextRow}
                 onClick={() => onToggleCollapse(tableInfo.id, field.id)}
               >
-                {isExpanded ? "▼" : "►"}
+                {isExpanded ? '▼' : '►'}
               </text>
             )}
             <text
@@ -93,7 +94,7 @@ export const DatabaseTable: React.FC<Props> = ({
 
   const [renderedRows, totalHeight] = React.useMemo((): [
     JSX.Element[],
-    number
+    number,
   ] => {
     const [rows, totalY] = renderRows(tableInfo.fields, 0, HEADER_HEIGHT);
     return [rows, totalY + ROW_PADDING]; // Ajuste para el padding final

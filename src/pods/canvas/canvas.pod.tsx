@@ -1,9 +1,10 @@
 import React from 'react';
 import { produce } from 'immer';
-import { mockSchema } from './canvas.mock.data';
-import { FieldVm, GUID } from './canvas.vm';
-import { DatabaseTable } from './components/table/database-table.component';
 import { useCanvasViewSettingsContext } from '@/core/providers';
+import { GUID } from '@/core/model';
+import { mockSchema } from './canvas.mock.data';
+import { FieldVm } from './canvas.vm';
+import { DatabaseTable } from './components/table/database-table.component';
 import classes from './canvas.pod.module.css';
 
 interface Size {
@@ -19,7 +20,7 @@ export const CanvasPod: React.FC = () => {
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
-      height: canvasSize.height * zoomFactor
+      height: canvasSize.height * zoomFactor,
     }),
     [zoomFactor, canvasSize]
   );
@@ -38,11 +39,11 @@ export const CanvasPod: React.FC = () => {
             return {
               ...table,
               x: Math.max(0, Math.min(newX, 1200 - 300)), // Ensure x is within limits
-              y: Math.max(0, Math.min(newY, 800 - totalHeight)) // Ensure y is within limits
+              y: Math.max(0, Math.min(newY, 800 - totalHeight)), // Ensure y is within limits
             };
           }
           return table;
-        })
+        }),
       };
     });
   };

@@ -2,7 +2,7 @@ import React from 'react';
 import { ModalDialogContext } from './modal-dialog.context';
 import {
   ModalDialogModel,
-  createInitialModalDialog
+  createInitialModalDialog,
 } from './modal-dialog.model';
 
 interface Props {
@@ -17,14 +17,14 @@ export const ModalDialogProvider: React.FC<Props> = props => {
   const openModal = (component: React.ReactNode | null) => {
     setModalDialog({
       isOpen: true,
-      selectedComponent: component
+      selectedComponent: component,
     });
   };
 
   const closeModal = () => {
     setModalDialog({
       isOpen: false,
-      selectedComponent: null
+      selectedComponent: null,
     });
   };
   return (
