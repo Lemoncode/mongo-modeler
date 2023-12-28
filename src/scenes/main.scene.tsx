@@ -3,7 +3,7 @@ import { ToolbarPod } from '@/pods/toolbar/toolbar.pod';
 import classes from './main.scene.module.css';
 import {
   CanvasViewSettingsProvider,
-  ModalDialogProvider
+  ModalDialogProvider,
 } from '@/core/providers';
 import { ModalDialog } from '@/common/components';
 

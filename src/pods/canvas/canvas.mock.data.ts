@@ -3,10 +3,10 @@ import {
   GenerateGUID,
   RelationVm,
   TableVm,
-} from "./canvas.vm";
+} from './canvas.vm';
 
-const tagTableId = "1";
-const restaurantTableId = "2";
+const tagTableId = '1';
+const restaurantTableId = '2';
 const tagFieldId = GenerateGUID();
 const restaurantTagFieldGUID = GenerateGUID();
 
@@ -16,7 +16,7 @@ const mockRelations: RelationVm[] = [
     toTableId: restaurantTableId,
     fromFieldId: tagFieldId,
     toFieldId: restaurantTagFieldGUID,
-    type: "1:M",
+    type: '1:M',
   },
 ];
 
@@ -25,17 +25,17 @@ const mockTables: TableVm[] = [
     id: tagTableId,
     x: 100,
     y: 150,
-    tableName: "tags",
+    tableName: 'tags',
     fields: [
       {
         id: tagFieldId,
-        name: "id",
-        type: "number",
+        name: 'id',
+        type: 'number',
       },
       {
         id: GenerateGUID(),
-        name: "name",
-        type: "string",
+        name: 'name',
+        type: 'string',
       },
     ],
   },
@@ -43,52 +43,52 @@ const mockTables: TableVm[] = [
     id: restaurantTableId,
     x: 500,
     y: 80,
-    tableName: "Restaurant",
+    tableName: 'Restaurant',
     fields: [
       {
         id: GenerateGUID(),
-        name: "id",
-        type: "number",
+        name: 'id',
+        type: 'number',
       },
       {
         id: GenerateGUID(),
-        name: "name",
-        type: "string",
+        name: 'name',
+        type: 'string',
       },
       {
         id: GenerateGUID(),
-        name: "menu",
-        type: "object",
+        name: 'menu',
+        type: 'object',
         children: [
           {
             id: GenerateGUID(),
-            name: "id",
-            type: "number",
+            name: 'id',
+            type: 'number',
           },
           {
             id: GenerateGUID(),
-            name: "category",
-            type: "string",
+            name: 'category',
+            type: 'string',
           },
           {
             id: GenerateGUID(),
-            name: "dishes",
-            type: "object",
+            name: 'dishes',
+            type: 'object',
             children: [
               {
                 id: GenerateGUID(),
-                name: "id",
-                type: "number",
+                name: 'id',
+                type: 'number',
               },
               {
                 id: GenerateGUID(),
-                name: "name",
-                type: "string",
+                name: 'name',
+                type: 'string',
               },
               {
                 id: GenerateGUID(),
-                name: "price",
-                type: "number",
+                name: 'price',
+                type: 'number',
               },
             ],
           },
@@ -96,33 +96,33 @@ const mockTables: TableVm[] = [
       },
       {
         id: restaurantTagFieldGUID,
-        name: "tags",
-        type: "number",
+        name: 'tags',
+        type: 'number',
       },
       {
         id: GenerateGUID(),
-        name: "address",
-        type: "object",
+        name: 'address',
+        type: 'object',
         children: [
           {
             id: GenerateGUID(),
-            name: "street",
-            type: "string",
+            name: 'street',
+            type: 'string',
           },
           {
             id: GenerateGUID(),
-            name: "city",
-            type: "string",
+            name: 'city',
+            type: 'string',
           },
           {
             id: GenerateGUID(),
-            name: "state",
-            type: "string",
+            name: 'state',
+            type: 'string',
           },
           {
             id: GenerateGUID(),
-            name: "zip",
-            type: "number",
+            name: 'zip',
+            type: 'number',
           },
         ],
       },

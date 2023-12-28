@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   CanvasViewSettingsModel,
-  createInitialSettings
+  createInitialSettings,
 } from './canvas-view-settings.model';
 import { CanvasViewSettingsContext } from './canvas-view-settings.context';
 
@@ -17,13 +17,13 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   const zoomIn = () =>
     setCanvasViewSettings({
       ...canvasViewSettings,
-      zoomFactor: canvasViewSettings.zoomFactor * 0.9
+      zoomFactor: canvasViewSettings.zoomFactor * 0.9,
     });
 
   const zoomOut = () =>
     setCanvasViewSettings({
       ...canvasViewSettings,
-      zoomFactor: canvasViewSettings.zoomFactor * 1.1
+      zoomFactor: canvasViewSettings.zoomFactor * 1.1,
     });
 
   return (

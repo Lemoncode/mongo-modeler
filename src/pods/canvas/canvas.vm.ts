@@ -1,4 +1,4 @@
-export type FieldType = "number" | "string" | "object";
+export type FieldType = 'number' | 'string' | 'object';
 
 export interface Coords {
   x: number;
@@ -13,7 +13,7 @@ export const GenerateGUID = (): GUID => {
 
 export interface TableVm {
   id: string;
-  fields: FieldVm[]; 
+  fields: FieldVm[];
   tableName: string;
   x: number; // Canvas X Position
   y: number; // Canvas Y Position
@@ -27,7 +27,7 @@ export interface FieldVm {
   isCollapsed?: boolean;
 }
 
-export type RelationType = "1:1" | "1:M" | "M:1";
+export type RelationType = '1:1' | '1:M' | 'M:1';
 
 export interface RelationVm {
   fromTableId: string;

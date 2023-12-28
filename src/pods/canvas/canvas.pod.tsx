@@ -19,7 +19,7 @@ export const CanvasPod: React.FC = () => {
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
-      height: canvasSize.height * zoomFactor
+      height: canvasSize.height * zoomFactor,
     }),
     [zoomFactor, canvasSize]
   );
@@ -38,11 +38,11 @@ export const CanvasPod: React.FC = () => {
             return {
               ...table,
               x: Math.max(0, Math.min(newX, 1200 - 300)), // Ensure x is within limits
-              y: Math.max(0, Math.min(newY, 800 - totalHeight)) // Ensure y is within limits
+              y: Math.max(0, Math.min(newY, 800 - totalHeight)), // Ensure y is within limits
             };
           }
           return table;
-        })
+        }),
       };
     });
   };
