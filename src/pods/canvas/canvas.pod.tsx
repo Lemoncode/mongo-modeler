@@ -1,15 +1,12 @@
 import React from 'react';
 import { produce } from 'immer';
-import { mockSchema } from './canvas.mock.data';
-import { FieldVm, GUID } from './canvas.vm';
-import { DatabaseTable } from './components/table/database-table.component';
 import { useCanvasViewSettingsContext } from '@/core/providers';
+import { Coords } from '@/core/model';
+import { mockSchema } from './canvas.mock.data';
+import { FieldVm, GUID, Size } from './canvas.vm';
+import { DatabaseTable } from './components/table/database-table.component';
 import classes from './canvas.pod.module.css';
-
-interface Size {
-  width: number;
-  height: number;
-}
+import { calculateTablePosition } from './canvas.business';
 
 export const CanvasPod: React.FC = () => {
   const [schema, setSchema] = React.useState(() => mockSchema);
@@ -26,25 +23,17 @@ export const CanvasPod: React.FC = () => {
 
   const updateTablePosition = (
     id: string,
-    newX: number,
-    newY: number,
-    totalHeight: number
+    position: Coords,
+    totalHeight: number,
+    canvasSize: Size
   ) => {
-    setSchema(prevSchema => {
-      return {
-        ...prevSchema,
-        tables: prevSchema.tables.map(table => {
-          if (table.id === id) {
-            return {
-              ...table,
-              x: Math.max(0, Math.min(newX, 1200 - 300)), // Ensure x is within limits
-              y: Math.max(0, Math.min(newY, 800 - totalHeight)) // Ensure y is within limits
-            };
-          }
-          return table;
-        })
-      };
-    });
+    setSchema(prevSchema =>
+      calculateTablePosition(
+        prevSchema,
+        { id, position, totalHeight },
+        canvasSize
+      )
+    );
   };
 
   const handleToggleCollapse = (tableId: string, fieldId: GUID) => {

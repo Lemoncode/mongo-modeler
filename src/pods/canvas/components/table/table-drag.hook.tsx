@@ -1,4 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback } from 'react';
+import { useCanvasViewSettingsContext } from '@/core/providers';
+import { Coords } from '@/core/model';
+import { Size } from '../../canvas.vm';
 
 export const useDraggable = (
   id: string,
@@ -6,20 +9,22 @@ export const useDraggable = (
   initialY: number,
   updatePosition: (
     id: string,
-    newX: number,
-    newY: number,
-    totalHeight: number
+    position: Coords,
+    totalHeight: number,
+    canvasSize: Size
   ) => void,
   totalHeight: number
 ) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startDragPosition, setStartDragPosition] = useState({ x: 0, y: 0 });
+  const { canvasViewSettings } = useCanvasViewSettingsContext();
+  const { canvasSize } = canvasViewSettings;
 
   const onMouseDown = useCallback(
     (event: React.MouseEvent) => {
       setStartDragPosition({
         x: event.clientX - initialX,
-        y: event.clientY - initialY,
+        y: event.clientY - initialY
       });
       setIsDragging(true);
     },
@@ -31,10 +36,10 @@ export const useDraggable = (
       if (isDragging) {
         const newX = event.clientX - startDragPosition.x;
         const newY = event.clientY - startDragPosition.y;
-        updatePosition(id, newX, newY, totalHeight);
+        updatePosition(id, { x: newX, y: newY }, totalHeight, canvasSize);
       }
     },
-    [id, isDragging, startDragPosition, updatePosition, totalHeight]
+    [id, isDragging, startDragPosition, updatePosition, totalHeight, canvasSize]
   );
 
   const onMouseUp = useCallback(() => {
@@ -43,16 +48,16 @@ export const useDraggable = (
 
   React.useEffect(() => {
     if (isDragging) {
-      window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener("mouseup", onMouseUp);
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
     } else {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
     }
 
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
     };
   }, [isDragging, onMouseMove, onMouseUp]);
 
