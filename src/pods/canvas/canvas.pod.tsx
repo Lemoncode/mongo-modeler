@@ -1,8 +1,9 @@
 import React from 'react';
 import { produce } from 'immer';
 import { useCanvasViewSettingsContext } from '@/core/providers';
+import { Coords } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
-import { FieldVm, GUID, Size, Coords } from './canvas.vm';
+import { FieldVm, GUID, Size } from './canvas.vm';
 import { DatabaseTable } from './components/table/database-table.component';
 import classes from './canvas.pod.module.css';
 import { calculateTablePosition } from './canvas.business';
