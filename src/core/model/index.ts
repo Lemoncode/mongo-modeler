@@ -3,4 +3,4 @@ export interface Coords {
   y: number;
 }
 
-// Test prettier
+export type GUID = string;

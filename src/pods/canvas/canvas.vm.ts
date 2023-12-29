@@ -1,6 +1,6 @@
-export type FieldType = 'number' | 'string' | 'object';
+import { GUID } from '@/core/model';
 
-export type GUID = string;
+export type FieldType = 'number' | 'string' | 'object';
 
 export const GenerateGUID = (): GUID => {
   return crypto.randomUUID();
