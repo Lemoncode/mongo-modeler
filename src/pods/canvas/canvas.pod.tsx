@@ -16,7 +16,7 @@ export const CanvasPod: React.FC = () => {
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
-      height: canvasSize.height * zoomFactor
+      height: canvasSize.height * zoomFactor,
     }),
     [zoomFactor, canvasSize]
   );

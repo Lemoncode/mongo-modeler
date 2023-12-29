@@ -25,9 +25,9 @@ export const calculateTablePosition = (
             updateInfo.position.y,
             canvasSize.height - updateInfo.totalHeight
           )
-        )
+        ),
       };
     }
     return table;
-  })
+  }),
 });

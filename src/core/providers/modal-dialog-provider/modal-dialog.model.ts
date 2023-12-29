@@ -7,7 +7,7 @@ export interface ModalDialogModel {
 
 export const createInitialModalDialog = (): ModalDialogModel => ({
   isOpen: false,
-  selectedComponent: null
+  selectedComponent: null,
 });
 
 export interface ModalDialogContextModel {

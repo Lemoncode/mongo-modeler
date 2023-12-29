@@ -24,7 +24,7 @@ export const useDraggable = (
     (event: React.MouseEvent) => {
       setStartDragPosition({
         x: event.clientX - initialX,
-        y: event.clientY - initialY
+        y: event.clientY - initialY,
       });
       setIsDragging(true);
     },

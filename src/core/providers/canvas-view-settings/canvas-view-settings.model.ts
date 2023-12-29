@@ -10,7 +10,7 @@ export interface CanvasViewSettingsModel {
 
 export const createInitialSettings = () => ({
   canvasSize: { width: 2400, height: 2400 },
-  zoomFactor: 1
+  zoomFactor: 1,
 });
 
 export interface CanvasViewSettingsContextModel {

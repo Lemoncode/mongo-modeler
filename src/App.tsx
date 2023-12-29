@@ -1,5 +1,5 @@
-import "./App.css";
-import { MainScene } from "@/scenes";
+import './App.css';
+import { MainScene } from '@/scenes';
 
 function App() {
   return (
