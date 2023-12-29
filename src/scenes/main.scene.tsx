@@ -11,6 +11,7 @@ export const MainScene: React.FC = () => {
   return (
     <div className={classes.container}>
       <CanvasViewSettingsProvider>
+        test
         <ModalDialogProvider>
           <ToolbarPod />
           <CanvasPod />
