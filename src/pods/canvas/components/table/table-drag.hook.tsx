@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useCanvasViewSettingsContext } from '@/core/providers';
-import { Coords } from '@/core/model';
-import { Size } from '../../canvas.vm';
+import { Coords, Size } from '@/core/model';
 
 export const useDraggable = (
   id: string,
