@@ -4,6 +4,10 @@
   align-items: flex-start;
 }
 
+.label {
+  font-size: 60%;
+}
+
 .error {
   color: red;
   font-size: 60%;

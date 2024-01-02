@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik';
 import { Size } from '@/core/model';
 import { InputFormik } from '@/common/components/forms';
 import { formValidation } from './canvas-settings.validation';
+import classes from './canvas-settings.pod.module.css';
 
 interface Props {
   size: Size;
@@ -26,9 +27,11 @@ export const CanvasSettingsComponent: React.FC<Props> = props => {
       >
         {() => (
           <Form>
-            <InputFormik name="width" placeholder="Width" />
-            <InputFormik name="height" placeholder="Height" />
-            <button type="submit">On Change Settings</button>
+            <div className={classes.container}>
+              <InputFormik label="Width" name="width" placeholder="Width" />
+              <InputFormik label="Height" name="height" placeholder="Height" />
+              <button type="submit">On Change Settings</button>
+            </div>
           </Form>
         )}
       </Formik>

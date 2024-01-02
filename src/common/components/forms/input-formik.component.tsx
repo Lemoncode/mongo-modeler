@@ -2,14 +2,18 @@ import React from 'react';
 import { useField } from 'formik';
 import classes from './input-formik.component.module.css';
 
-// Input props, we got this value by double clicking on a input element
-// and going to definition (d.ts)
-export const InputFormik: React.FC<
-  React.DetailedHTMLProps<
+interface InputFormikProps
+  extends React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
-  >
-> = props => {
+  > {
+  label?: string;
+}
+
+// Input props, we got this value by double clicking on a input element
+// and going to definition (d.ts)
+export const InputFormik: React.FC<InputFormikProps> = props => {
+  const { label } = props;
   // useField allows us to extract all formik metadata about that field
   const [field, meta] = useField(props.name ?? '');
   // If the field doesn't exist then treat this as a normal input
@@ -24,6 +28,7 @@ export const InputFormik: React.FC<
   // CSS modules (next example) or CSS in JS solution :)
   return (
     <div className={classes.container}>
+      {label ? <span>{label}</span> : null}
       <input
         {...props}
         name={inputFieldProps.name}
