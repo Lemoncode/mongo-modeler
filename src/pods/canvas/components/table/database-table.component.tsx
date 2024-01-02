@@ -1,7 +1,7 @@
 // Importaciones necesarias
 import React from 'react';
-import { Coords, GUID } from '@/core/model';
-import { FieldVm, TableVm, Size } from '../../canvas.vm';
+import { Coords, GUID, Size } from '@/core/model';
+import { FieldVm, TableVm } from '../../canvas.vm';
 import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import {

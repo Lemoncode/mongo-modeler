@@ -1,5 +1,5 @@
-import { Coords, GUID } from '@/core/model';
-import { DatabaseSchemaVm, FieldVm, Size } from './canvas.vm';
+import { Coords, GUID, Size } from '@/core/model';
+import { DatabaseSchemaVm, FieldVm } from './canvas.vm';
 
 export interface UpdateInfo {
   id: GUID;

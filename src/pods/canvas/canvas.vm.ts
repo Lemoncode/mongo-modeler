@@ -36,8 +36,3 @@ export interface DatabaseSchemaVm {
   tables: TableVm[];
   relations: RelationVm[];
 }
-
-export interface Size {
-  width: number;
-  height: number;
-}
