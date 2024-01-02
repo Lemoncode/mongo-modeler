@@ -1,5 +1,8 @@
-import { Size } from '@/core/model';
 import React from 'react';
+import { Formik, Form } from 'formik';
+import { Size } from '@/core/model';
+import { InputFormik } from '@/common/components/forms';
+import { formValidation } from './canvas-settings.validation';
 
 interface Props {
   size: Size;
@@ -8,29 +11,27 @@ interface Props {
 
 export const CanvasSettingsComponent: React.FC<Props> = props => {
   const { size, onChangeSize } = props;
-  const [editSize, setEditSize] = React.useState<Size>({ ...size });
 
-  const handleSubmitSize = () => {
+  const handleSubmitSize = (editSize: Size) => {
     onChangeSize(editSize);
-  };
-
-  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditSize({
-      ...editSize,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
     <div>
-      Canvas Setting
-      <input name="width" value={editSize.width} onChange={handleFieldChange} />
-      <input
-        name="height"
-        value={editSize.height}
-        onChange={handleFieldChange}
-      />
-      <button onClick={handleSubmitSize}>On Change Settings</button>
+      <h2>Canvas Settings</h2>
+      <Formik
+        onSubmit={handleSubmitSize}
+        initialValues={size}
+        validate={formValidation.validateForm}
+      >
+        {() => (
+          <Form>
+            <InputFormik name="width" placeholder="Width" />
+            <InputFormik name="height" placeholder="Height" />
+            <button type="submit">On Change Settings</button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
