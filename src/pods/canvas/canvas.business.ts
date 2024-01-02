@@ -1,6 +1,13 @@
 import { Coords, GUID } from '@/core/model';
-import { DatabaseSchemaVm, FieldVm, Size } from './canvas.vm';
+import {
+  DatabaseSchemaVm,
+  FieldVm,
+  Size,
+  TableVm,
+  XRelationCoords,
+} from './canvas.vm';
 
+//Move to Vm??
 export interface UpdateInfo {
   id: GUID;
   position: Coords;
@@ -42,3 +49,26 @@ export const findField = (fields: FieldVm[], id: GUID): FieldVm | undefined => {
   }
   return undefined;
 };
+
+//TODO: 300 that's the width of the table and we will have to treat this in a separate case
+export const calculateRelationXCoordinateOrigin = (
+  tableOrigin: TableVm,
+  tableDestination: TableVm
+): number =>
+  tableOrigin.x < tableDestination.x ? tableOrigin.x + 300 : tableOrigin.x;
+
+export const calculateRelationXCoordinateEnd = (
+  tableOrigin: TableVm,
+  tableDestination: TableVm
+): number =>
+  tableDestination.x < tableOrigin.x
+    ? tableDestination.x + 300
+    : tableDestination.x;
+
+export const calculateRelationXCoordinate = (
+  tableOrigin: TableVm,
+  tableDestination: TableVm
+): XRelationCoords => ({
+  xOrigin: calculateRelationXCoordinateOrigin(tableOrigin, tableDestination),
+  xDestination: calculateRelationXCoordinateEnd(tableOrigin, tableDestination),
+});

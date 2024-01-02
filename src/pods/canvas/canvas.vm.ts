@@ -10,6 +10,7 @@ export interface TableVm {
   id: string;
   fields: FieldVm[];
   tableName: string;
+  //TODO? change to porsition: Coords
   x: number; // Canvas X Position
   y: number; // Canvas Y Position
 }
@@ -40,4 +41,9 @@ export interface DatabaseSchemaVm {
 export interface Size {
   width: number;
   height: number;
+}
+
+export interface XRelationCoords {
+  xOrigin: number;
+  xDestination: number;
 }
