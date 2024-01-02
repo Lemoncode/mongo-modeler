@@ -1,5 +1,6 @@
 import React from 'react';
 import { useField } from 'formik';
+import classes from './input-formik.component.module.css';
 
 // Input props, we got this value by double clicking on a input element
 // and going to definition (d.ts)
@@ -22,13 +23,7 @@ export const InputFormik: React.FC<
   // Harcoded styles here... pending to add
   // CSS modules (next example) or CSS in JS solution :)
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'stretch',
-      }}
-    >
+    <div className={classes.container}>
       <input
         {...props}
         name={inputFieldProps.name}
@@ -37,9 +32,7 @@ export const InputFormik: React.FC<
         value={inputFieldProps.value}
         style={{ width: '100%' }}
       />
-      <span style={{ fontSize: '60%', color: 'red' }}>
-        {hasError ? meta.error : ''}
-      </span>
+      <span className={classes.error}>{hasError ? meta.error : ''}</span>
     </div>
   );
 };
