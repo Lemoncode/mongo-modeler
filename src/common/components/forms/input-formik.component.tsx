@@ -2,6 +2,7 @@ import React from 'react';
 import { useField } from 'formik';
 import classes from './input-formik.component.module.css';
 
+// We inherit HTML input props and add an optional label prop
 interface InputFormikProps
   extends React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -18,14 +19,12 @@ export const InputFormik: React.FC<InputFormikProps> = props => {
   const [field, meta] = useField(props.name ?? '');
   // If the field doesn't exist then treat this as a normal input
   const inputFieldProps = Boolean(field) ? field : props;
-  // We only want to display the field validation error messsage
-  // if formik is enabled, and is the field has been touched
+  // We only want to display the field validation error message
+  // if Formik is enabled, and is the field has been touched
   // not a very good UX experience to show a blank form full
   // of error a the initial state
   const hasError = Boolean(meta && meta.touched && meta.error);
 
-  // Harcoded styles here... pending to add
-  // CSS modules (next example) or CSS in JS solution :)
   return (
     <div className={classes.container}>
       {label ? <span>{label}</span> : null}
