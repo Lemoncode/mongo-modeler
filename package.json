@@ -13,6 +13,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@lemoncode/fonk": "^1.5.4",
+    "@lemoncode/fonk-formik": "^4.0.1",
+    "@lemoncode/fonk-is-number-validator": "^1.1.2",
+    "@lemoncode/fonk-min-number-validator": "^1.2.0",
+    "formik": "^2.4.5",
     "immer": "^10.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
