@@ -36,3 +36,14 @@ export interface DatabaseSchemaVm {
   tables: TableVm[];
   relations: RelationVm[];
 }
+
+export interface YRelationCoords {
+  yOrigin: number;
+  yDestination: number;
+}
+
+export interface seekResult {
+  found: boolean;
+  parentCollapsed: boolean;
+  YPosition: number;
+}

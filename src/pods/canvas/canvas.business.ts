@@ -1,5 +1,15 @@
 import { Coords, GUID, Size } from '@/core/model';
-import { DatabaseSchemaVm, FieldVm } from './canvas.vm';
+import {
+  DatabaseSchemaVm,
+  FieldVm,
+  TableVm,
+  YRelationCoords,
+  seekResult,
+} from './canvas.vm';
+import {
+  HEADER_HEIGHT,
+  ROW_HEIGHT,
+} from './components/table/database-table.const';
 
 export interface UpdateInfo {
   id: GUID;
@@ -42,3 +52,103 @@ export const findField = (fields: FieldVm[], id: GUID): FieldVm | undefined => {
   }
   return undefined;
 };
+
+const seekField = (
+  fieldId: GUID,
+  YPosition: number,
+  fields: FieldVm[]
+): seekResult => {
+  let found = false;
+  let parentCollapsed = false;
+  let newYPosition = YPosition;
+
+  // TODO we could use a for each here = nop
+  for (let i = 0; i < fields.length && !found; i++) {
+    const field = fields[i];
+    if (field.id === fieldId) {
+      found = true;
+      // ¿Por qué se devuelve found (siempre va a ser true) y parentCollapsed?
+      return {
+        found,
+        parentCollapsed,
+        YPosition: newYPosition,
+      };
+    } else {
+      if (!parentCollapsed) {
+        newYPosition += ROW_HEIGHT;
+      }
+
+      if (!parentCollapsed && field.isCollapsed) {
+        parentCollapsed = true;
+      }
+
+      // Si un objeto no tiene hijos, para qué voy a hacer recursividad??
+      if (
+        field.type === 'object' &&
+        field.children &&
+        field.children.length > 0
+      ) {
+        const result = seekField(fieldId, newYPosition, field.children);
+        found = result.found;
+        newYPosition = parentCollapsed ? newYPosition : result.YPosition;
+
+        parentCollapsed = result.parentCollapsed;
+        if (found) {
+          return {
+            found,
+            parentCollapsed,
+            YPosition: newYPosition,
+          };
+        }
+      }
+    }
+  }
+  // fields.forEach(field => {
+  //   console.log(field.id);
+  //   if (field.id === fieldId) {
+  //     found = true;
+  //     return { found, parentCollapsed, YPosition: newYPosition };
+  //   } else {
+  //     if (!parentCollapsed) {
+  //       newYPosition += ROW_HEIGHT;
+  //     }
+
+  //     //esto es lioso
+  //     if (!parentCollapsed && field.isCollapsed) {
+  //       parentCollapsed = true;
+  //     }
+
+  //     if (field.type === 'object') {
+  //       const result = seekField(fieldId, newYPosition, field.children ?? []);
+  //       found = result.found;
+  //       newYPosition = parentCollapsed ? newYPosition : result.YPosition;
+  //       parentCollapsed = result.parentCollapsed;
+  //       if (found) {
+  //         return { found, parentCollapsed, YPosition: newYPosition };
+  //       }
+  //     }
+  //   }
+  // });
+  return { found, parentCollapsed, YPosition: newYPosition };
+};
+
+export const calculateRelationYOffset = (
+  fieldId: GUID,
+  table: TableVm
+): number => {
+  const initialYPosition = table.y + HEADER_HEIGHT;
+  const result = seekField(fieldId, initialYPosition, table.fields);
+  const center = result.YPosition + ROW_HEIGHT / 2;
+
+  return center;
+};
+
+export const calculateRelationYCoordinate = (
+  fieldIdORigin: GUID,
+  fieldIdDestination: GUID,
+  tableOrigin: TableVm,
+  tableDestination: TableVm
+): YRelationCoords => ({
+  yOrigin: calculateRelationYOffset(fieldIdORigin, tableOrigin),
+  yDestination: calculateRelationYOffset(fieldIdDestination, tableDestination),
+});
