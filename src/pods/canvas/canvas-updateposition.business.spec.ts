@@ -1,6 +1,6 @@
 import { Size } from '@/core/model';
-import { UpdateInfo, calculateTablePosition } from './canvas.business';
-import { DatabaseSchemaVm, RelationVm, TableVm } from './canvas.vm';
+import { calculateTablePosition } from './canvas.business';
+import { DatabaseSchemaVm, RelationVm, TableVm, UpdateInfo } from './canvas.vm';
 
 describe('calculateTablePosition', () => {
   it('updates the position of the specified table within canvas boundaries', () => {
