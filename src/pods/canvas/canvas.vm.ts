@@ -1,4 +1,4 @@
-import { GUID } from '@/core/model';
+import { Coords, GUID } from '@/core/model';
 
 export type FieldType = 'number' | 'string' | 'object';
 
@@ -10,7 +10,6 @@ export interface TableVm {
   id: string;
   fields: FieldVm[];
   tableName: string;
-  //TODO? change to porsition: Coords
   x: number; // Canvas X Position
   y: number; // Canvas Y Position
 }
@@ -41,6 +40,12 @@ export interface DatabaseSchemaVm {
 export interface Size {
   width: number;
   height: number;
+}
+
+export interface UpdateInfo {
+  id: GUID;
+  position: Coords;
+  totalHeight: number;
 }
 
 export interface XRelationCoords {

@@ -1,18 +1,12 @@
-import { Coords, GUID } from '@/core/model';
+import { GUID } from '@/core/model';
 import {
   DatabaseSchemaVm,
   FieldVm,
   Size,
   TableVm,
+  UpdateInfo,
   XRelationCoords,
 } from './canvas.vm';
-
-//Move to Vm??
-export interface UpdateInfo {
-  id: GUID;
-  position: Coords;
-  totalHeight: number;
-}
 
 export const calculateTablePosition = (
   schema: DatabaseSchemaVm,

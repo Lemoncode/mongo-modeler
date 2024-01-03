@@ -204,7 +204,7 @@ describe('calculateRelationXCoordinateEnd', () => {
 });
 
 describe('calculateRelationXCoordinate', () => {
-  it('Should returns XRelationCoords, if tableDestination.x < tableOrigin.x  ', () => {
+  it('Should returns XRelationCoords', () => {
     //Arrange
     const tableOrigin: TableVm = {
       id: '1',
@@ -247,55 +247,6 @@ describe('calculateRelationXCoordinate', () => {
     const result = calculateRelationXCoordinate(tableOrigin, tableDestination);
 
     // Assert
-    //Todo: implementar qeu sean iguales en los otros test
     expect(result).toEqual({ xOrigin: 500, xDestination: 500 });
-  });
-  it('Should returns xCoordinateEnd, if tableDestination.x > tableOrigin.x', () => {
-    //Arrange
-    const tableOrigin: TableVm = {
-      id: '1',
-      fields: [
-        {
-          id: '1',
-          name: 'field1',
-          type: 'string',
-        },
-        {
-          id: '2',
-          name: 'field2',
-          type: 'string',
-        },
-      ],
-      tableName: 'table1',
-      x: 100,
-      y: 0,
-    };
-    const tableDestination: TableVm = {
-      id: '1',
-      fields: [
-        {
-          id: '1',
-          name: 'field1',
-          type: 'string',
-        },
-        {
-          id: '2',
-          name: 'field2',
-          type: 'string',
-        },
-      ],
-      tableName: 'table2',
-      x: 500,
-      y: 0,
-    };
-
-    // Act
-    const result = calculateRelationXCoordinateEnd(
-      tableOrigin,
-      tableDestination
-    );
-
-    // Assert
-    expect(result).toBe(500);
   });
 });
