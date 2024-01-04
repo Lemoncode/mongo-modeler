@@ -6,7 +6,7 @@ import {
   UpdateInfo,
   XRelationCoords,
 } from './canvas.vm';
-import { DEFAULT_TABLE_WITH_VALUE } from './components/table/database-table.const';
+import { DEFAULT_TABLE_WIDTH } from './components/table/database-table.const';
 
 export const calculateTablePosition = (
   schema: DatabaseSchemaVm,
@@ -18,12 +18,12 @@ export const calculateTablePosition = (
     if (table.id === updateInfo.id) {
       return {
         ...table,
-        //TODO: DEFAULT_TABLE_WITH_VALUE that's the width of the table and we will have to treat this in a separate case
+        //TODO: DEFAULT_TABLE_WIDTH that's the width of the table and we will have to treat this in a separate case
         x: Math.max(
           0,
           Math.min(
             updateInfo.position.x,
-            canvasSize.width - DEFAULT_TABLE_WITH_VALUE
+            canvasSize.width - DEFAULT_TABLE_WIDTH
           )
         ),
         y: Math.max(
@@ -55,7 +55,7 @@ export const calculateRelationXCoordinateOrigin = (
   tableDestination: TableVm
 ): number =>
   tableOrigin.x < tableDestination.x
-    ? tableOrigin.x + DEFAULT_TABLE_WITH_VALUE
+    ? tableOrigin.x + DEFAULT_TABLE_WIDTH
     : tableOrigin.x;
 
 export const calculateRelationXCoordinateEnd = (
@@ -63,7 +63,7 @@ export const calculateRelationXCoordinateEnd = (
   tableDestination: TableVm
 ): number =>
   tableDestination.x < tableOrigin.x
-    ? tableDestination.x + DEFAULT_TABLE_WITH_VALUE
+    ? tableDestination.x + DEFAULT_TABLE_WIDTH
     : tableDestination.x;
 
 export const calculateRelationXCoordinate = (
