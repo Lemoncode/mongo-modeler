@@ -37,11 +37,6 @@ export interface DatabaseSchemaVm {
   relations: RelationVm[];
 }
 
-export interface Size {
-  width: number;
-  height: number;
-}
-
 export interface UpdateInfo {
   id: GUID;
   position: Coords;

@@ -1,12 +1,12 @@
-import { GUID } from '@/core/model';
+import { GUID, Size } from '@/core/model';
 import {
   DatabaseSchemaVm,
   FieldVm,
-  Size,
   TableVm,
   UpdateInfo,
   XRelationCoords,
 } from './canvas.vm';
+import { DEFAULT_TABLE_WITH_VALUE } from './components/table/database-table.const';
 
 export const calculateTablePosition = (
   schema: DatabaseSchemaVm,
@@ -18,8 +18,14 @@ export const calculateTablePosition = (
     if (table.id === updateInfo.id) {
       return {
         ...table,
-        //TODO: 300 that's the width of the table and we will have to treat this in a separate case
-        x: Math.max(0, Math.min(updateInfo.position.x, canvasSize.width - 300)),
+        //TODO: DEFAULT_TABLE_WITH_VALUE that's the width of the table and we will have to treat this in a separate case
+        x: Math.max(
+          0,
+          Math.min(
+            updateInfo.position.x,
+            canvasSize.width - DEFAULT_TABLE_WITH_VALUE
+          )
+        ),
         y: Math.max(
           0,
           Math.min(
@@ -44,19 +50,20 @@ export const findField = (fields: FieldVm[], id: GUID): FieldVm | undefined => {
   return undefined;
 };
 
-//TODO: 300 that's the width of the table and we will have to treat this in a separate case
 export const calculateRelationXCoordinateOrigin = (
   tableOrigin: TableVm,
   tableDestination: TableVm
 ): number =>
-  tableOrigin.x < tableDestination.x ? tableOrigin.x + 300 : tableOrigin.x;
+  tableOrigin.x < tableDestination.x
+    ? tableOrigin.x + DEFAULT_TABLE_WITH_VALUE
+    : tableOrigin.x;
 
 export const calculateRelationXCoordinateEnd = (
   tableOrigin: TableVm,
   tableDestination: TableVm
 ): number =>
   tableDestination.x < tableOrigin.x
-    ? tableDestination.x + 300
+    ? tableDestination.x + DEFAULT_TABLE_WITH_VALUE
     : tableDestination.x;
 
 export const calculateRelationXCoordinate = (
