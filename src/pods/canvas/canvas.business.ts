@@ -7,6 +7,7 @@ import {
   seekResult,
 } from './canvas.vm';
 import {
+  DEFAULT_TABLE_WIDTH,
   HEADER_HEIGHT,
   ROW_HEIGHT,
 } from './components/table/database-table.const';
@@ -27,8 +28,14 @@ export const calculateTablePosition = (
     if (table.id === updateInfo.id) {
       return {
         ...table,
-        //TODO: 300 that's the width of the table and we will have to treat this in a separate case
-        x: Math.max(0, Math.min(updateInfo.position.x, canvasSize.width - 300)),
+        //TODO: DEFAULT_TABLE_WIDTH that's the width of the table and we will have to treat this in a separate case
+        x: Math.max(
+          0,
+          Math.min(
+            updateInfo.position.x,
+            canvasSize.width - DEFAULT_TABLE_WIDTH
+          )
+        ),
         y: Math.max(
           0,
           Math.min(
@@ -52,6 +59,30 @@ export const findField = (fields: FieldVm[], id: GUID): FieldVm | undefined => {
   }
   return undefined;
 };
+
+export const calculateRelationXCoordinateOrigin = (
+  tableOrigin: TableVm,
+  tableDestination: TableVm
+): number =>
+  tableOrigin.x < tableDestination.x
+    ? tableOrigin.x + DEFAULT_TABLE_WIDTH
+    : tableOrigin.x;
+
+export const calculateRelationXCoordinateEnd = (
+  tableOrigin: TableVm,
+  tableDestination: TableVm
+): number =>
+  tableDestination.x < tableOrigin.x
+    ? tableDestination.x + DEFAULT_TABLE_WIDTH
+    : tableDestination.x;
+
+export const calculateRelationXCoordinate = (
+  tableOrigin: TableVm,
+  tableDestination: TableVm
+): XRelationCoords => ({
+  xOrigin: calculateRelationXCoordinateOrigin(tableOrigin, tableDestination),
+  xDestination: calculateRelationXCoordinateEnd(tableOrigin, tableDestination),
+});
 
 const seekField = (
   fieldId: GUID,
