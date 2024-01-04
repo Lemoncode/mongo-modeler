@@ -1,18 +1,16 @@
-import { GUID, Size } from '@/core/model';
-import {
-  DatabaseSchemaVm,
-  FieldVm,
-  TableVm,
-  UpdateInfo,
-  XRelationCoords,
-  YRelationCoords,
-  seekResult,
-} from './canvas.vm';
+import { Coords, GUID, Size } from '@/core/model';
+import { DatabaseSchemaVm, FieldVm, TableVm } from './canvas.vm';
 import {
   DEFAULT_TABLE_WIDTH,
   HEADER_HEIGHT,
   ROW_HEIGHT,
 } from './components/table/database-table.const';
+
+export interface UpdateInfo {
+  id: GUID;
+  position: Coords;
+  totalHeight: number;
+}
 
 export const calculateTablePosition = (
   schema: DatabaseSchemaVm,
@@ -72,6 +70,11 @@ export const calculateRelationXCoordinateEnd = (
     ? tableDestination.x + DEFAULT_TABLE_WIDTH
     : tableDestination.x;
 
+export interface XRelationCoords {
+  xOrigin: number;
+  xDestination: number;
+}
+
 export const calculateRelationXCoordinate = (
   tableOrigin: TableVm,
   tableDestination: TableVm
@@ -80,6 +83,11 @@ export const calculateRelationXCoordinate = (
   xDestination: calculateRelationXCoordinateEnd(tableOrigin, tableDestination),
 });
 
+export interface seekResult {
+  found: boolean;
+  parentCollapsed: boolean;
+  YPosition: number;
+}
 const seekField = (
   fieldId: GUID,
   YPosition: number,
@@ -92,9 +100,8 @@ const seekField = (
   for (let i = 0; i < fields.length && !found; i++) {
     const field = fields[i];
     if (field.id === fieldId) {
-      found = true;
       return {
-        found,
+        found: true,
         parentCollapsed,
         YPosition: newYPosition,
       };
@@ -114,6 +121,8 @@ const seekField = (
       ) {
         const result = seekField(fieldId, newYPosition, field.children);
         found = result.found;
+
+        // If the current node was already collapsed, ignore the child YPosition offset (Opa rulez !)
         newYPosition = parentCollapsed ? newYPosition : result.YPosition;
         parentCollapsed = result.parentCollapsed;
 
@@ -141,6 +150,11 @@ export const calculateRelationYOffset = (
 
   return center;
 };
+
+export interface YRelationCoords {
+  yOrigin: number;
+  yDestination: number;
+}
 
 export const calculateRelationYCoordinate = (
   fieldIdORigin: GUID,
