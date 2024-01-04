@@ -7,8 +7,9 @@ import { ThemeToggleButton } from './components/themeToggleButton';
 import classes from './toolbar.pod.module.css';
 
 export const ToolbarPod: React.FC = () => {
-  const { zoomIn, zoomOut } = useCanvasViewSettingsContext();
-  const { openModal } = useModalDialogContext();
+  const { zoomIn, zoomOut, canvasViewSettings, setCanvasSize } =
+    useCanvasViewSettingsContext();
+  const { openModal, closeModal } = useModalDialogContext();
   const handleRelationClick = () => {
     openModal(<EditRelation />);
   };

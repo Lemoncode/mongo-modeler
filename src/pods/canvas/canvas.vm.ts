@@ -1,6 +1,6 @@
-export type FieldType = 'number' | 'string' | 'object';
+import { Coords, GUID } from '@/core/model';
 
-export type GUID = string;
+export type FieldType = 'number' | 'string' | 'object';
 
 export const GenerateGUID = (): GUID => {
   return crypto.randomUUID();
@@ -37,7 +37,13 @@ export interface DatabaseSchemaVm {
   relations: RelationVm[];
 }
 
-export interface Size {
-  width: number;
-  height: number;
+export interface UpdateInfo {
+  id: GUID;
+  position: Coords;
+  totalHeight: number;
+}
+
+export interface XRelationCoords {
+  xOrigin: number;
+  xDestination: number;
 }

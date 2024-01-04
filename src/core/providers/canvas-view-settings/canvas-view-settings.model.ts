@@ -1,7 +1,4 @@
-export interface Size {
-  width: number;
-  height: number;
-}
+import { Size } from '@/core/model';
 
 export interface CanvasViewSettingsModel {
   canvasSize: Size;
@@ -10,11 +7,12 @@ export interface CanvasViewSettingsModel {
 
 export const createInitialSettings = () => ({
   canvasSize: { width: 2400, height: 2400 },
-  zoomFactor: 1
+  zoomFactor: 1,
 });
 
 export interface CanvasViewSettingsContextModel {
   canvasViewSettings: CanvasViewSettingsModel;
+  setCanvasSize: (canvasSize: Size) => void;
   zoomIn: () => void;
   zoomOut: () => void;
 }

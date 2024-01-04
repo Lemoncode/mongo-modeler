@@ -1,5 +1,6 @@
-import { UpdateInfo, calculateTablePosition } from './canvas.business';
-import { DatabaseSchemaVm, RelationVm, Size, TableVm } from './canvas.vm';
+import { Size } from '@/core/model';
+import { calculateTablePosition } from './canvas.business';
+import { DatabaseSchemaVm, RelationVm, TableVm, UpdateInfo } from './canvas.vm';
 
 describe('calculateTablePosition', () => {
   it('updates the position of the specified table within canvas boundaries', () => {
@@ -14,14 +15,14 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number'
+            type: 'number',
           },
           {
             id: '2',
             name: 'name',
-            type: 'string'
-          }
-        ]
+            type: 'string',
+          },
+        ],
       },
       {
         id: '2',
@@ -32,15 +33,15 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number'
+            type: 'number',
           },
           {
             id: '2',
             name: 'name',
-            type: 'string'
-          }
-        ]
-      }
+            type: 'string',
+          },
+        ],
+      },
     ];
     const relations: RelationVm[] = [
       {
@@ -48,18 +49,18 @@ describe('calculateTablePosition', () => {
         toTableId: '2',
         fromFieldId: '1',
         toFieldId: '2',
-        type: '1:M'
-      }
+        type: '1:M',
+      },
     ];
     const schema: DatabaseSchemaVm = { tables, relations };
     const updateInfo: UpdateInfo = {
       id: '1',
       position: { x: 200, y: 500 },
-      totalHeight: 400
+      totalHeight: 400,
     };
     const canvasSize: Size = {
       height: 2400,
-      width: 2400
+      width: 2400,
     };
 
     // Act
@@ -78,14 +79,14 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number'
+              type: 'number',
             },
             {
               id: '2',
               name: 'name',
-              type: 'string'
-            }
-          ]
+              type: 'string',
+            },
+          ],
         },
         {
           id: '2',
@@ -96,16 +97,16 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number'
+              type: 'number',
             },
             {
               id: '2',
               name: 'name',
-              type: 'string'
-            }
-          ]
-        }
-      ]
+              type: 'string',
+            },
+          ],
+        },
+      ],
     };
     expect(result).toEqual(expected);
     expect(expected.tables[0].x).toBeGreaterThan(0);
@@ -127,14 +128,14 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number'
+            type: 'number',
           },
           {
             id: '2',
             name: 'name',
-            type: 'string'
-          }
-        ]
+            type: 'string',
+          },
+        ],
       },
       {
         id: '2',
@@ -145,15 +146,15 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number'
+            type: 'number',
           },
           {
             id: '2',
             name: 'name',
-            type: 'string'
-          }
-        ]
-      }
+            type: 'string',
+          },
+        ],
+      },
     ];
     const relations: RelationVm[] = [
       {
@@ -161,18 +162,18 @@ describe('calculateTablePosition', () => {
         toTableId: '2',
         fromFieldId: '1',
         toFieldId: '2',
-        type: '1:M'
-      }
+        type: '1:M',
+      },
     ];
     const schema: DatabaseSchemaVm = { tables, relations };
     const updateInfo: UpdateInfo = {
       id: '1',
       position: { x: 2300, y: 500 },
-      totalHeight: 400
+      totalHeight: 400,
     };
     const canvasSize: Size = {
       height: 2400,
-      width: 2400
+      width: 2400,
     };
 
     // Act
@@ -191,14 +192,14 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number'
+              type: 'number',
             },
             {
               id: '2',
               name: 'name',
-              type: 'string'
-            }
-          ]
+              type: 'string',
+            },
+          ],
         },
         {
           id: '2',
@@ -209,16 +210,16 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number'
+              type: 'number',
             },
             {
               id: '2',
               name: 'name',
-              type: 'string'
-            }
-          ]
-        }
-      ]
+              type: 'string',
+            },
+          ],
+        },
+      ],
     };
 
     expect(result).toEqual(expected);
@@ -241,14 +242,14 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number'
+            type: 'number',
           },
           {
             id: '2',
             name: 'name',
-            type: 'string'
-          }
-        ]
+            type: 'string',
+          },
+        ],
       },
       {
         id: '2',
@@ -259,15 +260,15 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number'
+            type: 'number',
           },
           {
             id: '2',
             name: 'name',
-            type: 'string'
-          }
-        ]
-      }
+            type: 'string',
+          },
+        ],
+      },
     ];
     const relations: RelationVm[] = [
       {
@@ -275,18 +276,18 @@ describe('calculateTablePosition', () => {
         toTableId: '2',
         fromFieldId: '1',
         toFieldId: '2',
-        type: '1:M'
-      }
+        type: '1:M',
+      },
     ];
     const schema: DatabaseSchemaVm = { tables, relations };
     const updateInfo: UpdateInfo = {
       id: '1',
       position: { x: 100, y: 2300 },
-      totalHeight: 400
+      totalHeight: 400,
     };
     const canvasSize: Size = {
       height: 2400,
-      width: 2400
+      width: 2400,
     };
 
     // Act
@@ -305,14 +306,14 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number'
+              type: 'number',
             },
             {
               id: '2',
               name: 'name',
-              type: 'string'
-            }
-          ]
+              type: 'string',
+            },
+          ],
         },
         {
           id: '2',
@@ -323,16 +324,16 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number'
+              type: 'number',
             },
             {
               id: '2',
               name: 'name',
-              type: 'string'
-            }
-          ]
-        }
-      ]
+              type: 'string',
+            },
+          ],
+        },
+      ],
     };
 
     expect(result).toEqual(expected);
@@ -355,14 +356,14 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number'
+            type: 'number',
           },
           {
             id: '2',
             name: 'name',
-            type: 'string'
-          }
-        ]
+            type: 'string',
+          },
+        ],
       },
       {
         id: '2',
@@ -373,15 +374,15 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number'
+            type: 'number',
           },
           {
             id: '2',
             name: 'name',
-            type: 'string'
-          }
-        ]
-      }
+            type: 'string',
+          },
+        ],
+      },
     ];
     const relations: RelationVm[] = [
       {
@@ -389,18 +390,18 @@ describe('calculateTablePosition', () => {
         toTableId: '2',
         fromFieldId: '1',
         toFieldId: '2',
-        type: '1:M'
-      }
+        type: '1:M',
+      },
     ];
     const schema: DatabaseSchemaVm = { tables, relations };
     const updateInfo: UpdateInfo = {
       id: '1',
       position: { x: -100, y: 100 },
-      totalHeight: 400
+      totalHeight: 400,
     };
     const canvasSize: Size = {
       height: 2400,
-      width: 2400
+      width: 2400,
     };
 
     // Act
@@ -419,14 +420,14 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number'
+              type: 'number',
             },
             {
               id: '2',
               name: 'name',
-              type: 'string'
-            }
-          ]
+              type: 'string',
+            },
+          ],
         },
         {
           id: '2',
@@ -437,16 +438,16 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number'
+              type: 'number',
             },
             {
               id: '2',
               name: 'name',
-              type: 'string'
-            }
-          ]
-        }
-      ]
+              type: 'string',
+            },
+          ],
+        },
+      ],
     };
 
     expect(result).toEqual(expected);
@@ -469,14 +470,14 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number'
+            type: 'number',
           },
           {
             id: '2',
             name: 'name',
-            type: 'string'
-          }
-        ]
+            type: 'string',
+          },
+        ],
       },
       {
         id: '2',
@@ -487,15 +488,15 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number'
+            type: 'number',
           },
           {
             id: '2',
             name: 'name',
-            type: 'string'
-          }
-        ]
-      }
+            type: 'string',
+          },
+        ],
+      },
     ];
     const relations: RelationVm[] = [
       {
@@ -503,18 +504,18 @@ describe('calculateTablePosition', () => {
         toTableId: '2',
         fromFieldId: '1',
         toFieldId: '2',
-        type: '1:M'
-      }
+        type: '1:M',
+      },
     ];
     const schema: DatabaseSchemaVm = { tables, relations };
     const updateInfo: UpdateInfo = {
       id: '1',
       position: { x: 100, y: -100 },
-      totalHeight: 400
+      totalHeight: 400,
     };
     const canvasSize: Size = {
       height: 2400,
-      width: 2400
+      width: 2400,
     };
 
     // Act
@@ -533,14 +534,14 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number'
+              type: 'number',
             },
             {
               id: '2',
               name: 'name',
-              type: 'string'
-            }
-          ]
+              type: 'string',
+            },
+          ],
         },
         {
           id: '2',
@@ -551,16 +552,16 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number'
+              type: 'number',
             },
             {
               id: '2',
               name: 'name',
-              type: 'string'
-            }
-          ]
-        }
-      ]
+              type: 'string',
+            },
+          ],
+        },
+      ],
     };
 
     expect(result).toEqual(expected);

@@ -1,12 +1,12 @@
 import React from 'react';
 import { produce } from 'immer';
 import { useCanvasViewSettingsContext } from '@/core/providers';
-import { Coords } from '@/core/model';
+import { Coords, GUID, Size } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
-import { FieldVm, GUID, Size } from './canvas.vm';
 import { DatabaseTable } from './components/table/database-table.component';
 import { calculateTablePosition } from './canvas.business';
 import classes from './canvas.pod.module.css';
+
 
 export const CanvasPod: React.FC = () => {
   const [schema, setSchema] = React.useState(() => mockSchema);
@@ -16,7 +16,7 @@ export const CanvasPod: React.FC = () => {
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
-      height: canvasSize.height * zoomFactor
+      height: canvasSize.height * zoomFactor,
     }),
     [zoomFactor, canvasSize]
   );
@@ -48,17 +48,6 @@ export const CanvasPod: React.FC = () => {
         }
       })
     );
-  };
-
-  const findField = (fields: FieldVm[], id: string): FieldVm | undefined => {
-    for (const field of fields) {
-      if (field.id === id) return field;
-      if (field.children) {
-        const found = findField(field.children, id);
-        if (found) return found;
-      }
-    }
-    return undefined;
   };
 
   return (

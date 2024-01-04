@@ -1,9 +1,10 @@
 import React from 'react';
 import {
   CanvasViewSettingsModel,
-  createInitialSettings
+  createInitialSettings,
 } from './canvas-view-settings.model';
 import { CanvasViewSettingsContext } from './canvas-view-settings.context';
+import { Size } from '@/core/model';
 
 interface Props {
   children: React.ReactNode;
@@ -17,18 +18,25 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   const zoomIn = () =>
     setCanvasViewSettings({
       ...canvasViewSettings,
-      zoomFactor: canvasViewSettings.zoomFactor * 0.9
+      zoomFactor: canvasViewSettings.zoomFactor * 0.9,
     });
 
   const zoomOut = () =>
     setCanvasViewSettings({
       ...canvasViewSettings,
-      zoomFactor: canvasViewSettings.zoomFactor * 1.1
+      zoomFactor: canvasViewSettings.zoomFactor * 1.1,
     });
+
+  const setCanvasSize = (canvasSize: Size) => {
+    setCanvasViewSettings({
+      ...canvasViewSettings,
+      canvasSize,
+    });
+  };
 
   return (
     <CanvasViewSettingsContext.Provider
-      value={{ canvasViewSettings, zoomIn, zoomOut }}
+      value={{ canvasViewSettings, zoomIn, zoomOut, setCanvasSize }}
     >
       {children}
     </CanvasViewSettingsContext.Provider>

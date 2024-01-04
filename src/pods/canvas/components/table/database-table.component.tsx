@@ -11,7 +11,7 @@ import {
   FIELD_NAME_X_OFFSET,
   FIELD_TYPE_X,
   TABLE_WIDTH,
-  HEADER_HEIGHT
+  HEADER_HEIGHT,
 } from './database-table.const';
 import { useModalDialogContext } from '@/core/providers';
 import { EditTable } from '@/pods/edit-table';
@@ -31,7 +31,7 @@ interface Props {
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
   updatePosition,
-  onToggleCollapse
+  onToggleCollapse,
 }) => {
   const rowHeight = FONT_SIZE + ROW_PADDING;
 
@@ -94,7 +94,7 @@ export const DatabaseTable: React.FC<Props> = ({
 
   const [renderedRows, totalHeight] = React.useMemo((): [
     JSX.Element[],
-    number
+    number,
   ] => {
     const [rows, totalY] = renderRows(tableInfo.fields, 0, HEADER_HEIGHT);
     return [rows, totalY + ROW_PADDING]; // Ajuste para el padding final
