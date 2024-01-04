@@ -1,4 +1,3 @@
-//import React from 'react';
 import { useThemeContext } from '@/core/providers';
 import classes from './themeToggleButton.module.css';
 

@@ -4,7 +4,7 @@ import { useCanvasViewSettingsContext } from '@/core/providers';
 import { Coords, GUID, Size } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
 import { DatabaseTable } from './components/table/database-table.component';
-import { calculateTablePosition } from './canvas.business';
+import { calculateTablePosition, findField } from './canvas.business';
 import classes from './canvas.pod.module.css';
 
 
