@@ -1,3 +1,24 @@
 .container {
-  border: 1px solid black;
+  background-color: var(--primary-toolbar);
 }
+.container > h1 {
+  color: var(--text-color);
+}
+.container > div {
+  border-bottom: 2px solid var(--highlight-color);
+}
+
+.buttonContent {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.buttonZoomIn,.buttonZoomOut,.buttonEdit,.buttonRelation {
+  background: none;
+  fill: var(--text-color);
+}
+button:hover {
+  box-shadow: 0 0 3px 2px var(--accent-color);
+}
+

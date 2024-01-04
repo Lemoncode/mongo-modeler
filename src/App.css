@@ -1,11 +1,24 @@
 #root {
   margin: 0 auto;
-  text-align: center;
-  --primary-background: #041729;
-  --primary-table: #04293a;
-  --primary-header: #ecb365;
-  --primary-text: #ffffff;
+  text-align: center; 
 }
+.light {
+  --primary-background: #F1F5F9;        
+  --secondary-background: #FEFDFE;      
+  --accent-color: #e367f4;             
+  --highlight-color: #E6EAF2;          
+  --primary-toolbar: #FEFDFE; 
+  --text-color:#202020;
+}
+.dark {
+  --primary-background:#2E263E;
+  --secondary-background:#342C44;
+  --accent-color:#6ff1d9;
+  --highlight-color: #4B485B;
+  --primary-toolbar:#342C44;
+  --text-color:#D1D6E1;
+}
+
 
 .logo {
   height: 6em;
