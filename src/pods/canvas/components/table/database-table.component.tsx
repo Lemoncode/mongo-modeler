@@ -1,7 +1,8 @@
 // Importaciones necesarias
 import React from 'react';
-import { Coords } from '@/core/model';
-import { FieldVm, TableVm, GUID, Size } from '../../canvas.vm';
+import { Coords, GUID, Size } from '@/core/model';
+import { FieldVm, TableVm } from '../../canvas.vm';
+import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import {
   FONT_SIZE,
@@ -15,7 +16,6 @@ import {
 } from './database-table.const';
 import { useModalDialogContext } from '@/core/providers';
 import { EditTable } from '@/pods/edit-table';
-import classes from './database-table.module.css';
 
 interface Props {
   tableInfo: TableVm;

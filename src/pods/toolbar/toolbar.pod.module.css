@@ -14,11 +14,14 @@
   justify-content: center;
 }
 
-.buttonZoomIn,.buttonZoomOut,.buttonEdit,.buttonRelation {
+.buttonZoomIn,
+.buttonZoomOut,
+.buttonEdit,
+.buttonRelation,
+.buttonSetting {
   background: none;
   fill: var(--text-color);
 }
 button:hover {
   box-shadow: 0 0 3px 2px var(--accent-color);
 }
-
