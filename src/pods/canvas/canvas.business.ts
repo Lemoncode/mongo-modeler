@@ -1,5 +1,5 @@
 import { Coords, GUID } from '@/core/model';
-import { DatabaseSchemaVm, FieldVm, Size } from './canvas.vm';
+import { DatabaseSchemaVm, FieldVm, Size, TableVm } from './canvas.vm';
 
 export interface UpdateInfo {
   id: GUID;
@@ -41,4 +41,27 @@ export const findField = (fields: FieldVm[], id: GUID): FieldVm | undefined => {
     }
   }
   return undefined;
+};
+
+export const putTableOnTop = (tableId: GUID, tables: TableVm[]): TableVm[] => {
+  let result = tables;
+  const table = tables.find(table => table.id === tableId);
+
+  if (table) {
+    result = [...tables.filter(table => table.id !== tableId), table];
+  }
+
+  return result;
+};
+
+export const calculateTablePositionPutOnTop = (
+  schema: DatabaseSchemaVm,
+  updateInfo: UpdateInfo,
+  canvasSize: Size
+): DatabaseSchemaVm => {
+  const updateSchema = calculateTablePosition(schema, updateInfo, canvasSize);
+  return {
+    ...updateSchema,
+    tables: putTableOnTop(updateInfo.id, updateSchema.tables),
+  };
 };

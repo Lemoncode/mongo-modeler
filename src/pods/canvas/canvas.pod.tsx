@@ -6,7 +6,7 @@ import { mockSchema } from './canvas.mock.data';
 import { Size } from './canvas.vm';
 import { DatabaseTable } from './components/table/database-table.component';
 import classes from './canvas.pod.module.css';
-import { calculateTablePosition, findField } from './canvas.business';
+import { calculateTablePositionPutOnTop, findField } from './canvas.business';
 
 export const CanvasPod: React.FC = () => {
   const [schema, setSchema] = React.useState(() => mockSchema);
@@ -28,7 +28,7 @@ export const CanvasPod: React.FC = () => {
     canvasSize: Size
   ) => {
     setSchema(prevSchema =>
-      calculateTablePosition(
+      calculateTablePositionPutOnTop(
         prevSchema,
         { id, position, totalHeight },
         canvasSize
