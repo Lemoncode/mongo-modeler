@@ -8,13 +8,14 @@ interface DatabaseRelationshipProps {
   endCoords: Coords;
 }
 
+const FORK_WIDTH = 10;
+
 const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
   relationType,
   startCoords,
   endCoords,
 }) => {
   const drawFork = (forkCoords: Coords, drawLeftToRight: boolean) => {
-    const forkLength = 10;
     const lineSpacing = 5; // Spacing between the lines of the fork
     const direction = drawLeftToRight ? 1 : -1;
 
@@ -24,23 +25,23 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
         <line
           x1={forkCoords.x}
           y1={forkCoords.y}
-          x2={forkCoords.x + forkLength * direction}
+          x2={forkCoords.x + FORK_WIDTH * direction}
           y2={forkCoords.y}
-          stroke="black"
+          stroke="white"
         />
         <line
           x1={forkCoords.x}
           y1={forkCoords.y}
-          x2={forkCoords.x + forkLength * direction}
+          x2={forkCoords.x + FORK_WIDTH * direction}
           y2={forkCoords.y - lineSpacing}
-          stroke="black"
+          stroke="white"
         />
         <line
           x1={forkCoords.x}
           y1={forkCoords.y}
-          x2={forkCoords.x + forkLength * direction}
+          x2={forkCoords.x + FORK_WIDTH * direction}
           y2={forkCoords.y + lineSpacing}
-          stroke="black"
+          stroke="white"
         />
       </g>
     );
@@ -52,20 +53,33 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
       ? startCoords.x < endCoords.x
       : startCoords.x > endCoords.x;
 
+  const originXMinusFork =
+    relationType === 'M:1' ? startCoords.x - FORK_WIDTH : startCoords.x;
+  const destinationXMinusFork =
+    relationType === '1:M'
+      ? endCoords.x + (isDrawLeftToRight ? -1 : 1) * FORK_WIDTH
+      : endCoords.x;
+
   return (
     <svg>
       {/* Base line of the relationship */}
       <line
-        x1={startCoords.x}
+        x1={originXMinusFork}
         y1={startCoords.y}
-        x2={endCoords.x}
+        x2={destinationXMinusFork}
         y2={endCoords.y}
-        stroke="black"
+        strokeWidth={2}
+        stroke="white"
       />
 
       {/* Draw the fork */}
-      {relationType === '1:M' && drawFork(endCoords, isDrawLeftToRight)}
-      {relationType === 'M:1' && drawFork(startCoords, !isDrawLeftToRight)}
+      {relationType === '1:M' &&
+        drawFork(
+          { x: destinationXMinusFork, y: endCoords.y },
+          isDrawLeftToRight
+        )}
+      {relationType === 'M:1' &&
+        drawFork({ x: originXMinusFork, y: startCoords.y }, !isDrawLeftToRight)}
     </svg>
   );
 };
