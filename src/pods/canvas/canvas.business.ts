@@ -83,35 +83,41 @@ export const calculateRelationXCoordinate = (
   xDestination: calculateRelationXCoordinateEnd(tableOrigin, tableDestination),
 });
 
-export interface seekResult {
+export interface SeekResult {
   found: boolean;
   parentCollapsed: boolean;
   YPosition: number;
 }
 const seekField = (
   fieldId: GUID,
-  YPosition: number,
+  seekResult: SeekResult,
   fields: FieldVm[]
-): seekResult => {
-  let found = false;
-  let parentCollapsed = false;
-  let newYPosition = YPosition;
+): SeekResult => {
+  const { found, parentCollapsed } = seekResult;
+  let { YPosition } = seekResult;
+  // let newYPosition = YPosition;
+  // let newParentCollapsed = false;
+  // let newFound = found;
+
+  const currentLevelParentCollapsed = parentCollapsed;
+  let childParentCollapsed = false;
 
   for (let i = 0; i < fields.length && !found; i++) {
     const field = fields[i];
+
     if (field.id === fieldId) {
-      return {
-        found: true,
-        parentCollapsed,
-        YPosition: newYPosition,
-      };
+      return { YPosition, parentCollapsed, found: true };
     } else {
-      if (!parentCollapsed) {
-        newYPosition += ROW_HEIGHT;
+      if (!currentLevelParentCollapsed) {
+        // seekResult = {
+        //   ...seekResult,
+        //   YPosition: seekResult.YPosition + ROW_HEIGHT,
+        // };
+        YPosition = YPosition + ROW_HEIGHT;
       }
 
-      if (!parentCollapsed && field.isCollapsed) {
-        parentCollapsed = true;
+      if (!currentLevelParentCollapsed && field.isCollapsed) {
+        childParentCollapsed = true;
       }
 
       if (
@@ -119,25 +125,28 @@ const seekField = (
         field.children &&
         field.children.length > 0
       ) {
-        const result = seekField(fieldId, newYPosition, field.children);
-        found = result.found;
+        seekResult = seekField(
+          fieldId,
+          { found, YPosition, parentCollapsed: childParentCollapsed },
+          field.children
+        );
+        // if (!seekResult.found) {
+        //   console.log('recambio');
+        //   seekResult.parentCollapsed = true;
+        // }
 
-        // If the current node was already collapsed, ignore the child YPosition offset (Opa rulez !)
-        newYPosition = parentCollapsed ? newYPosition : result.YPosition;
-        parentCollapsed = result.parentCollapsed;
-
-        if (found) {
+        if (seekResult.found) {
           return {
-            found,
-            parentCollapsed,
-            YPosition: newYPosition,
+            YPosition: seekResult.YPosition,
+            parentCollapsed: seekResult.parentCollapsed,
+            found: true,
           };
         }
       }
     }
   }
 
-  return { found, parentCollapsed, YPosition: newYPosition };
+  return seekResult;
 };
 
 export const calculateRelationYOffset = (
@@ -145,12 +154,80 @@ export const calculateRelationYOffset = (
   table: TableVm
 ): number => {
   const initialYPosition = table.y + HEADER_HEIGHT;
-  const result = seekField(fieldId, initialYPosition, table.fields);
+  const result = seekField(
+    fieldId,
+    { found: false, parentCollapsed: false, YPosition: initialYPosition },
+    table.fields
+  );
   const center = result.YPosition + ROW_HEIGHT / 2;
 
   return center;
 };
 
+const fieldId: GUID = '9';
+const table: TableVm = {
+  id: '1',
+  fields: [
+    {
+      id: '1',
+      name: 'field1',
+      type: 'string',
+    },
+    {
+      id: '2',
+      name: 'field2',
+      type: 'object',
+      isCollapsed: false,
+      children: [
+        {
+          id: '4',
+          name: 'childField1',
+          type: 'number',
+        },
+        {
+          id: '5',
+          name: 'collapsibleField1',
+          type: 'object',
+          isCollapsed: true,
+          children: [
+            {
+              id: '7',
+              name: 'subField1',
+              type: 'number',
+            },
+            {
+              id: '8',
+              name: 'subField2',
+              type: 'number',
+            },
+          ],
+        },
+        {
+          id: '6',
+          name: 'collapsibleField2',
+          type: 'object',
+          isCollapsed: true,
+          children: [
+            {
+              id: '9',
+              name: 'subField1',
+              type: 'number',
+            },
+            {
+              id: '10',
+              name: 'subField2',
+              type: 'number',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  tableName: 'table1',
+  x: 0,
+  y: 0,
+};
+console.log(calculateRelationYOffset(fieldId, table));
 export interface YRelationCoords {
   yOrigin: number;
   yDestination: number;
