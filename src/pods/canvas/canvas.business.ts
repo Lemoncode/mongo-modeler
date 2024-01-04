@@ -89,12 +89,10 @@ const seekField = (
   let parentCollapsed = false;
   let newYPosition = YPosition;
 
-  // TODO we could use a for each here = nop
   for (let i = 0; i < fields.length && !found; i++) {
     const field = fields[i];
     if (field.id === fieldId) {
       found = true;
-      // ¿Por qué se devuelve found (siempre va a ser true) y parentCollapsed?
       return {
         found,
         parentCollapsed,
@@ -109,7 +107,6 @@ const seekField = (
         parentCollapsed = true;
       }
 
-      // Si un objeto no tiene hijos, para qué voy a hacer recursividad??
       if (
         field.type === 'object' &&
         field.children &&
@@ -118,8 +115,8 @@ const seekField = (
         const result = seekField(fieldId, newYPosition, field.children);
         found = result.found;
         newYPosition = parentCollapsed ? newYPosition : result.YPosition;
-
         parentCollapsed = result.parentCollapsed;
+
         if (found) {
           return {
             found,
@@ -130,32 +127,7 @@ const seekField = (
       }
     }
   }
-  // fields.forEach(field => {
-  //   console.log(field.id);
-  //   if (field.id === fieldId) {
-  //     found = true;
-  //     return { found, parentCollapsed, YPosition: newYPosition };
-  //   } else {
-  //     if (!parentCollapsed) {
-  //       newYPosition += ROW_HEIGHT;
-  //     }
 
-  //     //esto es lioso
-  //     if (!parentCollapsed && field.isCollapsed) {
-  //       parentCollapsed = true;
-  //     }
-
-  //     if (field.type === 'object') {
-  //       const result = seekField(fieldId, newYPosition, field.children ?? []);
-  //       found = result.found;
-  //       newYPosition = parentCollapsed ? newYPosition : result.YPosition;
-  //       parentCollapsed = result.parentCollapsed;
-  //       if (found) {
-  //         return { found, parentCollapsed, YPosition: newYPosition };
-  //       }
-  //     }
-  //   }
-  // });
   return { found, parentCollapsed, YPosition: newYPosition };
 };
 
