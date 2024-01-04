@@ -119,9 +119,6 @@ const seekField = (
   const { found, parentCollapsed } = seekResult;
   let { YPosition } = seekResult;
 
-  // We use this to iterate between sibilings
-  const currentLevelParentCollapsed = parentCollapsed;
-
   // When we hop into a nested object, we need to inform if the node owner is collapsed
   let childParentCollapsed = false;
 
@@ -134,7 +131,7 @@ const seekField = (
       YPosition = addFieldRowHeight(YPosition, parentCollapsed);
 
       childParentCollapsed = isParentCollapsedOrCurrentNodeCollapsed(
-        currentLevelParentCollapsed,
+        parentCollapsed,
         field
       );
 
