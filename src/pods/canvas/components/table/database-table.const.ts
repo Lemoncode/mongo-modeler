@@ -7,3 +7,4 @@ export const FIELD_TYPE_X = 160; // X position for the field type
 export const TABLE_WIDTH = 300; // Width of the table rectangle
 export const HEADER_HEIGHT = FONT_SIZE + ROW_PADDING; // Height of the table header
 export const DEFAULT_TABLE_WIDTH = 300;
+export const ROW_HEIGHT = FONT_SIZE + ROW_PADDING; // Height of the table line

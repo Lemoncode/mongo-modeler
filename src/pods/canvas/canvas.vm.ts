@@ -1,4 +1,4 @@
-import { Coords, GUID } from '@/core/model';
+import { GUID } from '@/core/model';
 
 export type FieldType = 'number' | 'string' | 'object';
 
@@ -35,15 +35,4 @@ export interface RelationVm {
 export interface DatabaseSchemaVm {
   tables: TableVm[];
   relations: RelationVm[];
-}
-
-export interface UpdateInfo {
-  id: GUID;
-  position: Coords;
-  totalHeight: number;
-}
-
-export interface XRelationCoords {
-  xOrigin: number;
-  xDestination: number;
 }
