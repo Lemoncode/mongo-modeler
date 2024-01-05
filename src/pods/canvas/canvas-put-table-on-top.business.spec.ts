@@ -38,7 +38,7 @@ describe('putTabbleOnTop', () => {
       x: 0,
       y: 0,
     };
-    const arrayWithOnlyTable: TableVm[] = [tables];
+    const arrayWithOnlyTable: TableVm[] = [table];
 
     // Act
     const result = putTableOnTop(TableId, arrayWithOnlyTable);
@@ -47,7 +47,7 @@ describe('putTabbleOnTop', () => {
     expect(result).toEqual(arrayWithOnlyTable);
   });
 
-  it("Should return and array with the selected table in the last position of the table arrays", () => {
+  it('Should return and array with the selected table in the last position of the table arrays', () => {
     // Arrange
     const tableId = '1';
     const tables: TableVm[] = [
@@ -59,7 +59,7 @@ describe('putTabbleOnTop', () => {
     const result = putTableOnTop(tableId, tables);
 
     // Assert
-    expect(result[0]).toBe(tables[1]); 
+    expect(result[0]).toBe(tables[1]);
     expect(result[1]).toBe(tables[0]);
   });
 
@@ -73,7 +73,7 @@ describe('putTabbleOnTop', () => {
 
     // Act
     const result = putTableOnTop(tableId, tables);
-   
+
     // Assert
     expect(result).toEqual(tables);
   });
@@ -83,14 +83,12 @@ describe('putTabbleOnTop', () => {
     const tableId = '2';
     const tables: TableVm[] = [
       { id: '1', fields: [], tableName: 'Table 1', x: 0, y: 0 },
-      { id: tablaId, fields: [], tableName: 'Table 2', x: 10, y: 10 },
+      { id: tableId, fields: [], tableName: 'Table 2', x: 10, y: 10 },
       { id: '3', fields: [], tableName: 'Table 3', x: 20, y: 20 },
     ];
 
     // Act
-    const result = putTableOnTop(tablaId, tables);
-    console.log('Result:', result);
-    console.log('Tables:', tables);
+    const result = putTableOnTop(tableId, tables);
     // Assert
     expect(result[2]).toBe(tables[1]);
   });
