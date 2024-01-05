@@ -54,6 +54,28 @@ export const findField = (fields: FieldVm[], id: GUID): FieldVm | undefined => {
   return undefined;
 };
 
+export const putTableOnTop = (tableId: GUID, tables: TableVm[]): TableVm[] => {
+  let result = tables;
+  const table = tables.find(table => table.id === tableId);
+
+  if (table) {
+    result = [...tables.filter(table => table.id !== tableId), table];
+  }
+
+  return result;
+};
+
+export const moveTableToTop = (
+  schema: DatabaseSchemaVm,
+  updateInfo: UpdateInfo,
+  canvasSize: Size
+): DatabaseSchemaVm => {
+  const updateSchema = calculateTablePosition(schema, updateInfo, canvasSize);
+  return {
+    ...updateSchema,
+    tables: putTableOnTop(updateInfo.id, updateSchema.tables),
+  };
+};
 export const calculateRelationXCoordinateOrigin = (
   tableOrigin: TableVm,
   tableDestination: TableVm

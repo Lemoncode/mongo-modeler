@@ -5,8 +5,8 @@ import { Coords, GUID, Size } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
 import { DatabaseTable } from './components/table/database-table.component';
 import classes from './canvas.pod.module.css';
-import { calculateTablePosition, findField } from './canvas.business';
 import { DatabaseRelationCollectionComponent } from './components/relation';
+import { moveTableToTop, findField } from './canvas.business';
 
 export const CanvasPod: React.FC = () => {
   const [schema, setSchema] = React.useState(() => mockSchema);
@@ -28,11 +28,7 @@ export const CanvasPod: React.FC = () => {
     canvasSize: Size
   ) => {
     setSchema(prevSchema =>
-      calculateTablePosition(
-        prevSchema,
-        { id, position, totalHeight },
-        canvasSize
-      )
+      moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
     );
   };
 
