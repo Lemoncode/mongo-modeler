@@ -31,7 +31,7 @@ describe('putTabbleOnTop', () => {
   it("should return an array with a single table, which is the same table if it's the only one", () => {
     // Arrange
     const TableId = '1';
-    const tables: TableVm = {
+    const table: TableVm = {
       id: TableId,
       fields: [],
       tableName: 'Table 1',
@@ -47,7 +47,7 @@ describe('putTabbleOnTop', () => {
     expect(result).toEqual(arrayWithOnlyTable);
   });
 
-  it("should return array with table on top if it's already in the first position", () => {
+  it("Should return and array with the selected table in the last position of the table arrays", () => {
     // Arrange
     const tableId = '1';
     const tables: TableVm[] = [
@@ -59,7 +59,8 @@ describe('putTabbleOnTop', () => {
     const result = putTableOnTop(tableId, tables);
 
     // Assert
-    expect(result[0]).toBe(tables[1]);
+    expect(result[0]).toBe(tables[1]); 
+    expect(result[1]).toBe(tables[0]);
   });
 
   it('should return the same array if the table is already in the last position', () => {
@@ -72,15 +73,14 @@ describe('putTabbleOnTop', () => {
 
     // Act
     const result = putTableOnTop(tableId, tables);
-    console.log('Result:', result);
-    console.log('Tables:', tables);
+   
     // Assert
     expect(result).toEqual(tables);
   });
 
-  it('should return the same array if the selected table is in the middle', () => {
+  it('should return an array with the selected table in the last position if the selected table is in the middle of the original array', () => {
     // Arrange
-    const tablaId = '2';
+    const tableId = '2';
     const tables: TableVm[] = [
       { id: '1', fields: [], tableName: 'Table 1', x: 0, y: 0 },
       { id: tablaId, fields: [], tableName: 'Table 2', x: 10, y: 10 },
