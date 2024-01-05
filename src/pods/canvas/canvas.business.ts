@@ -54,7 +54,7 @@ export const putTableOnTop = (tableId: GUID, tables: TableVm[]): TableVm[] => {
   return result;
 };
 
-export const calculateTablePositionPutOnTop = (
+export const moveTableToTop = (
   schema: DatabaseSchemaVm,
   updateInfo: UpdateInfo,
   canvasSize: Size
