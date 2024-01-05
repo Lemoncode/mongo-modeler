@@ -9,6 +9,7 @@ interface DatabaseRelationshipProps {
 }
 
 const FORK_WIDTH = 10;
+const FORK_LINE_SPACING = 5;
 
 const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
   relationType,
@@ -16,9 +17,9 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
   endCoords,
 }) => {
   const drawFork = (forkCoords: Coords, drawLeftToRight: boolean) => {
-    const lineSpacing = 5; // Spacing between the lines of the fork
     const direction = drawLeftToRight ? 1 : -1;
 
+    // TODO: Teresa replace all the stroke "white" to work with the theme
     return (
       <g>
         {/* Fork lines */}
@@ -33,14 +34,14 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
           x1={forkCoords.x}
           y1={forkCoords.y}
           x2={forkCoords.x + FORK_WIDTH * direction}
-          y2={forkCoords.y - lineSpacing}
+          y2={forkCoords.y - FORK_LINE_SPACING}
           stroke="white"
         />
         <line
           x1={forkCoords.x}
           y1={forkCoords.y}
           x2={forkCoords.x + FORK_WIDTH * direction}
-          y2={forkCoords.y + lineSpacing}
+          y2={forkCoords.y + FORK_LINE_SPACING}
           stroke="white"
         />
       </g>

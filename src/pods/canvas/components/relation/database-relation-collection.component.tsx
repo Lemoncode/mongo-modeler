@@ -46,7 +46,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
 
     return (
       <DatabaseRelationshipComponent
-        key={`${relation.fromTableId}-${relation.toTableId}`}
+        key={`${relation.fromTableId}-${relation.fromFieldId}-${relation.toTableId}-${relation.toFieldId}`}
         relationType={relation.type}
         startCoords={startCoords}
         endCoords={endCoords}
