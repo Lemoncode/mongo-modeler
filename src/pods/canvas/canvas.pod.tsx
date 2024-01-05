@@ -1,9 +1,8 @@
 import React from 'react';
 import { produce } from 'immer';
 import { useCanvasViewSettingsContext } from '@/core/providers';
-import { Coords, GUID } from '@/core/model';
+import { Coords, GUID, Size } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
-import { Size } from './canvas.vm';
 import { DatabaseTable } from './components/table/database-table.component';
 import classes from './canvas.pod.module.css';
 import { moveTableToTop, findField } from './canvas.business';
@@ -28,11 +27,7 @@ export const CanvasPod: React.FC = () => {
     canvasSize: Size
   ) => {
     setSchema(prevSchema =>
-      moveTableToTop(
-        prevSchema,
-        { id, position, totalHeight },
-        canvasSize
-      )
+      moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
     );
   };
 
