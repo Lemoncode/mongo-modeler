@@ -7,15 +7,12 @@ import { useDraggable } from './table-drag.hook';
 import {
   FONT_SIZE,
   ROW_PADDING,
-  LEVEL_INDENTATION,
-  COLLAPSE_ICON_X,
-  FIELD_NAME_X_OFFSET,
-  FIELD_TYPE_X,
   TABLE_WIDTH,
   HEADER_HEIGHT,
 } from './database-table.const';
 import { useModalDialogContext } from '@/core/providers';
 import { EditTable } from '@/pods/edit-table';
+import { DatabaseTableRow } from './database-table-row.component';
 
 interface Props {
   tableInfo: TableVm;
@@ -44,35 +41,17 @@ export const DatabaseTable: React.FC<Props> = ({
     let rows: JSX.Element[] = [];
 
     fields.forEach(field => {
-      const isExpandable =
-        field.type === 'object' && (field.children?.length ?? 0) > 0;
       const isExpanded = !field.isCollapsed;
 
       const row = (
-        <g key={field.id} transform={`translate(0, ${currentY})`}>
-          <g transform={`translate(${level * LEVEL_INDENTATION}, 0)`}>
-            {isExpandable && (
-              <text
-                x={COLLAPSE_ICON_X}
-                y={FONT_SIZE}
-                className={classes.tableTextRow}
-                onClick={() => onToggleCollapse(tableInfo.id, field.id)}
-              >
-                {isExpanded ? '▼' : '►'}
-              </text>
-            )}
-            <text
-              x={FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
-              y={FONT_SIZE}
-              className={classes.tableTextRow}
-            >
-              {field.name}
-            </text>
-          </g>
-          <text x={FIELD_TYPE_X} y={FONT_SIZE} className={classes.tableTextRow}>
-            {field.type}
-          </text>
-        </g>
+        <DatabaseTableRow
+          key={field.id}
+          field={field}
+          tableInfo={tableInfo}
+          level={level}
+          currentY={currentY}
+          onToggleCollapse={onToggleCollapse}
+        />
       );
 
       rows.push(row);
