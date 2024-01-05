@@ -116,11 +116,8 @@ const seekField = (
   seekResult: SeekResult,
   fields: FieldVm[]
 ): SeekResult => {
-  const { found, parentCollapsed } = seekResult;
-  let { YPosition } = seekResult;
-
-  // When we hop into a nested object, we need to inform if the node owner is collapsed
-  let childParentCollapsed = false;
+  const { found } = seekResult;
+  let { YPosition, parentCollapsed } = seekResult;
 
   for (let i = 0; i < fields.length && !found; i++) {
     const field = fields[i];
@@ -130,7 +127,7 @@ const seekField = (
     } else {
       YPosition = addFieldRowHeight(YPosition, parentCollapsed);
 
-      childParentCollapsed = isParentCollapsedOrCurrentNodeCollapsed(
+      parentCollapsed = isParentCollapsedOrCurrentNodeCollapsed(
         parentCollapsed,
         field
       );
@@ -138,21 +135,24 @@ const seekField = (
       if (doesFieldContainsChildren(field)) {
         const newSeekResult = seekField(
           fieldId,
-          { found, YPosition, parentCollapsed: childParentCollapsed },
-          field.children ?? []
+          { found, parentCollapsed, YPosition },
+          field.children || []
         );
 
+        //TODO implement more test and review this code
+        //Listen to the older parents
+        YPosition = parentCollapsed ? YPosition : newSeekResult.YPosition;
+
+        //Reset to the older parents
+        parentCollapsed = found ? newSeekResult.parentCollapsed : false;
+
         if (newSeekResult.found) {
-          return buildFieldFoundResponse(
-            newSeekResult.parentCollapsed,
-            newSeekResult.YPosition
-          );
+          return buildFieldFoundResponse(parentCollapsed, YPosition);
         }
       }
     }
   }
-
-  return seekResult;
+  return { found, parentCollapsed, YPosition };
 };
 
 export const calculateRelationYOffset = (
@@ -162,7 +162,7 @@ export const calculateRelationYOffset = (
   const initialYPosition = table.y + HEADER_HEIGHT;
   const result = seekField(
     fieldId,
-    { found: false, parentCollapsed: false, YPosition: initialYPosition },
+    { found: false, YPosition: initialYPosition, parentCollapsed: false },
     table.fields
   );
   const center = result.YPosition + ROW_HEIGHT / 2;

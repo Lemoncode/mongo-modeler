@@ -488,6 +488,103 @@ describe('canvas.business.calculateRelationYOffset', () => {
     // Assert
     expect(result).toEqual(expectedYPosition);
   });
+  it(`should return the correct Y-coordinate if field is found on third level, parent field not collapsed, child field collapsed
+  +-------------------------------------------------------+
+  | table1                                                |
+  | ======================================================|
+  | id: 1                                                 |
+  | fields:                                               |
+  |   field1                        id: 1   type: string  |
+  |    ▼ collapsibleField           id: 2   type: object  |
+  |       childField1               id: 4   type: number  |
+  |       ▼ childField2             id: 5   type: object  |
+  |           subField1             id: 7 type: number    |
+  |           subField2             id: 8 type: nnumber   |
+  |       ▶ collapsibleField        id: 6   type: object  |
+  |           [Not Visible] subField1 id: 9 type: number  |
+  |           [Not Visible] subField2 id: 10 type: number |
+  |   field11                        id: 11  type: string |
+  +-------------------------------------------------------+  
+  `, () => {
+    // Arrange
+    const fieldId: GUID = '11';
+    const table: TableVm = {
+      id: '1',
+      fields: [
+        {
+          id: '1',
+          name: 'field1',
+          type: 'string',
+        },
+        {
+          id: '2',
+          name: 'field2',
+          type: 'object',
+          isCollapsed: false,
+          children: [
+            {
+              id: '4',
+              name: 'childField1',
+              type: 'number',
+            },
+            {
+              id: '5',
+              name: 'collapsibleField1',
+              type: 'object',
+              isCollapsed: false,
+              children: [
+                {
+                  id: '7',
+                  name: 'subField1',
+                  type: 'number',
+                },
+                {
+                  id: '8',
+                  name: 'subField2',
+                  type: 'number',
+                },
+              ],
+            },
+            {
+              id: '6',
+              name: 'collapsibleField2',
+              type: 'object',
+              isCollapsed: true,
+              children: [
+                {
+                  id: '9',
+                  name: 'subField1',
+                  type: 'number',
+                },
+                {
+                  id: '10',
+                  name: 'subField2',
+                  type: 'number',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: '11',
+          name: 'field11',
+          type: 'string',
+        },
+      ],
+      tableName: 'table1',
+      x: 0,
+      y: 0,
+    };
+
+    const headerOffset = table.y + HEADER_HEIGHT;
+    const expectedYPosition = headerOffset + ROW_HEIGHT * 7 + ROW_HEIGHT / 2;
+
+    // Act
+    const result = calculateRelationYOffset(fieldId, table);
+
+    // Assert
+    expect(result).toEqual(expectedYPosition);
+  });
 });
 
 describe(calculateRelationYCoordinate, () => {
