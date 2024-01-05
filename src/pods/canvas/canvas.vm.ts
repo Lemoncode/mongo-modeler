@@ -1,6 +1,6 @@
 import { GUID } from '@/core/model';
 
-export type FieldType = 'number' | 'string' | 'object';
+export type FieldType = 'number' | 'string' | 'object' | 'objectId';
 
 export const GenerateGUID = (): GUID => {
   return crypto.randomUUID();
@@ -13,6 +13,20 @@ export interface TableVm {
   x: number; // Canvas X Position
   y: number; // Canvas Y Position
 }
+
+export const createDefaultTable = (): TableVm => ({
+  id: GenerateGUID(),
+  tableName: 'New Table',
+  fields: [
+    {
+      id: GenerateGUID(),
+      name: '_id',
+      type: 'objectId',
+    },
+  ],
+  x: 0,
+  y: 0,
+});
 
 export interface FieldVm {
   id: GUID;

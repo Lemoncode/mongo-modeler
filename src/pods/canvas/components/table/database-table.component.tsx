@@ -88,7 +88,9 @@ export const DatabaseTable: React.FC<Props> = ({
   );
   const { openModal } = useModalDialogContext();
   const handleDoubleClick = () => {
-    openModal(<EditTable />);
+    openModal(
+      <EditTable table={tableInfo} onSave={newTable => console.log(newTable)} />
+    );
   };
   return (
     <g

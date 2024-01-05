@@ -15,7 +15,13 @@ export const ToolbarPod: React.FC = () => {
     openModal(<EditRelation />);
   };
   const handleEditTableClick = () => {
-    openModal(<EditTable />);
+    openModal(
+      <EditTable
+        onSave={table => {
+          console.log(table);
+        }}
+      />
+    );
   };
 
   const handleChangeSettings = (size: Size) => {
