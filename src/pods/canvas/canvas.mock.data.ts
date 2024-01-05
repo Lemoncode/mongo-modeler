@@ -8,7 +8,10 @@ import {
 const tagTableId = '1';
 const restaurantTableId = '2';
 const tagFieldId = GenerateGUID();
+const restauranteNameFieldGUID = GenerateGUID();
 const restaurantTagFieldGUID = GenerateGUID();
+
+const restaurantIdField = GenerateGUID();
 
 const mockRelations: RelationVm[] = [
   {
@@ -33,7 +36,7 @@ const mockTables: TableVm[] = [
         type: 'number',
       },
       {
-        id: GenerateGUID(),
+        id: restauranteNameFieldGUID,
         name: 'name',
         type: 'string',
       },
@@ -46,7 +49,7 @@ const mockTables: TableVm[] = [
     tableName: 'Restaurant',
     fields: [
       {
-        id: GenerateGUID(),
+        id: restaurantIdField,
         name: 'id',
         type: 'number',
       },
