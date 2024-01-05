@@ -5,6 +5,7 @@ import { Coords, GUID, Size } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
 import { DatabaseTable } from './components/table/database-table.component';
 import classes from './canvas.pod.module.css';
+import { DatabaseRelationCollectionComponent } from './components/relation';
 import { moveTableToTop, findField } from './canvas.business';
 
 export const CanvasPod: React.FC = () => {
@@ -63,7 +64,7 @@ export const CanvasPod: React.FC = () => {
               onToggleCollapse={handleToggleCollapse}
             />
           ))}
-          );
+          <DatabaseRelationCollectionComponent schema={schema} />
         </svg>
       </div>
     </div>
