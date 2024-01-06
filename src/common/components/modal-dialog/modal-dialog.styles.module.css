@@ -4,6 +4,9 @@
   left: 0;
   width: 100%;
   height: 100%;
+  max-width: 90vw; /* 90% of the viewport width */
+  max-height: 90vh; /* 90% of the viewport height */
+  overflow: auto; /* Shows scroll if the content exceeds the modal size */
   display: flex;
   align-items: center;
   justify-content: center;
