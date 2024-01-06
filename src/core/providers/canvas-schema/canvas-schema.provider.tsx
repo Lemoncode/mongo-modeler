@@ -28,6 +28,8 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
 
   const updateFullTable = (table: TableVm) => {
     // TODO: move this to index and add unit tests support
+    // #55 created to track this
+    // https://github.com/Lemoncode/mongo-modeler/issues/55
     setSchema(prevSchema =>
       produce(prevSchema, draft => {
         const tableIndex = draft.tables.findIndex(t => t.id === table.id);
@@ -38,6 +40,8 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     );
   };
 
+  // TODO: #56 created to track this
+  // https://github.com/Lemoncode/mongo-modeler/issues/56
   const addTable = (table: TableVm) => {
     setSchema(prevSchema =>
       produce(prevSchema, draft => {
