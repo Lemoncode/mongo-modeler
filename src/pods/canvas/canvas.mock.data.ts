@@ -33,12 +33,14 @@ const mockTables: TableVm[] = [
       {
         id: tagFieldId,
         name: 'id',
+        PK: true,
         type: 'number',
       },
       {
         id: restauranteNameFieldGUID,
         name: 'name',
         type: 'string',
+        PK: false,
       },
     ],
   },
@@ -52,46 +54,55 @@ const mockTables: TableVm[] = [
         id: restaurantIdField,
         name: 'id',
         type: 'number',
+        PK: false,
       },
       {
         id: GenerateGUID(),
         name: 'name',
         type: 'string',
+        PK: false,
       },
       {
         id: GenerateGUID(),
         name: 'menu',
         type: 'object',
+        PK: false,
         children: [
           {
             id: GenerateGUID(),
             name: 'id',
             type: 'number',
+            PK: false,
           },
           {
             id: GenerateGUID(),
             name: 'category',
             type: 'string',
+            PK: false,
           },
           {
             id: GenerateGUID(),
             name: 'dishes',
             type: 'object',
+            PK: false,
             children: [
               {
                 id: GenerateGUID(),
                 name: 'id',
                 type: 'number',
+                PK: false,
               },
               {
                 id: GenerateGUID(),
                 name: 'name',
                 type: 'string',
+                PK: false,
               },
               {
                 id: GenerateGUID(),
                 name: 'price',
                 type: 'number',
+                PK: false,
               },
             ],
           },
@@ -101,31 +112,37 @@ const mockTables: TableVm[] = [
         id: restaurantTagFieldGUID,
         name: 'tags',
         type: 'number',
+        PK: false,
       },
       {
         id: GenerateGUID(),
         name: 'address',
         type: 'object',
+        PK: false,
         children: [
           {
             id: GenerateGUID(),
             name: 'street',
             type: 'string',
+            PK: false,
           },
           {
             id: GenerateGUID(),
             name: 'city',
             type: 'string',
+            PK: false,
           },
           {
             id: GenerateGUID(),
             name: 'state',
             type: 'string',
+            PK: false,
           },
           {
             id: GenerateGUID(),
             name: 'zip',
             type: 'number',
+            PK: false,
           },
         ],
       },

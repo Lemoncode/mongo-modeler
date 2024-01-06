@@ -20,6 +20,7 @@ export const createDefaultTable = (): TableVm => ({
   fields: [
     {
       id: GenerateGUID(),
+      PK: true,
       name: '_id',
       type: 'objectId',
     },
@@ -30,6 +31,7 @@ export const createDefaultTable = (): TableVm => ({
 
 export interface FieldVm {
   id: GUID;
+  PK: boolean;
   name: string;
   type: FieldType;
   children?: FieldVm[];

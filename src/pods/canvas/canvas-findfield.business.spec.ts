@@ -9,11 +9,13 @@ describe('findField', () => {
         id: '1',
         name: 'Hi',
         type: 'number',
+        PK: false,
       },
       {
         id: '2',
         name: 'Bye',
         type: 'string',
+        PK: false,
       },
     ];
 
@@ -31,11 +33,13 @@ describe('findField', () => {
         id: '1',
         name: 'Hi',
         type: 'number',
+        PK: false,
       },
       {
         id: '2',
         name: 'Bye',
         type: 'string',
+        PK: false,
       },
     ];
 
@@ -47,6 +51,7 @@ describe('findField', () => {
       id: '1',
       name: 'Hi',
       type: 'number',
+      PK: false,
     };
 
     expect(result).toEqual(expected);
@@ -59,12 +64,14 @@ describe('findField', () => {
         id: '1',
         name: 'Hi',
         type: 'number',
+        PK: false,
       },
       {
         id: '2',
         name: 'Bye',
         type: 'string',
-        children: [{ id: '3', name: 'Pie', type: 'string' }],
+        PK: false,
+        children: [{ id: '3', name: 'Pie', type: 'string', PK: false }],
       },
     ];
 
@@ -72,7 +79,12 @@ describe('findField', () => {
     const result = findField(fields, '3');
 
     // Assert
-    const expected: FieldVm = { id: '3', name: 'Pie', type: 'string' };
+    const expected: FieldVm = {
+      id: '3',
+      name: 'Pie',
+      type: 'string',
+      PK: false,
+    };
 
     expect(result).toEqual(expected);
   });
@@ -84,18 +96,21 @@ describe('findField', () => {
         id: '1',
         name: 'Hi',
         type: 'number',
+        PK: false,
       },
       {
         id: '2',
         name: 'Bye',
         type: 'string',
+        PK: false,
         children: [
-          { id: '3', name: 'Pie', type: 'string' },
+          { id: '3', name: 'Pie', type: 'string', PK: false },
           {
             id: '4',
             name: 'Age',
             type: 'string',
-            children: [{ id: '5', name: 'Cup', type: 'string' }],
+            PK: false,
+            children: [{ id: '5', name: 'Cup', type: 'string', PK: false }],
           },
         ],
       },
@@ -105,7 +120,12 @@ describe('findField', () => {
     const result = findField(fields, '5');
 
     // Assert
-    const expected: FieldVm = { id: '5', name: 'Cup', type: 'string' };
+    const expected: FieldVm = {
+      id: '5',
+      name: 'Cup',
+      type: 'string',
+      PK: false,
+    };
 
     expect(result).toEqual(expected);
   });
