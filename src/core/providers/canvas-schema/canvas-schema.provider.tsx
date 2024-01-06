@@ -9,7 +9,10 @@ import {
 import { Coords, GUID, Size } from '@/core/model';
 // TODO: Move this business functionallity and tests
 // from canvas to canvas-schema context
-import { findField, moveTableToTop } from '@/pods/canvas/canvas.business';
+import {
+  findField,
+  moveTableToTop,
+} from '@/core/providers/canvas-schema/canvas.business';
 
 interface Props {
   children: React.ReactNode;

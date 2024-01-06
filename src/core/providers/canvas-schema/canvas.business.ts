@@ -4,11 +4,7 @@ import {
   FieldVm,
   TableVm,
 } from '@/core/providers/canvas-schema';
-import {
-  DEFAULT_TABLE_WIDTH,
-  HEADER_HEIGHT,
-  ROW_HEIGHT,
-} from './components/table/database-table.const';
+import { DEFAULT_TABLE_WIDTH, HEADER_HEIGHT, ROW_HEIGHT } from './canvas.const';
 
 export interface UpdateInfo {
   id: GUID;

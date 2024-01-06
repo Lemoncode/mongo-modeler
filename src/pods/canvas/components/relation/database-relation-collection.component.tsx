@@ -5,7 +5,7 @@ import DatabaseRelationshipComponent from './database-relation.component';
 import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
-} from '../../canvas.business';
+} from '../../../../core/providers/canvas-schema/canvas.business';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;

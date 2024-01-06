@@ -1,10 +1,7 @@
 import { GUID } from '@/core/model';
 
-import { TableVm } from '@/core/providers/canvas-schema';
-import {
-  HEADER_HEIGHT,
-  ROW_HEIGHT,
-} from './components/table/database-table.const';
+import { TableVm } from './canvas-schema.model';
+import { HEADER_HEIGHT, ROW_HEIGHT } from './canvas.const';
 import {
   YRelationCoords,
   calculateRelationYCoordinate,

@@ -9,7 +9,7 @@ import {
   ROW_PADDING,
   TABLE_WIDTH,
   HEADER_HEIGHT,
-} from './database-table.const';
+} from '@/core/providers/canvas-schema';
 import { DatabaseTableRow } from './database-table-row.component';
 
 interface Props {

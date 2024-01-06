@@ -6,7 +6,7 @@ import {
   FIELD_TYPE_X,
   FONT_SIZE,
   LEVEL_INDENTATION,
-} from './database-table.const';
+} from '@/core/providers/canvas-schema';
 import classes from './database-table.module.css';
 
 interface Props {
