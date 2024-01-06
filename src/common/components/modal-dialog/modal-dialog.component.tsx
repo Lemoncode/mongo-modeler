@@ -10,7 +10,11 @@ export const ModalDialog: React.FC = () => {
 
   return (
     modalDialog.isOpen && (
-      <div className={styles.container} role="presentation">
+      <div
+        className={styles.container}
+        style={modalDialog.maximize ? { width: '90%', height: '90%' } : {}}
+        role="presentation"
+      >
         <div className={styles.dialog} role="dialog">
           <button className={styles.dialogButton} onClick={handleClick}>
             <svg

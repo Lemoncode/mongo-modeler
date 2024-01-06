@@ -23,7 +23,8 @@ export const ToolbarPod: React.FC = () => {
         onSave={table => {
           console.log(table);
         }}
-      />
+      />,
+      true
     );
   };
 
