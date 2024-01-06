@@ -38,6 +38,14 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     );
   };
 
+  const addTable = (table: TableVm) => {
+    setSchema(prevSchema =>
+      produce(prevSchema, draft => {
+        draft.tables.push(table);
+      })
+    );
+  };
+
   const updateTablePosition = (
     id: string,
     position: Coords,
@@ -71,6 +79,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         updateTablePosition,
         doFieldToggleCollapse,
         updateFullTable,
+        addTable,
       }}
     >
       {children}
