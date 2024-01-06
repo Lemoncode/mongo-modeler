@@ -1,7 +1,7 @@
 import { GUID } from '@/core/model';
 
 import { TableVm } from './canvas-schema.model';
-import { HEADER_HEIGHT, ROW_HEIGHT } from './canvas.const';
+import { TABLE_CONST } from './canvas.const';
 import {
   YRelationCoords,
   calculateRelationYCoordinate,
@@ -33,7 +33,8 @@ describe('canvas.business.calculateRelationYOffset', () => {
       y: 0,
     };
 
-    const expectedYPosition = table.y + HEADER_HEIGHT + ROW_HEIGHT / 2;
+    const expectedYPosition =
+      table.y + TABLE_CONST.HEADER_HEIGHT + TABLE_CONST.ROW_HEIGHT / 2;
 
     // Act
     const result = calculateRelationYOffset(fieldId, table);
@@ -66,9 +67,10 @@ describe('canvas.business.calculateRelationYOffset', () => {
       y: 0,
     };
 
-    const headerOffset = table.y + HEADER_HEIGHT;
+    const headerOffset = table.y + TABLE_CONST.HEADER_HEIGHT;
 
-    const expectedYPosition = headerOffset + ROW_HEIGHT + ROW_HEIGHT / 2;
+    const expectedYPosition =
+      headerOffset + TABLE_CONST.ROW_HEIGHT + TABLE_CONST.ROW_HEIGHT / 2;
 
     // Act
     const result = calculateRelationYOffset(fieldId, table);
@@ -120,9 +122,10 @@ describe('canvas.business.calculateRelationYOffset', () => {
       y: 0,
     };
 
-    const headerOffset = table.y + HEADER_HEIGHT;
+    const headerOffset = table.y + TABLE_CONST.HEADER_HEIGHT;
 
-    const expectedYPosition = headerOffset + ROW_HEIGHT * 2 + ROW_HEIGHT / 2;
+    const expectedYPosition =
+      headerOffset + TABLE_CONST.ROW_HEIGHT * 2 + TABLE_CONST.ROW_HEIGHT / 2;
 
     // Act
     const result = calculateRelationYOffset(fieldId, table);
@@ -174,9 +177,10 @@ describe('canvas.business.calculateRelationYOffset', () => {
       y: 200,
     };
 
-    const headerOffset = table.y + HEADER_HEIGHT;
+    const headerOffset = table.y + TABLE_CONST.HEADER_HEIGHT;
 
-    const expectedYPosition = headerOffset + ROW_HEIGHT * 2 + ROW_HEIGHT / 2;
+    const expectedYPosition =
+      headerOffset + TABLE_CONST.ROW_HEIGHT * 2 + TABLE_CONST.ROW_HEIGHT / 2;
 
     // Act
     const result = calculateRelationYOffset(fieldId, table);
@@ -229,9 +233,10 @@ describe('canvas.business.calculateRelationYOffset', () => {
       y: 0,
     };
 
-    const headerOffset = table.y + HEADER_HEIGHT;
+    const headerOffset = table.y + TABLE_CONST.HEADER_HEIGHT;
 
-    const expectedYPosition = headerOffset + ROW_HEIGHT * 2 + ROW_HEIGHT / 2;
+    const expectedYPosition =
+      headerOffset + TABLE_CONST.ROW_HEIGHT * 2 + TABLE_CONST.ROW_HEIGHT / 2;
 
     // Act
     const result = calculateRelationYOffset(fieldId, table);
@@ -314,8 +319,9 @@ describe('canvas.business.calculateRelationYOffset', () => {
       y: 0,
     };
 
-    const headerOffset = table.y + HEADER_HEIGHT;
-    const expectedYPosition = headerOffset + ROW_HEIGHT * 5 + ROW_HEIGHT / 2;
+    const headerOffset = table.y + TABLE_CONST.HEADER_HEIGHT;
+    const expectedYPosition =
+      headerOffset + TABLE_CONST.ROW_HEIGHT * 5 + TABLE_CONST.ROW_HEIGHT / 2;
 
     // Act
     const result = calculateRelationYOffset(fieldId, table);
@@ -414,8 +420,9 @@ describe('canvas.business.calculateRelationYOffset', () => {
       y: 0,
     };
 
-    const headerOffset = table.y + HEADER_HEIGHT;
-    const expectedYPosition = headerOffset + ROW_HEIGHT * 5 + ROW_HEIGHT / 2;
+    const headerOffset = table.y + TABLE_CONST.HEADER_HEIGHT;
+    const expectedYPosition =
+      headerOffset + TABLE_CONST.ROW_HEIGHT * 5 + TABLE_CONST.ROW_HEIGHT / 2;
 
     // Act
     const result = calculateRelationYOffset(fieldId, table);
@@ -514,8 +521,9 @@ describe('canvas.business.calculateRelationYOffset', () => {
       y: 0,
     };
 
-    const headerOffset = table.y + HEADER_HEIGHT;
-    const expectedYPosition = headerOffset + ROW_HEIGHT * 2 + ROW_HEIGHT / 2;
+    const headerOffset = table.y + TABLE_CONST.HEADER_HEIGHT;
+    const expectedYPosition =
+      headerOffset + TABLE_CONST.ROW_HEIGHT * 2 + TABLE_CONST.ROW_HEIGHT / 2;
 
     // Act
     const result = calculateRelationYOffset(fieldId, table);
@@ -621,8 +629,9 @@ describe('canvas.business.calculateRelationYOffset', () => {
       y: 0,
     };
 
-    const headerOffset = table.y + HEADER_HEIGHT;
-    const expectedYPosition = headerOffset + ROW_HEIGHT * 7 + ROW_HEIGHT / 2;
+    const headerOffset = table.y + TABLE_CONST.HEADER_HEIGHT;
+    const expectedYPosition =
+      headerOffset + TABLE_CONST.ROW_HEIGHT * 7 + TABLE_CONST.ROW_HEIGHT / 2;
 
     // Act
     const result = calculateRelationYOffset(fieldId, table);
@@ -694,13 +703,18 @@ describe(calculateRelationYCoordinate, () => {
       y: 200,
     };
 
-    const headerOffsetOrigin = tableOrigin.y + HEADER_HEIGHT;
-    const headerOffsetDestination = tableDestination.y + HEADER_HEIGHT;
+    const headerOffsetOrigin = tableOrigin.y + TABLE_CONST.HEADER_HEIGHT;
+    const headerOffsetDestination =
+      tableDestination.y + TABLE_CONST.HEADER_HEIGHT;
 
     const expectedYPositionOrigin =
-      headerOffsetOrigin + ROW_HEIGHT * 2 + ROW_HEIGHT / 2;
+      headerOffsetOrigin +
+      TABLE_CONST.ROW_HEIGHT * 2 +
+      TABLE_CONST.ROW_HEIGHT / 2;
     const expectedYPositionDestination =
-      headerOffsetDestination + ROW_HEIGHT + ROW_HEIGHT / 2;
+      headerOffsetDestination +
+      TABLE_CONST.ROW_HEIGHT +
+      TABLE_CONST.ROW_HEIGHT / 2;
 
     const expectedYRelationCoords: YRelationCoords = {
       yOrigin: expectedYPositionOrigin,

@@ -1,12 +1,6 @@
 import { GUID } from '@/core/model';
 import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
-import {
-  COLLAPSE_ICON_X,
-  FIELD_NAME_X_OFFSET,
-  FIELD_TYPE_X,
-  FONT_SIZE,
-  LEVEL_INDENTATION,
-} from '@/core/providers/canvas-schema';
+import { TABLE_CONST } from '@/core/providers/canvas-schema';
 import classes from './database-table.module.css';
 
 interface Props {
@@ -26,11 +20,11 @@ export const DatabaseTableRow: React.FC<Props> = props => {
 
   return (
     <g key={field.id} transform={`translate(0, ${currentY})`}>
-      <g transform={`translate(${level * LEVEL_INDENTATION}, 0)`}>
+      <g transform={`translate(${level * TABLE_CONST.LEVEL_INDENTATION}, 0)`}>
         {isExpandable && (
           <text
-            x={COLLAPSE_ICON_X}
-            y={FONT_SIZE}
+            x={TABLE_CONST.COLLAPSE_ICON_X}
+            y={TABLE_CONST.FONT_SIZE}
             className={classes.tableTextRow}
             onClick={() => onToggleCollapse(tableInfo.id, field.id)}
           >
@@ -38,14 +32,18 @@ export const DatabaseTableRow: React.FC<Props> = props => {
           </text>
         )}
         <text
-          x={FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
-          y={FONT_SIZE}
+          x={TABLE_CONST.FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
+          y={TABLE_CONST.FONT_SIZE}
           className={classes.tableTextRow}
         >
           {field.name}
         </text>
       </g>
-      <text x={FIELD_TYPE_X} y={FONT_SIZE} className={classes.tableTextRow}>
+      <text
+        x={TABLE_CONST.FIELD_TYPE_X}
+        y={TABLE_CONST.FONT_SIZE}
+        className={classes.tableTextRow}
+      >
         {field.type}
       </text>
     </g>

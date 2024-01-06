@@ -4,12 +4,7 @@ import { Coords, GUID, Size } from '@/core/model';
 import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
 import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
-import {
-  FONT_SIZE,
-  ROW_PADDING,
-  TABLE_WIDTH,
-  HEADER_HEIGHT,
-} from '@/core/providers/canvas-schema';
+import { TABLE_CONST } from '@/core/providers/canvas-schema';
 import { DatabaseTableRow } from './database-table-row.component';
 
 interface Props {
@@ -30,7 +25,7 @@ export const DatabaseTable: React.FC<Props> = ({
   updatePosition,
   onToggleCollapse,
 }) => {
-  const rowHeight = FONT_SIZE + ROW_PADDING;
+  const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
 
   const renderRows = (
     fields: FieldVm[],
@@ -75,8 +70,12 @@ export const DatabaseTable: React.FC<Props> = ({
     JSX.Element[],
     number,
   ] => {
-    const [rows, totalY] = renderRows(tableInfo.fields, 0, HEADER_HEIGHT);
-    return [rows, totalY + ROW_PADDING]; // Ajuste para el padding final
+    const [rows, totalY] = renderRows(
+      tableInfo.fields,
+      0,
+      TABLE_CONST.HEADER_HEIGHT
+    );
+    return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Ajuste para el padding final
   }, [tableInfo.fields]);
 
   const { onMouseDown } = useDraggable(
@@ -99,19 +98,19 @@ export const DatabaseTable: React.FC<Props> = ({
       <rect
         x="0"
         y="0"
-        width={TABLE_WIDTH}
+        width={TABLE_CONST.TABLE_WIDTH}
         height={totalHeight}
         className={classes.tableBackground}
       />
       <rect
         x="0"
         y="0"
-        width={TABLE_WIDTH}
-        height={HEADER_HEIGHT}
+        width={TABLE_CONST.TABLE_WIDTH}
+        height={TABLE_CONST.HEADER_HEIGHT}
         className={classes.tableHeader}
         onDoubleClick={handleDoubleClick}
       />
-      <text x="10" y={FONT_SIZE} className={classes.tableText}>
+      <text x="10" y={TABLE_CONST.FONT_SIZE} className={classes.tableText}>
         {tableInfo.tableName}
       </text>
 
@@ -120,7 +119,7 @@ export const DatabaseTable: React.FC<Props> = ({
       <rect
         x="0"
         y="0"
-        width={TABLE_WIDTH}
+        width={TABLE_CONST.TABLE_WIDTH}
         height={totalHeight}
         className={classes.table}
       />
