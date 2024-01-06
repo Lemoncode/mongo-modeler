@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
   DatabaseSchemaVm,
+  TableVm,
   createDefaultDatabaseSchemaVm,
 } from './canvas-schema.model';
 import { Coords, GUID, Size } from '@/core/model';
@@ -23,6 +24,18 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
 
   const loadSchema = (newSchema: DatabaseSchemaVm) => {
     setSchema(newSchema);
+  };
+
+  const updateFullTable = (table: TableVm) => {
+    // TODO: move this to index and add unit tests support
+    setSchema(prevSchema =>
+      produce(prevSchema, draft => {
+        const tableIndex = draft.tables.findIndex(t => t.id === table.id);
+        if (tableIndex !== -1) {
+          draft.tables[tableIndex] = table;
+        }
+      })
+    );
   };
 
   const updateTablePosition = (
@@ -57,6 +70,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         loadSchema,
         updateTablePosition,
         doFieldToggleCollapse,
+        updateFullTable,
       }}
     >
       {children}

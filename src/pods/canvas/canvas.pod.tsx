@@ -15,13 +15,14 @@ import {
 import { EditTablePod } from '../edit-table';
 
 export const CanvasPod: React.FC = () => {
-  const { openModal } = useModalDialogContext();
+  const { openModal, closeModal } = useModalDialogContext();
 
   const {
     canvasSchema,
     loadSchema,
     updateTablePosition,
     doFieldToggleCollapse,
+    updateFullTable,
   } = useCanvasSchemaContext();
   const { canvasViewSettings } = useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor } = canvasViewSettings;
@@ -44,12 +45,17 @@ export const CanvasPod: React.FC = () => {
     doFieldToggleCollapse(tableId, fieldId);
   };
 
+  const handleTableEditUpdate = (table: TableVm) => {
+    updateFullTable(table);
+    closeModal();
+  };
+
   const handleEditTable = (tableInfo: TableVm) => {
     openModal(
       <EditTablePod
         table={tableInfo}
         relations={canvasSchema.relations}
-        onSave={newTable => console.log(newTable)}
+        onSave={handleTableEditUpdate}
       />,
       true
     );
