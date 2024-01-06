@@ -1,9 +1,9 @@
+import { GenerateGUID } from '@/core/model';
 import {
   DatabaseSchemaVm,
-  GenerateGUID,
   RelationVm,
   TableVm,
-} from './canvas.vm';
+} from '@/core/providers/canvas-schema';
 
 const tagTableId = '1';
 const restaurantTableId = '2';

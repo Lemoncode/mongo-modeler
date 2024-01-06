@@ -1,5 +1,5 @@
 import { findField } from './canvas.business';
-import { FieldVm } from './canvas.vm';
+import { FieldVm } from '@/core/providers/canvas-schema';
 
 describe('findField', () => {
   it('returns undefined if the field does not match the id of an array of fields', () => {

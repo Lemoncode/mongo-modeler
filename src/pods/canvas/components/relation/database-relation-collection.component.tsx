@@ -1,6 +1,6 @@
 import React from 'react';
 import { Coords } from '@/core/model';
-import { DatabaseSchemaVm, RelationVm } from '../../canvas.vm';
+import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
 import DatabaseRelationshipComponent from './database-relation.component';
 import {
   calculateRelationXCoordinate,

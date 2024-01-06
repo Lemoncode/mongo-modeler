@@ -1,5 +1,5 @@
 import { GUID } from '@/core/model';
-import { FieldVm, TableVm } from '../../canvas.vm';
+import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
 import {
   COLLAPSE_ICON_X,
   FIELD_NAME_X_OFFSET,

@@ -1,9 +1,16 @@
 import React from 'react';
-import { TableVm, createDefaultTable } from '../canvas/canvas.vm';
+// TODO: we will enhance this, pending promote this values to Model
+import * as canvasVm from '@/core/providers/canvas-schema';
+import * as editTableVm from './edit-table.vm';
+import {
+  mapEditTableVmToTableVm,
+  mapTableVmToEditTableVm,
+} from './edit-table.mapper';
 
 interface Props {
-  table?: TableVm; // TODO: should we have our own Vm?
-  onSave: (table: TableVm) => void;
+  table?: canvasVm.TableVm; // TODO: should we have our own Vm?
+  relations: canvasVm.RelationVm[];
+  onSave: (table: canvasVm.TableVm) => void;
 }
 
 // Approach:
@@ -18,11 +25,15 @@ interface Props {
 // If it's a new table we will have to update X,Y coords to
 // something visible to the user
 export const EditTable: React.FC<Props> = props => {
-  const { table, onSave } = props;
-  const [editTable, _] = React.useState<TableVm>(table ?? createDefaultTable());
+  const { table, relations, onSave } = props;
+  const [editTable, _] = React.useState<editTableVm.TableVm>(
+    table
+      ? mapTableVmToEditTableVm(table, relations)
+      : editTableVm.createDefaultTable()
+  );
 
-  const handleSubmit = (table: TableVm) => {
-    onSave(table);
+  const handleSubmit = (table: editTableVm.TableVm) => {
+    onSave(mapEditTableVmToTableVm(table));
   };
 
   return (

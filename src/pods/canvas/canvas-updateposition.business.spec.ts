@@ -1,6 +1,10 @@
 import { Size } from '@/core/model';
 import { UpdateInfo, calculateTablePosition } from './canvas.business';
-import { DatabaseSchemaVm, RelationVm, TableVm } from './canvas.vm';
+import {
+  DatabaseSchemaVm,
+  RelationVm,
+  TableVm,
+} from '@/core/providers/canvas-schema';
 
 describe('calculateTablePosition', () => {
   it('updates the position of the specified table within canvas boundaries', () => {
@@ -36,7 +40,7 @@ describe('calculateTablePosition', () => {
             id: '1',
             name: 'id',
             type: 'number',
-            PK: true,
+            PK: false,
           },
           {
             id: '2',
@@ -84,7 +88,7 @@ describe('calculateTablePosition', () => {
               id: '1',
               name: 'id',
               type: 'number',
-              PK: true,
+              PK: false,
             },
             {
               id: '2',
@@ -205,7 +209,7 @@ describe('calculateTablePosition', () => {
               id: '1',
               name: 'id',
               type: 'number',
-              PK: true,
+              PK: false,
             },
             {
               id: '2',
@@ -259,7 +263,7 @@ describe('calculateTablePosition', () => {
             id: '1',
             name: 'id',
             type: 'number',
-            PK: true,
+            PK: false,
           },
           {
             id: '2',
@@ -327,7 +331,7 @@ describe('calculateTablePosition', () => {
               id: '1',
               name: 'id',
               type: 'number',
-              PK: true,
+              PK: false,
             },
             {
               id: '2',
@@ -381,7 +385,7 @@ describe('calculateTablePosition', () => {
             id: '1',
             name: 'id',
             type: 'number',
-            PK: true,
+            PK: false,
           },
           {
             id: '2',

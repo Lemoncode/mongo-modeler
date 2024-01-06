@@ -1,7 +1,7 @@
 // Importaciones necesarias
 import React from 'react';
 import { Coords, GUID, Size } from '@/core/model';
-import { FieldVm, TableVm } from '../../canvas.vm';
+import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
 import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import {
@@ -10,8 +10,6 @@ import {
   TABLE_WIDTH,
   HEADER_HEIGHT,
 } from './database-table.const';
-import { useModalDialogContext } from '@/core/providers';
-import { EditTable } from '@/pods/edit-table';
 import { DatabaseTableRow } from './database-table-row.component';
 
 interface Props {
@@ -23,10 +21,12 @@ interface Props {
     canvasSize: Size
   ) => void;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
+  onEditTable: (tableInfo: TableVm) => void;
 }
 
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
+  onEditTable,
   updatePosition,
   onToggleCollapse,
 }) => {
@@ -86,11 +86,9 @@ export const DatabaseTable: React.FC<Props> = ({
     updatePosition,
     totalHeight
   );
-  const { openModal } = useModalDialogContext();
+
   const handleDoubleClick = () => {
-    openModal(
-      <EditTable table={tableInfo} onSave={newTable => console.log(newTable)} />
-    );
+    onEditTable(tableInfo);
   };
   return (
     <g

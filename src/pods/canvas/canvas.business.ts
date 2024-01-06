@@ -1,5 +1,9 @@
 import { Coords, GUID, Size } from '@/core/model';
-import { DatabaseSchemaVm, FieldVm, TableVm } from './canvas.vm';
+import {
+  DatabaseSchemaVm,
+  FieldVm,
+  TableVm,
+} from '@/core/providers/canvas-schema';
 import {
   DEFAULT_TABLE_WIDTH,
   HEADER_HEIGHT,

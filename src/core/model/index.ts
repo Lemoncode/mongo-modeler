@@ -11,3 +11,7 @@ export interface Coords {
 }
 
 export type GUID = string;
+
+export const GenerateGUID = (): GUID => {
+  return crypto.randomUUID();
+};

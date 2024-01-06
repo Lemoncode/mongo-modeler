@@ -1,6 +1,6 @@
 import { GUID } from '@/core/model';
 
-import { TableVm } from './canvas.vm';
+import { TableVm } from '@/core/providers/canvas-schema';
 import {
   HEADER_HEIGHT,
   ROW_HEIGHT,

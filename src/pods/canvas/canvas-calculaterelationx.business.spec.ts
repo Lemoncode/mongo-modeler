@@ -3,7 +3,7 @@ import {
   calculateRelationXCoordinateEnd,
   calculateRelationXCoordinateOrigin,
 } from './canvas.business';
-import { TableVm } from './canvas.vm';
+import { TableVm } from '@/core/providers/canvas-schema';
 
 describe('calculateRelationXCoordinateOrigin', () => {
   it('Should returns xCoordinateOrigin + 300, if tableOrigin.x < tableDestination.x', () => {

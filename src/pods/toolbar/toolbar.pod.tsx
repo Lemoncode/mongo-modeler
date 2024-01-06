@@ -6,8 +6,10 @@ import { EditTable } from '@/pods/edit-table';
 import { useModalDialogContext } from '@/core/providers/modal-dialog-provider';
 import { CanvasSettingsComponent } from '../canvas-settings';
 import { Size } from '@/core/model';
+import { useCanvasSchemaContext } from '@/core/providers/canvas-schema';
 
 export const ToolbarPod: React.FC = () => {
+  const { canvasSchema } = useCanvasSchemaContext();
   const { zoomIn, zoomOut, canvasViewSettings, setCanvasSize } =
     useCanvasViewSettingsContext();
   const { openModal, closeModal } = useModalDialogContext();
@@ -17,6 +19,7 @@ export const ToolbarPod: React.FC = () => {
   const handleEditTableClick = () => {
     openModal(
       <EditTable
+        relations={canvasSchema.relations}
         onSave={table => {
           console.log(table);
         }}
