@@ -8,8 +8,8 @@ export const ModalDialog: React.FC = () => {
     closeModal();
   };
 
-  // TODO issue with modalDialog maximize and double scroll #52
-  // https://github.com/Lemoncode/mongo-modeler/pull/52/files
+  // TODO issue with modalDialog maximize and double scroll #53
+  // https://github.com/Lemoncode/mongo-modeler/issues/53
   return (
     modalDialog.isOpen && (
       <div
