@@ -12,7 +12,7 @@ import {
   TableVm,
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
-import { EditTable } from '../edit-table';
+import { EditTablePod } from '../edit-table';
 
 export const CanvasPod: React.FC = () => {
   const { openModal } = useModalDialogContext();
@@ -46,7 +46,7 @@ export const CanvasPod: React.FC = () => {
 
   const handleEditTable = (tableInfo: TableVm) => {
     openModal(
-      <EditTable
+      <EditTablePod
         table={tableInfo}
         relations={canvasSchema.relations}
         onSave={newTable => console.log(newTable)}

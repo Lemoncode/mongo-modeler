@@ -1,0 +1,50 @@
+.tableEditor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: auto auto auto 3fr 2fr;
+  gap: 10px;
+}
+
+.nestedGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fieldCell,
+.headerCell {
+  padding: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.headerCell {
+  background-color: #f2f2f2;
+}
+
+.expandCell {
+  width: 50px; /* Fix width for the expand cell */
+  text-align: center; /* Center the button in the cell */
+}
+
+.indent0 {
+  margin-left: 0;
+}
+.indent1 {
+  margin-left: 20px;
+}
+.indent2 {
+  margin-left: 40px;
+}
+.indent3 {
+  margin-left: 60px;
+}
+/* TODO: this solution is not ideal, we would need to add more indent levels */
+/* First quick and drity solution add 10 indent levels*/
+/* Second solution use react and apply dynamic style*/
