@@ -7,8 +7,6 @@ import {
   createDefaultDatabaseSchemaVm,
 } from './canvas-schema.model';
 import { Coords, GUID, Size } from '@/core/model';
-// TODO: Move this business functionallity and tests
-// from canvas to canvas-schema context
 import { findField, moveTableToTop } from './canvas.business';
 
 interface Props {
@@ -18,6 +16,8 @@ interface Props {
 export const CanvasSchemaProvider: React.FC<Props> = props => {
   const { children } = props;
   // TODO: consider moving all these to useReducer (discuss first if needed)
+  // #54 created to track this
+  // https://github.com/Lemoncode/mongo-modeler/issues/54
   const [canvasSchema, setSchema] = React.useState<DatabaseSchemaVm>(
     createDefaultDatabaseSchemaVm()
   );
