@@ -1,3 +1,5 @@
+export type FieldType = 'number' | 'string' | 'object' | 'objectId';
+
 export interface Size {
   width: number;
   height: number;
