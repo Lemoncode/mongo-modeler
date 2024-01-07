@@ -4,11 +4,13 @@
   left: 0;
   width: 100%;
   height: 100%;
+  overflow: auto; /* Shows scroll if the content exceeds the modal size */
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(16, 16, 16, 0.35);
 }
+
 .dialog {
   background-color: #ffffff;
   width: 80%;

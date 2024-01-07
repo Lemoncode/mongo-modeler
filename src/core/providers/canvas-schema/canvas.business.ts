@@ -1,10 +1,6 @@
 import { Coords, GUID, Size } from '@/core/model';
-import { DatabaseSchemaVm, FieldVm, TableVm } from './canvas.vm';
-import {
-  DEFAULT_TABLE_WIDTH,
-  HEADER_HEIGHT,
-  ROW_HEIGHT,
-} from './components/table/database-table.const';
+import { DatabaseSchemaVm, FieldVm, TableVm } from './canvas-schema.model';
+import { TABLE_CONST } from './canvas.const';
 
 export interface UpdateInfo {
   id: GUID;
@@ -27,7 +23,7 @@ export const calculateTablePosition = (
           0,
           Math.min(
             updateInfo.position.x,
-            canvasSize.width - DEFAULT_TABLE_WIDTH
+            canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH
           )
         ),
         y: Math.max(
@@ -81,7 +77,7 @@ export const calculateRelationXCoordinateOrigin = (
   tableDestination: TableVm
 ): number =>
   tableOrigin.x < tableDestination.x
-    ? tableOrigin.x + DEFAULT_TABLE_WIDTH
+    ? tableOrigin.x + TABLE_CONST.DEFAULT_TABLE_WIDTH
     : tableOrigin.x;
 
 export const calculateRelationXCoordinateEnd = (
@@ -89,7 +85,7 @@ export const calculateRelationXCoordinateEnd = (
   tableDestination: TableVm
 ): number =>
   tableDestination.x < tableOrigin.x
-    ? tableDestination.x + DEFAULT_TABLE_WIDTH
+    ? tableDestination.x + TABLE_CONST.DEFAULT_TABLE_WIDTH
     : tableDestination.x;
 
 export interface XRelationCoords {
@@ -126,7 +122,8 @@ const doesFieldContainsChildren = (field: FieldVm) =>
 const addFieldRowHeight = (
   YPosition: number,
   parentCollapsed: boolean
-): number => (!parentCollapsed ? YPosition + ROW_HEIGHT : YPosition);
+): number =>
+  !parentCollapsed ? YPosition + TABLE_CONST.ROW_HEIGHT : YPosition;
 
 const isParentCollapsedOrCurrentNodeCollapsed = (
   parentCollapsed: boolean,
@@ -181,13 +178,13 @@ export const calculateRelationYOffset = (
   fieldId: GUID,
   table: TableVm
 ): number => {
-  const initialYPosition = table.y + HEADER_HEIGHT;
+  const initialYPosition = table.y + TABLE_CONST.HEADER_HEIGHT;
   const result = seekField(
     fieldId,
     { found: false, YPosition: initialYPosition, parentCollapsed: false },
     table.fields
   );
-  const center = result.YPosition + ROW_HEIGHT / 2;
+  const center = result.YPosition + TABLE_CONST.ROW_HEIGHT / 2;
 
   return center;
 };

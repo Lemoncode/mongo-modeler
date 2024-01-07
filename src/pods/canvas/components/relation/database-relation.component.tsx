@@ -1,5 +1,5 @@
 import React from 'react';
-import { RelationType } from '../../canvas.vm';
+import { RelationType } from '@/core/providers/canvas-schema';
 import { Coords } from '@/core/model';
 
 interface DatabaseRelationshipProps {

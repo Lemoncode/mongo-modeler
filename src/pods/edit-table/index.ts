@@ -1,1 +1,1 @@
-export * from './edit-table.component';
+export * from './edit-table.pod';
