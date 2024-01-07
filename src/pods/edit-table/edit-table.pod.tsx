@@ -1,5 +1,4 @@
 import React from 'react';
-// TODO: we will enhance this, pending promote this values to Model
 import * as canvasVm from '@/core/providers/canvas-schema';
 import * as editTableVm from './edit-table.vm';
 import {
@@ -28,6 +27,9 @@ interface Props {
 // something visible to the user
 export const EditTablePod: React.FC<Props> = props => {
   const { table, relations, onSave } = props;
+  // TODO:
+  // #60
+  // https://github.com/Lemoncode/mongo-modeler/issues/60
   const [editTable, setEditTable] = React.useState<editTableVm.TableVm>(
     table
       ? mapTableVmToEditTableVm(table, relations)

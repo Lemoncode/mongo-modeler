@@ -33,6 +33,9 @@
   text-align: center; /* Center the button in the cell */
 }
 
+/* TODO: this solution is not ideal, we would need to add more indent levels */
+/* #59 */
+/* https://github.com/Lemoncode/mongo-modeler/issues/59 */
 .indent0 {
   margin-left: 0;
 }
@@ -45,6 +48,15 @@
 .indent3 {
   margin-left: 60px;
 }
-/* TODO: this solution is not ideal, we would need to add more indent levels */
-/* First quick and drity solution add 10 indent levels*/
-/* Second solution use react and apply dynamic style*/
+.indent4 {
+  margin-left: 80px;
+}
+.indent5 {
+  margin-left: 100px;
+}
+.indent6 {
+  margin-left: 120px;
+}
+.indent7 {
+  margin-left: 140px;
+}
