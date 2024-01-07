@@ -1,8 +1,7 @@
-// TableEditorComponent.tsx
 import React, { useState } from 'react';
 import classes from './edit-table.module.css';
 import { FieldVm, TableVm } from './edit-table.vm';
-import { NestedFieldGrid } from './components/nested-field-grid'; // Asegúrate de ajustar la ruta de importación
+import { NestedFieldGrid } from './components/nested-field-grid';
 
 interface Props {
   table: TableVm;

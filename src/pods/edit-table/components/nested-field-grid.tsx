@@ -43,7 +43,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
               {expandedFields.has(field.id) ? '▼' : '▶'}
             </button>
           ) : (
-            <div /> // Espacio vacío para mantener el ancho constante
+            <div /> // Empty div just to keep constant width
           )}
         </div>
         <div className={classes.fieldCell}>

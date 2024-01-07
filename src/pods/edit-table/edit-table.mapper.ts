@@ -64,6 +64,8 @@ const markFKFields = (
 // on the EditTable we need to keep it since we are enriching it
 // with the FKs (that's something calculated from the canvas relations)
 // TODO: Add unit tests supporting this mapper
+// #58
+//https://github.com/Lemoncode/mongo-modeler/issues/58
 export const mapTableVmToEditTableVm = (
   canvasTable: canvasModel.TableVm,
   relations: canvasModel.RelationVm[]

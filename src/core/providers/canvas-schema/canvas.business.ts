@@ -1,9 +1,5 @@
 import { Coords, GUID, Size } from '@/core/model';
-import {
-  DatabaseSchemaVm,
-  FieldVm,
-  TableVm,
-} from '@/core/providers/canvas-schema';
+import { DatabaseSchemaVm, FieldVm, TableVm } from './canvas-schema.model';
 import { TABLE_CONST } from './canvas.const';
 
 export interface UpdateInfo {
