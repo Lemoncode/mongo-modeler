@@ -61,6 +61,8 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     );
   };
 
+  // TODO: #57 created to track this
+  // https://github.com/Lemoncode/mongo-modeler/issues/57
   const doFieldToggleCollapse = (tableId: string, fieldId: GUID): void => {
     setSchema(currentSchema =>
       produce(currentSchema, draft => {
