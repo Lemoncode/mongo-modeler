@@ -24,6 +24,8 @@ export const ToolbarPod: React.FC = () => {
   const handleAddTable = (newTable: TableVm) => {
     // TODO: Calculate X,Y position based on canvas current view port, maybe we have
     // to keep this info in the settings or new context, then update newTable object X,Y position
+    // #62
+    // https://github.com/Lemoncode/mongo-modeler/issues/62
     addTable(newTable);
     closeModal();
   };
