@@ -30,7 +30,7 @@ export const EditButton = () => {
   return (
     <ToolbarButton
       icon={<Edit />}
-      label="Edit"
+      label="Add Table"
       onClick={handleEditTableClick}
       className={classes.button}
     />
