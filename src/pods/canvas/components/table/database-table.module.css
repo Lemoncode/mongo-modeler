@@ -1,24 +1,23 @@
-.tableContainer {
-  filter: drop-shadow(5px 4px 4px rgba(0, 0, 0, 0.5));
-}
 .tableText {
   font-family: 'Arial', sans-serif;
   font-size: 14px;
   cursor: pointer;
+  fill: var(--text-color);
 }
 
 .tableHeader {
-  fill: var(--primary-header);
+  fill: var(--highlight-color);
 }
 
 .table {
   fill: none;
+  stroke: var(--highlight-color);
 }
 
 .table__background {
-  fill: var(--primary-table);
+  fill: var(--secondary-background);
 }
 
 .tableTextRow {
-  fill: var(--primary-text);
+  fill: var(--text-color);
 }

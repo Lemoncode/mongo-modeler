@@ -28,21 +28,21 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
           y1={forkCoords.y}
           x2={forkCoords.x + FORK_WIDTH * direction}
           y2={forkCoords.y}
-          stroke="white"
+          stroke="#ffae42"
         />
         <line
           x1={forkCoords.x}
           y1={forkCoords.y}
           x2={forkCoords.x + FORK_WIDTH * direction}
           y2={forkCoords.y - FORK_LINE_SPACING}
-          stroke="white"
+          stroke="#ffae42"
         />
         <line
           x1={forkCoords.x}
           y1={forkCoords.y}
           x2={forkCoords.x + FORK_WIDTH * direction}
           y2={forkCoords.y + FORK_LINE_SPACING}
-          stroke="white"
+          stroke="#ffae42"
         />
       </g>
     );
@@ -70,7 +70,7 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
         x2={destinationXMinusFork}
         y2={endCoords.y}
         strokeWidth={2}
-        stroke="white"
+        stroke="#ffae42"
       />
 
       {/* Draw the fork */}
