@@ -11,18 +11,20 @@
 }
 
 .dialog {
-  background-color: #ffffff;
+  background-color: var(--primary-background);
+  color: var(--text-color);
   width: 80%;
   height: 80%;
   overflow: scroll;
   padding: 2rem;
-  border-radius: var(--element-radius);
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
 .dialog-button {
+  background-color: var(--primary-background);
+  color: var(--text-color);
   position: absolute;
   top: 0;
   right: 0;
