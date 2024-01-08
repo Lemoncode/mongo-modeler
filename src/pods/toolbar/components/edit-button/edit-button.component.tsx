@@ -24,8 +24,7 @@ export const EditButton = () => {
       <EditTablePod
         relations={canvasSchema.relations}
         onSave={handleAddTable}
-      />,
-      true
+      />
     );
   };
   return (
