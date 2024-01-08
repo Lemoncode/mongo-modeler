@@ -74,7 +74,7 @@ export const EditTablePod: React.FC<Props> = props => {
 
   return (
     <div>
-      <p>Edit table</p>
+      <h2>Edit table</h2>
       <p>Table name: {editTable?.tableName}</p>
       <EditTableComponent
         table={editTable}

@@ -35,8 +35,7 @@ export const ToolbarPod: React.FC = () => {
       <EditTablePod
         relations={canvasSchema.relations}
         onSave={handleAddTable}
-      />,
-      true
+      />
     );
   };
 
