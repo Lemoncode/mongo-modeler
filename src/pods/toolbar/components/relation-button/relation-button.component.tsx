@@ -13,7 +13,7 @@ export const RelationButton = () => {
   return (
     <ToolbarButton
       icon={<Relation />}
-      label="Relation"
+      label="Add Relation"
       onClick={handleRelationClick}
       className={classes.button}
     />
