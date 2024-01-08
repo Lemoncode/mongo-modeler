@@ -1,24 +1,23 @@
 #root {
   margin: 0 auto;
-  text-align: center; 
+  text-align: center;
 }
 .light {
-  --primary-background: #F1F5F9;        
-  --secondary-background: #FEFDFE;      
-  --accent-color: #e367f4;             
-  --highlight-color: #E6EAF2;          
-  --primary-toolbar: #FEFDFE; 
-  --text-color:#202020;
+  --primary-background: #f1f5f9;
+  --secondary-background: #fefdfe;
+  --accent-color: #e367f4;
+  --highlight-color: #e6eaf2;
+  --primary-toolbar: #fefdfe;
+  --text-color: #202020;
 }
 .dark {
-  --primary-background:#2E263E;
-  --secondary-background:#342C44;
-  --accent-color:#6ff1d9;
-  --highlight-color: #4B485B;
-  --primary-toolbar:#342C44;
-  --text-color:#D1D6E1;
+  --primary-background: #2e263e;
+  --secondary-background: #342c44;
+  --accent-color: #00e5ff;
+  --highlight-color: #4d425f;
+  --primary-toolbar: #342c44;
+  --text-color: #d1d6e1;
 }
-
 
 .logo {
   height: 6em;

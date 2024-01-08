@@ -6,7 +6,7 @@
 }
 
 .tableHeader {
-  fill: var(--secondary-background); 
+  fill: var(--highlight-color);
 }
 
 .table {
