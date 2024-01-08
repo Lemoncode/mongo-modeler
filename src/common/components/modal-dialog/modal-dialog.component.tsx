@@ -8,15 +8,9 @@ export const ModalDialog: React.FC = () => {
     closeModal();
   };
 
-  // TODO issue with modalDialog maximize and double scroll #53
-  // https://github.com/Lemoncode/mongo-modeler/issues/53
   return (
     modalDialog.isOpen && (
-      <div
-        className={styles.container}
-        style={modalDialog.maximize ? { width: '90%', height: '90%' } : {}}
-        role="presentation"
-      >
+      <div className={styles.container} role="presentation">
         <div className={styles.dialog} role="dialog">
           <button className={styles.dialogButton} onClick={handleClick}>
             <svg

@@ -56,8 +56,7 @@ export const CanvasPod: React.FC = () => {
         table={tableInfo}
         relations={canvasSchema.relations}
         onSave={handleTableEditUpdate}
-      />,
-      true
+      />
     );
   };
 
