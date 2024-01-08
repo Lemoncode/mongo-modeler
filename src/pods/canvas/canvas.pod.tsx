@@ -1,18 +1,38 @@
 import React from 'react';
-import { produce } from 'immer';
-import { useCanvasViewSettingsContext } from '@/core/providers';
-import { Coords, GUID, Size } from '@/core/model';
+import {
+  useCanvasViewSettingsContext,
+  useModalDialogContext,
+} from '@/core/providers';
+import { GUID, Size } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
 import { DatabaseTable } from './components/table/database-table.component';
-import { calculateTablePosition, findField } from './canvas.business';
 import classes from './canvas.pod.module.css';
-
+import { DatabaseRelationCollectionComponent } from './components/relation';
+import {
+  TableVm,
+  useCanvasSchemaContext,
+} from '@/core/providers/canvas-schema';
+import { EditTablePod } from '../edit-table';
 
 export const CanvasPod: React.FC = () => {
-  const [schema, setSchema] = React.useState(() => mockSchema);
+  const { openModal, closeModal } = useModalDialogContext();
+
+  const {
+    canvasSchema,
+    loadSchema,
+    updateTablePosition,
+    doFieldToggleCollapse,
+    updateFullTable,
+  } = useCanvasSchemaContext();
   const { canvasViewSettings } = useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor } = canvasViewSettings;
-  
+
+  // TODO: This is temporary code, once we get load and save
+  // we won't need to load this mock data
+  React.useEffect(() => {
+    loadSchema(mockSchema);
+  }, []);
+
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
@@ -21,32 +41,23 @@ export const CanvasPod: React.FC = () => {
     [zoomFactor, canvasSize]
   );
 
-  const updateTablePosition = (
-    id: string,
-    position: Coords,
-    totalHeight: number,
-    canvasSize: Size
-  ) => {
-    setSchema(prevSchema =>
-      calculateTablePosition(
-        prevSchema,
-        { id, position, totalHeight },
-        canvasSize
-      )
-    );
+  const handleToggleCollapse = (tableId: string, fieldId: GUID) => {
+    doFieldToggleCollapse(tableId, fieldId);
   };
 
-  const handleToggleCollapse = (tableId: string, fieldId: GUID) => {
-    setSchema(currentSchema =>
-      produce(currentSchema, draft => {
-        const table = draft.tables.find(t => t.id === tableId);
-        if (table) {
-          const field = findField(table.fields, fieldId);
-          if (field) {
-            field.isCollapsed = !field.isCollapsed;
-          }
-        }
-      })
+  const handleTableEditUpdate = (table: TableVm) => {
+    updateFullTable(table);
+    closeModal();
+  };
+
+  const handleEditTable = (tableInfo: TableVm) => {
+    openModal(
+      <EditTablePod
+        table={tableInfo}
+        relations={canvasSchema.relations}
+        onSave={handleTableEditUpdate}
+      />,
+      true
     );
   };
 
@@ -60,15 +71,16 @@ export const CanvasPod: React.FC = () => {
           width={canvasSize.width}
           height={canvasSize.height}
         >
-          {schema.tables.map(table => (
+          {canvasSchema.tables.map(table => (
             <DatabaseTable
               key={table.id}
               tableInfo={table}
               updatePosition={updateTablePosition}
               onToggleCollapse={handleToggleCollapse}
+              onEditTable={handleEditTable}
             />
           ))}
-          );
+          <DatabaseRelationCollectionComponent schema={canvasSchema} />
         </svg>
       </div>
     </div>

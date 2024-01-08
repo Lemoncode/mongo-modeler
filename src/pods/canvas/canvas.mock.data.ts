@@ -1,14 +1,17 @@
+import { GenerateGUID } from '@/core/model';
 import {
   DatabaseSchemaVm,
-  GenerateGUID,
   RelationVm,
   TableVm,
-} from './canvas.vm';
+} from '@/core/providers/canvas-schema';
 
 const tagTableId = '1';
 const restaurantTableId = '2';
 const tagFieldId = GenerateGUID();
+const restauranteNameFieldGUID = GenerateGUID();
 const restaurantTagFieldGUID = GenerateGUID();
+
+const restaurantIdField = GenerateGUID();
 
 const mockRelations: RelationVm[] = [
   {
@@ -30,12 +33,14 @@ const mockTables: TableVm[] = [
       {
         id: tagFieldId,
         name: 'id',
+        PK: true,
         type: 'number',
       },
       {
-        id: GenerateGUID(),
+        id: restauranteNameFieldGUID,
         name: 'name',
         type: 'string',
+        PK: false,
       },
     ],
   },
@@ -46,49 +51,58 @@ const mockTables: TableVm[] = [
     tableName: 'Restaurant',
     fields: [
       {
-        id: GenerateGUID(),
+        id: restaurantIdField,
         name: 'id',
         type: 'number',
+        PK: false,
       },
       {
         id: GenerateGUID(),
         name: 'name',
         type: 'string',
+        PK: false,
       },
       {
         id: GenerateGUID(),
         name: 'menu',
         type: 'object',
+        PK: false,
         children: [
           {
             id: GenerateGUID(),
             name: 'id',
             type: 'number',
+            PK: false,
           },
           {
             id: GenerateGUID(),
             name: 'category',
             type: 'string',
+            PK: false,
           },
           {
             id: GenerateGUID(),
             name: 'dishes',
             type: 'object',
+            PK: false,
             children: [
               {
                 id: GenerateGUID(),
                 name: 'id',
                 type: 'number',
+                PK: false,
               },
               {
                 id: GenerateGUID(),
                 name: 'name',
                 type: 'string',
+                PK: false,
               },
               {
                 id: GenerateGUID(),
                 name: 'price',
                 type: 'number',
+                PK: false,
               },
             ],
           },
@@ -98,31 +112,37 @@ const mockTables: TableVm[] = [
         id: restaurantTagFieldGUID,
         name: 'tags',
         type: 'number',
+        PK: false,
       },
       {
         id: GenerateGUID(),
         name: 'address',
         type: 'object',
+        PK: false,
         children: [
           {
             id: GenerateGUID(),
             name: 'street',
             type: 'string',
+            PK: false,
           },
           {
             id: GenerateGUID(),
             name: 'city',
             type: 'string',
+            PK: false,
           },
           {
             id: GenerateGUID(),
             name: 'state',
             type: 'string',
+            PK: false,
           },
           {
             id: GenerateGUID(),
             name: 'zip',
             type: 'number',
+            PK: false,
           },
         ],
       },
