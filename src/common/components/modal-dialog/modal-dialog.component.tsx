@@ -8,6 +8,15 @@ export const ModalDialog: React.FC = () => {
     closeModal();
   };
 
+  React.useEffect(() => {
+    if (modalDialog.isOpen) {
+      document.body.classList.add('overflow-hidden');
+    }
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [modalDialog.isOpen]);
+
   return (
     modalDialog.isOpen && (
       <div className={styles.container} role="presentation">
