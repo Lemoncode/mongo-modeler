@@ -7,6 +7,7 @@ import {
 } from './edit-table.mapper';
 import { EditTableComponent } from './edit-table.component';
 import { produce } from 'immer';
+import { GUID } from '@/core/model';
 
 interface Props {
   table?: canvasVm.TableVm; // TODO: should we have our own Vm?
@@ -72,11 +73,20 @@ export const EditTablePod: React.FC<Props> = props => {
     );
   };
 
+  const onDeleteField = (fieldId: GUID) => {
+    // TODO:
+    // We have to do a recursive search in the fields
+    // once found remove that field form the current parent array
+    // We can use immer for this
+    console.log(fieldId);
+  };
+
   return (
     <>
       <EditTableComponent
         table={editTable}
         updateFieldValue={updateFieldValue}
+        onDeleteField={onDeleteField}
       />
       <button onClick={() => handleSubmit(editTable)}>Apply</button>
     </>
