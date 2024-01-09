@@ -85,7 +85,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           </select>
         </div>
         <div className={classes.fieldCell}>
-          <RemoveIcon />
+          <RemoveIcon onClick={() => onDeleteField(field.id)} />
         </div>
       </div>
       {field.children && expandedFields.has(field.id) && (
