@@ -8,6 +8,7 @@ import {
 } from './canvas-schema.model';
 import { Coords, GUID, Size } from '@/core/model';
 import { findField, moveTableToTop } from './canvas.business';
+import { updateTable } from './canvas-schema.business';
 
 interface Props {
   children: React.ReactNode;
@@ -27,17 +28,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   };
 
   const updateFullTable = (table: TableVm) => {
-    // TODO: move this to index and add unit tests support
-    // #55 created to track this
-    // https://github.com/Lemoncode/mongo-modeler/issues/55
-    setSchema(prevSchema =>
-      produce(prevSchema, draft => {
-        const tableIndex = draft.tables.findIndex(t => t.id === table.id);
-        if (tableIndex !== -1) {
-          draft.tables[tableIndex] = table;
-        }
-      })
-    );
+    setSchema(prevSchema => updateTable(table, prevSchema));
   };
 
   // TODO: #56 created to track this
