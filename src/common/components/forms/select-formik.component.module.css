@@ -9,35 +9,45 @@
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
-  cursor: pointer;
 }
 
 .options {
+  text-align: left;
   list-style: none;
   padding: 0;
   margin: 0;
   display: none;
   position: absolute;
+  z-index: 3;
   top: 100%;
   left: 0;
   width: 100%;
   border: 1px solid #ccc;
   border-top: none;
 }
-
-.options > li {
+.container > ul {
   padding: 8px;
-  font-size: 16px;
-  cursor: pointer;
 }
+.options > li {
+  font-size: 16px;
+  color: grey;
+}
+
 .options * > ul {
   list-style: none;
+  padding-left: 20px;
 }
 
-/* .options > li:hover {
-      background-color: #f0f0f0;
-    } */
-
+.options label {
+  cursor: pointer;
+  color: var(--text-color);
+}
 .options input[type='radio'] {
-  margin-right: 8px;
+  width: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.container {
+  position: relative;
 }

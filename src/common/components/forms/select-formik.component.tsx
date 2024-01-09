@@ -64,20 +64,24 @@ export const SelectFormik: React.FC<SelectFormikProps> = props => {
           <>
             <span>{option.label}</span>
             <ul>
-              {generateOptions(
-                option.children,
-                `${parentPath} > ${option.label}`
-              )}
+              {parentPath
+                ? generateOptions(
+                    option.children,
+                    `${parentPath} > ${option.label}`
+                  )
+                : generateOptions(option.children, `${option.label}`)}
             </ul>
           </>
         ) : (
           <>
-            <input
-              type="radio"
-              name="nestedRadio"
-              onClick={() => handleOptionClick(option, parentPath)}
-            />
-            <span>{option.label}</span>
+            <label>
+              <input
+                type="radio"
+                name="nestedRadio"
+                onClick={() => handleOptionClick(option, parentPath)}
+              />
+              {option.label}
+            </label>
           </>
         )}
       </li>
@@ -85,7 +89,7 @@ export const SelectFormik: React.FC<SelectFormikProps> = props => {
   };
 
   return (
-    <div>
+    <div className={classes.container}>
       <p>{label}</p>
       <div
         className={classes.customSelect}
@@ -94,13 +98,13 @@ export const SelectFormik: React.FC<SelectFormikProps> = props => {
         <div className={classes.selectedOption}>
           {selectedPath || 'Selecciona una opción'}
         </div>
-        <ul
-          className={classes.options}
-          style={{ display: optionsListVisible ? 'block' : 'none' }}
-        >
-          {generateOptions(options)}
-        </ul>
       </div>
+      <ul
+        className={classes.options}
+        style={{ display: optionsListVisible ? 'block' : 'none' }}
+      >
+        {generateOptions(options)}
+      </ul>
     </div>
   );
 };
