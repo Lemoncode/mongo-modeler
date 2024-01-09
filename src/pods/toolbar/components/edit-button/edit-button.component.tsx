@@ -7,6 +7,7 @@ import {
   TableVm,
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
+import { EDDIT_TABLE_TITLE } from '@/core/providers/modal-dialog-provider/modal-dialog.model';
 
 export const EditButton = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -24,7 +25,9 @@ export const EditButton = () => {
       <EditTablePod
         relations={canvasSchema.relations}
         onSave={handleAddTable}
-      />
+      />,
+      EDDIT_TABLE_TITLE,
+      'New Table'
     );
   };
   return (

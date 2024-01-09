@@ -73,14 +73,12 @@ export const EditTablePod: React.FC<Props> = props => {
   };
 
   return (
-    <div>
-      <h2>Edit table</h2>
-      <p>Table name: {editTable?.tableName}</p>
+    <>
       <EditTableComponent
         table={editTable}
         updateFieldValue={updateFieldValue}
       />
       <button onClick={() => handleSubmit(editTable)}>Apply</button>
-    </div>
+    </>
   );
 };

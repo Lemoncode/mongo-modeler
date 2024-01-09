@@ -13,6 +13,7 @@ import {
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
 import { EditTablePod } from '../edit-table';
+import { EDDIT_TABLE_TITLE } from '@/core/providers/modal-dialog-provider/modal-dialog.model';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -56,7 +57,9 @@ export const CanvasPod: React.FC = () => {
         table={tableInfo}
         relations={canvasSchema.relations}
         onSave={handleTableEditUpdate}
-      />
+      />,
+      EDDIT_TABLE_TITLE,
+      tableInfo.tableName
     );
   };
 

@@ -16,18 +16,36 @@
   width: 80%;
   height: 80%;
   overflow: scroll;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
 }
-
+.dialog-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background-color: var(--accent-color);
+  padding: 0.2rem 0.5rem 0.2rem 1rem;
+  color: black;
+}
+.dialog-header span {
+  margin: 0;
+}
+.dialog-title {
+  margin: 0;
+  font-weight: normal;
+  font-size: 18px;
+}
+.dialog-subtitle {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+}
 .dialog-button {
-  background-color: var(--primary-background);
-  color: var(--text-color);
-  position: absolute;
-  top: 0;
-  right: 0;
+  width: fit-content;
+  margin-left: auto;
+  background-color: transparent;
+  color: black;
   padding: 0.5rem;
   line-height: 0;
+}
+.dialog-component {
+  padding: 2rem;
 }

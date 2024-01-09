@@ -5,6 +5,7 @@ import { Size } from '@/core/model';
 import { ToolbarButton } from '../toolbar-button';
 import { CanvasSetting } from '@/common/components/icons';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { CANVAS_SETTINGS_TITLE } from '@/core/providers/modal-dialog-provider/modal-dialog.model';
 
 export const CanvasSettingButton = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -21,7 +22,8 @@ export const CanvasSettingButton = () => {
       <CanvasSettingsComponent
         size={canvasViewSettings.canvasSize}
         onChangeSize={handleChangeSettings}
-      />
+      />,
+      CANVAS_SETTINGS_TITLE
     );
   };
 
