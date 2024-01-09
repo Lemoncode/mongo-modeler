@@ -19,7 +19,6 @@ export const CanvasSettingsComponent: React.FC<Props> = props => {
 
   return (
     <div className={classes.center}>
-      <h2>Canvas Settings</h2>
       <Formik
         onSubmit={handleSubmitSize}
         initialValues={size}
