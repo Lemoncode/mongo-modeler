@@ -1,11 +1,11 @@
-import { useModalDialogContext } from '@/core/providers';
+import { useModalDialogContext } from '@/core/providers/modal-dialog-provider';
 import { useCanvasViewSettingsContext } from '@/core/providers/canvas-view-settings';
 import { CanvasSettingsComponent } from '@/pods/canvas-settings';
 import { Size } from '@/core/model';
 import { ToolbarButton } from '../toolbar-button';
 import { CanvasSetting } from '@/common/components/icons';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
-import { CANVAS_SETTINGS_TITLE } from '@/core/providers/modal-dialog-provider/modal-dialog.model';
+import { CANVAS_SETTINGS_TITLE } from '@/common/components/modal-dialog';
 
 export const CanvasSettingButton = () => {
   const { openModal, closeModal } = useModalDialogContext();

@@ -2,7 +2,6 @@ import React from 'react';
 import { ModalDialogContext } from './modal-dialog.context';
 import {
   ModalDialogModel,
-  TitleList,
   createInitialModalDialog,
 } from './modal-dialog.model';
 
@@ -18,7 +17,7 @@ export const ModalDialogProvider: React.FC<Props> = props => {
 
   const openModal = (
     component: React.ReactNode | null,
-    title: TitleList,
+    title: string,
     subtitle?: string
   ) => {
     setModalDialog({

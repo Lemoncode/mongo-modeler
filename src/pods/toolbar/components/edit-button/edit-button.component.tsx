@@ -7,7 +7,7 @@ import {
   TableVm,
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
-import { EDDIT_TABLE_TITLE } from '@/core/providers/modal-dialog-provider/modal-dialog.model';
+import { EDDIT_TABLE_TITLE } from '@/common/components/modal-dialog';
 
 export const EditButton = () => {
   const { openModal, closeModal } = useModalDialogContext();

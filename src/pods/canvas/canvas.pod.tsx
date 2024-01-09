@@ -13,7 +13,7 @@ import {
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
 import { EditTablePod } from '../edit-table';
-import { EDDIT_TABLE_TITLE } from '@/core/providers/modal-dialog-provider/modal-dialog.model';
+import { EDDIT_TABLE_TITLE } from '@/common/components/modal-dialog';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal } = useModalDialogContext();
