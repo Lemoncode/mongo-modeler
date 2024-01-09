@@ -28,9 +28,6 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   };
 
   const updateFullTable = (table: TableVm) => {
-    // TODO: move this to index and add unit tests support
-    // #55 created to track this
-    // https://github.com/Lemoncode/mongo-modeler/issues/55
     setSchema(prevSchema => updateTable(table, prevSchema));
   };
 
