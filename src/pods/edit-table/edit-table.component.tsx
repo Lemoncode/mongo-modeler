@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import classes from './edit-table.module.css';
 import { FieldVm, TableVm } from './edit-table.vm';
 import { NestedFieldGrid } from './components/nested-field-grid';
+import { GUID } from '@/core/model';
 
 interface Props {
   table: TableVm;
@@ -10,10 +11,11 @@ interface Props {
     id: K,
     value: FieldVm[K]
   ) => void;
+  onDeleteField: (fieldId: GUID) => void;
 }
 
 export const EditTableComponent: React.FC<Props> = props => {
-  const { table, updateFieldValue } = props;
+  const { table, updateFieldValue, onDeleteField } = props;
   const [expandedFields, setExpandedFields] = useState<Set<string>>(new Set());
 
   const toggleExpand = (fieldId: string) => {
@@ -36,6 +38,7 @@ export const EditTableComponent: React.FC<Props> = props => {
         expandedFields={expandedFields}
         toggleExpand={toggleExpand}
         updateFieldValue={updateFieldValue}
+        onDeleteField={onDeleteField}
       />
     </div>
   );

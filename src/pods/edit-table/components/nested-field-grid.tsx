@@ -1,7 +1,8 @@
 import React from 'react';
 import classes from '../edit-table.module.css';
-import { FieldType } from '@/core/model';
+import { FieldType, GUID } from '@/core/model';
 import { FieldVm } from '../edit-table.vm';
+import { RemoveIcon } from '@/common/components/icons/remove-icon.component';
 
 interface NestedFieldGridProps {
   fields: FieldVm[];
@@ -13,6 +14,7 @@ interface NestedFieldGridProps {
     id: K,
     value: FieldVm[K]
   ) => void;
+  onDeleteField: (fieldId: GUID) => void;
 }
 
 export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
@@ -21,6 +23,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   expandedFields,
   toggleExpand,
   updateFieldValue,
+  onDeleteField,
 }) => {
   const renderFieldHeaders = () => (
     <div className={`${classes.fieldRow} ${classes[`indent${level}`]}`}>
@@ -31,6 +34,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
       <div className={classes.headerCell}>FK</div>
       <div className={classes.headerCell}>Name</div>
       <div className={classes.headerCell}>Type</div>
+      <div className={classes.headerCell}>Actions</div>
     </div>
   );
 
@@ -80,6 +84,9 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             <option value="object">object</option>
           </select>
         </div>
+        <div className={classes.fieldCell}>
+          <RemoveIcon onClick={() => onDeleteField(field.id)} />
+        </div>
       </div>
       {field.children && expandedFields.has(field.id) && (
         <NestedFieldGrid
@@ -88,6 +95,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           expandedFields={expandedFields}
           toggleExpand={toggleExpand}
           updateFieldValue={updateFieldValue}
+          onDeleteField={onDeleteField}
         />
       )}
     </React.Fragment>

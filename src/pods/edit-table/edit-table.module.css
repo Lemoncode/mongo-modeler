@@ -7,14 +7,14 @@
 
 .fieldRow {
   display: grid;
-  grid-template-columns: auto auto auto 3fr 2fr;
-  gap: 10px;
+  grid-template-columns: auto auto auto 3fr 2fr 100px;
+  gap: 0px;
 }
 
 .nestedGrid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0px;
 }
 
 .fieldCell,
