@@ -33,12 +33,3 @@ export type TitleList =
   | typeof CANVAS_SETTINGS_TITLE
   | typeof EDDIT_TABLE_TITLE
   | typeof EDDIT_RELATION_TITLE;
-
-// export interface TitleList {
-//   noTitle: string;
-//   canvas: typeof CANVAS_SETTINGS_TITLE;
-// }
-// export const titleList = {
-//   noTitle: '',
-//   canvas: CANVAS_SETTINGS_TITLE,
-// };
