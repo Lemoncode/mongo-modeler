@@ -1,7 +1,11 @@
 import React from 'react';
-import { useField } from 'formik';
-import classes from './input-formik.component.module.css';
-import { DatabaseSchemaVm } from '@/core/providers/canvas-schema';
+import { GUID } from '@/core/model';
+import classes from './select-formik.component.module.css';
+export interface OptionVm {
+  id: GUID;
+  label: string;
+  children?: OptionVm[];
+}
 
 // We inherit HTML input props and add an optional label prop
 interface SelectFormikProps
@@ -9,14 +13,14 @@ interface SelectFormikProps
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
-  data: DatabaseSchemaVm;
+  options: OptionVm[];
   label?: string;
 }
 
 // Input props, we got this value by double clicking on a input element
 // and going to definition (d.ts)
 export const SelectFormik: React.FC<SelectFormikProps> = props => {
-  const { label, data } = props;
+  const { label, options } = props;
   //   // useField allows us to extract all formik metadata about that field
   //   const [field, meta] = useField(props.name ?? '');
   //   // If the field doesn't exist then treat this as a normal input
@@ -45,7 +49,7 @@ export const SelectFormik: React.FC<SelectFormikProps> = props => {
   const [selectedPath, setSelectedPath] = React.useState('');
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
 
-  const handleOptionClick = (option, parentPath) => {
+  const handleOptionClick = (option: OptionVm, parentPath: string) => {
     const currentPath = parentPath
       ? `${parentPath} > ${option.label}`
       : option.label;
@@ -53,7 +57,7 @@ export const SelectFormik: React.FC<SelectFormikProps> = props => {
     setOptionsListVisible(false);
   };
 
-  const generateOptions = (options, parentPath = '') => {
+  const generateOptions = (options: OptionVm[], parentPath = '') => {
     return options.map(option => (
       <li key={option.id}>
         {option.children && option.children.length > 0 ? (
@@ -84,17 +88,17 @@ export const SelectFormik: React.FC<SelectFormikProps> = props => {
     <div>
       <p>{label}</p>
       <div
-        className="custom-select"
+        className={classes.customSelect}
         onClick={() => setOptionsListVisible(!optionsListVisible)}
       >
-        <div className="selected-option">
+        <div className={classes.selectedOption}>
           {selectedPath || 'Selecciona una opción'}
         </div>
         <ul
-          className="options"
+          className={classes.options}
           style={{ display: optionsListVisible ? 'block' : 'none' }}
         >
-          {generateOptions(data)}
+          {generateOptions(options)}
         </ul>
       </div>
     </div>
