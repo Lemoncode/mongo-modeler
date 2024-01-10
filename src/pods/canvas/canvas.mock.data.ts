@@ -84,6 +84,7 @@ const mockTables: TableVm[] = [
             id: GenerateGUID(),
             name: 'dishes',
             type: 'object',
+            isArray: true,
             PK: false,
             children: [
               {
@@ -112,6 +113,7 @@ const mockTables: TableVm[] = [
         id: restaurantTagFieldGUID,
         name: 'tags',
         type: 'number',
+        isArray: true,
         PK: false,
       },
       {

@@ -44,6 +44,7 @@ export const DatabaseTableRow: React.FC<Props> = props => {
         className={classes.tableTextRow}
       >
         {field.type}
+        {field.isArray ? `[]` : null}
       </text>
     </g>
   );
