@@ -7,7 +7,7 @@
 
 .fieldRow {
   display: grid;
-  grid-template-columns: auto auto auto 3fr 2fr 100px;
+  grid-template-columns: auto auto auto 3fr 2fr 250px;
   gap: 0px;
 }
 
@@ -22,6 +22,13 @@
   padding: 5px;
   border: 1px solid #ccc;
   text-align: center;
+}
+
+.commands-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 .headerCell {

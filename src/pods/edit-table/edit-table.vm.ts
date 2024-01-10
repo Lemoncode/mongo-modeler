@@ -13,6 +13,14 @@ export interface FieldVm {
   isCollapsed?: boolean;
 }
 
+export const createDefaultField = (): FieldVm => ({
+  id: GenerateGUID(),
+  PK: false,
+  FK: false,
+  name: 'newField',
+  type: 'string',
+});
+
 export interface TableVm {
   id: string;
   fields: FieldVm[];

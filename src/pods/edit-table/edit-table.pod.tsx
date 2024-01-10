@@ -78,12 +78,48 @@ export const EditTablePod: React.FC<Props> = props => {
     setEditTable(currentTable => removeField(currentTable, fieldId));
   };
 
+  const onAddField = (fieldId: GUID, isChildren: boolean) => {
+    setEditTable(currentTable =>
+      produce(currentTable, draftTable => {
+        const findAndAddField = (fields: editTableVm.FieldVm[]): boolean => {
+          const fieldIndex = fields.findIndex(f => f.id === fieldId);
+          if (fieldIndex != -1) {
+            if (isChildren) {
+              fields[fieldIndex].children = fields[fieldIndex].children || [];
+              fields[fieldIndex]?.children?.unshift(
+                editTableVm.createDefaultField()
+              );
+            } else {
+              fields.splice(
+                fieldIndex + 1,
+                0,
+                editTableVm.createDefaultField()
+              );
+            }
+            return true; // Field found and updated
+          }
+          // Recursively search in nested fields
+          for (const field of fields) {
+            if (field.children && findAndAddField(field.children)) {
+              return true; // Field found and updated in nested field
+            }
+          }
+
+          return false; // Field not found
+        };
+
+        findAndAddField(draftTable.fields);
+      })
+    );
+  };
+
   return (
     <>
       <EditTableComponent
         table={editTable}
         updateFieldValue={updateFieldValue}
         onDeleteField={onDeleteField}
+        onAddField={onAddField}
       />
       <button onClick={() => handleSubmit(editTable)}>Apply</button>
     </>

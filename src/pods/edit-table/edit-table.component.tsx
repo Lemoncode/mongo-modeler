@@ -12,11 +12,22 @@ interface Props {
     value: FieldVm[K]
   ) => void;
   onDeleteField: (fieldId: GUID) => void;
+  onAddField: (fieldId: GUID, isChildren: boolean) => void;
 }
 
 export const EditTableComponent: React.FC<Props> = props => {
-  const { table, updateFieldValue, onDeleteField } = props;
+  const { table, updateFieldValue, onDeleteField, onAddField } = props;
   const [expandedFields, setExpandedFields] = useState<Set<string>>(new Set());
+
+  const expandField = (fieldId: string) => {
+    setExpandedFields(prev => {
+      const newExpanded = new Set(prev);
+      if (!newExpanded.has(fieldId)) {
+        newExpanded.add(fieldId);
+      }
+      return newExpanded;
+    });
+  };
 
   const toggleExpand = (fieldId: string) => {
     setExpandedFields(prev => {
@@ -37,8 +48,10 @@ export const EditTableComponent: React.FC<Props> = props => {
         level={0}
         expandedFields={expandedFields}
         toggleExpand={toggleExpand}
+        expandField={expandField}
         updateFieldValue={updateFieldValue}
         onDeleteField={onDeleteField}
+        onAddField={onAddField}
       />
     </div>
   );
