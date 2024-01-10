@@ -5,20 +5,13 @@ import { ExpandDown } from '../icons/expand-down-icon.component';
 import { OptionVm } from './table-picker.model';
 import { GUID } from '@/core/model';
 
-// We inherit HTML input props and add an optional label prop
-interface Props
-  extends React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {
+interface Props {
   options: OptionVm[];
   label?: string;
   selectedKeyFieldId?: GUID;
   onKeySelected: (fieldId: GUID) => void;
 }
 
-// Input props, we got this value by double clicking on a input element
-// and going to definition (d.ts)
 export const TablePkPicker: React.FC<Props> = props => {
   const { label, options, onKeySelected, selectedKeyFieldId } = props;
 
@@ -42,23 +35,24 @@ export const TablePkPicker: React.FC<Props> = props => {
   };
 
   return (
-    <div className={classes.container}>
-      <p>{label}</p>
+    <div className={classes.select}>
+      <p className={classes.selectLabel}>{label}</p>
       <div
-        className={classes.customSelect}
+        className={classes.selectSelect}
         onClick={() => setOptionsListVisible(!optionsListVisible)}
       >
-        <div className={classes.selectedOption}>
+        <p className={classes.selectText}>
           {selectedPath || 'Selecciona una opción'}
-        </div>
+        </p>
         <ExpandDown />
+        {/* !Estoy aquí */}
+        <FieldTree
+          options={options}
+          optionsListVisible={optionsListVisible}
+          handleOptionClick={handleOptionClick}
+          selectedPKField={currentSelectedKeyFieldId}
+        />
       </div>
-      <FieldTree
-        options={options}
-        optionsListVisible={optionsListVisible}
-        handleOptionClick={handleOptionClick}
-        selectedPKField={currentSelectedKeyFieldId}
-      />
     </div>
   );
 };

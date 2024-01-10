@@ -1,7 +1,6 @@
 import { OptionVm, TablePkPicker } from '@/common/components/table-pk-picker';
 
 export const EditRelation: React.FC = () => {
-  // const { canvasSchema } = useCanvasSchemaContext();
   const data: OptionVm[] = [
     {
       id: '1',
@@ -36,22 +35,12 @@ export const EditRelation: React.FC = () => {
           options={data}
           onKeySelected={fieldId => console.log('onKeySelected', fieldId)}
         ></TablePkPicker>
-        {/* <SelectFormik
-          label="Origin Collection"
-          data={canvasSchema.relations}
-        ></SelectFormik> */}
+        <TablePkPicker
+          label="Destination Collection"
+          options={data}
+          onKeySelected={fieldId => console.log('onKeySelected', fieldId)}
+        ></TablePkPicker>
       </form>
     </>
-    // <Formik>
-    //   {() => (
-    //     <Form>
-    //       <div className={classes.container}>
-    //         <InputFormik label="Width" name="width" placeholder="Width" />
-    //         <InputFormik label="Height" name="height" placeholder="Height" />
-    //         <button type="submit">On Change Settings</button>
-    //       </div>
-    //     </Form>
-    //   )}
-    // </Formik>
   );
 };
