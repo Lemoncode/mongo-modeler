@@ -56,7 +56,7 @@ export const SelectFormik: React.FC<SelectFormikProps> = props => {
     setSelectedPath(currentPath);
     setOptionsListVisible(false);
   };
-
+  //Prueba
   const generateOptions = (options: OptionVm[], parentPath = '') => {
     return options.map(option => (
       <li key={option.id}>
