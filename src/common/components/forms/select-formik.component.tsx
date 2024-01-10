@@ -1,6 +1,9 @@
 import React from 'react';
 import { GUID } from '@/core/model';
 import classes from './select-formik.component.module.css';
+import { SelectFormikList } from './components/select-formik-list.component';
+import { ExpandDown } from '../icons/expand-down-icon.component';
+
 export interface OptionVm {
   id: GUID;
   label: string;
@@ -48,44 +51,19 @@ export const SelectFormik: React.FC<SelectFormikProps> = props => {
 
   const [selectedPath, setSelectedPath] = React.useState('');
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
+  const [selectedLabel, setSelectedLabel] = React.useState('');
 
-  const handleOptionClick = (option: OptionVm, parentPath: string) => {
+  const handleOptionClick = (
+    option: OptionVm,
+    parentPath: string,
+    id: string
+  ) => {
+    setSelectedLabel(id);
     const currentPath = parentPath
       ? `${parentPath} > ${option.label}`
       : option.label;
     setSelectedPath(currentPath);
     setOptionsListVisible(false);
-  };
-  //Prueba
-  const generateOptions = (options: OptionVm[], parentPath = '') => {
-    return options.map(option => (
-      <li key={option.id}>
-        {option.children && option.children.length > 0 ? (
-          <>
-            <span>{option.label}</span>
-            <ul>
-              {parentPath
-                ? generateOptions(
-                    option.children,
-                    `${parentPath} > ${option.label}`
-                  )
-                : generateOptions(option.children, `${option.label}`)}
-            </ul>
-          </>
-        ) : (
-          <>
-            <label>
-              <input
-                type="radio"
-                name="nestedRadio"
-                onClick={() => handleOptionClick(option, parentPath)}
-              />
-              {option.label}
-            </label>
-          </>
-        )}
-      </li>
-    ));
   };
 
   return (
@@ -98,13 +76,14 @@ export const SelectFormik: React.FC<SelectFormikProps> = props => {
         <div className={classes.selectedOption}>
           {selectedPath || 'Selecciona una opción'}
         </div>
+        <ExpandDown />
       </div>
-      <ul
-        className={classes.options}
-        style={{ display: optionsListVisible ? 'block' : 'none' }}
-      >
-        {generateOptions(options)}
-      </ul>
+      <SelectFormikList
+        options={options}
+        optionsListVisible={optionsListVisible}
+        handleOptionClick={handleOptionClick}
+        selectedLabel={selectedLabel}
+      />
     </div>
   );
 };

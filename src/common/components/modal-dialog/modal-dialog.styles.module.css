@@ -20,6 +20,7 @@
 .dialog-header {
   position: sticky;
   top: 0;
+  z-index: 3;
   display: flex;
   gap: 10px;
   align-items: center;
