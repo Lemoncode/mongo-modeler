@@ -7,6 +7,8 @@ import {
 } from './edit-table.mapper';
 import { EditTableComponent } from './edit-table.component';
 import { produce } from 'immer';
+import { GUID } from '@/core/model';
+import { removeField } from './edit-table.business';
 
 interface Props {
   table?: canvasVm.TableVm; // TODO: should we have our own Vm?
@@ -72,11 +74,16 @@ export const EditTablePod: React.FC<Props> = props => {
     );
   };
 
+  const onDeleteField = (fieldId: GUID) => {
+    setEditTable(currentTable => removeField(currentTable, fieldId));
+  };
+
   return (
     <>
       <EditTableComponent
         table={editTable}
         updateFieldValue={updateFieldValue}
+        onDeleteField={onDeleteField}
       />
       <button onClick={() => handleSubmit(editTable)}>Apply</button>
     </>
