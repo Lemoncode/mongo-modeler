@@ -18,10 +18,6 @@ export const SelectFormikList: React.FC<Props> = props => {
   const { options, optionsListVisible, handleOptionClick, selectedLabel } =
     props;
 
-  React.useEffect(() => {
-    console.log('me cargo');
-  }, [selectedLabel]);
-  //Prueba
   const generateOptions = (options: OptionVm[], parentPath = '') => {
     return options.map(option => (
       <li key={option.id}>
