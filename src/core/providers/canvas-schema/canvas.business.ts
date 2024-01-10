@@ -1,6 +1,7 @@
 import { Coords, GUID, Size } from '@/core/model';
 import { DatabaseSchemaVm, FieldVm, TableVm } from './canvas-schema.model';
 import { TABLE_CONST } from './canvas.const';
+import { produce } from 'immer';
 
 export interface UpdateInfo {
   id: GUID;
@@ -203,3 +204,18 @@ export const calculateRelationYCoordinate = (
   yOrigin: calculateRelationYOffset(fieldIdORigin, tableOrigin),
   yDestination: calculateRelationYOffset(fieldIdDestination, tableDestination),
 });
+
+export const doFieldToggleCollapseLogic = (
+  currentSchema: DatabaseSchemaVm,
+  tableId: GUID,
+  fieldId: GUID
+) =>
+  produce(currentSchema, draft => {
+    const table = draft.tables.find(t => t.id === tableId);
+    if (table) {
+      const field = findField(table.fields, fieldId);
+      if (field) {
+        field.isCollapsed = !field.isCollapsed;
+      }
+    }
+  });
