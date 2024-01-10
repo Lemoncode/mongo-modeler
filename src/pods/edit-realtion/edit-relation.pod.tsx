@@ -1,4 +1,4 @@
-import { OptionVm, SelectFormik } from '@/common/components/forms';
+import { OptionVm, TablePkPicker } from '@/common/components/table-pk-picker';
 
 export const EditRelation: React.FC = () => {
   // const { canvasSchema } = useCanvasSchemaContext();
@@ -31,7 +31,11 @@ export const EditRelation: React.FC = () => {
   return (
     <>
       <form action="">
-        <SelectFormik label="Type" options={data}></SelectFormik>
+        <TablePkPicker
+          label="Type"
+          options={data}
+          onKeySelected={fieldId => console.log('onKeySelected', fieldId)}
+        ></TablePkPicker>
         {/* <SelectFormik
           label="Origin Collection"
           data={canvasSchema.relations}
