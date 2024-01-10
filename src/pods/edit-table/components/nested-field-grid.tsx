@@ -2,19 +2,21 @@ import React from 'react';
 import classes from '../edit-table.module.css';
 import { FieldType, GUID } from '@/core/model';
 import { FieldVm } from '../edit-table.vm';
-import { RemoveIcon } from '@/common/components/icons/remove-icon.component';
+import { Commands } from './commands/commands.component';
 
 interface NestedFieldGridProps {
   fields: FieldVm[];
   level: number;
   expandedFields: Set<string>;
   toggleExpand: (fieldId: string) => void;
+  expandField: (fieldId: string) => void;
   updateFieldValue: <K extends keyof FieldVm>(
     field: FieldVm,
     id: K,
     value: FieldVm[K]
   ) => void;
   onDeleteField: (fieldId: GUID) => void;
+  onAddField: (fieldId: GUID, isChildren: boolean) => void;
 }
 
 export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
@@ -22,8 +24,10 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   level,
   expandedFields,
   toggleExpand,
+  expandField,
   updateFieldValue,
   onDeleteField,
+  onAddField,
 }) => {
   const renderFieldHeaders = () => (
     <div className={`${classes.fieldRow} ${classes[`indent${level}`]}`}>
@@ -37,6 +41,13 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
       <div className={classes.headerCell}>Actions</div>
     </div>
   );
+
+  const handleAddField = (fieldId: GUID, isChildren: boolean) => {
+    if (isChildren) {
+      expandField(fieldId);
+    }
+    onAddField(fieldId, isChildren);
+  };
 
   const renderField = (field: FieldVm): JSX.Element => (
     <React.Fragment key={field.id}>
@@ -84,8 +95,12 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             <option value="object">object</option>
           </select>
         </div>
-        <div className={classes.fieldCell}>
-          <RemoveIcon onClick={() => onDeleteField(field.id)} />
+        <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
+          <Commands
+            field={field}
+            onDeleteField={onDeleteField}
+            onAddField={handleAddField}
+          />
         </div>
       </div>
       {field.children && expandedFields.has(field.id) && (
@@ -94,8 +109,10 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           level={level + 1}
           expandedFields={expandedFields}
           toggleExpand={toggleExpand}
+          expandField={expandField}
           updateFieldValue={updateFieldValue}
           onDeleteField={onDeleteField}
+          onAddField={onAddField}
         />
       )}
     </React.Fragment>
