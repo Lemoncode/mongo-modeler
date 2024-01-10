@@ -7,7 +7,7 @@ import {
   createDefaultDatabaseSchemaVm,
 } from './canvas-schema.model';
 import { Coords, GUID, Size } from '@/core/model';
-import { findField, moveTableToTop } from './canvas.business';
+import { moveTableToTop, doFieldToggleCollapseLogic } from './canvas.business';
 import { updateTable } from './canvas-schema.business';
 
 interface Props {
@@ -54,17 +54,9 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
 
   // TODO: #57 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/57
-  const doFieldToggleCollapse = (tableId: string, fieldId: GUID): void => {
+  const doFieldToggleCollapse = (tableId: GUID, fieldId: GUID): void => {
     setSchema(currentSchema =>
-      produce(currentSchema, draft => {
-        const table = draft.tables.find(t => t.id === tableId);
-        if (table) {
-          const field = findField(table.fields, fieldId);
-          if (field) {
-            field.isCollapsed = !field.isCollapsed;
-          }
-        }
-      })
+      doFieldToggleCollapseLogic(currentSchema, tableId, fieldId)
     );
   };
 

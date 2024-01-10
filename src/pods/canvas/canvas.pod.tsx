@@ -17,17 +17,15 @@ import { EDIT_TABLE_TITLE } from '@/common/components/modal-dialog';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal } = useModalDialogContext();
-
   const {
     canvasSchema,
     loadSchema,
     updateTablePosition,
-    doFieldToggleCollapse,
     updateFullTable,
+    doFieldToggleCollapse,
   } = useCanvasSchemaContext();
   const { canvasViewSettings } = useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor } = canvasViewSettings;
-
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
   React.useEffect(() => {
@@ -42,7 +40,7 @@ export const CanvasPod: React.FC = () => {
     [zoomFactor, canvasSize]
   );
 
-  const handleToggleCollapse = (tableId: string, fieldId: GUID) => {
+  const handleToggleCollapse = (tableId: GUID, fieldId: GUID) => {
     doFieldToggleCollapse(tableId, fieldId);
   };
 
