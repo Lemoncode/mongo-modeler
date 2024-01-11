@@ -4,8 +4,8 @@ import {
   DatabaseSchemaVm,
   RelationVm,
   TableVm,
-  TABLE_CONST,
 } from '@/core/providers/canvas-schema';
+import { TABLE_CONST } from './canvas.const';
 
 describe('calculateTablePosition', () => {
   it('updates the position of the specified table within canvas boundaries', () => {

@@ -3,8 +3,8 @@ import {
   DatabaseSchemaVm,
   RelationVm,
   TableVm,
-  TABLE_CONST,
 } from '@/core/providers/canvas-schema';
+import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 
 const tagTableId = '1';
 const restaurantTableId = '2';

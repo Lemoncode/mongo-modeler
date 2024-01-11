@@ -4,7 +4,7 @@ import { Coords, GUID, Size } from '@/core/model';
 import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
 import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
-import { TABLE_CONST } from '@/core/providers/canvas-schema';
+import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { DatabaseTableRow } from './database-table-row.component';
 
 interface Props {

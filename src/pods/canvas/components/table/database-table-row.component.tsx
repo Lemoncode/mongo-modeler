@@ -1,6 +1,7 @@
 import { GUID } from '@/core/model';
-import { FieldVm, TableVm, TABLE_CONST } from '@/core/providers/canvas-schema';
+import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
 import classes from './database-table.module.css';
+import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 
 interface Props {
   tableInfo: TableVm;

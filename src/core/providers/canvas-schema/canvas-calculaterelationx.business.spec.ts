@@ -3,7 +3,8 @@ import {
   calculateRelationXCoordinateEnd,
   calculateRelationXCoordinateOrigin,
 } from './canvas.business';
-import { TableVm, TABLE_CONST } from '@/core/providers/canvas-schema';
+import { TableVm } from '@/core/providers/canvas-schema';
+import { TABLE_CONST } from './canvas.const';
 
 describe('calculateRelationXCoordinateOrigin', () => {
   it('Should returns xCoordinateOrigin + DEFAULT_TABLE_WIDTH, if tableOrigin.x < tableDestination.x', () => {
@@ -25,7 +26,7 @@ describe('calculateRelationXCoordinateOrigin', () => {
         },
       ],
       tableName: 'table1',
-      x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH - 200,
       y: 0,
     };
     const tableDestination: TableVm = {
@@ -97,7 +98,7 @@ describe('calculateRelationXCoordinateOrigin', () => {
         },
       ],
       tableName: 'table2',
-      x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH - 200,
       y: 0,
     };
 
@@ -152,7 +153,7 @@ describe('calculateRelationXCoordinateEnd', () => {
         },
       ],
       tableName: 'table2',
-      x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH - 200,
       y: 0,
     };
 
@@ -184,7 +185,7 @@ describe('calculateRelationXCoordinateEnd', () => {
         },
       ],
       tableName: 'table1',
-      x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH - 200,
       y: 0,
     };
     const tableDestination: TableVm = {
