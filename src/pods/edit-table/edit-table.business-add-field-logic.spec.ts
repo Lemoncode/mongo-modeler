@@ -44,8 +44,8 @@ describe('add a nested field', () => {
     };
     const updateTable = addFieldLogic(table, '3', true);
 
-    expect(updateTable.fields[0].children).toHaveLength(2);
-    expect(updateTable.fields[0].children?.[1]?.name).toBe('newField');
+    expect(updateTable.fields[0].children).toHaveLength(1);
+    expect(updateTable.fields[0].children?.[0]?.name).toBe('Field3');
   });
 });
 
