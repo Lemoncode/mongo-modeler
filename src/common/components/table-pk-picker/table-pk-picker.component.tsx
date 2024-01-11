@@ -45,7 +45,6 @@ export const TablePkPicker: React.FC<Props> = props => {
           {selectedPath || 'Selecciona una opción'}
         </p>
         <ExpandDown />
-        {/* !Estoy aquí */}
         <FieldTree
           options={options}
           optionsListVisible={optionsListVisible}

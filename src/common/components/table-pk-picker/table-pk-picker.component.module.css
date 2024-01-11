@@ -11,38 +11,41 @@
   min-width: 20ch;
 }
 .select-select {
-  --boder: 1px solid #ccc;
-  width: 100%;
+  --border-width: 1px;
+  --boder: var(--border-width) solid #ccc;
   position: relative;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 6px;
-  font-size: 16px;
   border: var(--boder);
   background-color: var(--primary-background);
 }
 
 .select-text {
   width: 100%;
-  margin: 0;
 }
 
-/* !Estoy aquí */
 .options {
-  text-align: left;
   list-style: none;
   padding: 8px;
   padding-left: 36px;
   margin: 0;
   display: none;
   position: absolute;
-  top: calc(100% + 1px);
-  left: calc(0px - 1px);
-  width: calc(100% + 2px);
+  z-index: 1;
+  top: calc(100% + var(--border-width));
+  left: calc(0px - var(--border-width));
+  width: calc(100% + var(--border-width) * 2);
   border: var(--boder);
   border-top: none;
   background-color: var(--primary-background);
+}
+
+.options ul {
+  list-style: none;
+  padding-left: 20px;
 }
 
 .options li {
@@ -50,24 +53,16 @@
   color: grey;
 }
 
-.options * > li {
-  font-size: 16px;
-  color: grey;
-}
-.options label:hover {
-  background-color: rgb(217, 217, 217);
-}
-
-.options * > ul {
-  list-style: none;
-  padding-left: 20px;
-}
-
 .options label {
   cursor: pointer;
   color: var(--text-color);
   background-color: var(--primary-background);
 }
+
+.options label:hover {
+  background-color: rgb(217, 217, 217);
+}
+
 .options input[type='radio'] {
   position: relative;
   z-index: -1;
@@ -75,7 +70,6 @@
   margin: 0;
 }
 
-/* Repasar */
 .svg {
   position: absolute;
   left: 8px;
@@ -83,9 +77,6 @@
   align-items: flex-end;
   justify-content: center;
   width: 20px;
-  height: 20px;
+  height: 21px;
   color: var(--text-color);
-}
-.svg svg {
-  margin-bottom: -1.6px;
 }

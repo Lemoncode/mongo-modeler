@@ -21,19 +21,14 @@ export const generateOptions = (
         <>
           <span>{option.label}</span>
           <ul>
-            {parentPath
-              ? generateOptions(
-                  option.children,
-                  `${parentPath} > ${option.label}`,
-                  handleSelectPKField,
-                  selectedPKField
-                )
-              : generateOptions(
-                  option.children,
-                  `${option.label}`,
-                  handleSelectPKField,
-                  selectedPKField
-                )}
+            {generateOptions(
+              option.children,
+              parentPath
+                ? `${parentPath} > ${option.label}`
+                : `${option.label}`,
+              handleSelectPKField,
+              selectedPKField
+            )}
           </ul>
         </>
       ) : (
