@@ -4,6 +4,7 @@ import {
   DatabaseSchemaVm,
   RelationVm,
   TableVm,
+  TABLE_CONST,
 } from '@/core/providers/canvas-schema';
 
 describe('calculateTablePosition', () => {
@@ -12,7 +13,7 @@ describe('calculateTablePosition', () => {
     const tables: TableVm[] = [
       {
         id: '1',
-        x: 100,
+        x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
         y: 150,
         tableName: 'tags',
         fields: [
@@ -122,18 +123,20 @@ describe('calculateTablePosition', () => {
     };
     expect(result).toEqual(expected);
     expect(expected.tables[0].x).toBeGreaterThan(0);
-    expect(expected.tables[0].x).toBeLessThanOrEqual(canvasSize.width - 300);
+    expect(expected.tables[0].x).toBeLessThanOrEqual(
+      canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH
+    );
     expect(expected.tables[0].y).toBeGreaterThan(0);
     expect(expected.tables[0].y).toBeLessThanOrEqual(
       canvasSize.height - updateInfo.totalHeight
     );
   });
-  it('updates the position of the table within the canvas when table width (now 300) + canvasSize.width > canvasSize.width', () => {
+  it('updates the position of the table within the canvas when table width (now DEFAULT_TABLE_WIDTH) + canvasSize.width > canvasSize.width', () => {
     //Arrange
     const tables: TableVm[] = [
       {
         id: '1',
-        x: 100,
+        x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
         y: 150,
         tableName: 'tags',
         fields: [
@@ -244,7 +247,9 @@ describe('calculateTablePosition', () => {
 
     expect(result).toEqual(expected);
     expect(expected.tables[0].x).toBeGreaterThan(0);
-    expect(expected.tables[0].x).toBe(canvasSize.width - 300);
+    expect(expected.tables[0].x).toBe(
+      canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH
+    );
     expect(expected.tables[0].y).toBeGreaterThan(0);
     expect(expected.tables[0].y).toBeLessThanOrEqual(
       canvasSize.height - updateInfo.totalHeight
@@ -255,7 +260,7 @@ describe('calculateTablePosition', () => {
     const tables: TableVm[] = [
       {
         id: '1',
-        x: 100,
+        x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
         y: 150,
         tableName: 'tags',
         fields: [
@@ -366,7 +371,9 @@ describe('calculateTablePosition', () => {
 
     expect(result).toEqual(expected);
     expect(expected.tables[0].x).toBeGreaterThan(0);
-    expect(expected.tables[0].x).toBeLessThanOrEqual(canvasSize.width - 300);
+    expect(expected.tables[0].x).toBeLessThanOrEqual(
+      canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH
+    );
     expect(expected.tables[0].y).toBeGreaterThan(0);
     expect(expected.tables[0].y).toBe(
       canvasSize.height - updateInfo.totalHeight
@@ -377,7 +384,7 @@ describe('calculateTablePosition', () => {
     const tables: TableVm[] = [
       {
         id: '1',
-        x: 100,
+        x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
         y: 150,
         tableName: 'tags',
         fields: [
@@ -488,7 +495,9 @@ describe('calculateTablePosition', () => {
 
     expect(result).toEqual(expected);
     expect(expected.tables[0].x).toBe(0);
-    expect(expected.tables[0].x).toBeLessThanOrEqual(canvasSize.width - 300);
+    expect(expected.tables[0].x).toBeLessThanOrEqual(
+      canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH
+    );
     expect(expected.tables[0].y).toBeGreaterThan(0);
     expect(expected.tables[0].y).toBeLessThanOrEqual(
       canvasSize.height - updateInfo.totalHeight
@@ -499,7 +508,7 @@ describe('calculateTablePosition', () => {
     const tables: TableVm[] = [
       {
         id: '1',
-        x: 100,
+        x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
         y: 150,
         tableName: 'tags',
         fields: [
@@ -610,7 +619,9 @@ describe('calculateTablePosition', () => {
 
     expect(result).toEqual(expected);
     expect(expected.tables[0].x).toBeGreaterThan(0);
-    expect(expected.tables[0].x).toBeLessThanOrEqual(canvasSize.width - 300);
+    expect(expected.tables[0].x).toBeLessThanOrEqual(
+      canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH
+    );
     expect(expected.tables[0].y).toBe(0);
     expect(expected.tables[0].y).toBeLessThanOrEqual(
       canvasSize.height - updateInfo.totalHeight

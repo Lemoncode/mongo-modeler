@@ -3,10 +3,10 @@ import {
   calculateRelationXCoordinateEnd,
   calculateRelationXCoordinateOrigin,
 } from './canvas.business';
-import { TableVm } from '@/core/providers/canvas-schema';
+import { TableVm, TABLE_CONST } from '@/core/providers/canvas-schema';
 
 describe('calculateRelationXCoordinateOrigin', () => {
-  it('Should returns xCoordinateOrigin + 300, if tableOrigin.x < tableDestination.x', () => {
+  it('Should returns xCoordinateOrigin + DEFAULT_TABLE_WIDTH, if tableOrigin.x < tableDestination.x', () => {
     //Arrange
     const tableOrigin: TableVm = {
       id: '1',
@@ -25,7 +25,7 @@ describe('calculateRelationXCoordinateOrigin', () => {
         },
       ],
       tableName: 'table1',
-      x: 100,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
       y: 0,
     };
     const tableDestination: TableVm = {
@@ -45,7 +45,7 @@ describe('calculateRelationXCoordinateOrigin', () => {
         },
       ],
       tableName: 'table2',
-      x: 500,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
       y: 0,
     };
 
@@ -56,7 +56,7 @@ describe('calculateRelationXCoordinateOrigin', () => {
     );
 
     // Assert
-    expect(result).toBe(400);
+    expect(result).toBe(TABLE_CONST.DEFAULT_TABLE_WIDTH + 100);
   });
   it('Should returns xCoordinateOrigin, if tableOrigin.x > tableDestination.x', () => {
     //Arrange
@@ -77,7 +77,7 @@ describe('calculateRelationXCoordinateOrigin', () => {
         },
       ],
       tableName: 'table1',
-      x: 500,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
       y: 0,
     };
     const tableDestination: TableVm = {
@@ -97,7 +97,7 @@ describe('calculateRelationXCoordinateOrigin', () => {
         },
       ],
       tableName: 'table2',
-      x: 100,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
       y: 0,
     };
 
@@ -108,12 +108,12 @@ describe('calculateRelationXCoordinateOrigin', () => {
     );
 
     // Assert
-    expect(result).toBe(500);
+    expect(result).toBe(TABLE_CONST.DEFAULT_TABLE_WIDTH + 200);
   });
 });
 
 describe('calculateRelationXCoordinateEnd', () => {
-  it('Should returns xCoordinateEnd + 300, if tableDestination.x < tableOrigin.x  ', () => {
+  it('Should returns xCoordinateEnd + DEFAULT_TABLE_WIDTH, if tableDestination.x < tableOrigin.x  ', () => {
     //Arrange
     const tableOrigin: TableVm = {
       id: '1',
@@ -132,7 +132,7 @@ describe('calculateRelationXCoordinateEnd', () => {
         },
       ],
       tableName: 'table1',
-      x: 500,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
       y: 0,
     };
     const tableDestination: TableVm = {
@@ -152,7 +152,7 @@ describe('calculateRelationXCoordinateEnd', () => {
         },
       ],
       tableName: 'table2',
-      x: 100,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
       y: 0,
     };
 
@@ -163,7 +163,7 @@ describe('calculateRelationXCoordinateEnd', () => {
     );
 
     // Assert
-    expect(result).toBe(400);
+    expect(result).toBe(TABLE_CONST.DEFAULT_TABLE_WIDTH + 100);
   });
   it('Should returns xCoordinateEnd, if tableDestination.x > tableOrigin.x', () => {
     //Arrange
@@ -184,7 +184,7 @@ describe('calculateRelationXCoordinateEnd', () => {
         },
       ],
       tableName: 'table1',
-      x: 100,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
       y: 0,
     };
     const tableDestination: TableVm = {
@@ -204,7 +204,7 @@ describe('calculateRelationXCoordinateEnd', () => {
         },
       ],
       tableName: 'table2',
-      x: 500,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
       y: 0,
     };
 
@@ -215,7 +215,7 @@ describe('calculateRelationXCoordinateEnd', () => {
     );
 
     // Assert
-    expect(result).toBe(500);
+    expect(result).toBe(TABLE_CONST.DEFAULT_TABLE_WIDTH + 200);
   });
 });
 
@@ -239,7 +239,7 @@ describe('calculateRelationXCoordinate', () => {
         },
       ],
       tableName: 'table1',
-      x: 500,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
       y: 0,
     };
     const tableDestination: TableVm = {
@@ -259,7 +259,7 @@ describe('calculateRelationXCoordinate', () => {
         },
       ],
       tableName: 'table2',
-      x: 500,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
       y: 0,
     };
 
@@ -267,6 +267,9 @@ describe('calculateRelationXCoordinate', () => {
     const result = calculateRelationXCoordinate(tableOrigin, tableDestination);
 
     // Assert
-    expect(result).toEqual({ xOrigin: 500, xDestination: 500 });
+    expect(result).toEqual({
+      xOrigin: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
+      xDestination: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
+    });
   });
 });

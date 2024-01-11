@@ -3,6 +3,7 @@ import {
   DatabaseSchemaVm,
   RelationVm,
   TableVm,
+  TABLE_CONST,
 } from '@/core/providers/canvas-schema';
 
 const tagTableId = '1';
@@ -26,7 +27,7 @@ const mockRelations: RelationVm[] = [
 const mockTables: TableVm[] = [
   {
     id: tagTableId,
-    x: 100,
+    x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
     y: 150,
     tableName: 'tags',
     fields: [
@@ -46,7 +47,7 @@ const mockTables: TableVm[] = [
   },
   {
     id: restaurantTableId,
-    x: 500,
+    x: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
     y: 80,
     tableName: 'Restaurant',
     fields: [

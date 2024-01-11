@@ -173,7 +173,7 @@ describe('canvas.business.calculateRelationYOffset', () => {
         },
       ],
       tableName: 'table1',
-      x: 100,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
       y: 200,
     };
 
@@ -699,7 +699,7 @@ describe(calculateRelationYCoordinate, () => {
         },
       ],
       tableName: 'table1',
-      x: 200,
+      x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
       y: 200,
     };
 
