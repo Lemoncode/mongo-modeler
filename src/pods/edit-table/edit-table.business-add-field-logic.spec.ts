@@ -42,10 +42,10 @@ describe('add a nested field', () => {
       x: 0,
       y: 0,
     };
-    const updateTable = addFieldLogic(table, '3', true);
+    const updateTable = addFieldLogic(table, '1', true);
 
-    expect(updateTable.fields[0].children).toHaveLength(1);
-    expect(updateTable.fields[0].children?.[0]?.name).toBe('Field3');
+    expect(updateTable.fields[0].children).toHaveLength(2);
+    expect(updateTable.fields[0].children?.[0]?.name).toBe('newField');
   });
 });
 
