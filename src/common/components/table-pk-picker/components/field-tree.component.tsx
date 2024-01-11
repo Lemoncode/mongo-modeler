@@ -1,29 +1,31 @@
 import React from 'react';
-import { OptionVm } from '../table-picker.model';
+import { OptionVm } from '../table-pk-picker.model';
 import classes from '../table-pk-picker.component.module.css';
 import { generateOptions } from './field-tree.business';
 
 interface Props {
+  name: string;
   options: OptionVm[];
   optionsListVisible: boolean;
-  handleOptionClick: (
-    option: OptionVm,
-    parentPath: string,
-    index: string
-  ) => void;
+  handleOptionClick: (option: OptionVm, parentPath: string) => void;
   selectedPKField?: string;
 }
 
 export const FieldTree: React.FC<Props> = props => {
-  const { options, optionsListVisible, handleOptionClick, selectedPKField } =
-    props;
+  const {
+    name,
+    options,
+    optionsListVisible,
+    handleOptionClick,
+    selectedPKField,
+  } = props;
 
   return (
     <ul
       className={classes.options}
       style={{ display: optionsListVisible ? 'block' : 'none' }}
     >
-      {generateOptions(options, '', handleOptionClick, selectedPKField)}
+      {generateOptions(name, options, '', handleOptionClick, selectedPKField)}
     </ul>
   );
 };

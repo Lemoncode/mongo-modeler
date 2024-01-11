@@ -1,15 +1,12 @@
 import { Tick } from '../../icons/tick-icon.component';
-import { OptionVm } from '../table-picker.model';
+import { OptionVm } from '../table-pk-picker.model';
 import classes from '../table-pk-picker.component.module.css';
 
 export const generateOptions = (
+  name: string,
   options: OptionVm[],
-  parentPath = '',
-  handleSelectPKField: (
-    option: OptionVm,
-    parentPath: string,
-    index: string
-  ) => void,
+  parentPath: string,
+  handleSelectPKField: (option: OptionVm, parentPath: string) => void,
   selectedPKField?: string
 ): JSX.Element[] => {
   return options.map(option => (
@@ -22,6 +19,7 @@ export const generateOptions = (
           <span>{option.label}</span>
           <ul>
             {generateOptions(
+              name,
               option.children,
               parentPath
                 ? `${parentPath} > ${option.label}`
@@ -36,9 +34,9 @@ export const generateOptions = (
           <label>
             <input
               type="radio"
-              name="nestedRadio"
+              name={name}
               value={option.id}
-              onClick={() => handleSelectPKField(option, parentPath, option.id)}
+              onClick={() => handleSelectPKField(option, parentPath)}
             />
             {option.label}
           </label>

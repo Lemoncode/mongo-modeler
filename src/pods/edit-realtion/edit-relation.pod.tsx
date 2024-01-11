@@ -1,3 +1,4 @@
+import React from 'react';
 import { OptionVm, TablePkPicker } from '@/common/components/table-pk-picker';
 
 export const EditRelation: React.FC = () => {
@@ -31,14 +32,17 @@ export const EditRelation: React.FC = () => {
     <>
       <form action="">
         <TablePkPicker
+          name="selectone"
           label="Type"
           options={data}
           onKeySelected={fieldId => console.log('onKeySelected', fieldId)}
         ></TablePkPicker>
         <TablePkPicker
+          name="selecttwo"
           label="Destination Collection"
           options={data}
           onKeySelected={fieldId => console.log('onKeySelected', fieldId)}
+          selectedKeyFieldId="11"
         ></TablePkPicker>
       </form>
     </>

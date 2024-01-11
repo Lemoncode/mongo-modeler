@@ -15,12 +15,16 @@
   --boder: var(--border-width) solid #ccc;
   position: relative;
   width: 100%;
+  border: var(--boder);
+  background-color: var(--primary-background);
+}
+
+.select-chosen {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 6px;
-  border: var(--boder);
-  background-color: var(--primary-background);
+  cursor: pointer;
 }
 
 .select-text {
@@ -34,7 +38,7 @@
   margin: 0;
   display: none;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: calc(100% + var(--border-width));
   left: calc(0px - var(--border-width));
   width: calc(100% + var(--border-width) * 2);
@@ -79,4 +83,14 @@
   width: 20px;
   height: 21px;
   color: var(--text-color);
+}
+
+/*Veil works because it is being used within a modal*/
+.veil {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
 }
