@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
   DatabaseSchemaVm,
+  RelationVm,
   TableVm,
   createDefaultDatabaseSchemaVm,
 } from './canvas-schema.model';
@@ -37,6 +38,14 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     setSchema(prevSchema =>
       produce(prevSchema, draft => {
         draft.tables.push(table);
+      })
+    );
+  };
+
+  const addRelation = (relation: RelationVm) => {
+    setSchema(prevSchema =>
+      produce(prevSchema, draft => {
+        draft.relations.push(relation);
       })
     );
   };
@@ -77,6 +86,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         doFieldToggleCollapse,
         updateFullTable,
         addTable,
+        addRelation,
       }}
     >
       {children}

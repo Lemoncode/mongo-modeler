@@ -1,49 +1,20 @@
 import React from 'react';
-import { OptionVm, TablePkPicker } from '@/common/components/table-pk-picker';
+import { EditRelationComponent } from './edit-relation.component';
+import classes from './edit-relation.pod.module.css';
 
-export const EditRelation: React.FC = () => {
-  const data: OptionVm[] = [
-    {
-      id: '1',
-      label: 'Opción 1',
-      children: [
-        {
-          id: '11',
-          label: 'Subopción 1.1',
-          children: [
-            { id: '111', label: 'Sub-subopción 1.1.1' },
-            { id: '112', label: 'Sub-subopción 1.1.2' },
-          ],
-        },
-        { id: '12', label: 'Subopción 1.2' },
-      ],
-    },
-    {
-      id: '2',
-      label: 'Opción 2',
-      children: [
-        { id: '21', label: 'Subopción 2.1' },
-        { id: '22', label: 'Subopción 2.2' },
-      ],
-    },
-  ];
-
+export const EditRelationPod: React.FC = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    closeModal();
+    //Asegurar que sea una relación válida
+    console.log(relation);
+    addRelation(relation);
+  };
   return (
     <>
-      <form action="">
-        <TablePkPicker
-          name="selectone"
-          label="Type"
-          options={data}
-          onKeySelected={fieldId => console.log('onKeySelected', fieldId)}
-        ></TablePkPicker>
-        <TablePkPicker
-          name="selecttwo"
-          label="Destination Collection"
-          options={data}
-          onKeySelected={fieldId => console.log('onKeySelected', fieldId)}
-          selectedKeyFieldId="11"
-        ></TablePkPicker>
+      <form className={classes.form} onSubmit={e => handleSubmit(e)}>
+        <EditRelationComponent />
+        <button onClick={() => handleSubmit(editTable)}>Apply</button>
       </form>
     </>
   );

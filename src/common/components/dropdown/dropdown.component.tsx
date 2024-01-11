@@ -1,32 +1,30 @@
 import React from 'react';
-import classes from './table-pk-picker.component.module.css';
-import { FieldTree } from './components/field-tree.component';
+import classes from './dropdown.component.module.css';
+import { OptionGroup } from './components/option-group.component';
 import { ExpandDown } from '../icons/expand-down-icon.component';
-import { OptionVm } from './table-pk-picker.model';
-import { GUID } from '@/core/model';
+import { DropdownOptionVm } from './dropdown.model';
 
 interface Props {
   name: string;
-  options: OptionVm[];
+  options: DropdownOptionVm[];
   label?: string;
-  selectedKeyFieldId?: GUID;
-  onKeySelected: (field: OptionVm) => void;
+  onKeySelected: (field: DropdownOptionVm) => void;
+  selectTitle?: string;
+  selectedField?: DropdownOptionVm;
 }
 
-export const TablePkPicker: React.FC<Props> = props => {
-  const { name, label, options, onKeySelected, selectedKeyFieldId } = props;
+export const Dropdown: React.FC<Props> = props => {
+  const { name, label, options, onKeySelected, selectedField, selectTitle } =
+    props;
 
-  const [selectedPath, setSelectedPath] = React.useState('');
+  const [selectedPath, setSelectedPath] = React.useState(selectedField?.label);
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
   const [currentSelectedKeyFieldId, setCurrentSelectedKeyFieldId] =
-    React.useState(selectedKeyFieldId);
+    React.useState(selectedField?.id);
 
-  const handleOptionClick = (option: OptionVm, parentPath: string) => {
+  const handleOptionClick = (option: DropdownOptionVm) => {
     setCurrentSelectedKeyFieldId(option.id);
-    const currentPath = parentPath
-      ? `${parentPath} > ${option.label}`
-      : option.label;
-    setSelectedPath(currentPath);
+    setSelectedPath(option.label);
     setOptionsListVisible(false);
     onKeySelected(option);
   };
@@ -41,11 +39,11 @@ export const TablePkPicker: React.FC<Props> = props => {
             onClick={() => setOptionsListVisible(!optionsListVisible)}
           >
             <p className={classes.selectText}>
-              {selectedPath || 'Selecciona una opción'}
+              {selectedPath || selectTitle || 'Selecciona una opción'}
             </p>
             <ExpandDown />
           </div>
-          <FieldTree
+          <OptionGroup
             name={name}
             options={options}
             optionsListVisible={optionsListVisible}

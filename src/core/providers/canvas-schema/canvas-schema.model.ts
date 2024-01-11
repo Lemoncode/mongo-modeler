@@ -49,4 +49,5 @@ export interface CanvasSchemaContextVm {
   doFieldToggleCollapse: (tableId: string, fieldId: GUID) => void;
   updateFullTable: (table: TableVm) => void;
   addTable: (table: TableVm) => void;
+  addRelation: (relation: RelationVm) => void;
 }
