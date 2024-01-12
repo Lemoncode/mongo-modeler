@@ -32,6 +32,7 @@ export const EditRelationPod: React.FC<Props> = props => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //Need validators to avoid passing empty fields
+    //Needto know if the relationship already exists
     onChangeRelation(relation);
     console.log(relation);
   };
