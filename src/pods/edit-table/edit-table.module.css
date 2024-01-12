@@ -7,7 +7,7 @@
 
 .fieldRow {
   display: grid;
-  grid-template-columns: auto auto auto 3fr 2fr 250px;
+  grid-template-columns: auto auto auto 3fr 2fr 80px 250px;
   gap: 0px;
 }
 
