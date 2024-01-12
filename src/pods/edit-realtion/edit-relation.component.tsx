@@ -1,44 +1,24 @@
 import React from 'react';
 import { Dropdown, DropdownOptionVm } from '@/common/components/dropdown';
-import {
-  RelationType,
-  RelationVm,
-  useCanvasSchemaContext,
-} from '@/core/providers/canvas-schema';
-import { useModalDialogContext } from '@/core/providers';
+import { RelationType, RelationVm } from '@/core/providers/canvas-schema';
 
-export const EditRelationComponent: React.FC = () => {
-  const { closeModal } = useModalDialogContext();
-  const { canvasSchema, addRelation } = useCanvasSchemaContext();
+interface Props {
+  relationsTipeOptions: DropdownOptionVm[];
+  tablesNameOptions: DropdownOptionVm[];
+  relation: RelationVm;
+  setRelation: (relation: RelationVm) => void;
+}
 
-  //Se iniciará con la relación existente
-  const [relation, setRelation] = React.useState<RelationVm>({
-    fromFieldId: '',
-    fromTableId: '',
-    toFieldId: '',
-    toTableId: '',
-    type: '1:1',
-  });
-
-  //Maper para las relaciones, aunque aquí si se que opciones hay
-
-  const relationsTipe: DropdownOptionVm[] = [
-    { id: '1', label: '1:1' },
-    { id: '2', label: '1:M' },
-    { id: '3', label: 'M:1' },
-  ];
-  const data = [
-    { id: '1', label: 'tabla1' },
-    { id: '2', label: 'tabla2' },
-    { id: '3', label: 'tabla3' },
-  ];
+export const EditRelationComponent: React.FC<Props> = props => {
+  const { relationsTipeOptions, tablesNameOptions, relation, setRelation } =
+    props;
 
   return (
     <>
       <Dropdown
         name="selectone"
         label="Type"
-        options={relationsTipe}
+        options={relationsTipeOptions}
         onKeySelected={field =>
           setRelation({ ...relation, type: field.label as RelationType })
         }
@@ -47,7 +27,7 @@ export const EditRelationComponent: React.FC = () => {
       <Dropdown
         name="selecttwo"
         label="Origen Collection"
-        options={data}
+        options={tablesNameOptions}
         onKeySelected={field =>
           setRelation({ ...relation, fromTableId: field.id })
         }
@@ -56,7 +36,7 @@ export const EditRelationComponent: React.FC = () => {
       <Dropdown
         name="selecttwo"
         label="Destination Collection"
-        options={data}
+        options={tablesNameOptions}
         onKeySelected={field =>
           setRelation({ ...relation, toTableId: field.id })
         }
