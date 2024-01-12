@@ -2,6 +2,11 @@
   margin: 0 auto;
   text-align: center;
 }
+
+* {
+  box-sizing: border-box;
+}
+
 .light {
   --primary-background: #f1f5f9;
   --secondary-background: #fefdfe;

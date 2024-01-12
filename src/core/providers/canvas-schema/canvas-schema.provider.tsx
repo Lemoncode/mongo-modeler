@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
   DatabaseSchemaVm,
+  RelationVm,
   TableVm,
   createDefaultDatabaseSchemaVm,
 } from './canvas-schema.model';
@@ -41,6 +42,16 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     );
   };
 
+  // TODO: #90
+  //https://github.com/Lemoncode/mongo-modeler/issues/90
+  const addRelation = (relation: RelationVm) => {
+    setSchema(prevSchema =>
+      produce(prevSchema, draft => {
+        draft.relations.push(relation);
+      })
+    );
+  };
+
   const updateTablePosition = (
     id: string,
     position: Coords,
@@ -69,6 +80,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         doFieldToggleCollapse,
         updateFullTable,
         addTable,
+        addRelation,
       }}
     >
       {children}

@@ -1,1 +1,1 @@
-export * from './edit-relation.component';
+export * from './edit-relation.pod';
