@@ -85,13 +85,6 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           />
         </div>
         <div className={classes.fieldCell}>
-          <input
-            type="ckeckbox"
-            checked={field.isArray}
-            onChange={() => updateFieldValue(field, 'isArray', !field.isArray)}
-          />
-        </div>
-        <div className={classes.fieldCell}>
           <select
             value={field.type}
             onChange={e =>
@@ -102,6 +95,13 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             <option value="string">string</option>
             <option value="object">object</option>
           </select>
+        </div>
+        <div className={classes.fieldCell}>
+          <input
+            type="checkbox"
+            checked={field.isArray}
+            onChange={() => updateFieldValue(field, 'isArray', !field.isArray)}
+          />
         </div>
         <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
           <Commands
