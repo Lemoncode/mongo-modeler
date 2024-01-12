@@ -8,7 +8,7 @@ import {
 import { EditTableComponent } from './edit-table.component';
 import { produce } from 'immer';
 import { GUID } from '@/core/model';
-import { removeField } from './edit-table.business';
+import { addFieldLogic, removeField } from './edit-table.business';
 
 interface Props {
   table?: canvasVm.TableVm; // TODO: should we have our own Vm?
@@ -80,36 +80,7 @@ export const EditTablePod: React.FC<Props> = props => {
 
   const onAddField = (fieldId: GUID, isChildren: boolean) => {
     setEditTable(currentTable =>
-      produce(currentTable, draftTable => {
-        const findAndAddField = (fields: editTableVm.FieldVm[]): boolean => {
-          const fieldIndex = fields.findIndex(f => f.id === fieldId);
-          if (fieldIndex != -1) {
-            if (isChildren) {
-              fields[fieldIndex].children = fields[fieldIndex].children || [];
-              fields[fieldIndex]?.children?.unshift(
-                editTableVm.createDefaultField()
-              );
-            } else {
-              fields.splice(
-                fieldIndex + 1,
-                0,
-                editTableVm.createDefaultField()
-              );
-            }
-            return true; // Field found and updated
-          }
-          // Recursively search in nested fields
-          for (const field of fields) {
-            if (field.children && findAndAddField(field.children)) {
-              return true; // Field found and updated in nested field
-            }
-          }
-
-          return false; // Field not found
-        };
-
-        findAndAddField(draftTable.fields);
-      })
+      addFieldLogic(currentTable, fieldId, isChildren)
     );
   };
 
