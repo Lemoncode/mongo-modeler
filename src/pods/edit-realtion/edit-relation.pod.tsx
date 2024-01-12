@@ -16,6 +16,7 @@ interface Props {
 export const EditRelationPod: React.FC<Props> = props => {
   const { canvasSchema, onChangeRelation } = props;
 
+  //TODO: Initialize 'relation' with existing values when the user clicks on 'relation' SVG
   const [relation, setRelation] = React.useState<RelationVm>({
     fromFieldId: '',
     fromTableId: '',
@@ -31,8 +32,8 @@ export const EditRelationPod: React.FC<Props> = props => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //Need validators to avoid passing empty fields
-    //Needto know if the relationship already exists
+    //TODO: Need validators to avoid passing empty fields
+    //TODO: Need to know if the relationship already exists
     onChangeRelation(relation);
     console.log(relation);
   };
