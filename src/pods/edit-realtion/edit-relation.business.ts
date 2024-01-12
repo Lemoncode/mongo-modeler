@@ -7,7 +7,7 @@ export const mapRelationsTipeToDropdonwVm = (): DropdownOptionVm[] => [
   { id: '3', label: 'M:1' },
 ];
 
-//Test, Es posible que llegue vacio??
+//Test, it's possible that it arrives empty?
 export const mapTablesToDropdonwVm = (
   canvasSchema: DatabaseSchemaVm
 ): DropdownOptionVm[] =>
