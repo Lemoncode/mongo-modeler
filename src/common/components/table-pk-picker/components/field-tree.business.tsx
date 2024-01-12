@@ -1,12 +1,12 @@
 import { Tick } from '../../icons/tick-icon.component';
-import { OptionVm } from '../table-pk-picker.model';
+import { PkOptionVm } from '../table-pk-picker.model';
 import classes from '../table-pk-picker.component.module.css';
 
 export const generateOptions = (
   name: string,
-  options: OptionVm[],
+  options: PkOptionVm[],
   parentPath: string,
-  handleSelectPKField: (option: OptionVm, parentPath: string) => void,
+  handleSelectPKField: (option: PkOptionVm, parentPath: string) => void,
   selectedPKField?: string
 ): JSX.Element[] => {
   return options.map(option => (

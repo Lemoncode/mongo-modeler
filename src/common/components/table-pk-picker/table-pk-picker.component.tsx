@@ -2,17 +2,17 @@ import React from 'react';
 import classes from './table-pk-picker.component.module.css';
 import { FieldTree } from './components/field-tree.component';
 import { ExpandDown } from '../icons/expand-down-icon.component';
-import { OptionVm } from './table-pk-picker.model';
+import { PkOptionVm } from './table-pk-picker.model';
 import { GUID } from '@/core/model';
 import { SELECT_AN_PK_OPTION } from './table-pk-picker.const';
 
 interface Props {
   name: string;
-  options: OptionVm[];
+  options: PkOptionVm[];
   label?: string;
   selectedKeyFieldId?: GUID;
   selectTitle?: string;
-  onKeySelected: (field: OptionVm) => void;
+  onKeySelected: (field: PkOptionVm) => void;
 }
 
 export const TablePkPicker: React.FC<Props> = props => {
@@ -30,7 +30,7 @@ export const TablePkPicker: React.FC<Props> = props => {
   const [currentSelectedKeyFieldId, setCurrentSelectedKeyFieldId] =
     React.useState(selectedKeyFieldId);
 
-  const handleOptionClick = (option: OptionVm, parentPath: string) => {
+  const handleOptionClick = (option: PkOptionVm, parentPath: string) => {
     setCurrentSelectedKeyFieldId(option.id);
     const currentPath = parentPath
       ? `${parentPath} > ${option.label}`
