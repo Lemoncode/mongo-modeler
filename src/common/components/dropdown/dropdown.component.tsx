@@ -3,6 +3,7 @@ import classes from './dropdown.component.module.css';
 import { OptionGroup } from './components/option-group.component';
 import { ExpandDown } from '../icons/expand-down-icon.component';
 import { DropdownOptionVm } from './dropdown.model';
+import { SELECT_AN_OPTION } from './dropdown.const';
 
 interface Props {
   name: string;
@@ -39,7 +40,7 @@ export const Dropdown: React.FC<Props> = props => {
             onClick={() => setOptionsListVisible(!optionsListVisible)}
           >
             <p className={classes.selectText}>
-              {selectedPath || selectTitle || 'Selecciona una opción'}
+              {selectedPath || selectTitle || SELECT_AN_OPTION}
             </p>
             <ExpandDown />
           </div>
@@ -48,7 +49,7 @@ export const Dropdown: React.FC<Props> = props => {
             options={options}
             optionsListVisible={optionsListVisible}
             handleOptionClick={handleOptionClick}
-            selectedPKField={currentSelectedKeyFieldId}
+            selectedOption={currentSelectedKeyFieldId}
           />
         </div>
       </div>

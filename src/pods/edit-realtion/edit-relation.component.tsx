@@ -3,14 +3,14 @@ import { Dropdown, DropdownOptionVm } from '@/common/components/dropdown';
 import { RelationType, RelationVm } from '@/core/providers/canvas-schema';
 
 interface Props {
-  relationsTipeOptions: DropdownOptionVm[];
+  relationsTypeOptions: DropdownOptionVm[];
   tablesNameOptions: DropdownOptionVm[];
   relation: RelationVm;
   setRelation: (relation: RelationVm) => void;
 }
 
 export const EditRelationComponent: React.FC<Props> = props => {
-  const { relationsTipeOptions, tablesNameOptions, relation, setRelation } =
+  const { relationsTypeOptions, tablesNameOptions, relation, setRelation } =
     props;
 
   return (
@@ -18,7 +18,7 @@ export const EditRelationComponent: React.FC<Props> = props => {
       <Dropdown
         name="selectone"
         label="Type"
-        options={relationsTipeOptions}
+        options={relationsTypeOptions}
         onKeySelected={field =>
           setRelation({ ...relation, type: field.label as RelationType })
         }

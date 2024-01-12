@@ -4,6 +4,7 @@ import { FieldTree } from './components/field-tree.component';
 import { ExpandDown } from '../icons/expand-down-icon.component';
 import { OptionVm } from './table-pk-picker.model';
 import { GUID } from '@/core/model';
+import { SELECT_AN_PK_OPTION } from './table-pk-picker.const';
 
 interface Props {
   name: string;
@@ -49,7 +50,7 @@ export const TablePkPicker: React.FC<Props> = props => {
             onClick={() => setOptionsListVisible(!optionsListVisible)}
           >
             <p className={classes.selectText}>
-              {selectedPath || selectTitle || 'Selecciona una opción'}
+              {selectedPath || selectTitle || SELECT_AN_PK_OPTION}
             </p>
             <ExpandDown />
           </div>

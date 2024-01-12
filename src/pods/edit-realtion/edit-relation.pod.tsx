@@ -25,15 +25,15 @@ export const EditRelationPod: React.FC<Props> = props => {
     type: '1:1',
   });
 
-  const relationsTipeOptions = mapRelationsTipeToDropdonwVm();
+  const relationsTypeOptions = mapRelationsTipeToDropdonwVm();
 
   const tablesNameOptions: DropdownOptionVm[] =
     mapTablesToDropdonwVm(canvasSchema);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //TODO: Need validators to avoid passing empty fields
-    //TODO: Need to know if the relationship already exists
+
+    //TODO: Add validations with Formik
     onChangeRelation(relation);
     console.log(relation);
   };
@@ -42,7 +42,7 @@ export const EditRelationPod: React.FC<Props> = props => {
     <>
       <form className={classes.form} onSubmit={e => handleSubmit(e)}>
         <EditRelationComponent
-          relationsTipeOptions={relationsTipeOptions}
+          relationsTypeOptions={relationsTypeOptions}
           tablesNameOptions={tablesNameOptions}
           relation={relation}
           setRelation={setRelation}

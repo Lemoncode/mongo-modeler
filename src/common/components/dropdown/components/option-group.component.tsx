@@ -9,7 +9,7 @@ interface Props {
   options: DropdownOptionVm[];
   optionsListVisible: boolean;
   handleOptionClick: (option: DropdownOptionVm) => void;
-  selectedPKField?: string;
+  selectedOption?: string;
 }
 
 export const OptionGroup: React.FC<Props> = props => {
@@ -18,7 +18,7 @@ export const OptionGroup: React.FC<Props> = props => {
     options,
     optionsListVisible,
     handleOptionClick,
-    selectedPKField,
+    selectedOption,
   } = props;
 
   return (
@@ -26,24 +26,39 @@ export const OptionGroup: React.FC<Props> = props => {
       className={classes.options}
       style={{ display: optionsListVisible ? 'block' : 'none' }}
     >
-      {options.map(option => (
-        <li key={option.id}>
-          <div className={classes.svg}>
-            {selectedPKField === option.id ? <Tick /> : ''}
-          </div>
-          <label>
-            <input
-              type="radio"
-              name={name}
-              value={option.id}
-              onClick={() => handleOptionClick(option)}
-            />
-            {option.label}
-          </label>
-        </li>
-      ))}
+      <Option
+        name={name}
+        options={options}
+        handleOptionClick={handleOptionClick}
+        selectedOption={selectedOption}
+      ></Option>
     </ul>
   );
 };
 
-//options.map -- lo saco a tro componente??
+interface OptionProps {
+  name: string;
+  options: DropdownOptionVm[];
+  handleOptionClick: (option: DropdownOptionVm) => void;
+  selectedOption?: string;
+}
+
+const Option: React.FC<OptionProps> = props => {
+  const { options, selectedOption, name, handleOptionClick } = props;
+  return options.map(option => (
+    <li key={option.id}>
+      <div className={classes.svg}>
+        {selectedOption === option.id ? <Tick /> : ''}
+      </div>
+      <label>
+        <input
+          type="radio"
+          name={name}
+          value={option.id}
+          onClick={() => handleOptionClick(option)}
+        />
+        {option.label}
+      </label>
+    </li>
+  ));
+};

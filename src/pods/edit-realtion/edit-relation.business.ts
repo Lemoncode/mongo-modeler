@@ -7,7 +7,9 @@ export const mapRelationsTipeToDropdonwVm = (): DropdownOptionVm[] => [
   { id: '3', label: 'M:1' },
 ];
 
-//Test, it's possible that it arrives empty?
+// TODO:
+// #91
+//https://github.com/Lemoncode/mongo-modeler/issues/91
 export const mapTablesToDropdonwVm = (
   canvasSchema: DatabaseSchemaVm
 ): DropdownOptionVm[] =>
