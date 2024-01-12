@@ -1,7 +1,7 @@
 import { addFieldLogic } from './edit-table.business';
 import { TableVm } from './edit-table.vm';
 
-describe('add a field at the top level', () => {
+describe('addFieldLogic', () => {
   it('should add a field at the top level', () => {
     const table: TableVm = {
       id: '1',
@@ -19,9 +19,7 @@ describe('add a field at the top level', () => {
     expect(updateTable.fields).toHaveLength(3);
     expect(updateTable.fields[1].name).toBe('newField');
   });
-});
 
-describe('add a nested field', () => {
   it('should add a nested field', () => {
     const table: TableVm = {
       id: '1',
@@ -47,9 +45,7 @@ describe('add a nested field', () => {
     expect(updateTable.fields[0].children).toHaveLength(2);
     expect(updateTable.fields[0].children?.[0]?.name).toBe('newField');
   });
-});
 
-describe('does not add a field if the target field does not exist', () => {
   it('should not add a field if the target field does not exist', () => {
     const table: TableVm = {
       id: '1',
@@ -64,9 +60,7 @@ describe('does not add a field if the target field does not exist', () => {
     const updateTable = addFieldLogic(table, 'nonexistentFieldId', false);
     expect(updateTable).toEqual(table);
   });
-});
 
-describe('does not add a nested field if the target field does not exist', () => {
   it('should not add a nested field if the target field does not exist', () => {
     const table: TableVm = {
       id: '1',
