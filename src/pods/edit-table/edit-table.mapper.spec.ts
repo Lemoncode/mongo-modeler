@@ -6,7 +6,7 @@ import * as canvasModel from '@/core/providers/canvas-schema/canvas-schema.model
 import * as editTableModel from './edit-table.vm';
 
 describe('mapEditTableVmToTableVm', () => {
-  it('should return a copy of "canvasTable" witout "fields"', () => {
+  it('should return a copy of "canvasTable" without "fields"', () => {
     // Arrange
     const table: editTableModel.TableVm = {
       id: '1',
@@ -29,14 +29,14 @@ describe('mapEditTableVmToTableVm', () => {
   });
 
   describe('mapEditTableFieldsToTableVmFields', () => {
-    it('should return a canvasVm correcly', () => {
+    it('should return a canvasVm correctly', () => {
       // Arrange
       const table: editTableModel.TableVm = {
         id: '01',
         fields: [
           {
             id: '1',
-            PK: false,
+            PK: true,
             FK: false,
             name: '_id',
             type: 'objectId',
@@ -54,7 +54,7 @@ describe('mapEditTableVmToTableVm', () => {
           {
             id: '2',
             PK: false,
-            FK: false,
+            FK: true,
             name: '_name',
             type: 'string',
           },
@@ -68,7 +68,7 @@ describe('mapEditTableVmToTableVm', () => {
         fields: [
           {
             id: '1',
-            PK: false,
+            PK: true,
             name: '_id',
             type: 'objectId',
             children: [
@@ -102,14 +102,14 @@ describe('mapEditTableVmToTableVm', () => {
 });
 
 describe('mapTableVmToEditTableVm', () => {
-  it('should return a editTableVm with the correct FK  ', () => {
+  it('should return a editTableVm with FK in fields with true or false depending on it is a foreign key', () => {
     // Arrange
     const table: canvasModel.TableVm = {
       id: '01',
       fields: [
         {
           id: '1',
-          PK: false,
+          PK: true,
           name: '_id',
           type: 'objectId',
           children: [
@@ -142,6 +142,13 @@ describe('mapTableVmToEditTableVm', () => {
         toFieldId: '2',
         type: '1:1',
       },
+      {
+        fromTableId: '01',
+        toTableId: '02',
+        fromFieldId: '3',
+        toFieldId: '2',
+        type: '1:1',
+      },
     ];
 
     const expectedResult: editTableModel.TableVm = {
@@ -149,14 +156,14 @@ describe('mapTableVmToEditTableVm', () => {
       fields: [
         {
           id: '1',
-          PK: false,
+          PK: true,
           FK: true,
           name: '_id',
           type: 'objectId',
           children: [
             {
               id: '3',
-              FK: false,
+              FK: true,
               PK: false,
               name: '_type',
               type: 'string',
