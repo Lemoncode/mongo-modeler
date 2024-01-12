@@ -10,11 +10,19 @@ interface Props {
   options: OptionVm[];
   label?: string;
   selectedKeyFieldId?: GUID;
+  selectTitle?: string;
   onKeySelected: (field: OptionVm) => void;
 }
 
 export const TablePkPicker: React.FC<Props> = props => {
-  const { name, label, options, onKeySelected, selectedKeyFieldId } = props;
+  const {
+    name,
+    label,
+    options,
+    onKeySelected,
+    selectTitle,
+    selectedKeyFieldId,
+  } = props;
 
   const [selectedPath, setSelectedPath] = React.useState('');
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
@@ -41,7 +49,7 @@ export const TablePkPicker: React.FC<Props> = props => {
             onClick={() => setOptionsListVisible(!optionsListVisible)}
           >
             <p className={classes.selectText}>
-              {selectedPath || 'Selecciona una opción'}
+              {selectedPath || selectTitle || 'Selecciona una opción'}
             </p>
             <ExpandDown />
           </div>
