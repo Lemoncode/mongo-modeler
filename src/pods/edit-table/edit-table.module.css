@@ -36,7 +36,7 @@
 }
 
 .expandCell {
-  width: 50px; /* Fix width for the expand cell */
+  width: 80px; /* Fix width for the expand cell */
   text-align: center; /* Center the button in the cell */
 }
 
