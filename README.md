@@ -37,6 +37,7 @@ Team members participating in this project
 - [Verónica Camarzana](https://github.com/VCamarzana)
 - [Alberto Santiago](https://github.com/AlbertoSSC)
 - [Abel de Tena](https://github.com/AbelDeTena)
+- [Tony Torres](https://github.com/SkayDks)
 - [Juan Pablo Martinez](https://github.com/juanpms2)
 - [Manolo Dorado](https://github.com/manudous)
 - [Braulio Díez](https://github.com/brauliodiez)
