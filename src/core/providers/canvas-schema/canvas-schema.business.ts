@@ -65,6 +65,9 @@ const pruneOrphanRelationsLogic = (
   return relationsWithoutDeletedFields;
 };
 
+// Pending unit test support for prune relations
+// # 96
+// https://github.com/Lemoncode/mongo-modeler/issues/96
 export const updateTable = (
   table: TableVm,
   dbSchema: DatabaseSchemaVm
