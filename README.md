@@ -1,4 +1,4 @@
-# mongo-modeler
+# Mongo modeler
 
 ## Project
 
