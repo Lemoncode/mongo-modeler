@@ -6,6 +6,8 @@
 
 Mongo Modeler is a free, open source online web application that allows you to design and model MongoDB databases.
 
+![Mongo Modeler snapshot example, diagram view](./media/mongo-modeler.jpg)
+
 Main features:
 
 - Allows the creation of nested fields.
