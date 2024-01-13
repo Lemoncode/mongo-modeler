@@ -213,15 +213,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
-        relations: [
-          {
-            fromFieldId: '10',
-            fromTableId: '9',
-            toFieldId: '1',
-            toTableId: '1',
-            type: '1:M',
-          },
-        ],
+        relations: [],
         tables: [
           {
             id: '1',
