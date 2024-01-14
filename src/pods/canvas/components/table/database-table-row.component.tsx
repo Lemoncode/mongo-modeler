@@ -2,6 +2,7 @@ import { GUID } from '@/core/model';
 import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
 import classes from './database-table.module.css';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
+import { calculateDBColumnsWidth } from '@/pods/edit-table/edit-table.business';
 
 interface Props {
   tableInfo: TableVm;
@@ -17,6 +18,10 @@ export const DatabaseTableRow: React.FC<Props> = props => {
   const isExpandable =
     field.type === 'object' && (field.children?.length ?? 0) > 0;
   const isExpanded = !field.isCollapsed;
+  const columnWidths = calculateDBColumnsWidth(
+    [70, 30],
+    TABLE_CONST.DEFAULT_TABLE_WIDTH
+  );
 
   return (
     <g key={field.id} transform={`translate(0, ${currentY})`}>
@@ -40,7 +45,7 @@ export const DatabaseTableRow: React.FC<Props> = props => {
         </text>
       </g>
       <text
-        x={TABLE_CONST.FIELD_TYPE_X}
+        x={columnWidths[0] + columnWidths[1] - 70}
         y={TABLE_CONST.FONT_SIZE}
         className={classes.tableTextRow}
       >
