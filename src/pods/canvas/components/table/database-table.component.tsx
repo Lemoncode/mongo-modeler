@@ -19,6 +19,8 @@ interface Props {
   onEditTable: (tableInfo: TableVm) => void;
 }
 
+const HEADER_TITLE_GAP = 15;
+
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
   onEditTable,
@@ -99,7 +101,7 @@ export const DatabaseTable: React.FC<Props> = ({
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
-        height={totalHeight}
+        height={totalHeight + HEADER_TITLE_GAP}
         className={classes.tableBackground}
       />
       <rect
@@ -114,13 +116,13 @@ export const DatabaseTable: React.FC<Props> = ({
         {tableInfo.tableName}
       </text>
 
-      {renderedRows}
+      <g transform={`translate(0, ${HEADER_TITLE_GAP})`}>{renderedRows}</g>
 
       <rect
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
-        height={totalHeight}
+        height={totalHeight + HEADER_TITLE_GAP}
         className={classes.table}
       />
     </g>
