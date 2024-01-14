@@ -1,5 +1,4 @@
 import { Coords, GUID, Size } from '@/core/model';
-import classes from './canvas.pod.module.css';
 import { DatabaseSchemaVm, TableVm } from '@/core/providers/canvas-schema';
 import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
@@ -18,7 +17,7 @@ interface Props {
   onEditTable: (tableInfo: TableVm) => void;
 }
 
-export const CanvasSvgComponent: React.FC<Props> = props => {
+export const CanvasExportSvgComponent: React.FC<Props> = props => {
   const {
     viewBoxSize,
     canvasSize,
@@ -30,7 +29,6 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={classes.containerSvg}
       viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
       width={canvasSize.width}
       height={canvasSize.height}
