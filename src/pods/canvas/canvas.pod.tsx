@@ -5,15 +5,14 @@ import {
 } from '@/core/providers';
 import { GUID, Size } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
-import { DatabaseTable } from './components/table/database-table.component';
 import classes from './canvas.pod.module.css';
-import { DatabaseRelationCollectionComponent } from './components/relation';
 import {
   TableVm,
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
 import { EditTablePod } from '../edit-table';
 import { EDIT_TABLE_TITLE } from '@/common/components/modal-dialog';
+import { CanvasSvgComponent } from './canvas-svg.component';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -64,24 +63,14 @@ export const CanvasPod: React.FC = () => {
   return (
     <div>
       <div className={classes.container}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className={classes.containerSvg}
-          viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
-          width={canvasSize.width}
-          height={canvasSize.height}
-        >
-          {canvasSchema.tables.map(table => (
-            <DatabaseTable
-              key={table.id}
-              tableInfo={table}
-              updatePosition={updateTablePosition}
-              onToggleCollapse={handleToggleCollapse}
-              onEditTable={handleEditTable}
-            />
-          ))}
-          <DatabaseRelationCollectionComponent schema={canvasSchema} />
-        </svg>
+        <CanvasSvgComponent
+          viewBoxSize={viewBoxSize}
+          canvasSize={canvasSize}
+          canvasSchema={canvasSchema}
+          onUpdateTablePosition={updateTablePosition}
+          onToggleCollapse={handleToggleCollapse}
+          onEditTable={handleEditTable}
+        />
       </div>
     </div>
   );

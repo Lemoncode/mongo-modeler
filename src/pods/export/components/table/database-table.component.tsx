@@ -2,10 +2,10 @@
 import React from 'react';
 import { Coords, GUID, Size } from '@/core/model';
 import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
-import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { DatabaseTableRow } from './database-table-row.component';
+import { exportStylesVariables } from '../../export-variables.const';
 
 interface Props {
   tableInfo: TableVm;
@@ -98,24 +98,31 @@ export const DatabaseTable: React.FC<Props> = ({
     <g
       transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
       onMouseDown={onMouseDown}
-      className={classes.tableContainer}
     >
       <rect
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
         height={totalHeight + HEADER_TITLE_GAP}
-        className={classes.tableBackground}
+        style={{ fill: `${exportStylesVariables.SECONDARY_BACKGROUND}` }}
       />
       <rect
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
         height={TABLE_CONST.HEADER_HEIGHT}
-        className={classes.tableHeader}
+        style={{ fill: `${exportStylesVariables.HIGHLIGHT_COLOR}` }}
         onDoubleClick={handleDoubleClick}
       />
-      <text x="10" y={TABLE_CONST.FONT_SIZE} className={classes.tableText}>
+      <text
+        x="10"
+        y={TABLE_CONST.FONT_SIZE}
+        style={{
+          fontFamily: "'Arial', sans-serif",
+          fontSize: '14px',
+          fill: `${exportStylesVariables.TEXT_COLOR}`,
+        }}
+      >
         {tableInfo.tableName}
       </text>
 
@@ -126,7 +133,10 @@ export const DatabaseTable: React.FC<Props> = ({
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
         height={totalHeight + HEADER_TITLE_GAP}
-        className={classes.table}
+        style={{
+          fill: 'none',
+          stroke: `${exportStylesVariables.HIGHLIGHT_COLOR}`,
+        }}
       />
     </g>
   );
