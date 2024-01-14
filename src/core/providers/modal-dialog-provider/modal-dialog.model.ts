@@ -5,6 +5,7 @@ export interface ModalDialogModel {
   selectedComponent: React.ReactNode | null;
   title: string;
   subtitle?: string;
+  handleUpdateTableName?: (value: string) => void;
 }
 
 export const createInitialModalDialog = (): ModalDialogModel => ({
@@ -12,13 +13,15 @@ export const createInitialModalDialog = (): ModalDialogModel => ({
   selectedComponent: null,
   title: '',
   subtitle: undefined,
+  handleUpdateTableName: undefined,
 });
 
 export interface ModalDialogContextModel {
   openModal: (
     component: React.ReactNode | null,
     title: string,
-    subtitle?: string
+    subtitle?: string,
+    handleUpdateTableName?: (value: string) => void
   ) => void;
   closeModal: () => void;
   modalDialog: ModalDialogModel;
