@@ -56,3 +56,13 @@ export const addFieldLogic = (
     findAndAddField(draftTable.fields);
   });
 };
+
+export const calculateDBColumnsWidth = (
+  percentages: number[],
+  totalPixelWidth: number
+): number[] => {
+  const columnWidths = percentages.map(
+    percentages => (percentages * totalPixelWidth) / 100
+  );
+  return columnWidths;
+};
