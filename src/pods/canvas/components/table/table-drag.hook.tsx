@@ -16,8 +16,6 @@ export const useDraggable = (
 ) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startDragPosition, setStartDragPosition] = useState({ x: 0, y: 0 });
-  //const { canvasViewSettings } = useCanvasViewSettingsContext();
-  //const { canvasSize } = canvasViewSettings;
 
   const onMouseDown = useCallback(
     (event: React.MouseEvent) => {
