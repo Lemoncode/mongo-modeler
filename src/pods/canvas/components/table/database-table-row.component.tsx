@@ -12,6 +12,9 @@ interface Props {
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
 }
 
+const FIELD_NAME_WIDTH_PERCENTAGE = 70;
+const FIELD_TYPE_WIDTH_PERCENTAGE = 30;
+
 export const DatabaseTableRow: React.FC<Props> = props => {
   const { field, tableInfo, level, currentY, onToggleCollapse } = props;
 
@@ -19,7 +22,7 @@ export const DatabaseTableRow: React.FC<Props> = props => {
     field.type === 'object' && (field.children?.length ?? 0) > 0;
   const isExpanded = !field.isCollapsed;
   const columnWidths = calculateDBColumnsWidth(
-    [70, 30],
+    [FIELD_NAME_WIDTH_PERCENTAGE, FIELD_TYPE_WIDTH_PERCENTAGE],
     TABLE_CONST.DEFAULT_TABLE_WIDTH
   );
 
