@@ -23,14 +23,6 @@ export const ModalDialog: React.FC = () => {
         <div className={styles.dialog} role="dialog">
           <div className={styles.dialogHeader}>
             <h2 className={styles.dialogTitle}>{modalDialog.title}</h2>
-            {modalDialog.subtitle && (
-              <>
-                <span>&gt;</span>
-                <h3 className={styles.dialogSubtitle}>
-                  {modalDialog.subtitle}
-                </h3>
-              </>
-            )}
             <button className={styles.dialogButton} onClick={handleClick}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

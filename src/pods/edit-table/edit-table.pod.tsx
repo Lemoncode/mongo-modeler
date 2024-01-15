@@ -83,7 +83,9 @@ export const EditTablePod: React.FC<Props> = props => {
       addFieldLogic(currentTable, fieldId, isChildren)
     );
   };
-
+  const updateTableName = (tableName: string) => {
+    setEditTable({ ...editTable, tableName });
+  };
   return (
     <>
       <EditTableComponent
@@ -91,6 +93,7 @@ export const EditTablePod: React.FC<Props> = props => {
         updateFieldValue={updateFieldValue}
         onDeleteField={onDeleteField}
         onAddField={onAddField}
+        updateTableName={updateTableName}
       />
       <button onClick={() => handleSubmit(editTable)}>Apply</button>
     </>
