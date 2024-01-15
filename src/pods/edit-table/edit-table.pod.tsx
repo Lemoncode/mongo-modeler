@@ -8,7 +8,12 @@ import {
 import { EditTableComponent } from './edit-table.component';
 import { produce } from 'immer';
 import { GUID } from '@/core/model';
-import { addFieldLogic, removeField } from './edit-table.business';
+import {
+  addFieldLogic,
+  moveDownField,
+  moveUpField,
+  removeField,
+} from './edit-table.business';
 
 interface Props {
   table?: canvasVm.TableVm; // TODO: should we have our own Vm?
@@ -83,8 +88,17 @@ export const EditTablePod: React.FC<Props> = props => {
       addFieldLogic(currentTable, fieldId, isChildren)
     );
   };
+
   const updateTableName = (tableName: string) => {
     setEditTable({ ...editTable, tableName });
+  };
+
+  const onMoveDownField = (fieldId: GUID) => {
+    setEditTable(currentTable => moveDownField(currentTable, fieldId));
+  };
+
+  const onMoveUpField = (fieldId: GUID) => {
+    setEditTable(currentTable => moveUpField(currentTable, fieldId));
   };
   return (
     <>
@@ -94,6 +108,8 @@ export const EditTablePod: React.FC<Props> = props => {
         onDeleteField={onDeleteField}
         onAddField={onAddField}
         updateTableName={updateTableName}
+        onMoveDownField={onMoveDownField}
+        onMoveUpField={onMoveUpField}
       />
       <button onClick={() => handleSubmit(editTable)}>Apply</button>
     </>

@@ -17,6 +17,8 @@ interface NestedFieldGridProps {
   ) => void;
   onDeleteField: (fieldId: GUID) => void;
   onAddField: (fieldId: GUID, isChildren: boolean) => void;
+  onMoveDownField: (fieldId: GUID) => void;
+  onMoveUpField: (fieldId: GUID) => void;
 }
 
 export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
@@ -28,6 +30,8 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   updateFieldValue,
   onDeleteField,
   onAddField,
+  onMoveDownField,
+  onMoveUpField,
 }) => {
   const renderFieldHeaders = () => (
     <div className={`${classes.fieldRow} ${classes[`indent${level}`]}`}>
@@ -106,8 +110,11 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
         <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
           <Commands
             field={field}
+            fields={fields}
             onDeleteField={onDeleteField}
             onAddField={handleAddField}
+            onMoveDownField={onMoveDownField}
+            onMoveUpField={onMoveUpField}
           />
         </div>
       </div>
@@ -121,6 +128,8 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           updateFieldValue={updateFieldValue}
           onDeleteField={onDeleteField}
           onAddField={onAddField}
+          onMoveDownField={onMoveDownField}
+          onMoveUpField={onMoveUpField}
         />
       )}
     </React.Fragment>
