@@ -1,13 +1,13 @@
 import React from 'react';
-import { OptionVm } from '../table-pk-picker.model';
+import { PkOptionVm } from '../table-pk-picker.model';
 import classes from '../table-pk-picker.component.module.css';
 import { generateOptions } from './field-tree.business';
 
 interface Props {
   name: string;
-  options: OptionVm[];
+  options: PkOptionVm[];
   optionsListVisible: boolean;
-  handleOptionClick: (option: OptionVm, parentPath: string) => void;
+  handleOptionClick: (option: PkOptionVm, parentPath: string) => void;
   selectedPKField?: string;
 }
 
