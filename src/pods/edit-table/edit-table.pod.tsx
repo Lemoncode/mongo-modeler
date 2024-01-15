@@ -1,15 +1,18 @@
 import React from 'react';
 import * as canvasVm from '@/core/providers/canvas-schema';
 import * as editTableVm from './edit-table.vm';
-import { mapEditTableVmToTableVm } from './edit-table.mapper';
+import {
+  mapEditTableVmToTableVm,
+  mapTableVmToEditTableVm,
+} from './edit-table.mapper';
 import { EditTableComponent } from './edit-table.component';
 import { produce } from 'immer';
 import { GUID } from '@/core/model';
 import { addFieldLogic, removeField } from './edit-table.business';
 
 interface Props {
-  editTable: editTableVm.TableVm; // TODO: should we have our own Vm?
-  setEditTable: (value: React.SetStateAction<editTableVm.TableVm>) => void;
+  table?: canvasVm.TableVm; // TODO: should we have our own Vm?
+  relations: canvasVm.RelationVm[];
   onSave: (table: canvasVm.TableVm) => void;
 }
 
@@ -25,15 +28,15 @@ interface Props {
 // If it's a new table we will have to update X,Y coords to
 // something visible to the user
 export const EditTablePod: React.FC<Props> = props => {
-  const { editTable, setEditTable, onSave } = props;
+  const { table, relations, onSave } = props;
   // TODO:
   // #60
   // https://github.com/Lemoncode/mongo-modeler/issues/60
-  // const [editTable, setEditTable] = React.useState<editTableVm.TableVm>(
-  //   table
-  //     ? mapTableVmToEditTableVm(table, relations)
-  //     : editTableVm.createDefaultTable()
-  // );
+  const [editTable, setEditTable] = React.useState<editTableVm.TableVm>(
+    table
+      ? mapTableVmToEditTableVm(table, relations)
+      : editTableVm.createDefaultTable()
+  );
 
   const handleSubmit = (table: editTableVm.TableVm) => {
     onSave(mapEditTableVmToTableVm(table));

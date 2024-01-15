@@ -2,8 +2,6 @@ import React from 'react';
 import styles from './modal-dialog.styles.module.css';
 import { useModalDialogContext } from '@/core/providers/modal-dialog-provider';
 
-import { MDChangeTableName } from './components/md-change-table-name';
-
 export const ModalDialog: React.FC = () => {
   const { closeModal, modalDialog } = useModalDialogContext();
   const handleClick = () => {
@@ -11,7 +9,6 @@ export const ModalDialog: React.FC = () => {
   };
 
   React.useEffect(() => {
-    console.log(modalDialog.handleUpdateTableName);
     if (modalDialog.isOpen) {
       document.body.classList.add('overflow-hidden');
     }
@@ -26,12 +23,6 @@ export const ModalDialog: React.FC = () => {
         <div className={styles.dialog} role="dialog">
           <div className={styles.dialogHeader}>
             <h2 className={styles.dialogTitle}>{modalDialog.title}</h2>
-            {modalDialog.subtitle && modalDialog.handleUpdateTableName && (
-              <MDChangeTableName
-                tableName={modalDialog.subtitle}
-                handleUpdateTableName={modalDialog.handleUpdateTableName}
-              />
-            )}
             <button className={styles.dialogButton} onClick={handleClick}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

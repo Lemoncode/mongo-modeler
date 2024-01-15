@@ -15,18 +15,11 @@ export const ModalDialogProvider: React.FC<Props> = props => {
     createInitialModalDialog()
   );
 
-  const openModal = (
-    component: React.ReactNode | null,
-    title: string,
-    subtitle?: string,
-    handleUpdateTableName?: (value: string) => void
-  ) => {
+  const openModal = (component: React.ReactNode | null, title: string) => {
     setModalDialog({
       isOpen: true,
       selectedComponent: component,
       title,
-      subtitle,
-      handleUpdateTableName,
     });
   };
 
@@ -35,8 +28,6 @@ export const ModalDialogProvider: React.FC<Props> = props => {
       isOpen: false,
       selectedComponent: null,
       title: '',
-      subtitle: undefined,
-      handleUpdateTableName: undefined,
     });
   };
   return (
