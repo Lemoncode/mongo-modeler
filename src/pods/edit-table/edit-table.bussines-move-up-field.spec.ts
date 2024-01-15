@@ -1,8 +1,8 @@
-import { moveDownField } from './edit-table.business';
+import { moveUpField } from './edit-table.business';
 import { TableVm } from './edit-table.vm';
 
 describe('moveDownField', () => {
-  it('should move a field to down level', () => {
+  it('should move a field to up level', () => {
     // Arrange
     const table: TableVm = {
       id: '1',
@@ -16,7 +16,7 @@ describe('moveDownField', () => {
     };
 
     //Act
-    const updateTable = moveDownField(table, '1');
+    const updateTable = moveUpField(table, '2');
 
     //Assert
     const expected: TableVm = {
@@ -32,7 +32,7 @@ describe('moveDownField', () => {
     expect(updateTable).toEqual(expected);
   });
 
-  it('should move a field to down level even if it is nested', () => {
+  it('should move a field to up level even if it is nested', () => {
     // Arrange
     const table: TableVm = {
       id: '1',
@@ -57,7 +57,7 @@ describe('moveDownField', () => {
     };
 
     // Act
-    const updateTable = moveDownField(table, '11');
+    const updateTable = moveUpField(table, '22');
 
     // Assert
     const expected: TableVm = {
@@ -84,7 +84,7 @@ describe('moveDownField', () => {
     expect(updateTable).toEqual(expected);
   });
 
-  it('should not move a field if is the last field', () => {
+  it('should not move a field if is the first field', () => {
     // Arrange
     const table: TableVm = {
       id: '1',
@@ -97,10 +97,10 @@ describe('moveDownField', () => {
       y: 0,
     };
 
-    // Act
-    const updateTable = moveDownField(table, '2');
+    //Act
+    const updateTable = moveUpField(table, '1');
 
-    // Assert
+    //Assert
     const expected: TableVm = {
       id: '1',
       fields: [
@@ -114,7 +114,7 @@ describe('moveDownField', () => {
     expect(updateTable).toEqual(expected);
   });
 
-  it('must not move a field if it is the last field even if it is nested', () => {
+  it('should not move a field if it is the first field even if it is nested', () => {
     // Arrange
     const table: TableVm = {
       id: '1',
@@ -139,7 +139,7 @@ describe('moveDownField', () => {
     };
 
     // Act
-    const updateTable = moveDownField(table, '22');
+    const updateTable = moveUpField(table, '11');
 
     // Assert
     const expected: TableVm = {
