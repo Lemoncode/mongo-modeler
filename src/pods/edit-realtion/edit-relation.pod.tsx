@@ -31,13 +31,14 @@ export const EditRelationPod: React.FC<Props> = props => {
   const tablesNameOptions: DropdownOptionVm[] =
     mapTablesToDropdonwVm(canvasSchema);
 
+  //The problem is that these two functions should  below not be called until the other fields are not selected,
+  // but as I can't do that, I have to initialise the fields with an emptyFields if the id is undefined.
   const fieldsTableOrigin: PkOptionVm[] = mapTablesFieldsToPkOptionVm(
-    relation.fromTableId || '1',
+    relation.fromTableId,
     canvasSchema
   );
-
   const fieldsTableDestination: PkOptionVm[] = mapTablesFieldsToPkOptionVm(
-    relation.toTableId || '1',
+    relation.toTableId,
     canvasSchema
   );
 

@@ -45,10 +45,17 @@ const returnOptionsFromTable = (fields: FieldVm[]): PkOptionVm[] =>
     return { id: field.id, label: field.name };
   });
 
+const emptyFields: FieldVm[] = [
+  { id: '', name: '', type: 'string', PK: false },
+];
+
 export const mapTablesFieldsToPkOptionVm = (
   id: GUID,
   canvasSchema: DatabaseSchemaVm
 ): PkOptionVm[] => {
+  if (!id) {
+    return returnOptionsFromTable(emptyFields);
+  }
   const table = returnTablefromCanvasShema(id, canvasSchema);
   const options = returnOptionsFromTable(table.fields);
 
