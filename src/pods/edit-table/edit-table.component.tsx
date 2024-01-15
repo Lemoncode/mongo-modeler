@@ -13,11 +13,19 @@ interface Props {
   ) => void;
   onDeleteField: (fieldId: GUID) => void;
   onAddField: (fieldId: GUID, isChildren: boolean) => void;
+  updateTableName: (value: string) => void;
 }
 
 export const EditTableComponent: React.FC<Props> = props => {
-  const { table, updateFieldValue, onDeleteField, onAddField } = props;
+  const {
+    table,
+    updateFieldValue,
+    onDeleteField,
+    onAddField,
+    updateTableName,
+  } = props;
   const [expandedFields, setExpandedFields] = useState<Set<string>>(new Set());
+  const [valueTableName, setValueTableName] = useState(table.tableName);
 
   const expandField = (fieldId: string) => {
     setExpandedFields(prev => {
@@ -41,18 +49,35 @@ export const EditTableComponent: React.FC<Props> = props => {
     });
   };
 
+  const handleChangeTableName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateTableName(e.currentTarget.value);
+    setValueTableName(e.currentTarget.value);
+  };
+
   return (
-    <div className={classes.tableEditor}>
-      <NestedFieldGrid
-        fields={table.fields}
-        level={0}
-        expandedFields={expandedFields}
-        toggleExpand={toggleExpand}
-        expandField={expandField}
-        updateFieldValue={updateFieldValue}
-        onDeleteField={onDeleteField}
-        onAddField={onAddField}
-      />
-    </div>
+    <>
+      <div className={classes.tableName}>
+        <label>
+          Table:
+          <input
+            type="text"
+            value={valueTableName}
+            onChange={handleChangeTableName}
+          />
+        </label>
+      </div>
+      <div className={classes.tableEditor}>
+        <NestedFieldGrid
+          fields={table.fields}
+          level={0}
+          expandedFields={expandedFields}
+          toggleExpand={toggleExpand}
+          expandField={expandField}
+          updateFieldValue={updateFieldValue}
+          onDeleteField={onDeleteField}
+          onAddField={onAddField}
+        />
+      </div>
+    </>
   );
 };
