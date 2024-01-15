@@ -25,7 +25,6 @@ export const EditTableComponent: React.FC<Props> = props => {
     updateTableName,
   } = props;
   const [expandedFields, setExpandedFields] = useState<Set<string>>(new Set());
-  const [valueTableName, setValueTableName] = useState(table.tableName);
 
   const expandField = (fieldId: string) => {
     setExpandedFields(prev => {
@@ -51,7 +50,6 @@ export const EditTableComponent: React.FC<Props> = props => {
 
   const handleChangeTableName = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateTableName(e.currentTarget.value);
-    setValueTableName(e.currentTarget.value);
   };
 
   return (
@@ -61,7 +59,7 @@ export const EditTableComponent: React.FC<Props> = props => {
           Table:
           <input
             type="text"
-            value={valueTableName}
+            value={table.tableName}
             onChange={handleChangeTableName}
           />
         </label>
