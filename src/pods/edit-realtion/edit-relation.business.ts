@@ -13,8 +13,13 @@ export const mapRelationsTipeToDropdonwVm = (): DropdownOptionVm[] => [
 ];
 
 // TODO:
-// #91
+// #91 Disable toolbar add relation button when there are no relations
 //https://github.com/Lemoncode/mongo-modeler/issues/91
+
+// TODO:
+// #118 Add unit tests to edit relation business
+//https://github.com/Lemoncode/mongo-modeler/issues/118
+
 export const mapTablesToDropdonwVm = (
   canvasSchema: DatabaseSchemaVm
 ): DropdownOptionVm[] =>

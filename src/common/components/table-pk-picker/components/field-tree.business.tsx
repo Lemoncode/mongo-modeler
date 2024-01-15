@@ -2,6 +2,9 @@ import { Tick } from '../../icons/tick-icon.component';
 import { PkOptionVm } from '../table-pk-picker.model';
 import classes from '../table-pk-picker.component.module.css';
 
+// TODO:
+// #116 Add unit test support to fieldTreeBusiness
+//https://github.com/Lemoncode/mongo-modeler/issues/116
 export const generateOptions = (
   name: string,
   options: PkOptionVm[],
