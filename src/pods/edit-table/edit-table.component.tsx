@@ -14,6 +14,8 @@ interface Props {
   onDeleteField: (fieldId: GUID) => void;
   onAddField: (fieldId: GUID, isChildren: boolean) => void;
   updateTableName: (value: string) => void;
+  onMoveDownField: (fieldId: GUID) => void;
+  onMoveUpField: (fieldId: GUID) => void;
 }
 
 export const EditTableComponent: React.FC<Props> = props => {
@@ -23,6 +25,8 @@ export const EditTableComponent: React.FC<Props> = props => {
     onDeleteField,
     onAddField,
     updateTableName,
+    onMoveDownField,
+    onMoveUpField,
   } = props;
   const [expandedFields, setExpandedFields] = useState<Set<string>>(new Set());
 
@@ -74,6 +78,8 @@ export const EditTableComponent: React.FC<Props> = props => {
           updateFieldValue={updateFieldValue}
           onDeleteField={onDeleteField}
           onAddField={onAddField}
+          onMoveDownField={onMoveDownField}
+          onMoveUpField={onMoveUpField}
         />
       </div>
     </>
