@@ -45,10 +45,18 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   // TODO: #90
   //https://github.com/Lemoncode/mongo-modeler/issues/90
   const addRelation = (relation: RelationVm) => {
-    setSchema(prevSchema =>
-      produce(prevSchema, draft => {
-        draft.relations.push(relation);
-      })
+    if (!doesRelationAlreadyExists(relation)) {
+      setSchema(prevSchema =>
+        produce(prevSchema, draft => {
+          draft.relations.push(relation);
+        })
+      );
+    }
+  };
+
+  const doesRelationAlreadyExists = (relation: RelationVm): boolean => {
+    return canvasSchema.relations.some(
+      canvasRelation => canvasRelation !== relation
     );
   };
 
