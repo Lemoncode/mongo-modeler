@@ -12,10 +12,12 @@ interface Props {
   selectTitle?: string;
   selectedField?: DropdownOptionVm;
   error?: string;
+  touched?: boolean;
 }
 
 export const Dropdown: React.FC<Props> = props => {
-  const { name, label, options, selectedField, selectTitle, error } = props;
+  const { name, label, options, selectedField, selectTitle, error, touched } =
+    props;
 
   const [selectedPath, setSelectedPath] = React.useState(selectedField?.label);
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
@@ -27,14 +29,17 @@ export const Dropdown: React.FC<Props> = props => {
     setSelectedPath(option.label);
     setOptionsListVisible(false);
   };
-  console.log(error);
 
   return (
     <>
       <div className={classes.select}>
         <p className={classes.selectLabel}>{label ? label : ''}</p>
         <div className={classes.selectContainer}>
-          <div className={classes.selectSelect}>
+          <div
+            className={`${classes.selectSelect} ${
+              error && touched && classes.selectError
+            }`}
+          >
             <div
               className={classes.selectChosen}
               onClick={() => setOptionsListVisible(!optionsListVisible)}
@@ -44,7 +49,6 @@ export const Dropdown: React.FC<Props> = props => {
               </p>
               <ExpandDown />
             </div>
-
             <OptionGroup
               name={name}
               options={options}
@@ -53,7 +57,7 @@ export const Dropdown: React.FC<Props> = props => {
               selectedOption={currentSelectedKeyFieldId}
             />
           </div>
-          {error && <span className={classes.error}>{error}</span>}
+          {error && touched && <span className={classes.error}>{error}</span>}
         </div>
       </div>
 

@@ -4,7 +4,6 @@ import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
 import { mapTablesFieldsToPkOptionVm } from './edit-relation.business';
 import { PkOptionVm, TablePkPicker } from '@/common/components';
 import { FormikErrors, FormikTouched } from 'formik';
-import classes from './edit-relation.pod.module.css';
 
 interface Props {
   relationsTypeOptions: DropdownOptionVm[];
@@ -42,41 +41,43 @@ export const EditRelationComponent: React.FC<Props> = props => {
         label="Type"
         options={relationsTypeOptions}
         selectedField={{ id: '1', label: '1:1' }}
+        error={errors.type}
+        touched={touched.type}
       ></Dropdown>
-      {errors.type && touched.type && (
-        <span className={classes.error}>{errors.type}</span>
-      )}
       <Dropdown
         name="fromTableId"
         label="Origen Collection"
         options={tablesNameOptions}
         selectTitle="Select origin table"
-        error={errors.fromFieldId}
+        error={errors.fromTableId}
+        touched={touched.fromTableId}
       ></Dropdown>
-      {relation.fromTableId && (
-        <TablePkPicker
-          name="fromFieldId"
-          label="Origin field"
-          options={fieldsTableOrigin}
-          selectTitle="Select origin field"
-        ></TablePkPicker>
-      )}
+      <TablePkPicker
+        name="fromFieldId"
+        label="Origin field"
+        options={fieldsTableOrigin}
+        selectTitle="Select origin field"
+        error={errors.fromFieldId}
+        touched={touched.fromFieldId}
+        disabled={relation.fromTableId ? false : true}
+      ></TablePkPicker>
       <Dropdown
         name="toTableId"
         label="Destination Collection"
         options={tablesNameOptions}
         selectTitle="Select destination table"
-        error={errors.toFieldId}
+        error={errors.toTableId}
+        touched={touched.toTableId}
       ></Dropdown>
-
-      {relation.toTableId && (
-        <TablePkPicker
-          name="toFieldId"
-          label="Destination field"
-          options={fieldsTableDestination}
-          selectTitle="Select destination field"
-        ></TablePkPicker>
-      )}
+      <TablePkPicker
+        name="toFieldId"
+        label="Destination field"
+        options={fieldsTableDestination}
+        selectTitle="Select destination field"
+        error={errors.toFieldId}
+        touched={touched.toFieldId}
+        disabled={relation.toTableId ? false : true}
+      ></TablePkPicker>
     </>
   );
 };

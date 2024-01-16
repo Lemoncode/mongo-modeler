@@ -22,8 +22,19 @@ export const validationSchema: ValidationSchema = {
         message: 'Selected table option is required',
       },
     ],
+    fromFieldId: [
+      {
+        validator: Validators.required,
+        message: 'Selected field option is required',
+      },
+    ],
+    toFieldId: [
+      {
+        validator: Validators.required,
+        message: 'Selected field option is required',
+      },
+    ],
   },
-  // Puedes añadir más grupos según sea necesario
 };
 
 export const formValidation = createFormikValidation(validationSchema);

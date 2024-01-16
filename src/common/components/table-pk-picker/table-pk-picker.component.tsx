@@ -12,11 +12,22 @@ interface Props {
   label?: string;
   selectedKeyFieldId?: GUID;
   selectTitle?: string;
-  // onKeySelected: (field: PkOptionVm) => void;
+  error?: string;
+  touched?: boolean;
+  disabled?: boolean;
 }
 
 export const TablePkPicker: React.FC<Props> = props => {
-  const { name, label, options, selectTitle, selectedKeyFieldId } = props;
+  const {
+    name,
+    label,
+    options,
+    selectTitle,
+    selectedKeyFieldId,
+    error,
+    touched,
+    disabled,
+  } = props;
 
   const [selectedPath, setSelectedPath] = React.useState('');
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
@@ -30,30 +41,40 @@ export const TablePkPicker: React.FC<Props> = props => {
       : option.label;
     setSelectedPath(currentPath);
     setOptionsListVisible(false);
-    // onKeySelected(option);
   };
 
   return (
     <>
       <div className={classes.select}>
         <p className={classes.selectLabel}>{label ? label : ''}</p>
-        <div className={classes.selectSelect}>
+        <div className={classes.selectContainer}>
           <div
-            className={classes.selectChosen}
-            onClick={() => setOptionsListVisible(!optionsListVisible)}
+            className={`${classes.selectSelect} ${
+              error && touched && !disabled && classes.selectError
+            } ${disabled && classes.selectDisabled}`}
           >
-            <p className={classes.selectText}>
-              {selectedPath || selectTitle || SELECT_AN_PK_OPTION}
-            </p>
-            <ExpandDown />
+            <div
+              className={classes.selectChosen}
+              onClick={() => setOptionsListVisible(!optionsListVisible)}
+            >
+              <p className={classes.selectText}>
+                {selectedPath || selectTitle || SELECT_AN_PK_OPTION}
+              </p>
+              <ExpandDown />
+            </div>
+            {disabled || (
+              <FieldTree
+                name={name}
+                options={options}
+                optionsListVisible={optionsListVisible}
+                handleOptionClick={handleOptionClick}
+                selectedPKField={currentSelectedKeyFieldId}
+              />
+            )}
           </div>
-          <FieldTree
-            name={name}
-            options={options}
-            optionsListVisible={optionsListVisible}
-            handleOptionClick={handleOptionClick}
-            selectedPKField={currentSelectedKeyFieldId}
-          />
+          {error && touched && !disabled && (
+            <span className={classes.error}>{error}</span>
+          )}
         </div>
       </div>
       {optionsListVisible && (
