@@ -4,7 +4,7 @@ import {
   RelationType,
   RelationVm,
 } from '@/core/providers/canvas-schema';
-import { DropdownOptionVm, PkOptionVm } from '@/common/components';
+import { DropdownOptionVm } from '@/common/components';
 import {
   mapRelationsTipeToDropdonwVm,
   mapTablesToDropdonwVm,
@@ -33,6 +33,7 @@ export const EditRelationPod: React.FC<Props> = props => {
   const handleSubmit = (values: RelationFormVm) => {
     // TODO Mapper
     console.log(values);
+    console.log('miro');
     onChangeRelation({
       ...values,
       type: values.type.label as RelationType,

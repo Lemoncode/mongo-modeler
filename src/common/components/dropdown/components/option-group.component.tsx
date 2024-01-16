@@ -3,7 +3,6 @@ import React from 'react';
 import classes from '../dropdown.component.module.css';
 import { Tick } from '../../icons/tick-icon.component';
 import { DropdownOptionVm } from '../dropdown.model';
-import { Field } from 'formik';
 
 interface Props {
   name: string;
@@ -52,7 +51,7 @@ const Option: React.FC<OptionProps> = props => {
         {selectedOption === option.id ? <Tick /> : ''}
       </div>
       <label>
-        <Field
+        <input
           type="radio"
           name={name}
           value={option.id}

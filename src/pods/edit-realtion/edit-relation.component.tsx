@@ -1,10 +1,11 @@
 import React from 'react';
-import { Dropdown, DropdownOptionVm } from '@/common/components/dropdown';
-import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
+import { DropdownOptionVm } from '@/common/components/dropdown';
+import { DatabaseSchemaVm } from '@/core/providers/canvas-schema';
 import { mapTablesFieldsToPkOptionVm } from './edit-relation.business';
 import { PkOptionVm, TablePkPicker } from '@/common/components';
 import { FormikErrors, FormikTouched } from 'formik';
 import { RelationFormVm } from './edit-relation.vm';
+import { DropdownFormik } from '@/common/components/forms/dropdown';
 
 interface Props {
   relationsTypeOptions: DropdownOptionVm[];
@@ -12,8 +13,8 @@ interface Props {
   canvasSchema: DatabaseSchemaVm;
   values: RelationFormVm;
   setFieldValue: (field: string, value: any) => void;
-  errors: FormikErrors<RelationVm>;
-  touched: FormikTouched<RelationVm>;
+  errors: FormikErrors<RelationFormVm>;
+  touched: FormikTouched<RelationFormVm>;
 }
 
 export const EditRelationComponent: React.FC<Props> = props => {
@@ -24,6 +25,7 @@ export const EditRelationComponent: React.FC<Props> = props => {
     canvasSchema,
     errors,
     touched,
+    setFieldValue,
   } = props;
 
   //No veo como subirlas un nivel
@@ -38,23 +40,21 @@ export const EditRelationComponent: React.FC<Props> = props => {
 
   return (
     <>
-      <Dropdown
+      <DropdownFormik
         name="type"
         label="Type"
         options={relationsTypeOptions}
-        selectedField={values['type']}
-        onChange={value => setFieldValue('type', value)}
-        error={errors.type}
-        touched={touched.type}
-      ></Dropdown>
-      <Dropdown
+        selectTitle="Select type"
+        selectedField={relation['type']}
+        onChange={value => setFieldValue('type', value.label)}
+      ></DropdownFormik>
+      <DropdownFormik
         name="fromTableId"
-        label="Origen Collection"
+        label="Origin Collection"
         options={tablesNameOptions}
         selectTitle="Select origin table"
-        error={errors.fromTableId}
-        touched={touched.fromTableId}
-      ></Dropdown>
+        onChange={value => setFieldValue('fromTableId', value.id)}
+      ></DropdownFormik>
       <TablePkPicker
         name="fromFieldId"
         label="Origin field"
@@ -64,14 +64,13 @@ export const EditRelationComponent: React.FC<Props> = props => {
         touched={touched.fromFieldId}
         disabled={relation.fromTableId ? false : true}
       ></TablePkPicker>
-      <Dropdown
+      <DropdownFormik
         name="toTableId"
         label="Destination Collection"
         options={tablesNameOptions}
         selectTitle="Select destination table"
-        error={errors.toTableId}
-        touched={touched.toTableId}
-      ></Dropdown>
+        onChange={value => setFieldValue('toTableId', value.id)}
+      ></DropdownFormik>
       <TablePkPicker
         name="toFieldId"
         label="Destination field"
