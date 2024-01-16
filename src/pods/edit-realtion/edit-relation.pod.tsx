@@ -25,12 +25,6 @@ export const EditRelationPod: React.FC<Props> = props => {
   const tablesNameOptions: DropdownOptionVm[] =
     mapTablesToDropdonwVm(canvasSchema);
 
-  const handleSubmitRelation = (relation: RelationVm) => {
-    //TODO: Add validations with Formik
-    onChangeRelation(relation);
-    console.log(relation);
-  };
-
   return (
     <Formik
       initialValues={
@@ -42,7 +36,7 @@ export const EditRelationPod: React.FC<Props> = props => {
           type: '1:1',
         } as RelationVm
       }
-      onSubmit={handleSubmitRelation}
+      onSubmit={onChangeRelation}
       validate={formValidation.validateForm}
     >
       {({ values, errors, touched }) => (
