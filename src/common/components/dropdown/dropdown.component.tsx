@@ -9,14 +9,13 @@ interface Props {
   name: string;
   options: DropdownOptionVm[];
   label?: string;
-  onKeySelected: (field: DropdownOptionVm) => void;
   selectTitle?: string;
   selectedField?: DropdownOptionVm;
+  error?: string;
 }
 
 export const Dropdown: React.FC<Props> = props => {
-  const { name, label, options, onKeySelected, selectedField, selectTitle } =
-    props;
+  const { name, label, options, selectedField, selectTitle, error } = props;
 
   const [selectedPath, setSelectedPath] = React.useState(selectedField?.label);
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
@@ -27,32 +26,37 @@ export const Dropdown: React.FC<Props> = props => {
     setCurrentSelectedKeyFieldId(option.id);
     setSelectedPath(option.label);
     setOptionsListVisible(false);
-    onKeySelected(option);
   };
+  console.log(error);
 
   return (
     <>
       <div className={classes.select}>
         <p className={classes.selectLabel}>{label ? label : ''}</p>
-        <div className={classes.selectSelect}>
-          <div
-            className={classes.selectChosen}
-            onClick={() => setOptionsListVisible(!optionsListVisible)}
-          >
-            <p className={classes.selectText}>
-              {selectedPath || selectTitle || SELECT_AN_OPTION}
-            </p>
-            <ExpandDown />
+        <div className={classes.selectContainer}>
+          <div className={classes.selectSelect}>
+            <div
+              className={classes.selectChosen}
+              onClick={() => setOptionsListVisible(!optionsListVisible)}
+            >
+              <p className={classes.selectText}>
+                {selectedPath || selectTitle || SELECT_AN_OPTION}
+              </p>
+              <ExpandDown />
+            </div>
+
+            <OptionGroup
+              name={name}
+              options={options}
+              optionsListVisible={optionsListVisible}
+              handleOptionClick={handleOptionClick}
+              selectedOption={currentSelectedKeyFieldId}
+            />
           </div>
-          <OptionGroup
-            name={name}
-            options={options}
-            optionsListVisible={optionsListVisible}
-            handleOptionClick={handleOptionClick}
-            selectedOption={currentSelectedKeyFieldId}
-          />
+          {error && <span className={classes.error}>{error}</span>}
         </div>
       </div>
+
       {optionsListVisible && (
         <div
           className={classes.veil}

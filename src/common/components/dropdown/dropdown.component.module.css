@@ -1,8 +1,14 @@
 .select {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: baseline;
   text-align: left;
+  gap: 10px;
+}
+.select-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 .select p {
   margin: 0;
@@ -10,15 +16,19 @@
 .select-label {
   min-width: 20ch;
 }
+
 .select-select {
   --border-width: 1px;
-  --boder: var(--border-width) solid #ccc;
+  --border-color: #ccc;
+  --boder: var(--border-width) solid var(--border-color);
   position: relative;
   width: 100%;
   border: var(--boder);
   background-color: var(--primary-background);
 }
-
+.select-error {
+  --border-color: #ff0000;
+}
 .select-chosen {
   display: flex;
   align-items: center;
@@ -93,4 +103,9 @@
   z-index: 1;
   top: 0;
   left: 0;
+}
+.error {
+  color: #ff0000;
+  font-size: 12px;
+  margin-left: 6px;
 }

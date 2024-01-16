@@ -1,15 +1,18 @@
 import React from 'react';
 import { Dropdown, DropdownOptionVm } from '@/common/components/dropdown';
-import { RelationType, RelationVm } from '@/core/providers/canvas-schema';
+import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
+import { mapTablesFieldsToPkOptionVm } from './edit-relation.business';
 import { PkOptionVm, TablePkPicker } from '@/common/components';
+import { FormikErrors, FormikTouched } from 'formik';
+import classes from './edit-relation.pod.module.css';
 
 interface Props {
   relationsTypeOptions: DropdownOptionVm[];
   tablesNameOptions: DropdownOptionVm[];
-  fieldsTableOrigin: PkOptionVm[];
-  fieldsTableDestination: PkOptionVm[];
+  canvasSchema: DatabaseSchemaVm;
   relation: RelationVm;
-  setRelation: (relation: RelationVm) => void;
+  errors: FormikErrors<RelationVm>;
+  touched: FormikTouched<RelationVm>;
 }
 
 export const EditRelationComponent: React.FC<Props> = props => {
@@ -17,59 +20,60 @@ export const EditRelationComponent: React.FC<Props> = props => {
     relationsTypeOptions,
     tablesNameOptions,
     relation,
-    setRelation,
-    fieldsTableDestination,
-    fieldsTableOrigin,
+    canvasSchema,
+    errors,
+    touched,
   } = props;
+
+  //No veo como subirlas un nivel
+  const fieldsTableOrigin: PkOptionVm[] = mapTablesFieldsToPkOptionVm(
+    relation.fromTableId,
+    canvasSchema
+  );
+  const fieldsTableDestination: PkOptionVm[] = mapTablesFieldsToPkOptionVm(
+    relation.toTableId,
+    canvasSchema
+  );
 
   return (
     <>
       <Dropdown
-        name="selectone"
+        name="type"
         label="Type"
         options={relationsTypeOptions}
-        onKeySelected={field =>
-          setRelation({ ...relation, type: field.label as RelationType })
-        }
         selectedField={{ id: '1', label: '1:1' }}
       ></Dropdown>
+      {errors.type && touched.type && (
+        <span className={classes.error}>{errors.type}</span>
+      )}
       <Dropdown
-        name="selecttwo"
+        name="fromTableId"
         label="Origen Collection"
         options={tablesNameOptions}
-        onKeySelected={field =>
-          setRelation({ ...relation, fromTableId: field.id })
-        }
         selectTitle="Select origin table"
+        error={errors.fromFieldId}
       ></Dropdown>
       {relation.fromTableId && (
         <TablePkPicker
-          name="selecttwo"
+          name="fromFieldId"
           label="Origin field"
           options={fieldsTableOrigin}
-          onKeySelected={field =>
-            setRelation({ ...relation, fromFieldId: field.id })
-          }
           selectTitle="Select origin field"
         ></TablePkPicker>
       )}
       <Dropdown
-        name="selecttwo"
+        name="toTableId"
         label="Destination Collection"
         options={tablesNameOptions}
-        onKeySelected={field =>
-          setRelation({ ...relation, toTableId: field.id })
-        }
         selectTitle="Select destination table"
+        error={errors.toFieldId}
       ></Dropdown>
+
       {relation.toTableId && (
         <TablePkPicker
-          name="selecttwo"
+          name="toFieldId"
           label="Destination field"
           options={fieldsTableDestination}
-          onKeySelected={field =>
-            setRelation({ ...relation, toFieldId: field.id })
-          }
           selectTitle="Select destination field"
         ></TablePkPicker>
       )}

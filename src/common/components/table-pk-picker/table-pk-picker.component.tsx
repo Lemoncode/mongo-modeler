@@ -12,18 +12,11 @@ interface Props {
   label?: string;
   selectedKeyFieldId?: GUID;
   selectTitle?: string;
-  onKeySelected: (field: PkOptionVm) => void;
+  // onKeySelected: (field: PkOptionVm) => void;
 }
 
 export const TablePkPicker: React.FC<Props> = props => {
-  const {
-    name,
-    label,
-    options,
-    onKeySelected,
-    selectTitle,
-    selectedKeyFieldId,
-  } = props;
+  const { name, label, options, selectTitle, selectedKeyFieldId } = props;
 
   const [selectedPath, setSelectedPath] = React.useState('');
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
@@ -37,7 +30,7 @@ export const TablePkPicker: React.FC<Props> = props => {
       : option.label;
     setSelectedPath(currentPath);
     setOptionsListVisible(false);
-    onKeySelected(option);
+    // onKeySelected(option);
   };
 
   return (
