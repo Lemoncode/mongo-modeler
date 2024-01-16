@@ -1,12 +1,13 @@
+import React from 'react';
 import { Size } from '@/core/model';
-import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
+import { downloadImage } from '@/common/export';
+// import { downloadSvg } from '@/common/export';
 import { ExportIcon } from '@/common/components/icons/export-icon.component';
 import { useCanvasViewSettingsContext } from '@/core/providers';
 import { useCanvasSchemaContext } from '@/core/providers/canvas-schema';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
-import React from 'react';
-import { downloadSvg } from '@/common/export/download-svg.business';
 import { CanvasExportSvgComponent } from '@/pods/export/canvas-export-svg.component';
+import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 
 export const ExportButton = () => {
   const { canvasSchema } = useCanvasSchemaContext();
@@ -22,7 +23,22 @@ export const ExportButton = () => {
     [zoomFactor, canvasSize]
   );
 
-  const exportSvg = () => {
+  // const exportSvg = () => {
+  //   const svg = (
+  //     <CanvasExportSvgComponent
+  //       viewBoxSize={viewBoxSize}
+  //       canvasSize={canvasSize}
+  //       canvasSchema={canvasSchema}
+  //       onUpdateTablePosition={() => {}}
+  //       onToggleCollapse={() => {}}
+  //       onEditTable={() => {}}
+  //     />
+  //   );
+
+  //   downloadSvg(svg);
+  // };
+
+  const exportImage = () => {
     const svg = (
       <CanvasExportSvgComponent
         viewBoxSize={viewBoxSize}
@@ -34,14 +50,15 @@ export const ExportButton = () => {
       />
     );
 
-    downloadSvg(svg);
+    downloadImage(svg, viewBoxSize);
   };
 
   return (
     <ToolbarButton
       icon={<ExportIcon />}
       label="Export"
-      onClick={exportSvg}
+      // onClick={exportSvg}
+      onClick={exportImage}
       className={classes.button}
     />
   );
