@@ -1,6 +1,10 @@
 import React from 'react';
-import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
-import { DropdownOptionVm } from '@/common/components';
+import {
+  DatabaseSchemaVm,
+  RelationType,
+  RelationVm,
+} from '@/core/providers/canvas-schema';
+import { DropdownOptionVm, PkOptionVm } from '@/common/components';
 import {
   mapRelationsTipeToDropdonwVm,
   mapTablesToDropdonwVm,
@@ -9,6 +13,7 @@ import { EditRelationComponent } from './edit-relation.component';
 import classes from './edit-relation.pod.module.css';
 import { Form, Formik } from 'formik';
 import { formValidation } from './edit-relation.validation';
+import { RelationFormVm } from './edit-relation.vm';
 
 interface Props {
   canvasSchema: DatabaseSchemaVm;
@@ -25,6 +30,15 @@ export const EditRelationPod: React.FC<Props> = props => {
   const tablesNameOptions: DropdownOptionVm[] =
     mapTablesToDropdonwVm(canvasSchema);
 
+  const handleSubmit = (values: RelationFormVm) => {
+    // TODO Mapper
+    console.log(values);
+    onChangeRelation({
+      ...values,
+      type: values.type.label as RelationType,
+    });
+  };
+
   return (
     <Formik
       initialValues={
@@ -33,18 +47,19 @@ export const EditRelationPod: React.FC<Props> = props => {
           fromTableId: '',
           toFieldId: '',
           toTableId: '',
-          type: '1:1',
-        } as RelationVm
+          type: { id: '1', label: '1:1' },
+        } as RelationFormVm
       }
-      onSubmit={onChangeRelation}
+      onSubmit={handleSubmit}
       validate={formValidation.validateForm}
     >
-      {({ values, errors, touched }) => (
+      {({ values, errors, touched, setFieldValue }) => (
         <Form className={classes.form}>
           <EditRelationComponent
             relationsTypeOptions={relationsTypeOptions}
             tablesNameOptions={tablesNameOptions}
-            relation={values}
+            values={values}
+            setFieldValue={setFieldValue}
             canvasSchema={canvasSchema}
             errors={errors}
             touched={touched}

@@ -4,12 +4,14 @@ import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
 import { mapTablesFieldsToPkOptionVm } from './edit-relation.business';
 import { PkOptionVm, TablePkPicker } from '@/common/components';
 import { FormikErrors, FormikTouched } from 'formik';
+import { RelationFormVm } from './edit-relation.vm';
 
 interface Props {
   relationsTypeOptions: DropdownOptionVm[];
   tablesNameOptions: DropdownOptionVm[];
   canvasSchema: DatabaseSchemaVm;
-  relation: RelationVm;
+  values: RelationFormVm;
+  setFieldValue: (field: string, value: any) => void;
   errors: FormikErrors<RelationVm>;
   touched: FormikTouched<RelationVm>;
 }
@@ -18,7 +20,7 @@ export const EditRelationComponent: React.FC<Props> = props => {
   const {
     relationsTypeOptions,
     tablesNameOptions,
-    relation,
+    values: relation,
     canvasSchema,
     errors,
     touched,
@@ -40,7 +42,8 @@ export const EditRelationComponent: React.FC<Props> = props => {
         name="type"
         label="Type"
         options={relationsTypeOptions}
-        selectedField={{ id: '1', label: '1:1' }}
+        selectedField={values['type']}
+        onChange={value => setFieldValue('type', value)}
         error={errors.type}
         touched={touched.type}
       ></Dropdown>
