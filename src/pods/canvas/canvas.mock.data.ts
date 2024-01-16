@@ -6,6 +6,7 @@ import {
 } from '@/core/providers/canvas-schema';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 
+const tagRelationId = '1';
 const tagTableId = '1';
 const restaurantTableId = '2';
 const tagFieldId = GenerateGUID();
@@ -16,6 +17,7 @@ const restaurantIdField = GenerateGUID();
 
 const mockRelations: RelationVm[] = [
   {
+    id: tagRelationId,
     fromTableId: tagTableId,
     toTableId: restaurantTableId,
     fromFieldId: tagFieldId,
