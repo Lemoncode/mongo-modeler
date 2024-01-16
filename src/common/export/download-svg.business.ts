@@ -31,8 +31,10 @@ export const downloadImage = (svg: JSX.Element, viewBoxSize: Size) => {
     const ctx = canvas.getContext('2d');
 
     if (ctx) {
-      // TODO: export scaleFactor as a constant, comment with Braulio
+      // TODO: export scaleFactor as a constant
       // add scale factor to see the image clearly
+      // Revisit this check #124
+      // https://github.com/Lemoncode/mongo-modeler/issues/124
       const scaleFactor = 2;
       ctx.scale(scaleFactor, scaleFactor);
       ctx.drawImage(image, 0, 0);
