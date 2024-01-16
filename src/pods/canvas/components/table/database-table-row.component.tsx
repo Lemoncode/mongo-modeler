@@ -3,6 +3,7 @@ import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
 import classes from './database-table.module.css';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { calculateDBColumnsWidth } from '@/pods/edit-table/edit-table.business';
+import { TruncatedText } from './truncated-text.component';
 
 interface Props {
   tableInfo: TableVm;
@@ -43,13 +44,14 @@ export const DatabaseTableRow: React.FC<Props> = props => {
             {isExpanded ? '▼' : '►'}
           </text>
         )}
-        <text
+        <TruncatedText
+          id={field.id}
+          text={field.name}
           x={TABLE_CONST.FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
-          y={TABLE_CONST.FONT_SIZE}
-          className={classes.tableTextRow}
-        >
-          {field.name}
-        </text>
+          y={0}
+          width={columnWidths[0]}
+          height={TABLE_CONST.FONT_SIZE}
+        />
       </g>
       <text
         x={columnWidths[0] + columnWidths[1]}
