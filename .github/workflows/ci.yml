@@ -17,3 +17,5 @@ jobs:
       - name: Tests front
         run: 
           npm test
+      - name: Check TypeScript
+        run: npm run check-tsc
