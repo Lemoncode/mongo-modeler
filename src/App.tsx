@@ -1,12 +1,12 @@
+import './App.css';
+import { MainScene } from '@/scenes';
+import { useThemeContext } from './core/providers';
 
-import "./App.css";
-import { MainScene } from "@/scenes";
-import { useThemeContext } from "./core/providers";
-
+// temp comment
 function App() {
-  const { theme } = useThemeContext()
+  const { theme } = useThemeContext();
   return (
-    <div className={ theme.themeMode }>
+    <div className={theme.themeMode}>
       <MainScene />
     </div>
   );
