@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from '../edit-table.module.css';
 import { FieldType, GUID } from '@/core/model';
-import { FieldVm } from '../edit-table.vm';
+import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
 import { Commands } from './commands/commands.component';
 
 interface NestedFieldGridProps {
@@ -95,9 +95,11 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
               updateFieldValue(field, 'type', e.target.value as FieldType)
             }
           >
-            <option value="number">number</option>
-            <option value="string">string</option>
-            <option value="object">object</option>
+            {fieldTypeOptions.map(entry => (
+              <option key={entry.value} value={entry.value}>
+                {entry.label}
+              </option>
+            ))}
           </select>
         </div>
         <div className={classes.fieldCell}>
