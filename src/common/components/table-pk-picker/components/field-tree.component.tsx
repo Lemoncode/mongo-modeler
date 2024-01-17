@@ -1,7 +1,7 @@
 import React from 'react';
 import { PkOptionVm } from '../table-pk-picker.model';
 import classes from '../table-pk-picker.component.module.css';
-import { generateOptions } from './field-tree.business';
+import { GenerateOptions } from './generate-options.component';
 
 interface Props {
   name: string;
@@ -25,7 +25,13 @@ export const FieldTree: React.FC<Props> = props => {
       className={classes.options}
       style={{ display: optionsListVisible ? 'block' : 'none' }}
     >
-      {generateOptions(name, options, '', handleOptionClick, selectedPKField)}
+      <GenerateOptions
+        name={name}
+        options={options}
+        parentPath=""
+        handleSelectPKField={handleOptionClick}
+        selectedPKField={selectedPKField}
+      />
     </ul>
   );
 };

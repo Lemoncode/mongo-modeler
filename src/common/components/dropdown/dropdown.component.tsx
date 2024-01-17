@@ -8,50 +8,49 @@ import { SELECT_AN_OPTION } from './dropdown.const';
 interface Props {
   name: string;
   options: DropdownOptionVm[];
-  label?: string;
-  onKeySelected: (field: DropdownOptionVm) => void;
+  value?: DropdownOptionVm;
+  onChange: (field: DropdownOptionVm) => void;
   selectTitle?: string;
-  selectedField?: DropdownOptionVm;
+  //TODO: css class?
+  isError?: boolean;
 }
 
 export const Dropdown: React.FC<Props> = props => {
-  const { name, label, options, onKeySelected, selectedField, selectTitle } =
-    props;
-
-  const [selectedPath, setSelectedPath] = React.useState(selectedField?.label);
+  const { name, options, value, selectTitle, onChange, isError } = props;
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
+
+  const [selectedPath, setSelectedPath] = React.useState(value?.label);
   const [currentSelectedKeyFieldId, setCurrentSelectedKeyFieldId] =
-    React.useState(selectedField?.id);
+    React.useState(value?.id || '');
 
   const handleOptionClick = (option: DropdownOptionVm) => {
     setCurrentSelectedKeyFieldId(option.id);
     setSelectedPath(option.label);
     setOptionsListVisible(false);
-    onKeySelected(option);
+    onChange(option);
   };
 
   return (
     <>
-      <div className={classes.select}>
-        <p className={classes.selectLabel}>{label ? label : ''}</p>
-        <div className={classes.selectSelect}>
-          <div
-            className={classes.selectChosen}
-            onClick={() => setOptionsListVisible(!optionsListVisible)}
-          >
-            <p className={classes.selectText}>
-              {selectedPath || selectTitle || SELECT_AN_OPTION}
-            </p>
-            <ExpandDown />
-          </div>
-          <OptionGroup
-            name={name}
-            options={options}
-            optionsListVisible={optionsListVisible}
-            handleOptionClick={handleOptionClick}
-            selectedOption={currentSelectedKeyFieldId}
-          />
+      <div
+        className={`${classes.selectSelect} ${isError && classes.selectError}`}
+      >
+        <div
+          className={classes.selectChosen}
+          onClick={() => setOptionsListVisible(!optionsListVisible)}
+        >
+          <p className={classes.selectText}>
+            {selectedPath || selectTitle || SELECT_AN_OPTION}
+          </p>
+          <ExpandDown />
         </div>
+        <OptionGroup
+          name={name}
+          options={options}
+          optionsListVisible={optionsListVisible}
+          handleOptionClick={handleOptionClick}
+          selectedOption={currentSelectedKeyFieldId}
+        />
       </div>
       {optionsListVisible && (
         <div
