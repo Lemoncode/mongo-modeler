@@ -1,4 +1,3 @@
-// helpers.test.ts
 import { doesRelationAlreadyExists } from './canvas.business';
 import { RelationVm, DatabaseSchemaVm } from './canvas-schema.model';
 
