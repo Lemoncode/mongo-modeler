@@ -8,6 +8,7 @@ import { useCanvasSchemaContext } from '@/core/providers/canvas-schema';
 import { CanvasExportSvgComponent } from '@/pods/export/canvas-export-svg.component';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
+import { TableVm } from '@/core/providers/canvas-schema';
 
 export const ExportButton = () => {
   const { canvasSchema } = useCanvasSchemaContext();
@@ -22,6 +23,17 @@ export const ExportButton = () => {
     }),
     [zoomFactor, canvasSize]
   );
+
+  // # 108 Calculate furthest X,Y position used by the canvas table
+  // first approach, find max X
+  const getMaxXFromSchemaTables = (tables: TableVm[]): { x: number } => {
+    const maxX = tables.reduce(
+      (max, table) => (table.x > max ? table.x : max),
+      tables[0].x
+    );
+
+    return { x: maxX };
+  };
 
   // const exportSvg = () => {
   //   const svg = (
