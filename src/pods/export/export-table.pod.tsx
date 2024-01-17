@@ -1,74 +1,24 @@
 import React from 'react';
-import {
-  useCanvasViewSettingsContext,
-  useModalDialogContext,
-} from '@/core/providers';
-import { useCanvasSchemaContext } from '@/core/providers/canvas-schema';
-import { Size } from '@/core/model';
-import { downloadSvg } from '@/common/export/download-svg.business';
-import { CanvasExportSvgComponent } from '@/pods/export/canvas-export-svg.component';
+import { useModalDialogContext } from '@/core/providers';
 import classes from './export-table.module.css';
+import { ExportType } from '@/core/model';
 
-export const ExportTablePod = () => {
-  const { canvasSchema } = useCanvasSchemaContext();
+interface Props {
+  onExport: (exportType: ExportType) => void;
+}
+
+export const ExportTablePod: React.FC<Props> = props => {
+  const { onExport } = props;
   const { closeModal } = useModalDialogContext();
-  const { canvasViewSettings } = useCanvasViewSettingsContext();
-  const { canvasSize, zoomFactor } = canvasViewSettings;
-  const [selectedExportType, setSelectedExportType] = React.useState<
-    string | null
-  >(null);
+  const [selectedExportType, setSelectedExportType] =
+    React.useState<ExportType | null>(null);
 
-  const viewBoxSize: Size = React.useMemo<Size>(
-    () => ({
-      width: canvasSize.width * zoomFactor,
-      height: canvasSize.height * zoomFactor,
-    }),
-    [zoomFactor, canvasSize]
-  );
-
-  const exportSvg = () => {
-    const svg = (
-      <CanvasExportSvgComponent
-        viewBoxSize={viewBoxSize}
-        canvasSize={canvasSize}
-        canvasSchema={canvasSchema}
-        onUpdateTablePosition={() => {}}
-        onToggleCollapse={() => {}}
-        onEditTable={() => {}}
-      />
-    );
-    console.log('SVG Export');
-    downloadSvg(svg);
-  };
-
-  const exportPng = () => {
-    console.log('PNG Export');
-  };
-
-  const exportMongo = () => {
-    console.log('Mongo Schema Export');
-  };
-
-  const handleExportType = (exportType: string) => {
-    setSelectedExportType(exportType);
+  const handleExportType = (exportType: ExportType) => {
+    setSelectedExportType(exportType ?? 'svg');
   };
 
   const handleExportClick = () => {
-    switch (selectedExportType) {
-      case 'svg':
-        exportSvg();
-        break;
-      case 'png':
-        exportPng();
-        break;
-      case 'mongo':
-        exportMongo();
-        break;
-      default:
-        alert('Unknown export type selected');
-        console.log('Unknown export type');
-        break;
-    }
+    onExport(selectedExportType ?? 'svg');
     closeModal();
   };
   return (
