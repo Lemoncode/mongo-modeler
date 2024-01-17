@@ -1,5 +1,5 @@
 import { DropdownOptionVm, PkOptionVm } from '@/common/components';
-import { GUID } from '@/core/model';
+import { GUID, GenerateGUID } from '@/core/model';
 import {
   DatabaseSchemaVm,
   FieldVm,
@@ -14,6 +14,7 @@ export const mapRelationFormVmToRelaionVM = (
   values: RelationFormVm
 ): RelationVm => {
   return {
+    id: GenerateGUID(), // temporary solution
     type: values.type.label as RelationType,
     fromTableId: values.fromTableId.id,
     fromFieldId: values.fromFieldId.id,
