@@ -16,10 +16,11 @@ export const EditButton = () => {
   const { scrollPosition } = useCanvasViewSettingsContext();
 
   const handleAddTable = (newTable: TableVm) => {
+    const ADD_TABLE_MARGIN = 15;
     const updatedTable = {
       ...newTable,
-      x: scrollPosition.x,
-      y: scrollPosition.y,
+      x: scrollPosition.x + ADD_TABLE_MARGIN,
+      y: scrollPosition.y + ADD_TABLE_MARGIN,
     };
 
     addTable(updatedTable);
