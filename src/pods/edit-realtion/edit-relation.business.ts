@@ -3,8 +3,24 @@ import { GUID } from '@/core/model';
 import {
   DatabaseSchemaVm,
   FieldVm,
+  RelationType,
+  RelationVm,
   TableVm,
 } from '@/core/providers/canvas-schema';
+import { RelationFormVm } from './edit-relation.vm';
+
+// TODO: Test - this mapper needs to be updated when an ID relation appears.
+export const mapRelationFormVmToRelaionVM = (
+  values: RelationFormVm
+): RelationVm => {
+  return {
+    type: values.type.label as RelationType,
+    fromTableId: values.fromTableId.id,
+    fromFieldId: values.fromFieldId.id,
+    toFieldId: values.toFieldId.id,
+    toTableId: values.toTableId.id,
+  };
+};
 
 export const mapRelationsTipeToDropdonwVm = (): DropdownOptionVm[] => [
   { id: '1', label: '1:1' },

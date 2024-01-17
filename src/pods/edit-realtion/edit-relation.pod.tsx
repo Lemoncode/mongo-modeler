@@ -1,11 +1,8 @@
 import React from 'react';
-import {
-  DatabaseSchemaVm,
-  RelationType,
-  RelationVm,
-} from '@/core/providers/canvas-schema';
+import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
 import { DropdownOptionVm } from '@/common/components';
 import {
+  mapRelationFormVmToRelaionVM,
   mapRelationsTipeToDropdonwVm,
   mapTablesToDropdonwVm,
 } from './edit-relation.business';
@@ -31,19 +28,6 @@ export const EditRelationPod: React.FC<Props> = props => {
     mapTablesToDropdonwVm(canvasSchema);
 
   const handleSubmit = (values: RelationFormVm) => {
-    // TODO Mapper
-    console.log(values);
-    const mapRelationFormVmToRelaionVM = (
-      values: RelationFormVm
-    ): RelationVm => {
-      return {
-        type: values.type.label as RelationType,
-        fromTableId: values.fromTableId.id,
-        fromFieldId: values.fromFieldId.id,
-        toFieldId: values.toFieldId.id,
-        toTableId: values.toTableId.id,
-      };
-    };
     onChangeRelation(mapRelationFormVmToRelaionVM(values));
   };
 
