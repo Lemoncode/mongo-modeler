@@ -8,9 +8,9 @@ import { SELECT_AN_OPTION } from './dropdown.const';
 interface Props {
   name: string;
   options: DropdownOptionVm[];
+  value?: DropdownOptionVm;
   onChange: (field: DropdownOptionVm) => void;
   selectTitle?: string;
-  value?: DropdownOptionVm;
   //TODO: css class?
   isError?: boolean;
 }
