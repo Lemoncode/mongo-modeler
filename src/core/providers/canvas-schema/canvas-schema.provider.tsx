@@ -8,7 +8,11 @@ import {
   createDefaultDatabaseSchemaVm,
 } from './canvas-schema.model';
 import { Coords, GUID, Size } from '@/core/model';
-import { moveTableToTop, doFieldToggleCollapseLogic } from './canvas.business';
+import {
+  moveTableToTop,
+  doFieldToggleCollapseLogic,
+  doesRelationAlreadyExists,
+} from './canvas.business';
 import { updateTable } from './canvas-schema.business';
 
 interface Props {
@@ -45,19 +49,13 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   // TODO: #90
   //https://github.com/Lemoncode/mongo-modeler/issues/90
   const addRelation = (relation: RelationVm) => {
-    if (!doesRelationAlreadyExists(relation)) {
+    if (!doesRelationAlreadyExists(canvasSchema, relation)) {
       setSchema(prevSchema =>
         produce(prevSchema, draft => {
           draft.relations.push(relation);
         })
       );
     }
-  };
-
-  const doesRelationAlreadyExists = (relation: RelationVm): boolean => {
-    return canvasSchema.relations.some(
-      canvasRelation => canvasRelation !== relation
-    );
   };
 
   const updateTablePosition = (
