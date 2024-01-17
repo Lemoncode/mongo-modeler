@@ -52,6 +52,8 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
     );
   };
 
+  // Enhancemnt proposal: #127
+  // https://github.com/Lemoncode/mongo-modeler/pull/127
   const drawClickableLine = () => {
     return (
       <line
