@@ -23,7 +23,8 @@ export const CanvasPod: React.FC = () => {
     updateFullTable,
     doFieldToggleCollapse,
   } = useCanvasSchemaContext();
-  const { canvasViewSettings } = useCanvasViewSettingsContext();
+  const { canvasViewSettings, setScrollPosition } =
+    useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor } = canvasViewSettings;
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
@@ -59,23 +60,36 @@ export const CanvasPod: React.FC = () => {
     );
   };
 
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    if (containerRef.current) {
+      setScrollPosition({
+        x: containerRef.current.scrollLeft,
+        y: containerRef.current.scrollTop,
+      });
+    }
+  };
+
   const handleEditRelation = (relationId: GUID) => {
     console.log('TODO: handleEditRelation', relationId);
   };
 
   return (
-    <div>
-      <div className={classes.container}>
-        <CanvasSvgComponent
-          viewBoxSize={viewBoxSize}
-          canvasSize={canvasSize}
-          canvasSchema={canvasSchema}
-          onUpdateTablePosition={updateTablePosition}
-          onToggleCollapse={handleToggleCollapse}
-          onEditTable={handleEditTable}
-          onEditRelation={handleEditRelation}
-        />
-      </div>
+    <div
+      className={classes.container}
+      ref={containerRef}
+      onScroll={handleScroll}
+    >
+      <CanvasSvgComponent
+        viewBoxSize={viewBoxSize}
+        canvasSize={canvasSize}
+        canvasSchema={canvasSchema}
+        onUpdateTablePosition={updateTablePosition}
+        onToggleCollapse={handleToggleCollapse}
+        onEditTable={handleEditTable}
+        onEditRelation={handleEditRelation}
+      />
     </div>
   );
 };
