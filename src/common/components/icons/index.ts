@@ -5,3 +5,4 @@ export * from './canvas-setting-icon.component';
 export * from './relation-icon.component';
 export * from './zoom-in-icon.component';
 export * from './zoom-out-icon.component';
+export * from './export-icon.component';
