@@ -41,7 +41,7 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
             setValue(field);
           }}
         ></Dropdown>
-        {isError && <span className={classes.error}>{meta.error?.id}</span>}
+        {isError && <span className={classes.error}>{meta.error}</span>}
       </div>
     </div>
   );

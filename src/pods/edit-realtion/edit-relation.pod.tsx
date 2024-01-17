@@ -1,5 +1,9 @@
 import React from 'react';
-import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
+import {
+  DatabaseSchemaVm,
+  RelationType,
+  RelationVm,
+} from '@/core/providers/canvas-schema';
 import { DropdownOptionVm } from '@/common/components';
 import {
   mapRelationsTipeToDropdonwVm,
@@ -29,11 +33,18 @@ export const EditRelationPod: React.FC<Props> = props => {
   const handleSubmit = (values: RelationFormVm) => {
     // TODO Mapper
     console.log(values);
-
-    // onChangeRelation({
-    //   ...values,
-    //   type: values.type.label as RelationType,
-    // });
+    const mapRelationFormVmToRelaionVM = (
+      values: RelationFormVm
+    ): RelationVm => {
+      return {
+        type: values.type.label as RelationType,
+        fromTableId: values.fromTableId.id,
+        fromFieldId: values.fromFieldId.id,
+        toFieldId: values.toFieldId.id,
+        toTableId: values.toTableId.id,
+      };
+    };
+    onChangeRelation(mapRelationFormVmToRelaionVM(values));
   };
 
   return (

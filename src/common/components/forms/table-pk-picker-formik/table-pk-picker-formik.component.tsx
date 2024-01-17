@@ -43,7 +43,7 @@ export const TablePkPickerFormik: React.FC<Props> = props => {
             }}
             disabled={disabled}
           ></TablePkPicker>
-          {isError && <span className={classes.error}>{meta.error?.id}</span>}
+          {isError && <span className={classes.error}>{meta.error}</span>}
         </div>
       </div>
     </>
