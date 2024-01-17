@@ -20,7 +20,7 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
           {
@@ -40,7 +40,7 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
           {
@@ -54,6 +54,7 @@ describe('calculateTablePosition', () => {
     ];
     const relations: RelationVm[] = [
       {
+        id: '20',
         fromTableId: '1',
         toTableId: '2',
         fromFieldId: '1',
@@ -88,7 +89,7 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -108,7 +109,7 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -143,7 +144,7 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
           {
@@ -163,7 +164,7 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
           {
@@ -177,6 +178,7 @@ describe('calculateTablePosition', () => {
     ];
     const relations: RelationVm[] = [
       {
+        id: '20',
         fromTableId: '1',
         toTableId: '2',
         fromFieldId: '1',
@@ -204,14 +206,14 @@ describe('calculateTablePosition', () => {
       tables: [
         {
           id: '1',
-          x: 2100,
+          x: canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH,
           y: 500,
           tableName: 'tags',
           fields: [
             {
               id: '1',
               name: 'id',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -231,7 +233,7 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -267,7 +269,7 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
           {
@@ -287,7 +289,7 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
           {
@@ -301,6 +303,7 @@ describe('calculateTablePosition', () => {
     ];
     const relations: RelationVm[] = [
       {
+        id: '20',
         fromTableId: '1',
         toTableId: '2',
         fromFieldId: '1',
@@ -335,7 +338,7 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -355,7 +358,7 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -391,7 +394,7 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
           {
@@ -411,7 +414,7 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
           {
@@ -425,6 +428,7 @@ describe('calculateTablePosition', () => {
     ];
     const relations: RelationVm[] = [
       {
+        id: '20',
         fromTableId: '1',
         toTableId: '2',
         fromFieldId: '1',
@@ -459,7 +463,7 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -479,7 +483,7 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -515,7 +519,7 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
           {
@@ -535,7 +539,7 @@ describe('calculateTablePosition', () => {
           {
             id: '1',
             name: 'id',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
           {
@@ -549,6 +553,7 @@ describe('calculateTablePosition', () => {
     ];
     const relations: RelationVm[] = [
       {
+        id: '20',
         fromTableId: '1',
         toTableId: '2',
         fromFieldId: '1',
@@ -583,7 +588,7 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -603,7 +608,7 @@ describe('calculateTablePosition', () => {
             {
               id: '1',
               name: 'id',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {

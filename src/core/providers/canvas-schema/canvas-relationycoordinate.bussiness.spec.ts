@@ -281,13 +281,13 @@ describe('canvas.business.calculateRelationYOffset', () => {
             {
               id: '4',
               name: 'childField1',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
               id: '5',
               name: 'childField2',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -300,13 +300,13 @@ describe('canvas.business.calculateRelationYOffset', () => {
                 {
                   id: '7',
                   name: 'subField1',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
                 {
                   id: '8',
                   name: 'subField2',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
               ],
@@ -367,7 +367,7 @@ describe('canvas.business.calculateRelationYOffset', () => {
             {
               id: '4',
               name: 'childField1',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -380,13 +380,13 @@ describe('canvas.business.calculateRelationYOffset', () => {
                 {
                   id: '7',
                   name: 'subField1',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
                 {
                   id: '8',
                   name: 'subField2',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
               ],
@@ -401,13 +401,13 @@ describe('canvas.business.calculateRelationYOffset', () => {
                 {
                   id: '9',
                   name: 'subField1',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
                 {
                   id: '10',
                   name: 'subField2',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
               ],
@@ -468,7 +468,7 @@ describe('canvas.business.calculateRelationYOffset', () => {
             {
               id: '4',
               name: 'childField1',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -481,13 +481,13 @@ describe('canvas.business.calculateRelationYOffset', () => {
                 {
                   id: '7',
                   name: 'subField1',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
                 {
                   id: '8',
                   name: 'subField2',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
               ],
@@ -502,13 +502,13 @@ describe('canvas.business.calculateRelationYOffset', () => {
                 {
                   id: '9',
                   name: 'subField1',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
                 {
                   id: '10',
                   name: 'subField2',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
               ],
@@ -570,7 +570,7 @@ describe('canvas.business.calculateRelationYOffset', () => {
             {
               id: '4',
               name: 'childField1',
-              type: 'number',
+              type: 'int',
               PK: false,
             },
             {
@@ -583,13 +583,13 @@ describe('canvas.business.calculateRelationYOffset', () => {
                 {
                   id: '7',
                   name: 'subField1',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
                 {
                   id: '8',
                   name: 'subField2',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
               ],
@@ -604,13 +604,13 @@ describe('canvas.business.calculateRelationYOffset', () => {
                 {
                   id: '9',
                   name: 'subField1',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
                 {
                   id: '10',
                   name: 'subField2',
-                  type: 'number',
+                  type: 'int',
                   PK: false,
                 },
               ],

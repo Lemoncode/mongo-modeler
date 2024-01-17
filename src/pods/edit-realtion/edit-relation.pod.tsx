@@ -20,8 +20,6 @@ interface Props {
 export const EditRelationPod: React.FC<Props> = props => {
   const { canvasSchema, onChangeRelation } = props;
 
-  //TODO: Initialize 'relation' with existing values when the user clicks on 'relation' SVG
-
   const relationsTypeOptions = mapRelationsTipeToDropdonwVm();
 
   const tablesNameOptions: DropdownOptionVm[] =

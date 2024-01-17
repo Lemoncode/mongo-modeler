@@ -8,7 +8,7 @@ describe('findField', () => {
       {
         id: '1',
         name: 'Hi',
-        type: 'number',
+        type: 'int',
         PK: false,
       },
       {
@@ -32,7 +32,7 @@ describe('findField', () => {
       {
         id: '1',
         name: 'Hi',
-        type: 'number',
+        type: 'int',
         PK: false,
       },
       {
@@ -50,7 +50,7 @@ describe('findField', () => {
     const expected: FieldVm = {
       id: '1',
       name: 'Hi',
-      type: 'number',
+      type: 'int',
       PK: false,
     };
 
@@ -63,7 +63,7 @@ describe('findField', () => {
       {
         id: '1',
         name: 'Hi',
-        type: 'number',
+        type: 'int',
         PK: false,
       },
       {
@@ -95,7 +95,7 @@ describe('findField', () => {
       {
         id: '1',
         name: 'Hi',
-        type: 'number',
+        type: 'int',
         PK: false,
       },
       {

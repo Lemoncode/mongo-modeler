@@ -13,10 +13,21 @@ interface Props {
   ) => void;
   onDeleteField: (fieldId: GUID) => void;
   onAddField: (fieldId: GUID, isChildren: boolean) => void;
+  updateTableName: (value: string) => void;
+  onMoveDownField: (fieldId: GUID) => void;
+  onMoveUpField: (fieldId: GUID) => void;
 }
 
 export const EditTableComponent: React.FC<Props> = props => {
-  const { table, updateFieldValue, onDeleteField, onAddField } = props;
+  const {
+    table,
+    updateFieldValue,
+    onDeleteField,
+    onAddField,
+    updateTableName,
+    onMoveDownField,
+    onMoveUpField,
+  } = props;
   const [expandedFields, setExpandedFields] = useState<Set<string>>(new Set());
 
   const expandField = (fieldId: string) => {
@@ -41,18 +52,36 @@ export const EditTableComponent: React.FC<Props> = props => {
     });
   };
 
+  const handleChangeTableName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateTableName(e.currentTarget.value);
+  };
+
   return (
-    <div className={classes.tableEditor}>
-      <NestedFieldGrid
-        fields={table.fields}
-        level={0}
-        expandedFields={expandedFields}
-        toggleExpand={toggleExpand}
-        expandField={expandField}
-        updateFieldValue={updateFieldValue}
-        onDeleteField={onDeleteField}
-        onAddField={onAddField}
-      />
-    </div>
+    <>
+      <div className={classes.tableName}>
+        <label>
+          Table:
+          <input
+            type="text"
+            value={table.tableName}
+            onChange={handleChangeTableName}
+          />
+        </label>
+      </div>
+      <div className={classes.tableEditor}>
+        <NestedFieldGrid
+          fields={table.fields}
+          level={0}
+          expandedFields={expandedFields}
+          toggleExpand={toggleExpand}
+          expandField={expandField}
+          updateFieldValue={updateFieldValue}
+          onDeleteField={onDeleteField}
+          onAddField={onAddField}
+          onMoveDownField={onMoveDownField}
+          onMoveUpField={onMoveUpField}
+        />
+      </div>
+    </>
   );
 };
