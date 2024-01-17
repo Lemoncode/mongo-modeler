@@ -4,31 +4,31 @@ import { ValidationSchema, Validators } from '@lemoncode/fonk';
 
 export const validationSchema: ValidationSchema = {
   field: {
-    type: [
+    'type.id': [
       {
         validator: Validators.required,
         message: 'Selected type option is required',
       },
     ],
-    fromTableId: [
+    'fromTableId.id': [
       {
         validator: Validators.required,
         message: 'Selected table option is required',
       },
     ],
-    toTableId: [
+    'toTableId.id': [
       {
         validator: Validators.required,
         message: 'Selected table option is required',
       },
     ],
-    fromFieldId: [
+    'fromFieldId.id': [
       {
         validator: Validators.required,
         message: 'Selected field option is required',
       },
     ],
-    toFieldId: [
+    'toFieldId.id': [
       {
         validator: Validators.required,
         message: 'Selected field option is required',

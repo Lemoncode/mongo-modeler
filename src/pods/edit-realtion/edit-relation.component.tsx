@@ -2,9 +2,9 @@ import React from 'react';
 import { DropdownOptionVm } from '@/common/components/dropdown';
 import { DatabaseSchemaVm } from '@/core/providers/canvas-schema';
 import { mapTablesFieldsToPkOptionVm } from './edit-relation.business';
-import { PkOptionVm, TablePkPicker } from '@/common/components';
+import { PkOptionVm } from '@/common/components';
 import { RelationFormVm } from './edit-relation.vm';
-import { DropdownFormik } from '@/common/components/forms';
+import { DropdownFormik, TablePkPickerFormik } from '@/common/components/forms';
 
 interface Props {
   relationsTypeOptions: DropdownOptionVm[];
@@ -41,30 +41,26 @@ export const EditRelationComponent: React.FC<Props> = props => {
         options={tablesNameOptions}
         selectTitle="Select origin table"
       ></DropdownFormik>
-      {/* <TablePkPicker
+      <TablePkPickerFormik
         name="fromFieldId"
         label="Origin field"
         options={fieldsTableOrigin}
         selectTitle="Select origin field"
-        error={errors.fromFieldId}
-        touched={touched.fromFieldId}
-        disabled={relation.fromTableId ? false : true}
-      ></TablePkPicker> */}
+        disabled={values.fromTableId.id ? false : true}
+      ></TablePkPickerFormik>
       <DropdownFormik
         name="toTableId"
         label="Destination Collection"
         options={tablesNameOptions}
         selectTitle="Select destination table"
       ></DropdownFormik>
-      {/* <TablePkPicker
+      <TablePkPickerFormik
         name="toFieldId"
         label="Destination field"
         options={fieldsTableDestination}
         selectTitle="Select destination field"
-        error={errors.toFieldId}
-        touched={touched.toFieldId}
-        disabled={relation.toTableId ? false : true}
-      ></TablePkPicker> */}
+        disabled={values.toTableId.id ? false : true}
+      ></TablePkPickerFormik>
     </>
   );
 };

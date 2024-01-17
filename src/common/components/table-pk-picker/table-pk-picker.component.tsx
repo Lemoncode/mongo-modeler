@@ -3,7 +3,6 @@ import classes from './table-pk-picker.component.module.css';
 import { FieldTree } from './components/field-tree.component';
 import { ExpandDown } from '../icons/expand-down-icon.component';
 import { PkOptionVm } from './table-pk-picker.model';
-import { GUID } from '@/core/model';
 import { SELECT_AN_PK_OPTION } from './table-pk-picker.const';
 
 interface Props {
@@ -32,8 +31,9 @@ export const TablePkPicker: React.FC<Props> = props => {
       : option.label;
     setSelectedPath(currentPath);
     setOptionsListVisible(false);
+    onChange(option);
   };
-  //!!Me falta onChange
+
   return (
     <>
       <div

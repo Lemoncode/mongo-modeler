@@ -25,7 +25,7 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
   // if Formik is enabled, and is the field has been touched
   // not a very good UX experience to show a blank form full
   // of error a the initial state
-  const isError = Boolean(meta && meta.touched && meta.error);
+  const isError = Boolean(meta && meta.touched && meta.error && meta.error);
 
   return (
     <div className={classes.select}>
@@ -41,7 +41,7 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
             setValue(field);
           }}
         ></Dropdown>
-        {isError && <span className={classes.error}>{meta.error}</span>}
+        {isError && <span className={classes.error}>{meta.error?.id}</span>}
       </div>
     </div>
   );
