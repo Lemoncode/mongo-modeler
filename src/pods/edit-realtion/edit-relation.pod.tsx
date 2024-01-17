@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  DatabaseSchemaVm,
-  RelationType,
-  RelationVm,
-} from '@/core/providers/canvas-schema';
+import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
 import { DropdownOptionVm } from '@/common/components';
 import {
   mapRelationsTipeToDropdonwVm,
@@ -33,37 +29,34 @@ export const EditRelationPod: React.FC<Props> = props => {
   const handleSubmit = (values: RelationFormVm) => {
     // TODO Mapper
     console.log(values);
-    console.log('miro');
-    onChangeRelation({
-      ...values,
-      type: values.type.label as RelationType,
-    });
+
+    // onChangeRelation({
+    //   ...values,
+    //   type: values.type.label as RelationType,
+    // });
   };
 
   return (
     <Formik
       initialValues={
         {
-          fromFieldId: '',
-          fromTableId: '',
-          toFieldId: '',
-          toTableId: '',
+          fromFieldId: { id: '', label: '' },
+          fromTableId: { id: '', label: '' },
+          toFieldId: { id: '', label: '' },
+          toTableId: { id: '', label: '' },
           type: { id: '1', label: '1:1' },
         } as RelationFormVm
       }
       onSubmit={handleSubmit}
       validate={formValidation.validateForm}
     >
-      {({ values, errors, touched, setFieldValue }) => (
+      {({ values }) => (
         <Form className={classes.form}>
           <EditRelationComponent
             relationsTypeOptions={relationsTypeOptions}
             tablesNameOptions={tablesNameOptions}
             values={values}
-            setFieldValue={setFieldValue}
             canvasSchema={canvasSchema}
-            errors={errors}
-            touched={touched}
           />
           <button type="submit">Apply</button>
         </Form>

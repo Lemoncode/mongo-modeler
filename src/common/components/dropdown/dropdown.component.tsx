@@ -10,20 +10,18 @@ interface Props {
   options: DropdownOptionVm[];
   onChange: (field: DropdownOptionVm) => void;
   selectTitle?: string;
-  selectedField?: DropdownOptionVm;
+  value?: DropdownOptionVm;
   //TODO: css class?
   isError?: boolean;
 }
 
-//TODO: isError
 export const Dropdown: React.FC<Props> = props => {
-  const { name, options, selectedField, selectTitle, onChange, isError } =
-    props;
-
-  const [selectedPath, setSelectedPath] = React.useState(selectedField?.label);
+  const { name, options, value, selectTitle, onChange, isError } = props;
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
+
+  const [selectedPath, setSelectedPath] = React.useState(value?.label);
   const [currentSelectedKeyFieldId, setCurrentSelectedKeyFieldId] =
-    React.useState(selectedField?.id);
+    React.useState(value?.id || '');
 
   const handleOptionClick = (option: DropdownOptionVm) => {
     setCurrentSelectedKeyFieldId(option.id);

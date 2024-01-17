@@ -1,25 +1,26 @@
 import React from 'react';
-import classes from './dropdown.component.module.css';
-import { DropdownOptionVm } from './dropdown.model';
-import { Dropdown } from '../../dropdown';
 import { useField } from 'formik';
+import { PkOptionVm, TablePkPicker } from '../../table-pk-picker';
+import classes from './table-pk-picker.component.module.css';
 
-interface DropDownFormikProps {
+interface Props {
   name: string;
-  options: DropdownOptionVm[];
-  onChange: (fields: DropdownOptionVm) => void;
-  selectTitle?: string;
-  selectedField?: DropdownOptionVm;
+  options: PkOptionVm[];
   label?: string;
+  value?: PkOptionVm;
+  selectTitle?: string;
+  disabled?: boolean;
 }
 
-//TODO
-export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
-  const { options, label, selectTitle, selectedField, onChange } = props;
-  // useField allows us to extract all formik metadata about that field
-  const [field, meta] = useField(props.name ?? '');
+export const TablePkPickerFormik: React.FC<Props> = props => {
+  const { options, label, selectTitle, disabled } = props;
+
+  //useField allows us to extract all formik metadata about that field
+  const [field, meta, helpers] = useField(props.name ?? '');
+
   // If the field doesn't exist then treat this as a normal input
   const inputFieldProps = Boolean(field) ? field : props;
+  const { setValue } = helpers;
   // We only want to display the field validation error message
   // if Formik is enabled, and is the field has been touched
   // not a very good UX experience to show a blank form full
@@ -31,14 +32,17 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
       <div className={classes.select}>
         <p className={classes.selectLabel}>{label ? label : ''}</p>
         <div className={classes.selectContainer}>
-          <Dropdown
+          <TablePkPicker
             name={inputFieldProps.name}
-            onChange={onChange}
             options={options}
             selectTitle={selectTitle}
-            selectedField={selectedField}
+            value={inputFieldProps.value}
             isError={isError}
-          ></Dropdown>
+            onChange={field => {
+              setValue(field);
+            }}
+            disabled={disabled}
+          ></TablePkPicker>
           {isError && <span className={classes.error}>{meta.error}</span>}
         </div>
       </div>

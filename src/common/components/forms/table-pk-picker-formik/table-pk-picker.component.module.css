@@ -16,10 +16,9 @@
 .select-label {
   min-width: 20ch;
 }
-
 .select-select {
-  --border-width: 1px;
   --border-color: #ccc;
+  --border-width: 1px;
   --boder: var(--border-width) solid var(--border-color);
   position: relative;
   width: 100%;
@@ -29,6 +28,10 @@
 .select-error {
   --border-color: #ff0000;
 }
+.select-disabled {
+  color: #ccc;
+}
+
 .select-chosen {
   display: flex;
   align-items: center;
@@ -36,7 +39,9 @@
   padding: 6px;
   cursor: pointer;
 }
-
+.select-disabled .select-chosen {
+  cursor: auto;
+}
 .select-text {
   width: 100%;
 }
@@ -104,6 +109,7 @@
   top: 0;
   left: 0;
 }
+
 .error {
   color: #ff0000;
   font-size: 12px;
