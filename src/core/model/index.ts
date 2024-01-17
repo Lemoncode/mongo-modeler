@@ -1,4 +1,28 @@
-export type FieldType = 'number' | 'string' | 'object' | 'objectId';
+export type FieldType =
+  | 'any'
+  | 'array'
+  | 'binData'
+  | 'bool'
+  | 'date'
+  | 'dbPointer'
+  | 'decimal'
+  | 'double'
+  | 'enum'
+  | 'int'
+  | 'javascript'
+  | 'long'
+  | 'maxKey'
+  | 'minKey'
+  | 'null'
+  | 'object'
+  | 'objectId'
+  | 'regex'
+  | 'string'
+  | 'symbol'
+  | 'timestamp'
+  | 'undefined';
+
+//'number' | 'string' | 'object' | 'objectId';
 export type ExportType = 'svg' | 'png' | 'mongo';
 
 export interface Size {
