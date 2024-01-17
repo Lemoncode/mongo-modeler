@@ -1,8 +1,8 @@
 import { GUID } from '@/core/model';
 import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
-import classes from './database-table.module.css';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { calculateDBColumnsWidth } from '@/pods/edit-table/edit-table.business';
+import { exportStylesVariables } from '../../export-variables.const';
 
 interface Props {
   tableInfo: TableVm;
@@ -37,7 +37,11 @@ export const DatabaseTableRow: React.FC<Props> = props => {
           <text
             x={TABLE_CONST.COLLAPSE_ICON_X}
             y={TABLE_CONST.FONT_SIZE}
-            className={classes.tableTextRow}
+            style={{
+              fill: exportStylesVariables.TEXT_COLOR,
+              fontFamily: "'Arial', sans-serif",
+              fontSize: '14px',
+            }}
             onClick={() => onToggleCollapse(tableInfo.id, field.id)}
           >
             {isExpanded ? '▼' : '►'}
@@ -46,7 +50,11 @@ export const DatabaseTableRow: React.FC<Props> = props => {
         <text
           x={TABLE_CONST.FIELD_NAME_X_OFFSET + (isExpandable ? 15 : 0)}
           y={TABLE_CONST.FONT_SIZE}
-          className={classes.tableTextRow}
+          style={{
+            fill: exportStylesVariables.TEXT_COLOR,
+            fontFamily: 'Arial',
+            fontSize: '14px',
+          }}
         >
           {field.name}
         </text>
@@ -54,7 +62,11 @@ export const DatabaseTableRow: React.FC<Props> = props => {
       <text
         x={columnWidths[0] + columnWidths[1]}
         y={TABLE_CONST.FONT_SIZE}
-        className={classes.tableTextRow}
+        style={{
+          fill: exportStylesVariables.TEXT_COLOR,
+          fontFamily: 'Arial',
+          fontSize: '14px',
+        }}
       >
         {field.type}
         {field.isArray ? `[]` : null}

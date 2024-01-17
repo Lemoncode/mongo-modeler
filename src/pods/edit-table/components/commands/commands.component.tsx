@@ -4,15 +4,29 @@ import { AddFolder } from '@/common/components/icons/add-folder.component';
 import { RemoveIcon } from '@/common/components/icons/remove-icon.component';
 import { FieldVm } from '../../edit-table.vm';
 import { GUID } from '@/core/model';
+import { DownIcon } from '@/common/components/icons/down-icon';
+import { UpIcon } from '@/common/components/icons/up-icon.component';
+import { isFirstItemInArray, isLastItemInArray } from './commands.business';
 
 interface Props {
   onDeleteField: (fieldId: GUID) => void;
   onAddField: (fieldId: GUID, isChildren: boolean) => void;
   field: FieldVm;
+  fields: FieldVm[];
+  onMoveDownField: (fieldId: GUID) => void;
+  onMoveUpField: (fieldId: GUID) => void;
 }
 
 export const Commands: React.FC<Props> = (props: Props) => {
-  const { field, onDeleteField, onAddField } = props;
+  const {
+    field,
+    fields,
+    onDeleteField,
+    onAddField,
+    onMoveDownField,
+    onMoveUpField,
+  } = props;
+
   return (
     <>
       <CommandIconButton
@@ -28,6 +42,16 @@ export const Commands: React.FC<Props> = (props: Props) => {
       <CommandIconButton
         icon={<RemoveIcon />}
         onClick={() => onDeleteField(field.id)}
+      />
+      <CommandIconButton
+        icon={<UpIcon />}
+        onClick={() => onMoveUpField(field.id)}
+        disabled={isFirstItemInArray(fields, field.id)}
+      />
+      <CommandIconButton
+        icon={<DownIcon />}
+        onClick={() => onMoveDownField(field.id)}
+        disabled={isLastItemInArray(fields, field.id)}
       />
     </>
   );

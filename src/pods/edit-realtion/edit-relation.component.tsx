@@ -1,17 +1,26 @@
 import React from 'react';
 import { Dropdown, DropdownOptionVm } from '@/common/components/dropdown';
 import { RelationType, RelationVm } from '@/core/providers/canvas-schema';
+import { PkOptionVm, TablePkPicker } from '@/common/components';
 
 interface Props {
   relationsTypeOptions: DropdownOptionVm[];
   tablesNameOptions: DropdownOptionVm[];
+  fieldsTableOrigin: PkOptionVm[];
+  fieldsTableDestination: PkOptionVm[];
   relation: RelationVm;
   setRelation: (relation: RelationVm) => void;
 }
 
 export const EditRelationComponent: React.FC<Props> = props => {
-  const { relationsTypeOptions, tablesNameOptions, relation, setRelation } =
-    props;
+  const {
+    relationsTypeOptions,
+    tablesNameOptions,
+    relation,
+    setRelation,
+    fieldsTableDestination,
+    fieldsTableOrigin,
+  } = props;
 
   return (
     <>
@@ -33,6 +42,17 @@ export const EditRelationComponent: React.FC<Props> = props => {
         }
         selectTitle="Select origin table"
       ></Dropdown>
+      {relation.fromTableId && (
+        <TablePkPicker
+          name="selecttwo"
+          label="Origin field"
+          options={fieldsTableOrigin}
+          onKeySelected={field =>
+            setRelation({ ...relation, fromFieldId: field.id })
+          }
+          selectTitle="Select origin field"
+        ></TablePkPicker>
+      )}
       <Dropdown
         name="selecttwo"
         label="Destination Collection"
@@ -42,6 +62,17 @@ export const EditRelationComponent: React.FC<Props> = props => {
         }
         selectTitle="Select destination table"
       ></Dropdown>
+      {relation.toTableId && (
+        <TablePkPicker
+          name="selecttwo"
+          label="Destination field"
+          options={fieldsTableDestination}
+          onKeySelected={field =>
+            setRelation({ ...relation, toFieldId: field.id })
+          }
+          selectTitle="Select destination field"
+        ></TablePkPicker>
+      )}
     </>
   );
 };

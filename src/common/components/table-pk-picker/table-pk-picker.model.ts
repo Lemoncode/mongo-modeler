@@ -1,7 +1,7 @@
 import { GUID } from '@/core/model';
 
-export interface OptionVm {
+export interface PkOptionVm {
   id: GUID;
   label: string;
-  children?: OptionVm[];
+  children?: PkOptionVm[];
 }

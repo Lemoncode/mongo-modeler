@@ -7,7 +7,7 @@
 
 .fieldRow {
   display: grid;
-  grid-template-columns: auto auto auto 3fr 2fr 80px 250px;
+  grid-template-columns: auto auto auto 3fr 2fr 80px 340px;
   gap: 0px;
 }
 
@@ -66,4 +66,21 @@
 }
 .indent7 {
   margin-left: 140px;
+}
+
+.table-name {
+  position: sticky;
+  top: 40px;
+  left: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  z-index: 2;
+  text-align: left;
+  background-color: var(--primary-background);
+  border-bottom: 1px solid #ccc;
+}
+.table-name label {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
 }

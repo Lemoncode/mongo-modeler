@@ -54,6 +54,7 @@ describe('calculateTablePosition', () => {
     ];
     const relations: RelationVm[] = [
       {
+        id: '20',
         fromTableId: '1',
         toTableId: '2',
         fromFieldId: '1',
@@ -177,6 +178,7 @@ describe('calculateTablePosition', () => {
     ];
     const relations: RelationVm[] = [
       {
+        id: '20',
         fromTableId: '1',
         toTableId: '2',
         fromFieldId: '1',
@@ -301,6 +303,7 @@ describe('calculateTablePosition', () => {
     ];
     const relations: RelationVm[] = [
       {
+        id: '20',
         fromTableId: '1',
         toTableId: '2',
         fromFieldId: '1',
@@ -425,6 +428,7 @@ describe('calculateTablePosition', () => {
     ];
     const relations: RelationVm[] = [
       {
+        id: '20',
         fromTableId: '1',
         toTableId: '2',
         fromFieldId: '1',
@@ -549,6 +553,7 @@ describe('calculateTablePosition', () => {
     ];
     const relations: RelationVm[] = [
       {
+        id: '20',
         fromTableId: '1',
         toTableId: '2',
         fromFieldId: '1',

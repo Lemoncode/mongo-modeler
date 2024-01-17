@@ -26,8 +26,7 @@ export const EditButton = () => {
         relations={canvasSchema.relations}
         onSave={handleAddTable}
       />,
-      EDIT_TABLE_TITLE,
-      'New Table'
+      EDIT_TABLE_TITLE
     );
   };
   return (

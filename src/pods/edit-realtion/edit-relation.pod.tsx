@@ -1,8 +1,9 @@
 import React from 'react';
 import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
-import { DropdownOptionVm } from '@/common/components';
+import { DropdownOptionVm, PkOptionVm } from '@/common/components';
 import {
   mapRelationsTipeToDropdonwVm,
+  mapTablesFieldsToPkOptionVm,
   mapTablesToDropdonwVm,
 } from './edit-relation.business';
 import { EditRelationComponent } from './edit-relation.component';
@@ -18,6 +19,7 @@ export const EditRelationPod: React.FC<Props> = props => {
 
   //TODO: Initialize 'relation' with existing values when the user clicks on 'relation' SVG
   const [relation, setRelation] = React.useState<RelationVm>({
+    id: '20',
     fromFieldId: '',
     fromTableId: '',
     toFieldId: '',
@@ -29,6 +31,15 @@ export const EditRelationPod: React.FC<Props> = props => {
 
   const tablesNameOptions: DropdownOptionVm[] =
     mapTablesToDropdonwVm(canvasSchema);
+
+  const fieldsTableOrigin: PkOptionVm[] = mapTablesFieldsToPkOptionVm(
+    relation.fromTableId,
+    canvasSchema
+  );
+  const fieldsTableDestination: PkOptionVm[] = mapTablesFieldsToPkOptionVm(
+    relation.toTableId,
+    canvasSchema
+  );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,6 +55,8 @@ export const EditRelationPod: React.FC<Props> = props => {
         <EditRelationComponent
           relationsTypeOptions={relationsTypeOptions}
           tablesNameOptions={tablesNameOptions}
+          fieldsTableOrigin={fieldsTableOrigin}
+          fieldsTableDestination={fieldsTableDestination}
           relation={relation}
           setRelation={setRelation}
         />

@@ -56,3 +56,55 @@ export const addFieldLogic = (
     findAndAddField(draftTable.fields);
   });
 };
+
+export const calculateDBColumnsWidth = (
+  percentages: number[],
+  totalPixelWidth: number
+): number[] => {
+  const columnWidths = percentages.map(
+    percentages => (percentages * totalPixelWidth) / 100
+  );
+  return columnWidths;
+};
+
+export const moveDownField = (table: TableVm, fieldId: GUID): TableVm => {
+  return produce(table, draftTable => {
+    const moveDownFieldRecursive = (fields: FieldVm[]): void => {
+      for (let i = 0; i < fields.length; i++) {
+        const field = fields[i];
+        if (field.id === fieldId && i < fields.length - 1) {
+          const temp = fields[i];
+          fields[i] = fields[i + 1];
+          fields[i + 1] = temp;
+          return;
+        }
+        if (field.children && field.children.length > 0) {
+          moveDownFieldRecursive(field.children);
+        }
+      }
+    };
+
+    moveDownFieldRecursive(draftTable.fields);
+  });
+};
+
+export const moveUpField = (table: TableVm, fieldId: GUID): TableVm => {
+  return produce(table, draftTable => {
+    const moveUpFieldRecursive = (fields: FieldVm[]): void => {
+      for (let i = 0; i < fields.length; i++) {
+        const field = fields[i];
+        if (field.id === fieldId && i > 0) {
+          const temp = fields[i];
+          fields[i] = fields[i - 1];
+          fields[i - 1] = temp;
+          return;
+        }
+        if (field.children && field.children.length > 0) {
+          moveUpFieldRecursive(field.children);
+        }
+      }
+    };
+
+    moveUpFieldRecursive(draftTable.fields);
+  });
+};

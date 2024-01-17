@@ -1,24 +1,20 @@
 import React from 'react';
 import { RelationType } from '@/core/providers/canvas-schema';
-import { Coords, GUID } from '@/core/model';
+import { Coords } from '@/core/model';
 
 interface DatabaseRelationshipProps {
-  id: GUID;
   relationType: RelationType;
   startCoords: Coords;
   endCoords: Coords;
-  onClick: (relationId: GUID) => void;
 }
 
 const FORK_WIDTH = 10;
 const FORK_LINE_SPACING = 5;
 
 const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
-  id,
   relationType,
   startCoords,
   endCoords,
-  onClick,
 }) => {
   const drawFork = (forkCoords: Coords, drawLeftToRight: boolean) => {
     const direction = drawLeftToRight ? 1 : -1;
@@ -49,22 +45,6 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
           stroke="#ffae42"
         />
       </g>
-    );
-  };
-
-  // Enhancemnt proposal: #127
-  // https://github.com/Lemoncode/mongo-modeler/pull/127
-  const drawClickableLine = () => {
-    return (
-      <line
-        x1={startCoords.x}
-        y1={startCoords.y}
-        x2={endCoords.x}
-        y2={endCoords.y}
-        strokeWidth={20}
-        stroke="transparent"
-        onClick={() => onClick(id)}
-      />
     );
   };
 
@@ -101,8 +81,6 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
         )}
       {relationType === 'M:1' &&
         drawFork({ x: originXMinusFork, y: startCoords.y }, !isDrawLeftToRight)}
-
-      {drawClickableLine()}
     </svg>
   );
 };
