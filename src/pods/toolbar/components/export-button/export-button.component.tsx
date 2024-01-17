@@ -1,18 +1,21 @@
 import React from 'react';
-import { Size } from '@/core/model';
-import { downloadImage } from '@/common/export';
-// import { downloadSvg } from '@/common/export';
-import { ExportIcon } from '@/common/components/icons/export-icon.component';
-import { useCanvasViewSettingsContext } from '@/core/providers';
-import { useCanvasSchemaContext } from '@/core/providers/canvas-schema';
-import { CanvasExportSvgComponent } from '@/pods/export/canvas-export-svg.component';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { EDIT_COLLECTION_TITLE, ExportIcon } from '@/common/components';
+import { downloadImage, downloadSvg } from '@/common/export';
+import { ExportType, Size } from '@/core/model';
+import {
+  useModalDialogContext,
+  useCanvasSchemaContext,
+  useCanvasViewSettingsContext,
+} from '@/core/providers';
+import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
+import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
 export const ExportButton = () => {
+  const { openModal } = useModalDialogContext();
   const { canvasSchema } = useCanvasSchemaContext();
-
   const { canvasViewSettings } = useCanvasViewSettingsContext();
+
   const { canvasSize, zoomFactor } = canvasViewSettings;
 
   const viewBoxSize: Size = React.useMemo<Size>(
@@ -23,20 +26,20 @@ export const ExportButton = () => {
     [zoomFactor, canvasSize]
   );
 
-  // const exportSvg = () => {
-  //   const svg = (
-  //     <CanvasExportSvgComponent
-  //       viewBoxSize={viewBoxSize}
-  //       canvasSize={canvasSize}
-  //       canvasSchema={canvasSchema}
-  //       onUpdateTablePosition={() => {}}
-  //       onToggleCollapse={() => {}}
-  //       onEditTable={() => {}}
-  //     />
-  //   );
+  const exportSvg = () => {
+    const svg = (
+      <CanvasExportSvgComponent
+        viewBoxSize={viewBoxSize}
+        canvasSize={canvasSize}
+        canvasSchema={canvasSchema}
+        onUpdateTablePosition={() => {}}
+        onToggleCollapse={() => {}}
+        onEditTable={() => {}}
+      />
+    );
 
-  //   downloadSvg(svg);
-  // };
+    downloadSvg(svg);
+  };
 
   const exportImage = () => {
     const svg = (
@@ -53,12 +56,31 @@ export const ExportButton = () => {
     downloadImage(svg, viewBoxSize);
   };
 
+  const handleExportToFormat = (exportType: ExportType) => {
+    switch (exportType) {
+      case 'svg':
+        exportSvg();
+        break;
+      case 'png':
+        exportImage();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleExportClick = () => {
+    openModal(
+      <ExportTablePod onExport={handleExportToFormat} />,
+      EDIT_COLLECTION_TITLE
+    );
+  };
+
   return (
     <ToolbarButton
       icon={<ExportIcon />}
       label="Export"
-      // onClick={exportSvg}
-      onClick={exportImage}
+      onClick={handleExportClick}
       className={classes.button}
     />
   );

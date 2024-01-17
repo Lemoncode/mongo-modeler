@@ -19,6 +19,7 @@ export const EditRelationPod: React.FC<Props> = props => {
 
   //TODO: Initialize 'relation' with existing values when the user clicks on 'relation' SVG
   const [relation, setRelation] = React.useState<RelationVm>({
+    id: '20',
     fromFieldId: '',
     fromTableId: '',
     toFieldId: '',

@@ -16,6 +16,7 @@ interface Props {
   ) => void;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
   onEditTable: (tableInfo: TableVm) => void;
+  onEditRelation: (relationId: GUID) => void;
 }
 
 export const CanvasSvgComponent: React.FC<Props> = props => {
@@ -26,6 +27,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     onUpdateTablePosition,
     onToggleCollapse,
     onEditTable,
+    onEditRelation,
   } = props;
   return (
     <svg
@@ -45,7 +47,10 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           canvasSize={canvasSize}
         />
       ))}
-      <DatabaseRelationCollectionComponent schema={canvasSchema} />
+      <DatabaseRelationCollectionComponent
+        schema={canvasSchema}
+        onEditRelation={onEditRelation}
+      />
     </svg>
   );
 };

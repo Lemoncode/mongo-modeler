@@ -71,6 +71,10 @@ export const CanvasPod: React.FC = () => {
     }
   };
 
+  const handleEditRelation = (relationId: GUID) => {
+    console.log('TODO: handleEditRelation', relationId);
+  };
+
   return (
     <div
       className={classes.container}
@@ -84,6 +88,7 @@ export const CanvasPod: React.FC = () => {
         onUpdateTablePosition={updateTablePosition}
         onToggleCollapse={handleToggleCollapse}
         onEditTable={handleEditTable}
+        onEditRelation={handleEditRelation}
       />
     </div>
   );
