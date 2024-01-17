@@ -28,6 +28,7 @@ export const EditRelationPod: React.FC<Props> = props => {
     mapTablesToDropdonwVm(canvasSchema);
 
   const handleSubmit = (values: RelationFormVm) => {
+    console.log(values);
     onChangeRelation(mapRelationFormVmToRelaionVM(values));
   };
 
