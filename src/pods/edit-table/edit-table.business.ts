@@ -5,24 +5,20 @@ import { GUID } from '@/core/model';
 // TODO: Add unit test support
 // #75
 // https://github.com/Lemoncode/mongo-modeler/issues/75
-
 export const removeField = (table: TableVm, fieldId: GUID): TableVm => {
   return produce(table, draftTable => {
-    removeFieldRecursive(draftTable.fields, fieldId);
-  });
-};
+    const removeFieldRecursive = (fields: FieldVm[]): void => {
+      for (let i = 0; i < fields.length; i++) {
+        if (fields[i].id === fieldId) {
+          fields.splice(i, 1);
+          return; // Exit early if the field is found and has been removed
+        }
+        if (fields[i].children) {
+          removeFieldRecursive(fields[i].children ?? []);
+        }
+      }
+    };
 
-export const removeFieldRecursive = (
-  fields: FieldVm[],
-  fieldId: GUID
-): void => {
-  for (let i = 0; i < fields.length; i++) {
-    if (fields[i].id === fieldId) {
-      fields.splice(i, 1);
-      return; // Exit early if the field is found and has been removed
-    }
-    if (fields[i].children) {
-      removeFieldRecursive(fields[i].children ?? [], fieldId);
-    }
-  }
+    removeFieldRecursive(draftTable.fields);
+  });
 };
