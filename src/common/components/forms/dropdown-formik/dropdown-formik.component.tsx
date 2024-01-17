@@ -21,6 +21,7 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
   // If the field doesn't exist then treat this as a normal input
   const inputFieldProps = Boolean(field) ? field : props;
   const { setValue } = helpers;
+
   // We only want to display the field validation error message
   // if Formik is enabled, and is the field has been touched
   // not a very good UX experience to show a blank form full
@@ -41,7 +42,7 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
             setValue(field);
           }}
         ></Dropdown>
-        {isError && <span className={classes.error}>{meta.error}</span>}
+        {isError && <span className={classes.error}>{meta.error?.id}</span>}
       </div>
     </div>
   );
