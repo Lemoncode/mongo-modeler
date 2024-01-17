@@ -72,21 +72,19 @@ export const CanvasPod: React.FC = () => {
   };
 
   return (
-    <div>
-      <div
-        className={classes.container}
-        ref={containerRef}
-        onScroll={handleScroll}
-      >
-        <CanvasSvgComponent
-          viewBoxSize={viewBoxSize}
-          canvasSize={canvasSize}
-          canvasSchema={canvasSchema}
-          onUpdateTablePosition={updateTablePosition}
-          onToggleCollapse={handleToggleCollapse}
-          onEditTable={handleEditTable}
-        />
-      </div>
+    <div
+      className={classes.container}
+      ref={containerRef}
+      onScroll={handleScroll}
+    >
+      <CanvasSvgComponent
+        viewBoxSize={viewBoxSize}
+        canvasSize={canvasSize}
+        canvasSchema={canvasSchema}
+        onUpdateTablePosition={updateTablePosition}
+        onToggleCollapse={handleToggleCollapse}
+        onEditTable={handleEditTable}
+      />
     </div>
   );
 };
