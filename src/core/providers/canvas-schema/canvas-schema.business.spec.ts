@@ -24,6 +24,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -52,6 +53,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -109,6 +111,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -137,6 +140,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -187,6 +191,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -257,6 +262,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -297,6 +303,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -360,6 +367,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -426,6 +434,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -509,6 +518,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -537,6 +547,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',

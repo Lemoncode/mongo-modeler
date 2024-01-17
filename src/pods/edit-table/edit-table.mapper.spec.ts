@@ -165,6 +165,7 @@ describe('pods/edit-table/edit-table.mappers', () => {
       };
       const relation: canvasModel.RelationVm[] = [
         {
+          id: '20',
           fromTableId: '01',
           toTableId: '02',
           fromFieldId: '1',
@@ -172,6 +173,7 @@ describe('pods/edit-table/edit-table.mappers', () => {
           type: '1:1',
         },
         {
+          id: '21',
           fromTableId: '01',
           toTableId: '02',
           fromFieldId: '3',

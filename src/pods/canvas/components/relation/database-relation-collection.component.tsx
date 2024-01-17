@@ -1,5 +1,5 @@
 import React from 'react';
-import { Coords } from '@/core/model';
+import { Coords, GUID } from '@/core/model';
 import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
 import DatabaseRelationshipComponent from './database-relation.component';
 import {
@@ -9,11 +9,12 @@ import {
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
+  onEditRelation: (relationId: GUID) => void;
 }
 
 export const DatabaseRelationCollectionComponent: React.FC<
   DatabaseRelationCollectionProps
-> = ({ schema }) => {
+> = ({ schema, onEditRelation }) => {
   const renderRelation = (relation: RelationVm) => {
     const fromTable = schema.tables.find(
       table => table.id === relation.fromTableId
@@ -47,6 +48,8 @@ export const DatabaseRelationCollectionComponent: React.FC<
     return (
       <DatabaseRelationshipComponent
         key={`${relation.fromTableId}-${relation.fromFieldId}-${relation.toTableId}-${relation.toFieldId}`}
+        id={relation.id}
+        onClick={onEditRelation}
         relationType={relation.type}
         startCoords={startCoords}
         endCoords={endCoords}
