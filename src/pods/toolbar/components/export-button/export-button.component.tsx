@@ -26,26 +26,6 @@ export const ExportButton = () => {
     [zoomFactor, canvasSize]
   );
 
-  const handleExportToFormat = (exportType: ExportType) => {
-    switch (exportType) {
-      case 'svg':
-        exportSvg();
-        break;
-      case 'png':
-        exportImage();
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleExportClick = () => {
-    openModal(
-      <ExportTablePod onExport={handleExportToFormat} />,
-      EDIT_COLLECTION_TITLE
-    );
-  };
-
   const exportSvg = () => {
     const svg = (
       <CanvasExportSvgComponent
@@ -74,6 +54,26 @@ export const ExportButton = () => {
     );
 
     downloadImage(svg, viewBoxSize);
+  };
+
+  const handleExportToFormat = (exportType: ExportType) => {
+    switch (exportType) {
+      case 'svg':
+        exportSvg();
+        break;
+      case 'png':
+        exportImage();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleExportClick = () => {
+    openModal(
+      <ExportTablePod onExport={handleExportToFormat} />,
+      EDIT_COLLECTION_TITLE
+    );
   };
 
   return (
