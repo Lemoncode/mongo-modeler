@@ -1,4 +1,5 @@
 export type FieldType = 'number' | 'string' | 'object' | 'objectId';
+export type ExportType = 'svg' | 'png' | 'mongo';
 
 export interface Size {
   width: number;
