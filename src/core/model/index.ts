@@ -22,7 +22,6 @@ export type FieldType =
   | 'timestamp'
   | 'undefined';
 
-//'number' | 'string' | 'object' | 'objectId';
 export type ExportType = 'svg' | 'png' | 'mongo';
 
 export interface Size {
