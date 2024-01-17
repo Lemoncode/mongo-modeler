@@ -35,7 +35,6 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   // TODO: #56 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/56
   const addTable = (table: TableVm) => {
-    console.log('addTable', table);
     setSchema(prevSchema =>
       produce(prevSchema, draft => {
         draft.tables.push(table);
