@@ -48,6 +48,7 @@ describe('doesRelationAlreadyExists', () => {
       ],
       relations: [
         {
+          id: '1',
           fromTableId: '1',
           toTableId: '2',
           fromFieldId: 'field1table1',
@@ -58,6 +59,7 @@ describe('doesRelationAlreadyExists', () => {
     };
 
     const newRelation: RelationVm = {
+      id: '1',
       fromTableId: '1',
       toTableId: '2',
       fromFieldId: 'field1table1',
@@ -116,6 +118,7 @@ describe('doesRelationAlreadyExists', () => {
       ],
       relations: [
         {
+          id: '1',
           fromTableId: '1',
           toTableId: '2',
           fromFieldId: 'field1table1',
@@ -126,6 +129,7 @@ describe('doesRelationAlreadyExists', () => {
     };
 
     const newRelation: RelationVm = {
+      id: '1',
       fromTableId: '1',
       toTableId: '2',
       fromFieldId: 'field1table1',
