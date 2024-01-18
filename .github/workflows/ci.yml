@@ -13,7 +13,7 @@ jobs:
           npm install
       - name: Build
         run: 
-          npm run build
+          npm run tsc-check
       - name: Tests front
         run: 
           npm test

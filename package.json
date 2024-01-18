@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "test": "vitest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "tsc-check": "tsc --noEmit"
   },
   "dependencies": {
     "@lemoncode/fonk": "^1.5.4",
