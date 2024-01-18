@@ -127,6 +127,7 @@ const findOptionField = (
   }
   return findField;
 };
+
 const findOptionType = (type: RelationType): DropdownOptionVm => {
   const typeOptionList = mapRelationsTipeToDropdonwVm();
   const findType = typeOptionList.find(typeOption => typeOption.label === type);
@@ -136,42 +137,37 @@ const findOptionType = (type: RelationType): DropdownOptionVm => {
   return findType;
 };
 
+const findRelation = (relations: RelationVm[], id: GUID) => {
+  const relationId = relations.find(relation => relation.id === id);
+  if (!relationId) {
+    throw Error(`Relation for ${relationId} is missing`);
+  }
+  return relationId;
+};
+
 export const createInitialIdValues = (
   relationId: GUID,
   canvasSchema: DatabaseSchemaVm
 ): RelationFormVm => {
-  const findRelationId = canvasSchema.relations.find(
-    relation => relation.id === relationId
-  );
-  if (!findRelationId) {
-    throw Error(`Relation for ${relationId} is missing`);
-  }
+  const relation = findRelation(canvasSchema.relations, relationId);
 
-  console.log(findRelationId);
-  console.log(canvasSchema);
-  const optionFromTableTd = findOptionTable(
-    findRelationId.fromTableId,
-    canvasSchema
-  );
+  const optionFromTableTd = findOptionTable(relation.fromTableId, canvasSchema);
 
-  const optionToTableId = findOptionTable(
-    findRelationId.toTableId,
-    canvasSchema
-  );
+  const optionToTableId = findOptionTable(relation.toTableId, canvasSchema);
 
   const optionFromFieldId = findOptionField(
-    findRelationId.fromTableId,
-    findRelationId.fromFieldId,
+    relation.fromTableId,
+    relation.fromFieldId,
     canvasSchema
   );
 
   const optionToFieldId = findOptionField(
-    findRelationId.toTableId,
-    findRelationId.toFieldId,
+    relation.toTableId,
+    relation.toFieldId,
     canvasSchema
   );
 
-  const optionType = findOptionType(findRelationId.type);
+  const optionType = findOptionType(relation.type);
 
   return {
     fromTableId: optionFromTableTd,
