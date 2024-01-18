@@ -1,7 +1,7 @@
-export const saveFileModern = async (content: string) => {
+export const saveFileModern = async (filename: string, content: string) => {
   try {
     const newFileHandle = await window.showSaveFilePicker({
-      suggestedName: 'nuevo_nombre.txt',
+      suggestedName: filename,
     });
     const writableStream = await newFileHandle.createWritable();
     await writableStream.write(content);

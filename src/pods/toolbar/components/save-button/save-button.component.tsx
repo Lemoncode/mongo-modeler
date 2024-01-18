@@ -4,18 +4,20 @@ import { useCanvasSchemaContext } from '@/core/providers';
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
+const defaultFileName = 'diagram.mml';
+
 export const SaveButton = () => {
   const { canvasSchema } = useCanvasSchemaContext();
   const content = JSON.stringify(canvasSchema);
 
-  const saveFile = async () => {
+  const saveFile = async (filename: string) => {
     const blob = new Blob([content], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
 
     if (window.showDirectoryPicker === undefined) {
-      downloadFile('diagram.mml', content, 'application/json');
+      downloadFile(filename, content, 'application/json');
     } else {
-      saveFileModern(content);
+      saveFileModern(filename, content);
     }
     URL.revokeObjectURL(url);
   };
@@ -24,7 +26,7 @@ export const SaveButton = () => {
     <ToolbarButton
       icon={<SaveIcon />}
       label={'Save'}
-      onClick={saveFile}
+      onClick={() => saveFile(defaultFileName)}
       className={classes.button}
     />
   );
