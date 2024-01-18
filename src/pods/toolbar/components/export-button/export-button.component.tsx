@@ -25,12 +25,26 @@ export const ExportButton = () => {
   );
 
   // # 108 Calculate furthest X,Y position used by the canvas table
-  // first approach, find max X
+
+  // with reduce
+  // const getMaxXFromSchemaTables = (tables: TableVm[]): { x: number } => {
+  //   const maxX = tables.reduce(
+  //     (max, table) => (table.x > max ? table.x : max),
+  //     tables[0].x
+  //   );
+
+  //   return { x: maxX };
+  // };
+
+  //with forEach
   const getMaxXFromSchemaTables = (tables: TableVm[]): { x: number } => {
-    const maxX = tables.reduce(
-      (max, table) => (table.x > max ? table.x : max),
-      tables[0].x
-    );
+    let maxX = 0;
+
+    tables.forEach(table => {
+      if (table.x > maxX) {
+        maxX = table.x;
+      }
+    });
 
     return { x: maxX };
   };
