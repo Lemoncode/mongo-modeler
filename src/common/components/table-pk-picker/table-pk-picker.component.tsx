@@ -19,7 +19,7 @@ export const TablePkPicker: React.FC<Props> = props => {
   const { name, options, selectTitle, value, onChange, disabled, isError } =
     props;
 
-  const [selectedPath, setSelectedPath] = React.useState('');
+  const [selectedPath, setSelectedPath] = React.useState(value?.label);
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
   const [currentSelectedKeyFieldId, setCurrentSelectedKeyFieldId] =
     React.useState(value?.id);
