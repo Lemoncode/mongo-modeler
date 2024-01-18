@@ -5,10 +5,10 @@ import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
 export const SaveButton = () => {
   const { canvasSchema } = useCanvasSchemaContext();
-  const jsonString = JSON.stringify(canvasSchema);
+  const content = JSON.stringify(canvasSchema);
 
   const saveFile = async () => {
-    const blob = new Blob([jsonString], { type: 'application/json' });
+    const blob = new Blob([content], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
 
     if (window.showDirectoryPicker === undefined) {
@@ -18,12 +18,11 @@ export const SaveButton = () => {
       a.click();
     } else {
       try {
-        const handle = await window.showDirectoryPicker();
-        const newFileHandle = await handle.getFileHandle('filename.txt', {
-          create: true,
+        const newFileHandle = await window.showSaveFilePicker({
+          suggestedName: 'nuevo_nombre.txt',
         });
         const writableStream = await newFileHandle.createWritable();
-        await writableStream.write('Your string here');
+        await writableStream.write(content);
         await writableStream.close();
       } catch (error) {
         console.log('Error save file: ' + error);
