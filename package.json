@@ -11,7 +11,7 @@
     "format": "prettier --write .",
     "test": "vitest",
     "prepare": "husky install",
-    "check-tsc": "tsc"
+    "tsc-check": "tsc --noEmit"
   },
   "dependencies": {
     "@lemoncode/fonk": "^1.5.4",
