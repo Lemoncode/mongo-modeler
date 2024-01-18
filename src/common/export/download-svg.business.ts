@@ -1,21 +1,10 @@
 import ReactDOMServer from 'react-dom/server';
 import { Size } from '@/core/model';
-
-const initiateDownload = (url: string, name: string) => {
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = name;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+import { downloadFile, initiateDownload } from './classic-download';
 
 export const downloadSvg = (svg: JSX.Element) => {
   const svgString = ReactDOMServer.renderToStaticMarkup(svg);
-  const blob = new Blob([svgString], { type: 'image/svg+xml' });
-  const svgUrl = URL.createObjectURL(blob);
-
-  initiateDownload(svgUrl, 'my-image.svg');
+  downloadFile('diagram.svg', svgString, 'image/svg+xml');
 };
 
 export const downloadImage = (svg: JSX.Element, viewBoxSize: Size) => {
