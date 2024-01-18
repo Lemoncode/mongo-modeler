@@ -11,10 +11,11 @@ import { RelationFormVm } from './edit-relation.vm';
 
 // TODO: Test - this mapper needs to be updated when an ID relation appears.
 export const mapRelationFormVmToRelaionVM = (
-  values: RelationFormVm
+  values: RelationFormVm,
+  relationId?: GUID
 ): RelationVm => {
   return {
-    id: GenerateGUID(), // temporary solution
+    id: relationId || GenerateGUID(),
     type: values.type.label as RelationType,
     fromTableId: values.fromTableId.id,
     fromFieldId: values.fromFieldId.id,
@@ -37,11 +38,16 @@ export const mapRelationsTipeToDropdonwVm = (): DropdownOptionVm[] => [
 // #118 Add unit tests to edit relation business
 //https://github.com/Lemoncode/mongo-modeler/issues/118
 
-export const mapTablesToDropdonwVm = (
+const mapTableToDropdonwVm = (table: TableVm): DropdownOptionVm => ({
+  id: table.id,
+  label: table.tableName,
+});
+
+export const mapTableListToDropdonwVm = (
   canvasSchema: DatabaseSchemaVm
 ): DropdownOptionVm[] =>
   canvasSchema.tables.map(
-    (table): DropdownOptionVm => ({ id: table.id, label: table.tableName })
+    (table): DropdownOptionVm => mapTableToDropdonwVm(table)
   );
 
 const returnTablefromCanvasShema = (
@@ -83,3 +89,95 @@ export const mapTablesFieldsToPkOptionVm = (
 
   return options;
 };
+
+//!!Need refactor all functions from here
+const findOptionTable = (id: GUID, canvasSchema: DatabaseSchemaVm) => {
+  const findTable = returnTablefromCanvasShema(id, canvasSchema);
+  return mapTableToDropdonwVm(findTable);
+};
+
+const fiendFieldRecursively = (fieldOptionList: PkOptionVm[], id: GUID) => {
+  return fieldOptionList.find(field => {
+    if (field.id === id) {
+      return field;
+    } else {
+      if (field.children && field.children.length > 0) {
+        fiendFieldRecursively(field.children, id);
+      }
+    }
+  });
+};
+
+const findOptionField = (
+  tableId: GUID,
+  fieldId: GUID,
+  canvasSchema: DatabaseSchemaVm
+): PkOptionVm => {
+  const findTable = returnTablefromCanvasShema(tableId, canvasSchema);
+  const fieldOptionList = returnOptionsFromTable(findTable.fields);
+  const findField = fiendFieldRecursively(fieldOptionList, fieldId);
+
+  if (!findField) {
+    throw Error(`Relation field with ${fieldId} is missing`);
+  }
+  return findField;
+};
+
+const findOptionType = (type: RelationType): DropdownOptionVm => {
+  const typeOptionList = mapRelationsTipeToDropdonwVm();
+  const findType = typeOptionList.find(typeOption => typeOption.label === type);
+  if (!findType) {
+    throw Error(`Relation type ${type} has not valid value`);
+  }
+  return findType;
+};
+
+export const createInitialIdValues = (
+  relationId: GUID,
+  canvasSchema: DatabaseSchemaVm
+): RelationFormVm => {
+  const findRelationId = canvasSchema.relations.find(
+    relation => relation.id === relationId
+  );
+  if (!findRelationId) {
+    throw Error(`Relation for ${relationId} is missing`);
+  }
+  const optionFromTableTd = findOptionTable(
+    findRelationId.fromTableId,
+    canvasSchema
+  );
+  const optionToTableId = findOptionTable(
+    findRelationId.toTableId,
+    canvasSchema
+  );
+
+  const optionFromFieldId = findOptionField(
+    findRelationId.fromTableId,
+    findRelationId.fromFieldId,
+    canvasSchema
+  );
+
+  const optionToFieldId = findOptionField(
+    findRelationId.toTableId,
+    findRelationId.toFieldId,
+    canvasSchema
+  );
+
+  const optionType = findOptionType(findRelationId.type);
+
+  return {
+    fromTableId: optionFromTableTd,
+    toTableId: optionToTableId,
+    fromFieldId: optionFromFieldId,
+    toFieldId: optionToFieldId,
+    type: optionType,
+  };
+};
+
+export const createInitialValues = (): RelationFormVm => ({
+  fromFieldId: { id: '', label: '' },
+  fromTableId: { id: '', label: '' },
+  toFieldId: { id: '', label: '' },
+  toTableId: { id: '', label: '' },
+  type: { id: '1', label: '1:1' },
+});
