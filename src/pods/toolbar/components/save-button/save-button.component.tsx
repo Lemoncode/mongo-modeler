@@ -1,4 +1,5 @@
 import { SaveIcon } from '@/common/components/icons/save-icon.component';
+import { downloadFile } from '@/common/export';
 import { useCanvasSchemaContext } from '@/core/providers';
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
@@ -11,11 +12,8 @@ export const SaveButton = () => {
     const blob = new Blob([content], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
 
-    if (window.showDirectoryPicker === undefined) {
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'filename.txt';
-      a.click();
+    if (window.showSaveFilePicker === undefined) {
+      downloadFile('diagram.mml', content, 'application/json');
     } else {
       try {
         const newFileHandle = await window.showSaveFilePicker({

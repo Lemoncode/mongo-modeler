@@ -10,12 +10,20 @@ const initiateDownload = (url: string, name: string) => {
   document.body.removeChild(link);
 };
 
-export const downloadSvg = (svg: JSX.Element) => {
-  const svgString = ReactDOMServer.renderToStaticMarkup(svg);
-  const blob = new Blob([svgString], { type: 'image/svg+xml' });
+export const downloadFile = (
+  filename: string,
+  content: string,
+  contentType: string
+) => {
+  const blob = new Blob([content], { type: contentType });
   const svgUrl = URL.createObjectURL(blob);
 
-  initiateDownload(svgUrl, 'my-image.svg');
+  initiateDownload(svgUrl, filename);
+};
+
+export const downloadSvg = (svg: JSX.Element) => {
+  const svgString = ReactDOMServer.renderToStaticMarkup(svg);
+  downloadFile('diagram.svg', svgString, 'image/svg+xml');
 };
 
 export const downloadImage = (svg: JSX.Element, viewBoxSize: Size) => {
