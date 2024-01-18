@@ -27,24 +27,14 @@ export const ExportButton = () => {
   // # 108 Calculate furthest X,Y position used by the canvas table
 
   // with reduce
-  // const getMaxXFromSchemaTables = (tables: TableVm[]): { x: number } => {
-  //   const maxX = tables.reduce(
-  //     (max, table) => (table.x > max ? table.x : max),
-  //     tables[0].x
-  //   );
-
-  //   return { x: maxX };
-  // };
-
-  //with forEach
   const getMaxXFromSchemaTables = (tables: TableVm[]): { x: number } => {
-    let maxX = 0;
-
-    tables.forEach(table => {
-      if (table.x > maxX) {
-        maxX = table.x;
-      }
-    });
+    if (!tables.length) {
+      throw new Error('No tables provided');
+    }
+    const maxX = tables.reduce(
+      (max, table) => (table.x > max ? table.x : max),
+      tables[0].x
+    );
 
     return { x: maxX };
   };
