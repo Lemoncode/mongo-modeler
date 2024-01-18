@@ -6,6 +6,7 @@ import {
   useModalDialogContext,
   useCanvasSchemaContext,
   useCanvasViewSettingsContext,
+  TableVm,
 } from '@/core/providers';
 import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
@@ -17,6 +18,13 @@ export const ExportButton = () => {
   const { canvasViewSettings } = useCanvasViewSettingsContext();
 
   const { canvasSize, zoomFactor } = canvasViewSettings;
+
+  //108
+  const getMaxXFromSchemaTables = (tables: TableVm[]): { x: number } => {
+    const maxX = tables.sort((tableA, tableB) => tableB.x - tableA.x)[0].x;
+
+    return { x: maxX };
+  };
 
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
