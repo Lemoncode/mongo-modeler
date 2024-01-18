@@ -98,20 +98,20 @@ const findOptionTable = (id: GUID, canvasSchema: DatabaseSchemaVm) => {
 
 const fiendFieldRecursively = (
   fieldOptionList: PkOptionVm[],
-  id: GUID
-): PkOptionVm => {
+  fieldId: GUID
+): PkOptionVm | null => {
   for (const field of fieldOptionList) {
-    if (field.id === id) {
+    if (field.id === fieldId) {
       return field;
     }
     if (field.children) {
-      const findField = fiendFieldRecursively(field.children, id);
-      if (findField) {
+      const findField = fiendFieldRecursively(field.children, fieldId);
+      if (findField !== null) {
         return findField;
       }
     }
   }
-  throw new Error(`Field with ID ${id} not found`);
+  return null;
 };
 
 const findOptionField = (
@@ -123,11 +123,10 @@ const findOptionField = (
   const fieldOptionList = returnOptionsFromTable(findTable.fields);
   const findField = fiendFieldRecursively(fieldOptionList, fieldId);
   if (!findField) {
-    throw Error(`Relation field with ${fieldId} is missing`);
+    throw new Error(`Field with ID ${fieldId} not found`);
   }
   return findField;
 };
-
 const findOptionType = (type: RelationType): DropdownOptionVm => {
   const typeOptionList = mapRelationsTipeToDropdonwVm();
   const findType = typeOptionList.find(typeOption => typeOption.label === type);
@@ -148,6 +147,8 @@ export const createInitialIdValues = (
     throw Error(`Relation for ${relationId} is missing`);
   }
 
+  console.log(findRelationId);
+  console.log(canvasSchema);
   const optionFromTableTd = findOptionTable(
     findRelationId.fromTableId,
     canvasSchema
