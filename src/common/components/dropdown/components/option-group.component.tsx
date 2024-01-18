@@ -55,7 +55,7 @@ const Option: React.FC<OptionProps> = props => {
           type="radio"
           name={name}
           value={option.id}
-          onClick={() => handleOptionClick(option)}
+          onChange={() => handleOptionClick(option)}
         />
         {option.label}
       </label>

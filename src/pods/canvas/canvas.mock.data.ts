@@ -37,7 +37,7 @@ const mockTables: TableVm[] = [
         id: tagFieldId,
         name: 'id',
         PK: true,
-        type: 'number',
+        type: 'int',
       },
       {
         id: restauranteNameFieldGUID,
@@ -56,7 +56,7 @@ const mockTables: TableVm[] = [
       {
         id: restaurantIdField,
         name: 'id',
-        type: 'number',
+        type: 'int',
         PK: false,
       },
       {
@@ -74,7 +74,7 @@ const mockTables: TableVm[] = [
           {
             id: GenerateGUID(),
             name: 'id',
-            type: 'number',
+            type: 'objectId',
             PK: false,
           },
           {
@@ -93,7 +93,7 @@ const mockTables: TableVm[] = [
               {
                 id: GenerateGUID(),
                 name: 'id',
-                type: 'number',
+                type: 'objectId',
                 PK: false,
               },
               {
@@ -105,7 +105,7 @@ const mockTables: TableVm[] = [
               {
                 id: GenerateGUID(),
                 name: 'price',
-                type: 'number',
+                type: 'decimal',
                 PK: false,
               },
             ],
@@ -115,7 +115,7 @@ const mockTables: TableVm[] = [
       {
         id: restaurantTagFieldGUID,
         name: 'tags',
-        type: 'number',
+        type: 'objectId',
         isArray: true,
         PK: false,
       },
@@ -146,7 +146,7 @@ const mockTables: TableVm[] = [
           {
             id: GenerateGUID(),
             name: 'zip',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
         ],

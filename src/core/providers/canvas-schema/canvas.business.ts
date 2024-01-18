@@ -1,5 +1,10 @@
 import { Coords, GUID, Size } from '@/core/model';
-import { DatabaseSchemaVm, FieldVm, TableVm } from './canvas-schema.model';
+import {
+  DatabaseSchemaVm,
+  FieldVm,
+  TableVm,
+  RelationVm,
+} from './canvas-schema.model';
 import { TABLE_CONST } from './canvas.const';
 import { produce } from 'immer';
 
@@ -219,3 +224,18 @@ export const doFieldToggleCollapseLogic = (
       }
     }
   });
+
+// #90 AddRelation avoid adding a relation that already exists
+export const doesRelationAlreadyExists = (
+  alredyExists: DatabaseSchemaVm,
+  newRelation: RelationVm
+): boolean => {
+  return !alredyExists.relations.some(
+    relation =>
+      relation.fromTableId === newRelation.fromTableId &&
+      relation.toTableId === newRelation.toTableId &&
+      relation.fromFieldId === newRelation.fromFieldId &&
+      relation.toFieldId === newRelation.toFieldId &&
+      relation.type === newRelation.type
+  );
+};

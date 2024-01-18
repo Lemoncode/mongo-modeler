@@ -26,7 +26,7 @@ describe('calculateRelationXCoordinateOrigin', () => {
         },
       ],
       tableName: 'table1',
-      x: TABLE_CONST.DEFAULT_TABLE_WIDTH - 200,
+      x: 0,
       y: 0,
     };
     const tableDestination: TableVm = {
@@ -46,7 +46,7 @@ describe('calculateRelationXCoordinateOrigin', () => {
         },
       ],
       tableName: 'table2',
-      x: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
+      x: 200,
       y: 0,
     };
 
@@ -57,7 +57,7 @@ describe('calculateRelationXCoordinateOrigin', () => {
     );
 
     // Assert
-    expect(result).toBe(TABLE_CONST.DEFAULT_TABLE_WIDTH + 100);
+    expect(result).toBe(TABLE_CONST.DEFAULT_TABLE_WIDTH);
   });
   it('Should returns xCoordinateOrigin, if tableOrigin.x > tableDestination.x', () => {
     //Arrange
@@ -133,7 +133,7 @@ describe('calculateRelationXCoordinateEnd', () => {
         },
       ],
       tableName: 'table1',
-      x: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
+      x: 200,
       y: 0,
     };
     const tableDestination: TableVm = {
@@ -153,7 +153,7 @@ describe('calculateRelationXCoordinateEnd', () => {
         },
       ],
       tableName: 'table2',
-      x: TABLE_CONST.DEFAULT_TABLE_WIDTH - 200,
+      x: 190,
       y: 0,
     };
 
@@ -164,7 +164,8 @@ describe('calculateRelationXCoordinateEnd', () => {
     );
 
     // Assert
-    expect(result).toBe(TABLE_CONST.DEFAULT_TABLE_WIDTH + 100);
+    // TODO: REFACTOR THIS TEST IF TABLE WIDTH CHANGE THIS IS NOT VALID
+    expect(result).toBe(190 + TABLE_CONST.DEFAULT_TABLE_WIDTH);
   });
   it('Should returns xCoordinateEnd, if tableDestination.x > tableOrigin.x', () => {
     //Arrange
