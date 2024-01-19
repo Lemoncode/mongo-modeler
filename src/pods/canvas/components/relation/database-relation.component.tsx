@@ -3,6 +3,7 @@ import { RelationType } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
 import { ForkComponent } from './components';
 import { FORK_WIDTH } from './relation.vm';
+import { isDrawLeftToRightLogic } from './relation.business';
 
 interface DatabaseRelationshipProps {
   id: GUID;
@@ -36,10 +37,11 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
   };
 
   // Determine the direction of the fork
-  const isDrawLeftToRight =
-    relationType === '1:M'
-      ? startCoords.x < endCoords.x
-      : startCoords.x > endCoords.x;
+  const isDrawLeftToRight = isDrawLeftToRightLogic(
+    relationType,
+    startCoords,
+    endCoords
+  );
 
   const originXMinusFork =
     relationType === 'M:1' ? startCoords.x - FORK_WIDTH : startCoords.x;
