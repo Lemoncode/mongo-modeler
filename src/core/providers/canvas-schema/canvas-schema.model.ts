@@ -52,4 +52,5 @@ export interface CanvasSchemaContextVm {
   updateFullTable: (table: TableVm) => void;
   addTable: (table: TableVm) => void;
   addRelation: (relation: RelationVm) => void;
+  updateFullRelation: (relation: RelationVm) => void;
 }

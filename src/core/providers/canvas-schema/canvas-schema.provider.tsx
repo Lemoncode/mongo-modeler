@@ -9,7 +9,7 @@ import {
 } from './canvas-schema.model';
 import { Coords, GUID, Size } from '@/core/model';
 import { moveTableToTop, doFieldToggleCollapseLogic } from './canvas.business';
-import { updateTable } from './canvas-schema.business';
+import { updateRelation, updateTable } from './canvas-schema.business';
 
 interface Props {
   children: React.ReactNode;
@@ -52,6 +52,10 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     );
   };
 
+  const updateFullRelation = (relationUpdated: RelationVm) => {
+    setSchema(prevSchema => updateRelation(relationUpdated, prevSchema));
+  };
+
   const updateTablePosition = (
     id: string,
     position: Coords,
@@ -81,6 +85,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         updateFullTable,
         addTable,
         addRelation,
+        updateFullRelation,
       }}
     >
       {children}

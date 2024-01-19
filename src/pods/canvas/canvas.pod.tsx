@@ -27,7 +27,7 @@ export const CanvasPod: React.FC = () => {
     updateTablePosition,
     updateFullTable,
     doFieldToggleCollapse,
-    addRelation,
+    updateFullRelation,
   } = useCanvasSchemaContext();
   const { canvasViewSettings, setScrollPosition } =
     useCanvasViewSettingsContext();
@@ -77,9 +77,8 @@ export const CanvasPod: React.FC = () => {
     }
   };
 
-  //!!Need updateRelation
   const handleChangeRelation = (relation: RelationVm) => {
-    addRelation(relation);
+    updateFullRelation(relation);
     closeModal();
   };
 

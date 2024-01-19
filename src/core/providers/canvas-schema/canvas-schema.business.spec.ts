@@ -1,6 +1,6 @@
-import { TableVm } from './canvas-schema.model';
+import { RelationVm, TableVm } from './canvas-schema.model';
 import { DatabaseSchemaVm } from './canvas-schema.model';
-import { updateTable } from './canvas-schema.business';
+import { updateRelation, updateTable } from './canvas-schema.business';
 
 describe('canvas-schema.business', () => {
   describe('updateTable', () => {
@@ -574,6 +574,213 @@ describe('canvas-schema.business', () => {
       };
       // Act
       const result = updateTable(table, dbSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('updateRelation', () => {
+    it('Should updated one relation when the id relation schema its the same', () => {
+      // Arrange
+      const relation: RelationVm = {
+        id: '20',
+        fromFieldId: '11',
+        fromTableId: '9',
+        toFieldId: '1',
+        toTableId: '1',
+        type: '1:1',
+      };
+
+      const dbSchema: DatabaseSchemaVm = {
+        relations: [
+          {
+            id: '20',
+            fromFieldId: '10',
+            fromTableId: '9',
+            toFieldId: '1',
+            toTableId: '1',
+            type: '1:1',
+          },
+          {
+            id: '21',
+            fromFieldId: '11',
+            fromTableId: '9',
+            toFieldId: '1',
+            toTableId: '1',
+            type: '1:1',
+          },
+        ],
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '1',
+                name: 'test name',
+                PK: true,
+                type: 'objectId',
+              },
+            ],
+            tableName: 'test name',
+            x: 20,
+            y: 6,
+          },
+          {
+            id: '9',
+            fields: [
+              {
+                id: '10',
+                name: 'test name',
+                PK: false,
+                type: 'objectId',
+              },
+              {
+                id: '11',
+                name: 'test name',
+                PK: false,
+                type: 'objectId',
+              },
+            ],
+            tableName: 'test name',
+            x: 10,
+            y: 2,
+          },
+        ],
+      };
+
+      const expectedResult: DatabaseSchemaVm = {
+        relations: [
+          {
+            id: '20',
+            fromFieldId: '11',
+            fromTableId: '9',
+            toFieldId: '1',
+            toTableId: '1',
+            type: '1:1',
+          },
+          {
+            id: '21',
+            fromFieldId: '11',
+            fromTableId: '9',
+            toFieldId: '1',
+            toTableId: '1',
+            type: '1:1',
+          },
+        ],
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '1',
+                name: 'test name',
+                PK: true,
+                type: 'objectId',
+              },
+            ],
+            tableName: 'test name',
+            x: 20,
+            y: 6,
+          },
+          {
+            id: '9',
+            fields: [
+              {
+                id: '10',
+                name: 'test name',
+                PK: false,
+                type: 'objectId',
+              },
+              {
+                id: '11',
+                name: 'test name',
+                PK: false,
+                type: 'objectId',
+              },
+            ],
+            tableName: 'test name',
+            x: 10,
+            y: 2,
+          },
+        ],
+      };
+      // Act
+      const result = updateRelation(relation, dbSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+    it('Not should update relation when the id relation it is not the same', () => {
+      // Arrange
+      const relation: RelationVm = {
+        id: '2',
+        fromFieldId: '10',
+        fromTableId: '9',
+        toFieldId: '1',
+        toTableId: '1',
+        type: '1:1',
+      };
+
+      const dbSchema: DatabaseSchemaVm = {
+        relations: [
+          {
+            id: '20',
+            fromFieldId: '10',
+            fromTableId: '9',
+            toFieldId: '1',
+            toTableId: '1',
+            type: '1:1',
+          },
+        ],
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '1',
+                name: 'test name',
+                PK: true,
+                type: 'objectId',
+              },
+            ],
+            tableName: 'test table name',
+            x: 15,
+            y: 25,
+          },
+        ],
+      };
+
+      const expectedResult: DatabaseSchemaVm = {
+        relations: [
+          {
+            id: '20',
+            fromFieldId: '10',
+            fromTableId: '9',
+            toFieldId: '1',
+            toTableId: '1',
+            type: '1:1',
+          },
+        ],
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '1',
+                name: 'test name',
+                PK: true,
+                type: 'objectId',
+              },
+            ],
+            tableName: 'test table name',
+            x: 15,
+            y: 25,
+          },
+        ],
+      };
+      // Act
+      const result = updateRelation(relation, dbSchema);
 
       // Assert
       expect(result).toEqual(expectedResult);
