@@ -103,7 +103,7 @@ const mapFieldVmtoFormValueVm = (field: FieldVm): FormValueVm => ({
 const createFormValueFromTableId = (
   id: GUID,
   canvasSchema: DatabaseSchemaVm
-) => {
+): FormValueVm => {
   const findTable = returnTablefromCanvasShema(id, canvasSchema);
   return mapTableToFormValueVm(findTable);
 };
@@ -148,7 +148,7 @@ const createFormValueFromType = (type: RelationType): FormValueVm => {
   return findType as FormValueVm;
 };
 
-const findRelation = (relations: RelationVm[], id: GUID) => {
+const findRelation = (relations: RelationVm[], id: GUID): RelationVm => {
   const relationId = relations.find(relation => relation.id === id);
   if (!relationId) {
     throw Error(`Relation for ${relationId} is missing`);
