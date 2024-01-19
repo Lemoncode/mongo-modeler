@@ -20,7 +20,7 @@ export const TruncatedText: React.FC<Props> = props => {
       </clipPath>
 
       <text
-        x={x + 5}
+        x={x}
         y={y + height}
         clip-path={`url(#clip_${id})`}
         className={classes.tableTextRow}
