@@ -21,6 +21,7 @@ export interface FieldVm {
 export type RelationType = '1:1' | '1:M' | 'M:1';
 
 export interface RelationVm {
+  id: GUID;
   fromTableId: string;
   toTableId: string;
   fromFieldId: string;
@@ -50,4 +51,5 @@ export interface CanvasSchemaContextVm {
   doFieldToggleCollapse: (tableId: string, fieldId: GUID) => void;
   updateFullTable: (table: TableVm) => void;
   addTable: (table: TableVm) => void;
+  addRelation: (relation: RelationVm) => void;
 }

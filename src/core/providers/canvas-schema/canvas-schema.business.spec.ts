@@ -24,6 +24,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -52,6 +53,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -98,7 +100,7 @@ describe('canvas-schema.business', () => {
             id: '2',
             name: 'test update id name 2',
             PK: false,
-            type: 'number',
+            type: 'int',
           },
         ],
         tableName: 'test update table name',
@@ -109,6 +111,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -137,6 +140,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -158,7 +162,7 @@ describe('canvas-schema.business', () => {
                 id: '2',
                 name: 'test update id name 2',
                 PK: false,
-                type: 'number',
+                type: 'int',
               },
             ],
             tableName: 'test update table name',
@@ -187,6 +191,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -213,15 +218,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
-        relations: [
-          {
-            fromFieldId: '10',
-            fromTableId: '9',
-            toFieldId: '1',
-            toTableId: '1',
-            type: '1:M',
-          },
-        ],
+        relations: [],
         tables: [
           {
             id: '1',
@@ -254,7 +251,7 @@ describe('canvas-schema.business', () => {
             id: '2',
             name: 'test update id name 2',
             PK: false,
-            type: 'number',
+            type: 'int',
           },
         ],
         tableName: 'test update table name',
@@ -265,6 +262,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -305,6 +303,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -326,7 +325,7 @@ describe('canvas-schema.business', () => {
                 id: '2',
                 name: 'test update id name 2',
                 PK: false,
-                type: 'number',
+                type: 'int',
               },
             ],
             tableName: 'test update table name',
@@ -357,7 +356,7 @@ describe('canvas-schema.business', () => {
             id: '2',
             name: 'test update id name 2',
             PK: false,
-            type: 'number',
+            type: 'int',
           },
         ],
         tableName: 'test update table name',
@@ -368,6 +367,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -434,6 +434,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -455,7 +456,7 @@ describe('canvas-schema.business', () => {
                 id: '2',
                 name: 'test update id name 2',
                 PK: false,
-                type: 'number',
+                type: 'int',
               },
             ],
             tableName: 'test update table name',
@@ -517,6 +518,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',
@@ -545,6 +547,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         relations: [
           {
+            id: '20',
             fromFieldId: '10',
             fromTableId: '9',
             toFieldId: '1',

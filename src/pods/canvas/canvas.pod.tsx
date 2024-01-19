@@ -5,15 +5,14 @@ import {
 } from '@/core/providers';
 import { GUID, Size } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
-import { DatabaseTable } from './components/table/database-table.component';
 import classes from './canvas.pod.module.css';
-import { DatabaseRelationCollectionComponent } from './components/relation';
 import {
   TableVm,
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
 import { EditTablePod } from '../edit-table';
 import { EDIT_TABLE_TITLE } from '@/common/components/modal-dialog';
+import { CanvasSvgComponent } from './canvas-svg.component';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -24,7 +23,8 @@ export const CanvasPod: React.FC = () => {
     updateFullTable,
     doFieldToggleCollapse,
   } = useCanvasSchemaContext();
-  const { canvasViewSettings } = useCanvasViewSettingsContext();
+  const { canvasViewSettings, setScrollPosition } =
+    useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor } = canvasViewSettings;
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
@@ -56,33 +56,40 @@ export const CanvasPod: React.FC = () => {
         relations={canvasSchema.relations}
         onSave={handleTableEditUpdate}
       />,
-      EDIT_TABLE_TITLE,
-      tableInfo.tableName
+      EDIT_TABLE_TITLE
     );
   };
 
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    if (containerRef.current) {
+      setScrollPosition({
+        x: containerRef.current.scrollLeft,
+        y: containerRef.current.scrollTop,
+      });
+    }
+  };
+
+  const handleEditRelation = (relationId: GUID) => {
+    console.log('TODO: handleEditRelation', relationId);
+  };
+
   return (
-    <div>
-      <div className={classes.container}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className={classes.containerSvg}
-          viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
-          width={canvasSize.width}
-          height={canvasSize.height}
-        >
-          {canvasSchema.tables.map(table => (
-            <DatabaseTable
-              key={table.id}
-              tableInfo={table}
-              updatePosition={updateTablePosition}
-              onToggleCollapse={handleToggleCollapse}
-              onEditTable={handleEditTable}
-            />
-          ))}
-          <DatabaseRelationCollectionComponent schema={canvasSchema} />
-        </svg>
-      </div>
+    <div
+      className={classes.container}
+      ref={containerRef}
+      onScroll={handleScroll}
+    >
+      <CanvasSvgComponent
+        viewBoxSize={viewBoxSize}
+        canvasSize={canvasSize}
+        canvasSchema={canvasSchema}
+        onUpdateTablePosition={updateTablePosition}
+        onToggleCollapse={handleToggleCollapse}
+        onEditTable={handleEditTable}
+        onEditRelation={handleEditRelation}
+      />
     </div>
   );
 };

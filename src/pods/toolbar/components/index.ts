@@ -4,3 +4,7 @@ export * from './edit-button';
 export * from './zoom-button';
 export * from './relation-button';
 export * from './canvas-setting-button';
+export * from './export-button';
+export * from './new-button';
+export * from './open-button';
+export * from './save-button';
