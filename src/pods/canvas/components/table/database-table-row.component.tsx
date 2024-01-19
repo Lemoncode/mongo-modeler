@@ -45,7 +45,6 @@ export const DatabaseTableRow: React.FC<Props> = props => {
           </text>
         )}
         <TruncatedText
-          id={field.id}
           text={field.name}
           x={TABLE_CONST.COLLAPSE_ICON_X + TABLE_CONST.FONT_SIZE}
           y={0}
@@ -54,7 +53,6 @@ export const DatabaseTableRow: React.FC<Props> = props => {
         />
       </g>
       <TruncatedText
-        id={`type-${field.id}`}
         text={`${field.type}${field.isArray ? `[]` : ''}`}
         x={columnWidths[0] + columnWidths[1]}
         y={0}
