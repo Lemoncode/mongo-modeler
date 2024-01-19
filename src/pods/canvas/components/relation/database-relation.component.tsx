@@ -1,6 +1,8 @@
 import React from 'react';
 import { RelationType } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
+import { ForkComponent } from './components';
+import { FORK_WIDTH } from './relation.vm';
 
 interface DatabaseRelationshipProps {
   id: GUID;
@@ -10,9 +12,6 @@ interface DatabaseRelationshipProps {
   onClick: (relationId: GUID) => void;
 }
 
-const FORK_WIDTH = 10;
-const FORK_LINE_SPACING = 5;
-
 const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
   id,
   relationType,
@@ -20,38 +19,6 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
   endCoords,
   onClick,
 }) => {
-  const drawFork = (forkCoords: Coords, drawLeftToRight: boolean) => {
-    const direction = drawLeftToRight ? 1 : -1;
-
-    // TODO: Teresa replace all the stroke "white" to work with the theme
-    return (
-      <g>
-        {/* Fork lines */}
-        <line
-          x1={forkCoords.x}
-          y1={forkCoords.y}
-          x2={forkCoords.x + FORK_WIDTH * direction}
-          y2={forkCoords.y}
-          stroke="#ffae42"
-        />
-        <line
-          x1={forkCoords.x}
-          y1={forkCoords.y}
-          x2={forkCoords.x + FORK_WIDTH * direction}
-          y2={forkCoords.y - FORK_LINE_SPACING}
-          stroke="#ffae42"
-        />
-        <line
-          x1={forkCoords.x}
-          y1={forkCoords.y}
-          x2={forkCoords.x + FORK_WIDTH * direction}
-          y2={forkCoords.y + FORK_LINE_SPACING}
-          stroke="#ffae42"
-        />
-      </g>
-    );
-  };
-
   // Enhancemnt proposal: #127
   // https://github.com/Lemoncode/mongo-modeler/pull/127
   const drawClickableLine = () => {
@@ -94,13 +61,18 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
       />
 
       {/* Draw the fork */}
-      {relationType === '1:M' &&
-        drawFork(
-          { x: destinationXMinusFork, y: endCoords.y },
-          isDrawLeftToRight
-        )}
-      {relationType === 'M:1' &&
-        drawFork({ x: originXMinusFork, y: startCoords.y }, !isDrawLeftToRight)}
+      {relationType === '1:M' && (
+        <ForkComponent
+          forkCoords={{ x: destinationXMinusFork, y: endCoords.y }}
+          drawLeftToRight={isDrawLeftToRight}
+        />
+      )}
+      {relationType === 'M:1' && (
+        <ForkComponent
+          forkCoords={{ x: originXMinusFork, y: startCoords.y }}
+          drawLeftToRight={!isDrawLeftToRight}
+        />
+      )}
 
       {drawClickableLine()}
     </svg>

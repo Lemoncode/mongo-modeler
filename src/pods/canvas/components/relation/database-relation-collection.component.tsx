@@ -6,6 +6,7 @@ import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
 } from '@/core/providers/canvas-schema/canvas.business';
+import { RelationAdorner } from './relation-adorner';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
@@ -46,14 +47,22 @@ export const DatabaseRelationCollectionComponent: React.FC<
     };
 
     return (
-      <DatabaseRelationshipComponent
+      <React.Fragment
         key={`${relation.fromTableId}-${relation.fromFieldId}-${relation.toTableId}-${relation.toFieldId}`}
-        id={relation.id}
-        onClick={onEditRelation}
-        relationType={relation.type}
-        startCoords={startCoords}
-        endCoords={endCoords}
-      />
+      >
+        <DatabaseRelationshipComponent
+          id={relation.id}
+          onClick={onEditRelation}
+          relationType={relation.type}
+          startCoords={startCoords}
+          endCoords={endCoords}
+        />
+        <RelationAdorner
+          relationType={relation.type}
+          startCoords={startCoords}
+          endCoords={endCoords}
+        />
+      </React.Fragment>
     );
   };
 
