@@ -158,31 +158,14 @@ export const createInitialIdValues = (
   canvasSchema: DatabaseSchemaVm
 ): RelationFormVm => {
   const relation = findRelation(canvasSchema.relations, relationId);
-
-  const optionFromTableTd = findOptionTable(relation.fromTableId, canvasSchema);
-
-  const optionToTableId = findOptionTable(relation.toTableId, canvasSchema);
-
-  const optionFromFieldId = findOptionField(
-    relation.fromTableId,
-    relation.fromFieldId,
-    canvasSchema
-  );
-
-  const optionToFieldId = findOptionField(
-    relation.toTableId,
-    relation.toFieldId,
-    canvasSchema
-  );
-
-  const optionType = findOptionType(relation.type);
+  const { fromFieldId, fromTableId, toFieldId, toTableId, type } = relation;
 
   return {
-    fromTableId: optionFromTableTd,
-    toTableId: optionToTableId,
-    fromFieldId: optionFromFieldId,
-    toFieldId: optionToFieldId,
-    type: optionType,
+    fromTableId: findOptionTable(fromTableId, canvasSchema),
+    toTableId: findOptionTable(toTableId, canvasSchema),
+    fromFieldId: findOptionField(fromTableId, fromFieldId, canvasSchema),
+    toFieldId: findOptionField(toTableId, toFieldId, canvasSchema),
+    type: findOptionType(type),
   };
 };
 
