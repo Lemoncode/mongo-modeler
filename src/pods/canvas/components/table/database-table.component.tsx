@@ -6,7 +6,10 @@ import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { DatabaseTableRow } from './database-table-row.component';
+import { TruncatedText } from './truncated-text.component';
 
+// TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
+// TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
 interface Props {
   tableInfo: TableVm;
   updatePosition: (
@@ -21,6 +24,7 @@ interface Props {
 }
 
 const HEADER_TITLE_GAP = 15;
+const TITLE_MARGIN_LEFT = 10;
 
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
@@ -115,9 +119,15 @@ export const DatabaseTable: React.FC<Props> = ({
         className={classes.tableHeader}
         onDoubleClick={handleDoubleClick}
       />
-      <text x="10" y={TABLE_CONST.FONT_SIZE} className={classes.tableText}>
-        {tableInfo.tableName}
-      </text>
+
+      <TruncatedText
+        text={tableInfo.tableName}
+        x={TITLE_MARGIN_LEFT}
+        y={0}
+        width={TABLE_CONST.TABLE_WIDTH - TITLE_MARGIN_LEFT}
+        height={TABLE_CONST.FONT_SIZE}
+        textClass={classes.tableText}
+      />
 
       <g transform={`translate(0, ${HEADER_TITLE_GAP})`}>{renderedRows}</g>
 
