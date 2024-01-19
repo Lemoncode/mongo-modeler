@@ -7,9 +7,8 @@ import {
   RelationVm,
   TableVm,
 } from '@/core/providers/canvas-schema';
-import { RelationFormVm } from './edit-relation.vm';
+import { FormValueVm, RelationFormVm } from './edit-relation.vm';
 
-// TODO: Test - this mapper needs to be updated when an ID relation appears.
 export const mapRelationFormVmToRelaionVM = (
   values: RelationFormVm,
   relationId?: GUID
@@ -90,51 +89,60 @@ export const mapTablesFieldsToPkOptionVm = (
   return options;
 };
 
-//!!Need refactor all functions from here
+//Form
+const mapTableToFormValueVm = (table: TableVm): FormValueVm => ({
+  id: table.id,
+  label: table.tableName,
+});
+
+const mapFieldVmtoFormValueVm = (field: FieldVm): FormValueVm => ({
+  id: field.id,
+  label: field.name,
+});
+
 const findOptionTable = (id: GUID, canvasSchema: DatabaseSchemaVm) => {
   const findTable = returnTablefromCanvasShema(id, canvasSchema);
-  return mapTableToDropdonwVm(findTable);
+  return mapTableToFormValueVm(findTable);
 };
 
-const fiendFieldRecursively = (
-  fieldOptionList: PkOptionVm[],
-  fieldId: GUID
-): PkOptionVm | null => {
-  for (const field of fieldOptionList) {
-    if (field.id === fieldId) {
-      return field;
-    }
+export const findFieldRecursively = (
+  fields: FieldVm[],
+  id: GUID
+): FieldVm | undefined => {
+  for (const field of fields) {
+    if (field.id === id) return field;
     if (field.children) {
-      const findField = fiendFieldRecursively(field.children, fieldId);
-      if (findField !== null) {
-        return findField;
-      }
+      const found = findFieldRecursively(field.children, id);
+      if (found) return found;
     }
   }
-  return null;
+  return undefined;
 };
 
 const findOptionField = (
   tableId: GUID,
   fieldId: GUID,
   canvasSchema: DatabaseSchemaVm
-): PkOptionVm => {
+): FormValueVm => {
   const findTable = returnTablefromCanvasShema(tableId, canvasSchema);
-  const fieldOptionList = returnOptionsFromTable(findTable.fields);
-  const findField = fiendFieldRecursively(fieldOptionList, fieldId);
+  const findField = findFieldRecursively(findTable.fields, fieldId);
+
   if (!findField) {
     throw new Error(`Field with ID ${fieldId} not found`);
   }
-  return findField;
+  return mapFieldVmtoFormValueVm(findField);
 };
 
-const findOptionType = (type: RelationType): DropdownOptionVm => {
+const findOptionType = (type: RelationType): FormValueVm => {
   const typeOptionList = mapRelationsTipeToDropdonwVm();
   const findType = typeOptionList.find(typeOption => typeOption.label === type);
+
   if (!findType) {
     throw Error(`Relation type ${type} has not valid value`);
   }
-  return findType;
+
+  //map?
+  return findType as FormValueVm;
 };
 
 const findRelation = (relations: RelationVm[], id: GUID) => {

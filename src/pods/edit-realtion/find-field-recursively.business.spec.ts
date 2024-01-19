@@ -1,7 +1,7 @@
-import { findField } from './canvas.business';
-import { FieldVm } from './canvas-schema.model';
+import { FieldVm } from '@/core/providers';
+import { findFieldRecursively } from './edit-relation.business';
 
-describe('findField', () => {
+describe('findFieldRecursively', () => {
   it('returns undefined if the field does not match the id of an array of fields', () => {
     //Arrange
     const fields: FieldVm[] = [
@@ -20,7 +20,7 @@ describe('findField', () => {
     ];
 
     // Act
-    const result = findField(fields, '3');
+    const result = findFieldRecursively(fields, '3');
 
     // Assert
     expect(result).toBe(undefined);
@@ -44,7 +44,7 @@ describe('findField', () => {
     ];
 
     // Act
-    const result = findField(fields, '1');
+    const result = findFieldRecursively(fields, '1');
 
     // Assert
     const expected: FieldVm = {
@@ -76,7 +76,7 @@ describe('findField', () => {
     ];
 
     // Act
-    const result = findField(fields, '3');
+    const result = findFieldRecursively(fields, '3');
 
     // Assert
     const expected: FieldVm = {
@@ -117,7 +117,7 @@ describe('findField', () => {
     ];
 
     // Act
-    const result = findField(fields, '5');
+    const result = findFieldRecursively(fields, '5');
 
     // Assert
     const expected: FieldVm = {
@@ -158,7 +158,7 @@ describe('findField', () => {
     ];
 
     // Act
-    const result = findField(fields, '6');
+    const result = findFieldRecursively(fields, '6');
 
     // Assert
     const expected: FieldVm = {

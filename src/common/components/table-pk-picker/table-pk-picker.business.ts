@@ -1,5 +1,3 @@
-//Todo test
-
 import { GUID } from '@/core/model';
 import { PkOptionVm } from './table-pk-picker.model';
 
@@ -7,7 +5,7 @@ export const generateLabel = (
   options: PkOptionVm[],
   valueId: GUID,
   ruta: string[]
-): string | null => {
+): string | undefined => {
   for (const option of options) {
     const labelRoute = [...ruta, option.label];
 
@@ -20,10 +18,10 @@ export const generateLabel = (
         valueId,
         labelRoute
       );
-      if (findOptionLabel !== null) {
+      if (findOptionLabel) {
         return findOptionLabel;
       }
     }
   }
-  return null;
+  return undefined;
 };

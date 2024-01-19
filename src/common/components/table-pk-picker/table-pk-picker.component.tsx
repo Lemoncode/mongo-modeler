@@ -19,8 +19,7 @@ interface Props {
 export const TablePkPicker: React.FC<Props> = props => {
   const { name, options, selectTitle, value, onChange, disabled, isError } =
     props;
-  console.log(value?.label);
-  //raro
+
   const path = value && value.label && generateLabel(options, value.id, []);
   const [selectedPath, setSelectedPath] = React.useState(path || '');
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
