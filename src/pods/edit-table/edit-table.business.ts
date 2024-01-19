@@ -108,3 +108,18 @@ export const moveUpField = (table: TableVm, fieldId: GUID): TableVm => {
     moveUpFieldRecursive(draftTable.fields);
   });
 };
+
+//Returning a field is only necessary we want to do test,
+// because the main function does not use what is returned
+export const pruneNonObjectChildren = <K extends keyof editTableVm.FieldVm>(
+  key: K,
+  field: editTableVm.FieldVm,
+  value: editTableVm.FieldVm[K]
+) => {
+  if (key === 'type' && field[key] === 'object' && value !== 'object') {
+    field.children = undefined;
+    return field;
+  } else {
+    return field;
+  }
+};
