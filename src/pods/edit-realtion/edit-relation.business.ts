@@ -100,7 +100,10 @@ const mapFieldVmtoFormValueVm = (field: FieldVm): FormValueVm => ({
   label: field.name,
 });
 
-const findOptionTable = (id: GUID, canvasSchema: DatabaseSchemaVm) => {
+const createFormValueFromTableId = (
+  id: GUID,
+  canvasSchema: DatabaseSchemaVm
+) => {
   const findTable = returnTablefromCanvasShema(id, canvasSchema);
   return mapTableToFormValueVm(findTable);
 };
@@ -119,7 +122,7 @@ export const findFieldRecursively = (
   return undefined;
 };
 
-const findOptionField = (
+const createFormValueFromFielId = (
   tableId: GUID,
   fieldId: GUID,
   canvasSchema: DatabaseSchemaVm
@@ -133,7 +136,7 @@ const findOptionField = (
   return mapFieldVmtoFormValueVm(findField);
 };
 
-const findOptionType = (type: RelationType): FormValueVm => {
+const createFormValueFromType = (type: RelationType): FormValueVm => {
   const typeOptionList = mapRelationsTipeToDropdonwVm();
   const findType = typeOptionList.find(typeOption => typeOption.label === type);
 
@@ -159,13 +162,36 @@ export const createInitialIdValues = (
 ): RelationFormVm => {
   const relation = findRelation(canvasSchema.relations, relationId);
   const { fromFieldId, fromTableId, toFieldId, toTableId, type } = relation;
+  const fromTableIdFormValue = createFormValueFromTableId(
+    fromTableId,
+    canvasSchema
+  );
+
+  const toTableIdFormValue = createFormValueFromTableId(
+    toTableId,
+    canvasSchema
+  );
+
+  const fromFieldIdFormValue = createFormValueFromFielId(
+    fromTableId,
+    fromFieldId,
+    canvasSchema
+  );
+
+  const toFieldIdFormValue = createFormValueFromFielId(
+    toTableId,
+    toFieldId,
+    canvasSchema
+  );
+
+  const typeFormValue = createFormValueFromType(type);
 
   return {
-    fromTableId: findOptionTable(fromTableId, canvasSchema),
-    toTableId: findOptionTable(toTableId, canvasSchema),
-    fromFieldId: findOptionField(fromTableId, fromFieldId, canvasSchema),
-    toFieldId: findOptionField(toTableId, toFieldId, canvasSchema),
-    type: findOptionType(type),
+    fromTableId: fromTableIdFormValue,
+    toTableId: toTableIdFormValue,
+    fromFieldId: fromFieldIdFormValue,
+    toFieldId: toFieldIdFormValue,
+    type: typeFormValue,
   };
 };
 
