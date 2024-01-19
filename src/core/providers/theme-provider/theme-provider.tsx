@@ -10,9 +10,11 @@ export const ThemeProvider: React.FC<Props> = props => {
   const { children } = props;
   const [theme, setTheme] = React.useState<ThemeModel>(createInitialTheme());
 
+  const chosenThemeMode = 'themeMode';
+
   const toggleTheme = () => {
     localStorage.setItem(
-      'themeMode',
+      chosenThemeMode,
       theme.themeMode === 'light' ? 'dark' : 'light'
     );
 
@@ -23,7 +25,7 @@ export const ThemeProvider: React.FC<Props> = props => {
   };
 
   React.useEffect(() => {
-    const themeMode = localStorage.getItem('themeMode');
+    const themeMode = localStorage.getItem(chosenThemeMode);
     if (themeMode) {
       setTheme(prevTheme => ({
         ...prevTheme,
