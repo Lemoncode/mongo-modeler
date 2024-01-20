@@ -17,6 +17,7 @@ interface Props {
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
   onEditTable: (tableInfo: TableVm) => void;
   onEditRelation: (relationId: GUID) => void;
+  onSelectElement: (relationId: GUID | null) => void;
 }
 
 export const CanvasSvgComponent: React.FC<Props> = props => {
@@ -28,7 +29,13 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     onToggleCollapse,
     onEditTable,
     onEditRelation,
+    onSelectElement,
   } = props;
+
+  const clearSelection = () => {
+    onSelectElement(null);
+  };
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -36,6 +43,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
       viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
       width={canvasSize.width}
       height={canvasSize.height}
+      onClick={clearSelection}
     >
       {canvasSchema.tables.map(table => (
         <DatabaseTable
@@ -50,6 +58,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
       <DatabaseRelationCollectionComponent
         schema={canvasSchema}
         onEditRelation={onEditRelation}
+        onSelectRelation={onSelectElement}
       />
     </svg>
   );

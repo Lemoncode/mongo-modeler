@@ -6,16 +6,16 @@ import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
 } from '@/core/providers/canvas-schema/canvas.business';
-import { RelationAdorner } from './relation-adorner';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
+  onSelectRelation: (relationId: GUID) => void;
   onEditRelation: (relationId: GUID) => void;
 }
 
 export const DatabaseRelationCollectionComponent: React.FC<
   DatabaseRelationCollectionProps
-> = ({ schema, onEditRelation }) => {
+> = ({ schema, onEditRelation, onSelectRelation }) => {
   const renderRelation = (relation: RelationVm) => {
     const fromTable = schema.tables.find(
       table => table.id === relation.fromTableId
@@ -52,15 +52,12 @@ export const DatabaseRelationCollectionComponent: React.FC<
       >
         <DatabaseRelationshipComponent
           id={relation.id}
-          onClick={onEditRelation}
+          onClick={onSelectRelation}
+          onDoubleClick={onEditRelation}
           relationType={relation.type}
           startCoords={startCoords}
           endCoords={endCoords}
-        />
-        <RelationAdorner
-          relationType={relation.type}
-          startCoords={startCoords}
-          endCoords={endCoords}
+          isSelected={relation.id === schema.selectedElementId}
         />
       </React.Fragment>
     );

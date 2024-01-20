@@ -14,6 +14,8 @@ interface DatabaseRelationshipProps {
   startCoords: Coords;
   endCoords: Coords;
   onClick: (relationId: GUID) => void;
+  onDoubleClick: (relationId: GUID) => void;
+  isSelected: boolean;
 }
 
 const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
@@ -21,8 +23,15 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
   relationType,
   startCoords,
   endCoords,
+  isSelected,
   onClick,
+  onDoubleClick,
 }) => {
+  const handleClick = (e: React.MouseEvent<SVGLineElement, MouseEvent>) => {
+    onClick(id);
+    e.stopPropagation();
+  };
+
   // Enhancemnt proposal: #127
   // https://github.com/Lemoncode/mongo-modeler/pull/127
   const drawClickableLine = () => {
@@ -34,7 +43,8 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
         y2={endCoords.y}
         strokeWidth={20}
         stroke="transparent"
-        onClick={() => onClick(id)}
+        onClick={handleClick}
+        onDoubleClick={() => onDoubleClick(id)}
       />
     );
   };
@@ -59,14 +69,26 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
 
   return (
     <svg>
+      {/* Glow filter if selected */}
+      <defs>
+        <filter id="table_glow">
+          <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
+          <feMerge>
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
       {/* Base line of the relationship */}
       <line
         x1={originXMinusFork}
         y1={startCoords.y}
         x2={destinationXMinusFork}
         y2={endCoords.y}
-        strokeWidth={2}
-        stroke="#ffae42"
+        strokeWidth={isSelected ? 4 : 2}
+        stroke={isSelected ? '#00EE00' : '#ffae42'}
+        filter={isSelected ? `url(#table_glow)` : ''}
       />
 
       {/* Draw the fork */}

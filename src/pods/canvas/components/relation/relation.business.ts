@@ -25,5 +25,3 @@ export const calculateDestinationXMinusForkLogic = (
   relationType === '1:M'
     ? endCoords.x + (isDrawLeftToRight ? -1 : 1) * FORK_WIDTH
     : endCoords.x;
-
-export const calculateForkXOrigin = (relationType: RelationType) => {};

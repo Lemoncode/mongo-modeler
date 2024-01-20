@@ -77,6 +77,13 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     );
   };
 
+  const doSelectElement = (id: GUID | null) => {
+    setSchema(currentSchema => ({
+      ...currentSchema,
+      selectedElementId: id,
+    }));
+  };
+
   return (
     <CanvasSchemaContext.Provider
       value={{
@@ -87,6 +94,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         updateFullTable,
         addTable,
         addRelation,
+        doSelectElement,
       }}
     >
       {children}

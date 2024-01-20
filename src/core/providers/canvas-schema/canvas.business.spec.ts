@@ -4,6 +4,7 @@ import { RelationVm, DatabaseSchemaVm } from './canvas-schema.model';
 describe('doesRelationAlreadyExists', () => {
   it('should return false if relation already exists', () => {
     const alredyExists: DatabaseSchemaVm = {
+      selectedElementId: null,
       tables: [
         {
           id: '1',
@@ -74,6 +75,7 @@ describe('doesRelationAlreadyExists', () => {
 
   it('should return true if relation does not exist', () => {
     const alredyExists: DatabaseSchemaVm = {
+      selectedElementId: null,
       tables: [
         {
           id: '1',

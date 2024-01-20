@@ -156,6 +156,7 @@ const mockTables: TableVm[] = [
 ];
 
 export const mockSchema: DatabaseSchemaVm = {
+  selectedElementId: null,
   tables: mockTables,
   relations: mockRelations,
 };
