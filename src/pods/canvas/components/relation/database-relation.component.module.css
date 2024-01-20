@@ -1,0 +1,10 @@
+/* TODO: use theme variables */
+.non-selected-relation {
+  stroke: #ffae42;
+  stroke-width: 2px;
+}
+
+.selected-relation {
+  stroke: #00ee00;
+  stroke-width: 4px;
+}

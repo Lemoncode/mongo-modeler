@@ -126,7 +126,6 @@ export const DatabaseTable: React.FC<Props> = ({
         height={totalHeight + HEADER_TITLE_GAP}
         className={classes.tableBackground}
         style={rectStyle}
-        onClick={handleClick}
       />
       <rect
         x="0"

@@ -7,6 +7,7 @@ import {
   calculateOriginMinusForkWidthLogic,
   isDrawLeftToRightLogic,
 } from './relation.business';
+import classes from './database-relation.component.module.css';
 
 interface DatabaseRelationshipProps {
   id: GUID;
@@ -41,7 +42,7 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
         y1={startCoords.y}
         x2={endCoords.x}
         y2={endCoords.y}
-        strokeWidth={20}
+        strokeWidth={25}
         stroke="transparent"
         onClick={handleClick}
         onDoubleClick={() => onDoubleClick(id)}
@@ -86,20 +87,23 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
         y1={startCoords.y}
         x2={destinationXMinusFork}
         y2={endCoords.y}
-        strokeWidth={isSelected ? 4 : 2}
-        stroke={isSelected ? '#00EE00' : '#ffae42'}
+        className={
+          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
+        }
         filter={isSelected ? `url(#table_glow)` : ''}
       />
 
       {/* Draw the fork */}
       {relationType === '1:M' && (
         <ForkComponent
+          isSelected={isSelected}
           forkCoords={{ x: destinationXMinusFork, y: endCoords.y }}
           drawLeftToRight={isDrawLeftToRight}
         />
       )}
       {relationType === 'M:1' && (
         <ForkComponent
+          isSelected={isSelected}
           forkCoords={{ x: originXMinusFork, y: startCoords.y }}
           drawLeftToRight={!isDrawLeftToRight}
         />
