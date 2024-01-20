@@ -227,10 +227,10 @@ export const doFieldToggleCollapseLogic = (
 
 // #90 AddRelation avoid adding a relation that already exists
 export const doesRelationAlreadyExists = (
-  alredyExists: DatabaseSchemaVm,
+  databaseSchema: DatabaseSchemaVm,
   newRelation: RelationVm
 ): boolean => {
-  return !alredyExists.relations.some(
+  return databaseSchema.relations.some(
     relation =>
       relation.fromTableId === newRelation.fromTableId &&
       relation.toTableId === newRelation.toTableId &&
