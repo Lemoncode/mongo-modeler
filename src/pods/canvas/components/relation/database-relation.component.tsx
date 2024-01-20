@@ -2,8 +2,11 @@ import React from 'react';
 import { RelationType } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
 import { ForkComponent } from './components';
-import { FORK_WIDTH } from './relation.vm';
-import { isDrawLeftToRightLogic } from './relation.business';
+import {
+  calculateDestinationXMinusForkLogic,
+  calculateOriginMinusForkWidthLogic,
+  isDrawLeftToRightLogic,
+} from './relation.business';
 
 interface DatabaseRelationshipProps {
   id: GUID;
@@ -43,12 +46,16 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
     endCoords
   );
 
-  const originXMinusFork =
-    relationType === 'M:1' ? startCoords.x - FORK_WIDTH : startCoords.x;
-  const destinationXMinusFork =
-    relationType === '1:M'
-      ? endCoords.x + (isDrawLeftToRight ? -1 : 1) * FORK_WIDTH
-      : endCoords.x;
+  const originXMinusFork = calculateOriginMinusForkWidthLogic(
+    relationType,
+    startCoords
+  );
+
+  const destinationXMinusFork = calculateDestinationXMinusForkLogic(
+    relationType,
+    endCoords,
+    isDrawLeftToRight
+  );
 
   return (
     <svg>
