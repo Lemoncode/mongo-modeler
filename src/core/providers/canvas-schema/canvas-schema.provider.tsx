@@ -32,6 +32,10 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     setSchema(newSchema);
   };
 
+  const createEmptySchema = () => {
+    setSchema(createDefaultDatabaseSchemaVm());
+  };
+
   const updateFullTable = (table: TableVm) => {
     setSchema(prevSchema => updateTable(table, prevSchema));
   };
@@ -88,6 +92,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     <CanvasSchemaContext.Provider
       value={{
         canvasSchema,
+        createEmptySchema,
         loadSchema,
         updateTablePosition,
         doFieldToggleCollapse,
