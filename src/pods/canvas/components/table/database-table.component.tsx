@@ -18,6 +18,8 @@ interface Props {
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
   onEditTable: (tableInfo: TableVm) => void;
   canvasSize: Size;
+  isSelected: boolean;
+  selectTable: (tableId: GUID) => void;
 }
 
 const HEADER_TITLE_GAP = 15;
@@ -28,6 +30,8 @@ export const DatabaseTable: React.FC<Props> = ({
   updatePosition,
   onToggleCollapse,
   canvasSize,
+  isSelected,
+  selectTable,
 }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
 
@@ -91,6 +95,15 @@ export const DatabaseTable: React.FC<Props> = ({
     canvasSize
   );
 
+  const rectStyle = {
+    filter: isSelected ? 'url(#table_component_selected)' : 'none', // Aplica el filtro si está seleccionado
+  };
+
+  const handleClick = (e: React.MouseEvent<SVGLineElement, MouseEvent>) => {
+    selectTable(tableInfo.id);
+    e.stopPropagation();
+  };
+
   const handleDoubleClick = () => {
     onEditTable(tableInfo);
   };
@@ -99,13 +112,20 @@ export const DatabaseTable: React.FC<Props> = ({
       transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
       onMouseDown={onMouseDown}
       className={classes.tableContainer}
+      onClick={handleClick}
     >
+      <defs>
+        <filter id="table_component_selected" x="0" y="0">
+          <feDropShadow dx="5" dy="5" stdDeviation="2" />
+        </filter>
+      </defs>
       <rect
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
         height={totalHeight + HEADER_TITLE_GAP}
         className={classes.tableBackground}
+        style={rectStyle}
       />
       <rect
         x="0"

@@ -53,6 +53,8 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           onToggleCollapse={onToggleCollapse}
           onEditTable={onEditTable}
           canvasSize={canvasSize}
+          isSelected={canvasSchema.selectedElementId === table.id}
+          selectTable={onSelectElement}
         />
       ))}
       <DatabaseRelationCollectionComponent
