@@ -10,6 +10,7 @@ jobs:
         uses: actions/checkout@v2
       # Temporary workaround
       # See this bug on Vite + Rollup node v 20  
+      # https://github.com/vitejs/vite/issues/15492
       - name: Use Node.js 18.13.0
         uses: actions/setup-node@v2
         with:
