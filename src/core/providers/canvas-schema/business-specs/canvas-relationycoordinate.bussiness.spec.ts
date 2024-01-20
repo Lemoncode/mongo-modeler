@@ -1,12 +1,12 @@
 import { GUID } from '@/core/model';
 
-import { TableVm } from './canvas-schema.model';
-import { TABLE_CONST } from './canvas.const';
+import { TableVm } from '../canvas-schema.model';
+import { TABLE_CONST } from '../canvas.const';
 import {
   YRelationCoords,
   calculateRelationYCoordinate,
   calculateRelationYOffset,
-} from './canvas.business';
+} from '../canvas.business';
 
 describe('canvas.business.calculateRelationYOffset', () => {
   it('should return the correct Y-coordinate for the field when found on the first level', () => {

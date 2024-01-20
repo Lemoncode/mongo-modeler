@@ -2,9 +2,9 @@ import {
   calculateRelationXCoordinate,
   calculateRelationXCoordinateEnd,
   calculateRelationXCoordinateOrigin,
-} from './canvas.business';
+} from '../canvas.business';
 import { TableVm } from '@/core/providers/canvas-schema';
-import { TABLE_CONST } from './canvas.const';
+import { TABLE_CONST } from '../canvas.const';
 
 describe('calculateRelationXCoordinateOrigin', () => {
   it('Should returns xCoordinateOrigin + DEFAULT_TABLE_WIDTH, if tableOrigin.x < tableDestination.x', () => {

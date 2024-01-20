@@ -8,12 +8,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      # Temporary workaround
+      # See this bug on Vite + Rollup node v 20  
+      # https://github.com/vitejs/vite/issues/15492
+      - name: Use Node.js 18.13.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.13.0' 
+          cache: 'npm'
       - name: Install front
-        run: 
-          npm install
+        run: npm install
       - name: Build
-        run: 
-          npm run tsc-check
+        run: npm run tsc-check
       - name: Tests front
-        run: 
-          npm test
+        run: npm test

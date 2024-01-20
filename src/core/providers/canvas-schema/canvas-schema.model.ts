@@ -32,11 +32,13 @@ export interface RelationVm {
 export interface DatabaseSchemaVm {
   tables: TableVm[];
   relations: RelationVm[];
+  selectedElementId: GUID | null;
 }
 
 export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
   tables: [],
   relations: [],
+  selectedElementId: null,
 });
 
 export interface CanvasSchemaContextVm {
@@ -52,4 +54,5 @@ export interface CanvasSchemaContextVm {
   updateFullTable: (table: TableVm) => void;
   addTable: (table: TableVm) => void;
   addRelation: (relation: RelationVm) => void;
+  doSelectElement: (id: GUID | null) => void;
 }
