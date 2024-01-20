@@ -99,7 +99,7 @@ export const DatabaseTable: React.FC<Props> = ({
     filter: isSelected ? 'url(#table_component_selected)' : 'none', // Aplica el filtro si está seleccionado
   };
 
-  const handleClick = (e: React.MouseEvent<SVGLineElement, MouseEvent>) => {
+  const handleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
     selectTable(tableInfo.id);
     e.stopPropagation();
   };
@@ -126,6 +126,7 @@ export const DatabaseTable: React.FC<Props> = ({
         height={totalHeight + HEADER_TITLE_GAP}
         className={classes.tableBackground}
         style={rectStyle}
+        onClick={handleClick}
       />
       <rect
         x="0"
