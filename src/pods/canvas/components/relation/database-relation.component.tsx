@@ -1,7 +1,7 @@
 import React from 'react';
 import { RelationType } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
-import { ForkComponent } from './components';
+import { ClickableLineComponent, ForkComponent } from './components';
 import {
   calculateDestinationXMinusForkLogic,
   calculateOriginMinusForkWidthLogic,
@@ -28,28 +28,6 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
   onClick,
   onDoubleClick,
 }) => {
-  const handleClick = (e: React.MouseEvent<SVGLineElement, MouseEvent>) => {
-    onClick(id);
-    e.stopPropagation();
-  };
-
-  // Enhancemnt proposal: #127
-  // https://github.com/Lemoncode/mongo-modeler/pull/127
-  const drawClickableLine = () => {
-    return (
-      <line
-        x1={startCoords.x}
-        y1={startCoords.y}
-        x2={endCoords.x}
-        y2={endCoords.y}
-        strokeWidth={25}
-        stroke="transparent"
-        onClick={handleClick}
-        onDoubleClick={() => onDoubleClick(id)}
-      />
-    );
-  };
-
   // Determine the direction of the fork
   const isDrawLeftToRight = isDrawLeftToRightLogic(
     relationType,
@@ -109,7 +87,13 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
         />
       )}
 
-      {drawClickableLine()}
+      <ClickableLineComponent
+        id={id}
+        startCoords={startCoords}
+        endCoords={endCoords}
+        onClick={onClick}
+        onDoubleClick={onDoubleClick}
+      />
     </svg>
   );
 };
