@@ -44,6 +44,7 @@ export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
 export interface CanvasSchemaContextVm {
   canvasSchema: DatabaseSchemaVm;
   loadSchema: (schema: DatabaseSchemaVm) => void;
+  createEmptySchema: () => void;
   updateTablePosition: (
     id: string,
     position: Coords,
