@@ -15,7 +15,7 @@ import {
   doesRelationAlreadyExists,
 } from './canvas.business';
 import { updateTable } from './canvas-schema.business';
-import { useHistoryManager } from '@/core/undo-redo';
+import { useHistoryManager } from '@/common/undo-redo';
 
 function useStateWithInterceptor<S>(
   initialState: S | (() => S),
