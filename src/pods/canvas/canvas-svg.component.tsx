@@ -1,6 +1,10 @@
-import { Coords, GUID, Size } from '@/core/model';
+import { GUID, Size } from '@/core/model';
 import classes from './canvas.pod.module.css';
-import { DatabaseSchemaVm, TableVm } from '@/core/providers/canvas-schema';
+import {
+  DatabaseSchemaVm,
+  TableVm,
+  UpdatePositionFn,
+} from '@/core/providers/canvas-schema';
 import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
 
@@ -8,12 +12,7 @@ interface Props {
   viewBoxSize: Size;
   canvasSize: Size;
   canvasSchema: DatabaseSchemaVm;
-  onUpdateTablePosition: (
-    id: string,
-    position: Coords,
-    totalHeight: number,
-    canvasSize: Size
-  ) => void;
+  onUpdateTablePosition: UpdatePositionFn;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
   onEditTable: (tableInfo: TableVm) => void;
   onEditRelation: (relationId: GUID) => void;

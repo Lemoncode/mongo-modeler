@@ -41,16 +41,23 @@ export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
   selectedElementId: null,
 });
 
+export interface UpdatePositionItemInfo {
+  id: string;
+  position: Coords;
+  totalHeight: number;
+  canvasSize: Size;
+}
+
+export type UpdatePositionFn = (
+  itemInfo: UpdatePositionItemInfo,
+  isDragFinished: boolean
+) => void;
+
 export interface CanvasSchemaContextVm {
   canvasSchema: DatabaseSchemaVm;
   loadSchema: (schema: DatabaseSchemaVm) => void;
   createEmptySchema: () => void;
-  updateTablePosition: (
-    id: string,
-    position: Coords,
-    totalHeight: number,
-    canvasSize: Size
-  ) => void;
+  updateTablePosition: UpdatePositionFn;
   doFieldToggleCollapse: (tableId: string, fieldId: GUID) => void;
   updateFullTable: (table: TableVm) => void;
   addTable: (table: TableVm) => void;

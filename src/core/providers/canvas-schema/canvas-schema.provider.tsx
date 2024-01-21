@@ -5,9 +5,10 @@ import {
   DatabaseSchemaVm,
   RelationVm,
   TableVm,
+  UpdatePositionItemInfo,
   createDefaultDatabaseSchemaVm,
 } from './canvas-schema.model';
-import { Coords, GUID, Size } from '@/core/model';
+import { GUID } from '@/core/model';
 import {
   moveTableToTop,
   doFieldToggleCollapseLogic,
@@ -99,14 +100,17 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   };
 
   const updateTablePosition = (
-    id: string,
-    position: Coords,
-    totalHeight: number,
-    canvasSize: Size
+    itemInfo: UpdatePositionItemInfo,
+    isDragFinished: boolean
   ) => {
-    setSchema(prevSchema =>
-      moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
-    );
+    const { id, position, totalHeight, canvasSize } = itemInfo;
+    isDragFinished
+      ? setSchema(prevSchema =>
+          moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
+        )
+      : setSchemaSkipHistory(prevSchema =>
+          moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
+        );
   };
 
   // TODO: #57 created to track this
