@@ -14,7 +14,7 @@ export const ToolbarButton: React.FC<Props> = props => {
     <button
       className={props.className}
       onClick={props.onClick}
-      disabled={disabled === false}
+      disabled={disabled === true}
     >
       {props.icon}
       <span>{props.label}</span>

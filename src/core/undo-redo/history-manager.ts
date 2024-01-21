@@ -1,47 +1,65 @@
-// historyManager.ts
-
+import { useState, useCallback, useRef } from 'react';
 import { DatabaseSchemaVm } from '../providers';
 
-let history: DatabaseSchemaVm[] = [];
-let currentIndex = -1;
+export const useHistoryManager = (initialState: DatabaseSchemaVm) => {
+  const [canvasSchema, setCanvasSchema] =
+    useState<DatabaseSchemaVm>(initialState);
 
-export function initializeHistory(initialState: DatabaseSchemaVm) {
-  history = [initialState];
-  currentIndex = 0;
-}
+  // useRef para mantener el historial y el índice actual sin provocar renderizaciones
+  const historyRef = useRef<DatabaseSchemaVm[]>([initialState]);
+  const currentIndexRef = useRef<number>(0);
 
-export function getCurrentState(): DatabaseSchemaVm {
-  return history[currentIndex];
-}
+  const addSnapshot = useCallback(
+    (newSchema: React.SetStateAction<DatabaseSchemaVm>) => {
+      setCanvasSchema(prevSchema => {
+        const resolvedSchema =
+          newSchema instanceof Function ? newSchema(prevSchema) : newSchema;
 
-export function canUndoLogic(): boolean {
-  return currentIndex > 0;
-}
+        // Actualizar el historial y el índice actual
+        const nextIndex = currentIndexRef.current + 1;
+        const currentHistory = historyRef.current.slice(0, nextIndex);
+        historyRef.current = [...currentHistory, resolvedSchema];
+        currentIndexRef.current = nextIndex;
 
-export function canRedoLogic(): boolean {
-  return currentIndex < history.length - 1;
-}
+        return resolvedSchema;
+      });
+    },
+    []
+  );
 
-export function undo(): DatabaseSchemaVm | null {
-  if (canUndoLogic()) {
-    currentIndex--;
-    return getCurrentState();
-  }
-  return null;
-}
+  const undo = useCallback(() => {
+    const prevIndex = currentIndexRef.current - 1;
+    if (prevIndex >= 0) {
+      currentIndexRef.current = prevIndex;
+      setCanvasSchema(historyRef.current[prevIndex]);
+    }
+  }, []);
 
-export function redo(): DatabaseSchemaVm | null {
-  if (canRedoLogic()) {
-    currentIndex++;
-    return getCurrentState();
-  }
-  return null;
-}
+  const redo = useCallback(() => {
+    const nextIndex = currentIndexRef.current + 1;
+    if (nextIndex < historyRef.current.length) {
+      currentIndexRef.current = nextIndex;
+      setCanvasSchema(historyRef.current[nextIndex]);
+    }
+  }, []);
 
-export function addSnapshot(newState: DatabaseSchemaVm) {
-  if (canRedoLogic()) {
-    history = history.slice(0, currentIndex + 1);
-  }
-  history.push(newState);
-  currentIndex++;
-}
+  const canUndo = useCallback(() => {
+    return currentIndexRef.current > 0;
+  }, []);
+
+  const canRedo = useCallback(() => {
+    return currentIndexRef.current < historyRef.current.length - 1;
+  }, []);
+
+  const getCurrentState = () => historyRef.current[currentIndexRef.current];
+
+  return {
+    canvasSchema,
+    addSnapshot,
+    getCurrentState,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+  };
+};

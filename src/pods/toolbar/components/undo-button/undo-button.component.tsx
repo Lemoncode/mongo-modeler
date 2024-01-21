@@ -5,7 +5,9 @@ import { useCanvasSchemaContext } from '@/core/providers';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
 export const UndoButton: React.FC = () => {
-  const { canUndo, doUndo } = useCanvasSchemaContext();
+  const { /*canUndo*/ doUndo } = useCanvasSchemaContext();
+
+  //      disabled={!canUndo()}
 
   return (
     <ToolbarButton
@@ -13,7 +15,7 @@ export const UndoButton: React.FC = () => {
       label={'Undo'}
       onClick={() => doUndo()}
       className={classes.button}
-      disabled={!canUndo()}
+      disabled={false}
     />
   );
 };

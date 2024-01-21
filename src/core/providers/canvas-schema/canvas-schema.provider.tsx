@@ -14,21 +14,12 @@ import {
   doesRelationAlreadyExists,
 } from './canvas.business';
 import { updateTable } from './canvas-schema.business';
-import {
-  initializeHistory,
-  addSnapshot,
-  canUndoLogic,
-  canRedoLogic,
-  undo,
-  redo,
-} from '@/core/undo-redo';
-
-//function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
+import { useHistoryManager } from '@/core/undo-redo';
 
 function useStateWithInterceptor<S>(
   initialState: S | (() => S),
   schemaInterceptorFn: (schema: S) => void
-): [S, Dispatch<SetStateAction<S>>] {
+): [S, Dispatch<SetStateAction<S>>, Dispatch<SetStateAction<S>>] {
   const [canvasSchema, setInternalCanvasSchema] =
     React.useState<S>(initialState);
 
@@ -43,7 +34,13 @@ function useStateWithInterceptor<S>(
     return setInternalCanvasSchema(newSchema);
   };
 
-  return [canvasSchema, setSchema];
+  const setSchemaSkipInterceptor = (
+    newSchema: React.SetStateAction<S>
+  ): void => {
+    return setInternalCanvasSchema(newSchema);
+  };
+
+  return [canvasSchema, setSchema, setSchemaSkipInterceptor];
 }
 
 interface Props {
@@ -52,18 +49,20 @@ interface Props {
 
 export const CanvasSchemaProvider: React.FC<Props> = props => {
   const { children } = props;
+  const {
+    addSnapshot,
+    canRedo: canRedoLogic,
+    canUndo: canUndoLogic,
+    redo,
+    undo,
+    getCurrentState: getCurrentUndoHistoryState,
+  } = useHistoryManager(createDefaultDatabaseSchemaVm());
 
   // TODO: consider moving all these to useReducer (discuss first if needed)
   // #54 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/54
-  const [canvasSchema, setSchema] = useStateWithInterceptor(
-    createDefaultDatabaseSchemaVm(),
-    addSnapshot
-  );
-
-  React.useEffect(() => {
-    initializeHistory;
-  }, []);
+  const [canvasSchema, setSchema, setSchemaSkipHistory] =
+    useStateWithInterceptor(createDefaultDatabaseSchemaVm(), addSnapshot);
 
   const loadSchema = (newSchema: DatabaseSchemaVm) => {
     setSchema(newSchema);
@@ -127,13 +126,15 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
 
   const doUndo = () => {
     if (canUndo()) {
-      setSchema(undo() ?? canvasSchema);
+      undo();
+      setSchemaSkipHistory(getCurrentUndoHistoryState());
     }
   };
 
   const doRedo = () => {
     if (canRedo()) {
-      setSchema(redo() ?? canvasSchema);
+      redo();
+      setSchemaSkipHistory(getCurrentUndoHistoryState());
     }
   };
 
