@@ -56,4 +56,8 @@ export interface CanvasSchemaContextVm {
   addTable: (table: TableVm) => void;
   addRelation: (relation: RelationVm) => void;
   doSelectElement: (id: GUID | null) => void;
+  canUndo: () => boolean;
+  canRedo: () => boolean;
+  doUndo: () => void;
+  doRedo: () => void;
 }

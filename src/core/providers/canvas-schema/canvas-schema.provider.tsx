@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
@@ -14,6 +14,37 @@ import {
   doesRelationAlreadyExists,
 } from './canvas.business';
 import { updateTable } from './canvas-schema.business';
+import {
+  initializeHistory,
+  addSnapshot,
+  canUndoLogic,
+  canRedoLogic,
+  undo,
+  redo,
+} from '@/core/undo-redo';
+
+//function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
+
+function useStateWithInterceptor<S>(
+  initialState: S | (() => S),
+  schemaInterceptorFn: (schema: S) => void
+): [S, Dispatch<SetStateAction<S>>] {
+  const [canvasSchema, setInternalCanvasSchema] =
+    React.useState<S>(initialState);
+
+  const setSchema = (newSchema: React.SetStateAction<S>): void => {
+    // If newSchema is a function, use it to calculate the new state based on the current state
+    // Otherwise, use newSchema directly
+    const updatedSchema =
+      newSchema instanceof Function ? newSchema(canvasSchema) : newSchema;
+
+    schemaInterceptorFn(updatedSchema);
+
+    return setInternalCanvasSchema(newSchema);
+  };
+
+  return [canvasSchema, setSchema];
+}
 
 interface Props {
   children: React.ReactNode;
@@ -21,12 +52,18 @@ interface Props {
 
 export const CanvasSchemaProvider: React.FC<Props> = props => {
   const { children } = props;
+
   // TODO: consider moving all these to useReducer (discuss first if needed)
   // #54 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/54
-  const [canvasSchema, setSchema] = React.useState<DatabaseSchemaVm>(
-    createDefaultDatabaseSchemaVm()
+  const [canvasSchema, setSchema] = useStateWithInterceptor(
+    createDefaultDatabaseSchemaVm(),
+    addSnapshot
   );
+
+  React.useEffect(() => {
+    initializeHistory;
+  }, []);
 
   const loadSchema = (newSchema: DatabaseSchemaVm) => {
     setSchema(newSchema);
@@ -88,6 +125,26 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     }));
   };
 
+  const doUndo = () => {
+    if (canUndo()) {
+      setSchema(undo() ?? canvasSchema);
+    }
+  };
+
+  const doRedo = () => {
+    if (canRedo()) {
+      setSchema(redo() ?? canvasSchema);
+    }
+  };
+
+  const canRedo = () => {
+    return canRedoLogic();
+  };
+
+  const canUndo = () => {
+    return canUndoLogic();
+  };
+
   return (
     <CanvasSchemaContext.Provider
       value={{
@@ -100,6 +157,10 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         addTable,
         addRelation,
         doSelectElement,
+        canUndo,
+        canRedo,
+        doUndo,
+        doRedo,
       }}
     >
       {children}
