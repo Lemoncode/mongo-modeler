@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import { DatabaseSchemaVm } from '../providers';
 import {
   addSnapshotToHistory,
   canUndo,
@@ -7,31 +6,31 @@ import {
   performUndo,
   performRedo,
 } from './history-manager.business';
+
 const MAX_HISTORY_LENGTH = 20;
 
-export const useHistoryManager = (initialState: DatabaseSchemaVm) => {
-  const [canvasSchema, setCanvasSchema] =
-    useState<DatabaseSchemaVm>(initialState);
-  const historyRef = useRef<DatabaseSchemaVm[]>([initialState]);
+export const useHistoryManager = <T>(initialState: T) => {
+  const [currentState, setCurrentState] = useState<T>(initialState);
+  const historyRef = useRef<T[]>([initialState]);
   const currentIndexRef = useRef<number>(0);
 
-  const addSnapshot = (newSchema: DatabaseSchemaVm) => {
+  const addSnapshot = (newState: T) => {
     const [newHistory, newIndex] = addSnapshotToHistory(
       historyRef.current,
-      newSchema,
+      newState,
       currentIndexRef.current,
       MAX_HISTORY_LENGTH
     );
     historyRef.current = newHistory;
     currentIndexRef.current = newIndex;
-    setCanvasSchema(newSchema);
+    setCurrentState(newState);
   };
 
   const undo = () => {
     const newIndex = performUndo(currentIndexRef.current);
     if (newIndex !== currentIndexRef.current) {
       currentIndexRef.current = newIndex;
-      setCanvasSchema(historyRef.current[newIndex]);
+      setCurrentState(historyRef.current[newIndex]);
     }
   };
 
@@ -42,12 +41,12 @@ export const useHistoryManager = (initialState: DatabaseSchemaVm) => {
     );
     if (newIndex !== currentIndexRef.current) {
       currentIndexRef.current = newIndex;
-      setCanvasSchema(historyRef.current[newIndex]);
+      setCurrentState(historyRef.current[newIndex]);
     }
   };
 
   return {
-    canvasSchema,
+    currentState,
     addSnapshot,
     getCurrentState: () => historyRef.current[currentIndexRef.current],
     undo,
