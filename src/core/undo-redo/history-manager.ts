@@ -9,23 +9,12 @@ export const useHistoryManager = (initialState: DatabaseSchemaVm) => {
   const historyRef = useRef<DatabaseSchemaVm[]>([initialState]);
   const currentIndexRef = useRef<number>(0);
 
-  const addSnapshot = useCallback(
-    (newSchema: React.SetStateAction<DatabaseSchemaVm>) => {
-      setCanvasSchema(prevSchema => {
-        const resolvedSchema =
-          newSchema instanceof Function ? newSchema(prevSchema) : newSchema;
-
-        // Actualizar el historial y el índice actual
-        const nextIndex = currentIndexRef.current + 1;
-        const currentHistory = historyRef.current.slice(0, nextIndex);
-        historyRef.current = [...currentHistory, resolvedSchema];
-        currentIndexRef.current = nextIndex;
-
-        return resolvedSchema;
-      });
-    },
-    []
-  );
+  const addSnapshot = (newSchema: DatabaseSchemaVm) => {
+    const nextIndex = currentIndexRef.current + 1;
+    const currentHistory = historyRef.current.slice(0, nextIndex);
+    historyRef.current = [...currentHistory, newSchema];
+    currentIndexRef.current = nextIndex;
+  };
 
   const undo = useCallback(() => {
     const prevIndex = currentIndexRef.current - 1;
