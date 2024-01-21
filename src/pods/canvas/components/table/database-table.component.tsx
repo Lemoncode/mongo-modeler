@@ -1,7 +1,11 @@
 // Importaciones necesarias
 import React from 'react';
-import { Coords, GUID, Size } from '@/core/model';
-import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
+import { GUID, Size } from '@/core/model';
+import {
+  FieldVm,
+  TableVm,
+  UpdatePositionFn,
+} from '@/core/providers/canvas-schema';
 import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
@@ -12,12 +16,7 @@ import { TruncatedText } from './truncated-text.component';
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
 interface Props {
   tableInfo: TableVm;
-  updatePosition: (
-    id: string,
-    position: Coords,
-    totalHeight: number,
-    canvasSize: Size
-  ) => void;
+  updatePosition: UpdatePositionFn;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
   onEditTable: (tableInfo: TableVm) => void;
   canvasSize: Size;
