@@ -116,13 +116,13 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   // TODO: #57 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/57
   const doFieldToggleCollapse = (tableId: GUID, fieldId: GUID): void => {
-    setSchema(currentSchema =>
+    setSchemaSkipHistory(currentSchema =>
       doFieldToggleCollapseLogic(currentSchema, tableId, fieldId)
     );
   };
 
   const doSelectElement = (id: GUID | null) => {
-    setSchema(currentSchema => ({
+    setSchemaSkipHistory(currentSchema => ({
       ...currentSchema,
       selectedElementId: id,
     }));
