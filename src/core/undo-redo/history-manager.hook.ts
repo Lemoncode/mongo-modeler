@@ -6,8 +6,7 @@ import {
   canRedo,
   performUndo,
   performRedo,
-} from './history-manager.business'; // Asegúrate de importar las funciones correctamente
-
+} from './history-manager.business';
 const MAX_HISTORY_LENGTH = 20;
 
 export const useHistoryManager = (initialState: DatabaseSchemaVm) => {

@@ -1,1 +1,1 @@
-export * from './history-manager';
+export * from './history-manager.hook';
