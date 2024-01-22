@@ -61,6 +61,13 @@ export const EditTablePod: React.FC<Props> = props => {
         const findAndUpdateField = (fields: editTableVm.FieldVm[]): boolean => {
           const formerField = fields.find(f => f.id === fieldToUpdate.id);
           if (formerField) {
+            if (
+              key === 'type' &&
+              formerField[key] === 'object' &&
+              value !== 'object'
+            ) {
+              formerField.children = undefined;
+            }
             formerField[key] = value;
             return true; // Field found and updated
           }
