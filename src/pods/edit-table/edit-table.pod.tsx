@@ -12,7 +12,6 @@ import {
   addFieldLogic,
   moveDownField,
   moveUpField,
-  pruneNonObjectChildren,
   removeField,
 } from './edit-table.business';
 
@@ -62,7 +61,13 @@ export const EditTablePod: React.FC<Props> = props => {
         const findAndUpdateField = (fields: editTableVm.FieldVm[]): boolean => {
           const formerField = fields.find(f => f.id === fieldToUpdate.id);
           if (formerField) {
-            pruneNonObjectChildren(key, formerField, value);
+            if (
+              key === 'type' &&
+              formerField[key] === 'object' &&
+              value !== 'object'
+            ) {
+              formerField.children = undefined;
+            }
             formerField[key] = value;
             return true; // Field found and updated
           }
