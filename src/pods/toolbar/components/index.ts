@@ -10,3 +10,4 @@ export * from './open-button';
 export * from './save-button';
 export * from './undo-button';
 export * from './redo-button';
+export * from './delete-button';
