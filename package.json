@@ -10,13 +10,15 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "test": "vitest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "tsc-check": "tsc --noEmit"
   },
   "dependencies": {
     "@lemoncode/fonk": "^1.5.4",
     "@lemoncode/fonk-formik": "^4.0.1",
     "@lemoncode/fonk-is-number-validator": "^1.1.2",
     "@lemoncode/fonk-min-number-validator": "^1.2.0",
+    "classnames": "^2.5.1",
     "formik": "^2.4.5",
     "immer": "^10.0.3",
     "react": "^18.2.0",
@@ -27,6 +29,7 @@
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
+    "@types/wicg-file-system-access": "^2023.10.4",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "@vitejs/plugin-react": "^4.2.1",

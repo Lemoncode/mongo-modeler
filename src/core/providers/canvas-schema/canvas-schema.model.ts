@@ -32,25 +32,40 @@ export interface RelationVm {
 export interface DatabaseSchemaVm {
   tables: TableVm[];
   relations: RelationVm[];
+  selectedElementId: GUID | null;
 }
 
 export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
   tables: [],
   relations: [],
+  selectedElementId: null,
 });
+
+export interface UpdatePositionItemInfo {
+  id: string;
+  position: Coords;
+  totalHeight: number;
+  canvasSize: Size;
+}
+
+export type UpdatePositionFn = (
+  itemInfo: UpdatePositionItemInfo,
+  isDragFinished: boolean
+) => void;
 
 export interface CanvasSchemaContextVm {
   canvasSchema: DatabaseSchemaVm;
   loadSchema: (schema: DatabaseSchemaVm) => void;
-  updateTablePosition: (
-    id: string,
-    position: Coords,
-    totalHeight: number,
-    canvasSize: Size
-  ) => void;
+  createEmptySchema: () => void;
+  updateTablePosition: UpdatePositionFn;
   doFieldToggleCollapse: (tableId: string, fieldId: GUID) => void;
   updateFullTable: (table: TableVm) => void;
   addTable: (table: TableVm) => void;
   addRelation: (relation: RelationVm) => void;
+  doSelectElement: (id: GUID | null) => void;
+  canUndo: () => boolean;
+  canRedo: () => boolean;
+  doUndo: () => void;
+  doRedo: () => void;
   updateFullRelation: (relation: RelationVm) => void;
 }

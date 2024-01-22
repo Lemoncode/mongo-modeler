@@ -9,12 +9,13 @@ import {
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
+  onSelectRelation: (relationId: GUID) => void;
   onEditRelation: (relationId: GUID) => void;
 }
 
 export const DatabaseRelationCollectionComponent: React.FC<
   DatabaseRelationCollectionProps
-> = ({ schema, onEditRelation }) => {
+> = ({ schema, onEditRelation, onSelectRelation }) => {
   const renderRelation = (relation: RelationVm) => {
     const fromTable = schema.tables.find(
       table => table.id === relation.fromTableId
@@ -46,14 +47,19 @@ export const DatabaseRelationCollectionComponent: React.FC<
     };
 
     return (
-      <DatabaseRelationshipComponent
+      <React.Fragment
         key={`${relation.fromTableId}-${relation.fromFieldId}-${relation.toTableId}-${relation.toFieldId}`}
-        id={relation.id}
-        onClick={onEditRelation}
-        relationType={relation.type}
-        startCoords={startCoords}
-        endCoords={endCoords}
-      />
+      >
+        <DatabaseRelationshipComponent
+          id={relation.id}
+          onClick={onSelectRelation}
+          onDoubleClick={onEditRelation}
+          relationType={relation.type}
+          startCoords={startCoords}
+          endCoords={endCoords}
+          isSelected={relation.id === schema.selectedElementId}
+        />
+      </React.Fragment>
     );
   };
 

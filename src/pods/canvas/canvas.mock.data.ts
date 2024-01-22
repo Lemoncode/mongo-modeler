@@ -6,9 +6,9 @@ import {
 } from '@/core/providers/canvas-schema';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 
-const tagRelationId = '1';
-const tagTableId = '1';
-const restaurantTableId = '2';
+const tagRelationId = GenerateGUID();
+const tagTableId = GenerateGUID();
+const restaurantTableId = GenerateGUID();
 const tagFieldId = GenerateGUID();
 const restauranteNameFieldGUID = GenerateGUID();
 const restaurantTagFieldGUID = GenerateGUID();
@@ -156,6 +156,7 @@ const mockTables: TableVm[] = [
 ];
 
 export const mockSchema: DatabaseSchemaVm = {
+  selectedElementId: null,
   tables: mockTables,
   relations: mockRelations,
 };
