@@ -7,7 +7,7 @@ describe('deleteItemFromCanvasSchema', () => {
     //Arrange
     const selectedElementId: GUID = '1';
     const dbSchema: DatabaseSchemaVm = {
-      selectedElementId: null,
+      selectedElementId: '1',
       relations: [
         {
           id: '20',
@@ -106,7 +106,7 @@ describe('deleteItemFromCanvasSchema', () => {
     //Arrange
     const selectedElementId: GUID = '20';
     const dbSchema: DatabaseSchemaVm = {
-      selectedElementId: null,
+      selectedElementId: '20',
       relations: [
         {
           id: '20',
@@ -234,7 +234,7 @@ describe('deleteItemFromCanvasSchema', () => {
     //Arrange
     const selectedElementId: GUID = '30';
     const dbSchema: DatabaseSchemaVm = {
-      selectedElementId: null,
+      selectedElementId: '30',
       relations: [
         {
           id: '30',
@@ -345,7 +345,7 @@ describe('deleteItemFromCanvasSchema', () => {
     //Arrange
     const selectedElementId: GUID = '1';
     const dbSchema: DatabaseSchemaVm = {
-      selectedElementId: null,
+      selectedElementId: '1',
       relations: [],
       tables: [
         {
@@ -379,6 +379,102 @@ describe('deleteItemFromCanvasSchema', () => {
       selectedElementId: null,
       relations: [],
       tables: [],
+    };
+    expect(result).toEqual(expected);
+  });
+  it('should return the same DatabaseSchemaVm if the id does not match the tables and relations', () => {
+    //Arrange
+    const selectedElementId: GUID = '11';
+    const dbSchema: DatabaseSchemaVm = {
+      selectedElementId: '11',
+      relations: [
+        {
+          id: '20',
+          fromFieldId: '11',
+          fromTableId: '1',
+          toFieldId: '2',
+          toTableId: '21',
+          type: '1:1',
+        },
+        {
+          id: '30',
+          fromFieldId: '12',
+          fromTableId: '1',
+          toFieldId: '2',
+          toTableId: '22',
+          type: '1:1',
+        },
+      ],
+      tables: [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '11',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+            {
+              id: '12',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+          ],
+          tableName: 'test table name',
+          x: 20,
+          y: 6,
+        },
+      ],
+    };
+
+    //Act
+    const result = deleteItemFromCanvasSchema(dbSchema, selectedElementId);
+
+    //Assert
+    const expected = {
+      selectedElementId: null,
+      relations: [
+        {
+          id: '20',
+          fromFieldId: '11',
+          fromTableId: '1',
+          toFieldId: '2',
+          toTableId: '21',
+          type: '1:1',
+        },
+        {
+          id: '30',
+          fromFieldId: '12',
+          fromTableId: '1',
+          toFieldId: '2',
+          toTableId: '22',
+          type: '1:1',
+        },
+      ],
+      tables: [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '11',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+            {
+              id: '12',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+          ],
+          tableName: 'test table name',
+          x: 20,
+          y: 6,
+        },
+      ],
     };
     expect(result).toEqual(expected);
   });
