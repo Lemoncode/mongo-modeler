@@ -4,10 +4,10 @@ import { PkOptionVm } from './table-pk-picker.model';
 export const generateLabel = (
   options: PkOptionVm[],
   valueId: GUID,
-  ruta: string[]
+  route: string[]
 ): string | undefined => {
   for (const option of options) {
-    const labelRoute = [...ruta, option.label];
+    const labelRoute = [...route, option.label];
 
     if (option.id === valueId) {
       return labelRoute.join(' > ');
