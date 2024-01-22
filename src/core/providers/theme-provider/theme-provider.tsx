@@ -1,6 +1,10 @@
 import React from 'react';
 import { ThemeContext } from './theme-context';
 import { ThemeModel, createInitialTheme } from './theme.model';
+import {
+  retrieveThemeFromLocalStorage,
+  saveThemeToLocalStorage,
+} from './theme.business';
 
 interface Props {
   children: React.ReactNode;
@@ -10,13 +14,11 @@ export const ThemeProvider: React.FC<Props> = props => {
   const { children } = props;
   const [theme, setTheme] = React.useState<ThemeModel>(createInitialTheme());
 
-  const chosenThemeMode = 'themeMode';
+  const chosenThemeModeKey = 'themeMode';
+  const chosenThemeModeValue = theme.themeMode === 'light' ? 'dark' : 'light';
 
   const toggleTheme = () => {
-    localStorage.setItem(
-      chosenThemeMode,
-      theme.themeMode === 'light' ? 'dark' : 'light'
-    );
+    saveThemeToLocalStorage(chosenThemeModeKey, chosenThemeModeValue);
 
     setTheme(prevTheme => ({
       ...prevTheme,
@@ -25,11 +27,12 @@ export const ThemeProvider: React.FC<Props> = props => {
   };
 
   React.useEffect(() => {
-    const themeMode = localStorage.getItem(chosenThemeMode);
-    if (themeMode) {
+    const retrieveThemeMode = retrieveThemeFromLocalStorage(chosenThemeModeKey);
+
+    if (retrieveThemeMode) {
       setTheme(prevTheme => ({
         ...prevTheme,
-        themeMode: themeMode as 'dark' | 'light',
+        themeMode: retrieveThemeMode,
       }));
     }
   }, []);
