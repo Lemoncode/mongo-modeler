@@ -230,4 +230,156 @@ describe('deleteItemFromCanvasSchema', () => {
     };
     expect(result).toEqual(expected);
   });
+  it('should delete the relation with selectedId even if it is the only relation', () => {
+    //Arrange
+    const selectedElementId: GUID = '30';
+    const dbSchema: DatabaseSchemaVm = {
+      selectedElementId: null,
+      relations: [
+        {
+          id: '30',
+          fromFieldId: '12',
+          fromTableId: '1',
+          toFieldId: '2',
+          toTableId: '22',
+          type: '1:1',
+        },
+      ],
+      tables: [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '11',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+            {
+              id: '12',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+          ],
+          tableName: 'test table name',
+          x: 20,
+          y: 6,
+        },
+        {
+          id: '2',
+          fields: [
+            {
+              id: '21',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+            {
+              id: '21',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+          ],
+          tableName: 'test table name',
+          x: 100,
+          y: 200,
+        },
+      ],
+    };
+
+    //Act
+    const result = deleteItemFromCanvasSchema(dbSchema, selectedElementId);
+
+    //Assert
+    const expected = {
+      selectedElementId: null,
+      relations: [],
+      tables: [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '11',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+            {
+              id: '12',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+          ],
+          tableName: 'test table name',
+          x: 20,
+          y: 6,
+        },
+        {
+          id: '2',
+          fields: [
+            {
+              id: '21',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+            {
+              id: '21',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+          ],
+          tableName: 'test table name',
+          x: 100,
+          y: 200,
+        },
+      ],
+    };
+    expect(result).toEqual(expected);
+  });
+  it('should delete the tablet with selectedId even if it is the only table', () => {
+    //Arrange
+    const selectedElementId: GUID = '1';
+    const dbSchema: DatabaseSchemaVm = {
+      selectedElementId: null,
+      relations: [],
+      tables: [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '11',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+            {
+              id: '12',
+              name: 'test name',
+              PK: true,
+              type: 'string',
+            },
+          ],
+          tableName: 'test table name',
+          x: 20,
+          y: 6,
+        },
+      ],
+    };
+
+    //Act
+    const result = deleteItemFromCanvasSchema(dbSchema, selectedElementId);
+
+    //Assert
+    const expected = {
+      selectedElementId: null,
+      relations: [],
+      tables: [],
+    };
+    expect(result).toEqual(expected);
+  });
 });
