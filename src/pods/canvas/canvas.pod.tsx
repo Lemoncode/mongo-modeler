@@ -22,6 +22,7 @@ export const CanvasPod: React.FC = () => {
     updateTablePosition,
     updateFullTable,
     doFieldToggleCollapse,
+    doSelectElement,
   } = useCanvasSchemaContext();
   const { canvasViewSettings, setScrollPosition } =
     useCanvasViewSettingsContext();
@@ -75,6 +76,10 @@ export const CanvasPod: React.FC = () => {
     console.log('TODO: handleEditRelation', relationId);
   };
 
+  const onSelectElement = (relationId: GUID | null) => {
+    doSelectElement(relationId);
+  };
+
   return (
     <div
       className={classes.container}
@@ -89,6 +94,7 @@ export const CanvasPod: React.FC = () => {
         onToggleCollapse={handleToggleCollapse}
         onEditTable={handleEditTable}
         onEditRelation={handleEditRelation}
+        onSelectElement={onSelectElement}
       />
     </div>
   );

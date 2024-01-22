@@ -9,3 +9,5 @@ export * from './export-icon.component';
 export * from './new-icon.component';
 export * from './open-icon.component';
 export * from './save-icon.component';
+export * from './undo-icon.component';
+export * from './redo-icon.component';

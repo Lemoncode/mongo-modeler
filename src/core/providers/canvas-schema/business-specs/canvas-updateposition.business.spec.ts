@@ -1,11 +1,11 @@
 import { Size } from '@/core/model';
-import { UpdateInfo, calculateTablePosition } from './canvas.business';
+import { UpdateInfo, calculateTablePosition } from '../canvas.business';
 import {
   DatabaseSchemaVm,
   RelationVm,
   TableVm,
 } from '@/core/providers/canvas-schema';
-import { TABLE_CONST } from './canvas.const';
+import { TABLE_CONST } from '../canvas.const';
 
 describe('calculateTablePosition', () => {
   it('updates the position of the specified table within canvas boundaries', () => {
@@ -62,7 +62,11 @@ describe('calculateTablePosition', () => {
         type: '1:M',
       },
     ];
-    const schema: DatabaseSchemaVm = { tables, relations };
+    const schema: DatabaseSchemaVm = {
+      selectedElementId: null,
+      tables,
+      relations,
+    };
     const updateInfo: UpdateInfo = {
       id: '1',
       position: { x: 200, y: 500 },
@@ -186,7 +190,11 @@ describe('calculateTablePosition', () => {
         type: '1:M',
       },
     ];
-    const schema: DatabaseSchemaVm = { tables, relations };
+    const schema: DatabaseSchemaVm = {
+      selectedElementId: null,
+      tables,
+      relations,
+    };
     const updateInfo: UpdateInfo = {
       id: '1',
       position: { x: 2300, y: 500 },
@@ -311,7 +319,11 @@ describe('calculateTablePosition', () => {
         type: '1:M',
       },
     ];
-    const schema: DatabaseSchemaVm = { tables, relations };
+    const schema: DatabaseSchemaVm = {
+      selectedElementId: null,
+      tables,
+      relations,
+    };
     const updateInfo: UpdateInfo = {
       id: '1',
       position: { x: 100, y: 2300 },
@@ -436,7 +448,11 @@ describe('calculateTablePosition', () => {
         type: '1:M',
       },
     ];
-    const schema: DatabaseSchemaVm = { tables, relations };
+    const schema: DatabaseSchemaVm = {
+      selectedElementId: null,
+      tables,
+      relations,
+    };
     const updateInfo: UpdateInfo = {
       id: '1',
       position: { x: -100, y: 100 },
@@ -561,7 +577,11 @@ describe('calculateTablePosition', () => {
         type: '1:M',
       },
     ];
-    const schema: DatabaseSchemaVm = { tables, relations };
+    const schema: DatabaseSchemaVm = {
+      selectedElementId: null,
+      tables,
+      relations,
+    };
     const updateInfo: UpdateInfo = {
       id: '1',
       position: { x: 100, y: -100 },

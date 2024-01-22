@@ -1,10 +1,11 @@
-import { doFieldToggleCollapseLogic } from './canvas.business';
+import { doFieldToggleCollapseLogic } from '../canvas.business';
 import { DatabaseSchemaVm } from '@/core/providers/canvas-schema/canvas-schema.model';
 
 describe('doFieldToggleCollapseLogic', () => {
   it('should toggle the collapse state of the specified field in the specified table', () => {
     const fieldInfo = { tableId: 'table1', fieldId: 'field1' };
     const currentSchema: DatabaseSchemaVm = {
+      selectedElementId: null,
       tables: [
         {
           id: 'table1',
@@ -46,6 +47,7 @@ describe('doFieldToggleCollapseLogic', () => {
   it('should not modify the schema if the table or field is not found', () => {
     const fieldInfo = { tableId: 'tableNotFound', fieldId: 'fieldNotFound' };
     const currentSchema: DatabaseSchemaVm = {
+      selectedElementId: null,
       tables: [
         {
           id: 'table1',
