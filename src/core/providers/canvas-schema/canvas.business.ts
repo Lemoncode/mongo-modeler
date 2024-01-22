@@ -239,3 +239,18 @@ export const doesRelationAlreadyExists = (
       relation.type === newRelation.type
   );
 };
+
+export const deleteItemFromCanvasSchema = (
+  currentSchema: DatabaseSchemaVm,
+  selectedItemId: GUID
+) =>
+  produce(currentSchema, draft => {
+    draft.tables = draft.tables.filter(t => t.id !== selectedItemId);
+    draft.relations = draft.relations.filter(
+      r =>
+        r.id !== selectedItemId &&
+        r.fromTableId !== selectedItemId &&
+        r.toTableId !== selectedItemId
+    );
+    draft.selectedElementId = null;
+  });
