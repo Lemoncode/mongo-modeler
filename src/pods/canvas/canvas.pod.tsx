@@ -20,7 +20,7 @@ import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 
 export const CanvasPod: React.FC = () => {
-  const { openModal, closeModal } = useModalDialogContext();
+  const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
     canvasSchema,
     loadSchema,
@@ -29,6 +29,8 @@ export const CanvasPod: React.FC = () => {
     doFieldToggleCollapse,
     doSelectElement,
     updateFullRelation,
+    doUndo,
+    doRedo,
   } = useCanvasSchemaContext();
   const { canvasViewSettings, setScrollPosition } =
     useCanvasViewSettingsContext();
@@ -97,6 +99,28 @@ export const CanvasPod: React.FC = () => {
   const onSelectElement = (relationId: GUID | null) => {
     doSelectElement(relationId);
   };
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      //Support for MetaKey in Firefox is available only from version 118 onwards,
+      // and we are currently on version 121. Should we consider implementing support for older versions?
+      if (e.metaKey && e.key === 'z' && !e.shiftKey) {
+        doUndo();
+      }
+
+      if (e.metaKey && e.shiftKey && e.key === 'z') {
+        doRedo();
+      }
+    };
+
+    modalDialog.isOpen
+      ? document.removeEventListener('keydown', handleKeyDown)
+      : document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [modalDialog.isOpen]);
 
   return (
     <div
