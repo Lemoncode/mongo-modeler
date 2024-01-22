@@ -109,7 +109,7 @@ export const moveUpField = (table: TableVm, fieldId: GUID): TableVm => {
   });
 };
 
-//Returning a field is only necessary we want to do test,
+//Returning a field is only necessary when we want to test,
 // because the main function does not use what is returned
 export const pruneNonObjectChildren = <K extends keyof editTableVm.FieldVm>(
   key: K,
