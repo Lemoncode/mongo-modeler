@@ -4,7 +4,6 @@ import {
   useModalDialogContext,
 } from '@/core/providers';
 import { GUID, Size } from '@/core/model';
-import { mockSchema } from './canvas.mock.data';
 import classes from './canvas.pod.module.css';
 import {
   RelationVm,
@@ -37,10 +36,13 @@ export const CanvasPod: React.FC = () => {
   const { canvasSize, zoomFactor } = canvasViewSettings;
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
+  // From now onwards use the examples under db-exampls folder
+  // Open ...
+  /*
   React.useEffect(() => {
     loadSchema(mockSchema);
   }, []);
-
+  */
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
