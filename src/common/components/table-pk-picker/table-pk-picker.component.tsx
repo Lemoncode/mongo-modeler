@@ -4,6 +4,7 @@ import { FieldTree } from './components/field-tree.component';
 import { ExpandDown } from '../icons/expand-down-icon.component';
 import { PkOptionVm } from './table-pk-picker.model';
 import { SELECT_AN_PK_OPTION } from './table-pk-picker.const';
+import { generateLabel } from './table-pk-picker.business';
 
 interface Props {
   name: string;
@@ -19,7 +20,8 @@ export const TablePkPicker: React.FC<Props> = props => {
   const { name, options, selectTitle, value, onChange, disabled, isError } =
     props;
 
-  const [selectedPath, setSelectedPath] = React.useState('');
+  const path = value?.label && generateLabel(options, value.id, []);
+  const [selectedPath, setSelectedPath] = React.useState(path || '');
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
   const [currentSelectedKeyFieldId, setCurrentSelectedKeyFieldId] =
     React.useState(value?.id);

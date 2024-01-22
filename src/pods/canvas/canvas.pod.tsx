@@ -7,12 +7,17 @@ import { GUID, Size } from '@/core/model';
 import { mockSchema } from './canvas.mock.data';
 import classes from './canvas.pod.module.css';
 import {
+  RelationVm,
   TableVm,
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
 import { EditTablePod } from '../edit-table';
-import { EDIT_TABLE_TITLE } from '@/common/components/modal-dialog';
+import {
+  EDIT_RELATION_TITLE,
+  EDIT_TABLE_TITLE,
+} from '@/common/components/modal-dialog';
 import { CanvasSvgComponent } from './canvas-svg.component';
+import { EditRelationPod } from '../edit-relation';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -23,6 +28,7 @@ export const CanvasPod: React.FC = () => {
     updateFullTable,
     doFieldToggleCollapse,
     doSelectElement,
+    updateFullRelation,
   } = useCanvasSchemaContext();
   const { canvasViewSettings, setScrollPosition } =
     useCanvasViewSettingsContext();
@@ -72,8 +78,20 @@ export const CanvasPod: React.FC = () => {
     }
   };
 
+  const handleChangeRelation = (relation: RelationVm) => {
+    updateFullRelation(relation);
+    closeModal();
+  };
+
   const handleEditRelation = (relationId: GUID) => {
-    console.log('TODO: handleEditRelation', relationId);
+    openModal(
+      <EditRelationPod
+        onChangeRelation={handleChangeRelation}
+        canvasSchema={canvasSchema}
+        relationId={relationId}
+      />,
+      EDIT_RELATION_TITLE
+    );
   };
 
   const onSelectElement = (relationId: GUID | null) => {

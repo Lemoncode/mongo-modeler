@@ -17,7 +17,6 @@ export const EditRelationComponent: React.FC<Props> = props => {
   const { relationsTypeOptions, tablesNameOptions, values, canvasSchema } =
     props;
 
-  //No veo como subirlas un nivel
   const fieldsTableOrigin: PkOptionVm[] = mapTablesFieldsToPkOptionVm(
     values.fromTableId.id,
     canvasSchema
