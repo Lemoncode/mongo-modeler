@@ -13,7 +13,7 @@ import {
   doFieldToggleCollapseLogic,
   doesRelationAlreadyExists,
 } from './canvas.business';
-import { updateTable } from './canvas-schema.business';
+import { addNewTable, updateTable } from './canvas-schema.business';
 
 interface Props {
   children: React.ReactNode;
@@ -39,11 +39,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   // TODO: #56 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/56
   const addTable = (table: TableVm) => {
-    setSchema(prevSchema =>
-      produce(prevSchema, draft => {
-        draft.tables.push(table);
-      })
-    );
+    setSchema(prevSchema => addNewTable(table, prevSchema));
   };
 
   // TODO: #90

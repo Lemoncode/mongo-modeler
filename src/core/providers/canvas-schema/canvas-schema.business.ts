@@ -85,3 +85,11 @@ export const updateTable = (
       draft.tables[tableIndex] = table;
     }
   });
+
+export const addNewTable = (
+  table: TableVm,
+  databaseSchema: DatabaseSchemaVm
+): DatabaseSchemaVm =>
+  produce(databaseSchema, draft => {
+    draft.tables.push(table);
+  });

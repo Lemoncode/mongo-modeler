@@ -1,6 +1,6 @@
 import { TableVm } from './canvas-schema.model';
 import { DatabaseSchemaVm } from './canvas-schema.model';
-import { updateTable } from './canvas-schema.business';
+import { addNewTable, updateTable } from './canvas-schema.business';
 
 describe('canvas-schema.business', () => {
   describe('updateTable', () => {
@@ -574,6 +574,488 @@ describe('canvas-schema.business', () => {
       };
       // Act
       const result = updateTable(table, dbSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('addNewTable', () => {
+    it('Should add a new table with the fields is empty array in the "databaseSchemaVm"', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '2',
+        fields: [],
+        tableName: 'ProductA',
+        x: 15,
+        y: 15,
+      };
+      const databaseSchema: DatabaseSchemaVm = {
+        tables: [
+          {
+            id: '1',
+            x: 160,
+            y: 150,
+            tableName: 'tags',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '2',
+                name: '_name',
+                type: 'string',
+                PK: false,
+              },
+            ],
+          },
+          {
+            id: '41',
+            x: 520,
+            y: 80,
+            tableName: 'Restaurant',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '31',
+                PK: true,
+                name: '_tagsId',
+                type: 'objectId',
+                children: [],
+              },
+            ],
+          },
+        ],
+        relations: [
+          {
+            id: '21',
+            fromFieldId: '1',
+            fromTableId: '1',
+            toFieldId: '31',
+            toTableId: '42',
+            type: '1:M',
+          },
+        ],
+      };
+      const expectedResult: DatabaseSchemaVm = {
+        tables: [
+          {
+            id: '1',
+            x: 160,
+            y: 150,
+            tableName: 'tags',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '2',
+                name: '_name',
+                type: 'string',
+                PK: false,
+              },
+            ],
+          },
+          {
+            id: '41',
+            x: 520,
+            y: 80,
+            tableName: 'Restaurant',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '31',
+                PK: true,
+                name: '_tagsId',
+                type: 'objectId',
+                children: [],
+              },
+            ],
+          },
+          {
+            id: '2',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+        ],
+        relations: [
+          {
+            id: '21',
+            fromFieldId: '1',
+            fromTableId: '1',
+            toFieldId: '31',
+            toTableId: '42',
+            type: '1:M',
+          },
+        ],
+      };
+
+      // Act
+      const result = addNewTable(table, databaseSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+    it('Should not add or update when the new table id already exists in "databaseSchema".', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            name: '_id',
+            type: 'objectId',
+            children: [],
+          },
+          {
+            id: '3',
+            PK: false,
+            name: '_name',
+            type: 'string',
+            children: [
+              {
+                id: '2',
+                PK: false,
+                name: '_otherName',
+                type: 'string',
+              },
+            ],
+          },
+        ],
+        tableName: 'ProductA',
+        x: 15,
+        y: 15,
+      };
+      const databaseSchema: DatabaseSchemaVm = {
+        tables: [
+          {
+            id: '1',
+            x: 160,
+            y: 150,
+            tableName: 'tags',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '2',
+                name: '_name',
+                type: 'string',
+                PK: false,
+              },
+            ],
+          },
+          {
+            id: '41',
+            x: 520,
+            y: 80,
+            tableName: 'Restaurant',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '31',
+                PK: true,
+                name: '_tagsId',
+                type: 'objectId',
+                children: [],
+              },
+            ],
+          },
+        ],
+        relations: [
+          {
+            id: '21',
+            fromFieldId: '1',
+            fromTableId: '1',
+            toFieldId: '31',
+            toTableId: '42',
+            type: '1:M',
+          },
+        ],
+      };
+      const expectedResult: DatabaseSchemaVm = {
+        tables: [
+          {
+            id: '1',
+            x: 160,
+            y: 150,
+            tableName: 'tags',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '2',
+                name: '_name',
+                type: 'string',
+                PK: false,
+              },
+            ],
+          },
+          {
+            id: '41',
+            x: 520,
+            y: 80,
+            tableName: 'Restaurant',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '31',
+                PK: true,
+                name: '_tagsId',
+                type: 'objectId',
+                children: [],
+              },
+            ],
+          },
+        ],
+        relations: [
+          {
+            id: '21',
+            fromFieldId: '1',
+            fromTableId: '1',
+            toFieldId: '31',
+            toTableId: '42',
+            type: '1:M',
+          },
+        ],
+      };
+
+      // Act
+      const result = addNewTable(table, databaseSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+
+    it('', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '2',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            name: '_id',
+            type: 'objectId',
+            children: [],
+          },
+          {
+            id: '3',
+            PK: false,
+            name: '_name',
+            type: 'string',
+            children: [
+              {
+                id: '2',
+                PK: false,
+                name: '_otherName',
+                type: 'string',
+              },
+            ],
+          },
+        ],
+        tableName: 'ProductA',
+        x: 15,
+        y: 15,
+      };
+      const databaseSchema: DatabaseSchemaVm = {
+        tables: [
+          {
+            id: '1',
+            x: 160,
+            y: 150,
+            tableName: 'tags',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '2',
+                name: '_name',
+                type: 'string',
+                PK: false,
+              },
+            ],
+          },
+          {
+            id: '41',
+            x: 520,
+            y: 80,
+            tableName: 'Restaurant',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '31',
+                PK: true,
+                name: '_tagsId',
+                type: 'objectId',
+                children: [],
+              },
+            ],
+          },
+        ],
+        relations: [
+          {
+            id: '21',
+            fromFieldId: '1',
+            fromTableId: '1',
+            toFieldId: '31',
+            toTableId: '42',
+            type: '1:M',
+          },
+        ],
+      };
+      const expectedResult: DatabaseSchemaVm = {
+        tables: [
+          {
+            id: '1',
+            x: 160,
+            y: 150,
+            tableName: 'tags',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '2',
+                name: '_name',
+                type: 'string',
+                PK: false,
+              },
+            ],
+          },
+          {
+            id: '41',
+            x: 520,
+            y: 80,
+            tableName: 'Restaurant',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '31',
+                PK: true,
+                name: '_tagsId',
+                type: 'objectId',
+                children: [],
+              },
+            ],
+          },
+          {
+            id: '2',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '3',
+                PK: false,
+                name: '_name',
+                type: 'string',
+                children: [
+                  {
+                    id: '2',
+                    PK: false,
+                    name: '_otherName',
+                    type: 'string',
+                  },
+                ],
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+        ],
+        relations: [
+          {
+            id: '21',
+            fromFieldId: '1',
+            fromTableId: '1',
+            toFieldId: '31',
+            toTableId: '42',
+            type: '1:M',
+          },
+        ],
+      };
+
+      // Act
+      const result = addNewTable(table, databaseSchema);
 
       // Assert
       expect(result).toEqual(expectedResult);
