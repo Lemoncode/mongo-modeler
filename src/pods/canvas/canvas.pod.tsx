@@ -17,7 +17,7 @@ import {
   EDIT_TABLE_TITLE,
 } from '@/common/components/modal-dialog';
 import { CanvasSvgComponent } from './canvas-svg.component';
-import { EditRelationPod } from '../edit-realtion';
+import { EditRelationPod } from '../edit-relation';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal } = useModalDialogContext();
