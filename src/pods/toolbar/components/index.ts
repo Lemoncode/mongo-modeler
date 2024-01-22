@@ -8,3 +8,5 @@ export * from './export-button';
 export * from './new-button';
 export * from './open-button';
 export * from './save-button';
+export * from './undo-button';
+export * from './redo-button';

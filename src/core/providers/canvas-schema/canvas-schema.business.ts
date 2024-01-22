@@ -93,3 +93,15 @@ export const addNewTable = (
   produce(databaseSchema, draft => {
     draft.tables.push(table);
   });
+
+export const updateRelation = (
+  relation: RelationVm,
+  dbSchema: DatabaseSchemaVm
+): DatabaseSchemaVm =>
+  produce(dbSchema, draft => {
+    const index = draft.relations.findIndex(r => r.id === relation.id);
+
+    if (index !== -1) {
+      draft.relations[index] = relation;
+    }
+  });

@@ -1,6 +1,5 @@
-import { TableVm } from './canvas-schema.model';
-import { DatabaseSchemaVm } from './canvas-schema.model';
-import { addNewTable, updateTable } from './canvas-schema.business';
+import { TableVm, DatabaseSchemaVm } from '../canvas-schema.model';
+import { addNewTable, updateTable } from '../canvas-schema.business';
 
 describe('canvas-schema.business', () => {
   describe('updateTable', () => {
@@ -22,6 +21,7 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [
           {
             id: '20',
@@ -51,6 +51,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [
           {
             id: '20',
@@ -109,6 +110,8 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        selectedElementId: null,
+
         relations: [
           {
             id: '20',
@@ -138,6 +141,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [
           {
             id: '20',
@@ -189,6 +193,7 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [
           {
             id: '20',
@@ -218,6 +223,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [],
         tables: [
           {
@@ -260,6 +266,7 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [
           {
             id: '20',
@@ -301,6 +308,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [
           {
             id: '20',
@@ -365,6 +373,7 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [
           {
             id: '20',
@@ -432,6 +441,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [
           {
             id: '20',
@@ -516,6 +526,7 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [
           {
             id: '20',
@@ -545,6 +556,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        selectedElementId: null,
         relations: [
           {
             id: '20',
@@ -646,6 +658,168 @@ describe('canvas-schema.business', () => {
             type: '1:M',
           },
         ],
+        selectedElementId: null,
+      };
+      const expectedResult: DatabaseSchemaVm = {
+        tables: [
+          {
+            id: '1',
+            x: 160,
+            y: 150,
+            tableName: 'tags',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '2',
+                name: '_name',
+                type: 'string',
+                PK: false,
+              },
+            ],
+          },
+          {
+            id: '41',
+            x: 520,
+            y: 80,
+            tableName: 'Restaurant',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '31',
+                PK: true,
+                name: '_tagsId',
+                type: 'objectId',
+                children: [],
+              },
+            ],
+          },
+          {
+            id: '2',
+            fields: [],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+        ],
+        relations: [
+          {
+            id: '21',
+            fromFieldId: '1',
+            fromTableId: '1',
+            toFieldId: '31',
+            toTableId: '42',
+            type: '1:M',
+          },
+        ],
+        selectedElementId: null,
+      };
+
+      // Act
+      const result = addNewTable(table, databaseSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+    it('Should add a new table with the fields and children in the "databaseSchemaVm"', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '2',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            name: '_id',
+            type: 'objectId',
+            children: [],
+          },
+          {
+            id: '3',
+            PK: false,
+            name: '_name',
+            type: 'string',
+            children: [
+              {
+                id: '2',
+                PK: false,
+                name: '_otherName',
+                type: 'string',
+              },
+            ],
+          },
+        ],
+        tableName: 'ProductA',
+        x: 15,
+        y: 15,
+      };
+      const databaseSchema: DatabaseSchemaVm = {
+        tables: [
+          {
+            id: '1',
+            x: 160,
+            y: 150,
+            tableName: 'tags',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '2',
+                name: '_name',
+                type: 'string',
+                PK: false,
+              },
+            ],
+          },
+          {
+            id: '41',
+            x: 520,
+            y: 80,
+            tableName: 'Restaurant',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '31',
+                PK: true,
+                name: '_tagsId',
+                type: 'objectId',
+                children: [],
+              },
+            ],
+          },
+        ],
+        relations: [
+          {
+            id: '21',
+            fromFieldId: '1',
+            fromTableId: '1',
+            toFieldId: '31',
+            toTableId: '42',
+            type: '1:M',
+          },
+        ],
+        selectedElementId: null,
       };
       const expectedResult: DatabaseSchemaVm = {
         tables: [
@@ -702,6 +876,20 @@ describe('canvas-schema.business', () => {
                 type: 'objectId',
                 children: [],
               },
+              {
+                id: '3',
+                PK: false,
+                name: '_name',
+                type: 'string',
+                children: [
+                  {
+                    id: '2',
+                    PK: false,
+                    name: '_otherName',
+                    type: 'string',
+                  },
+                ],
+              },
             ],
             tableName: 'ProductA',
             x: 15,
@@ -718,6 +906,7 @@ describe('canvas-schema.business', () => {
             type: '1:M',
           },
         ],
+        selectedElementId: null,
       };
 
       // Act
@@ -813,6 +1002,7 @@ describe('canvas-schema.business', () => {
             type: '1:M',
           },
         ],
+        selectedElementId: null,
       };
       const expectedResult: DatabaseSchemaVm = {
         tables: [
@@ -870,6 +1060,7 @@ describe('canvas-schema.business', () => {
             type: '1:M',
           },
         ],
+        selectedElementId: null,
       };
 
       // Act
@@ -878,7 +1069,6 @@ describe('canvas-schema.business', () => {
       // Assert
       expect(result).toEqual(expectedResult);
     });
-
     it('', () => {
       // Arrange
       const table: TableVm = {
@@ -966,6 +1156,7 @@ describe('canvas-schema.business', () => {
             type: '1:M',
           },
         ],
+        selectedElementId: null,
       };
       const expectedResult: DatabaseSchemaVm = {
         tables: [
@@ -1052,6 +1243,7 @@ describe('canvas-schema.business', () => {
             type: '1:M',
           },
         ],
+        selectedElementId: null,
       };
 
       // Act
