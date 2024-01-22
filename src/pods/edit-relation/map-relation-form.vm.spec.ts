@@ -1,12 +1,11 @@
-import { afterEach, vi } from 'vitest';
-import { mapRelationFormVmToRelaionVM } from './edit-relation.business';
-import { RelationFormVm } from './edit-relation.vm';
+import { vi } from 'vitest';
+
 import * as generate from '@/core/model';
 
-describe('mapRelationFormVmToRelaionVM', () => {
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
+import { mapRelationFormVmToRelationVM } from './edit-relation.business';
+import { RelationFormVm } from './edit-relation.vm';
+
+describe('mapRelationFormVmToRelationVM', () => {
   it('Should return RelationVm and generate a new ID when passing FormRelationVm without an ID', () => {
     // Arrange
     const relationForm: RelationFormVm = {
@@ -20,7 +19,7 @@ describe('mapRelationFormVmToRelaionVM', () => {
     vi.spyOn(generate, 'GenerateGUID').mockReturnValue('55');
 
     // Act
-    const result = mapRelationFormVmToRelaionVM(relationForm);
+    const result = mapRelationFormVmToRelationVM(relationForm);
 
     // Assert
     expect(result).toEqual({
@@ -45,7 +44,7 @@ describe('mapRelationFormVmToRelaionVM', () => {
     const id = '33';
 
     // Act
-    const result = mapRelationFormVmToRelaionVM(relationForm, id);
+    const result = mapRelationFormVmToRelationVM(relationForm, id);
 
     // Assert
     expect(result).toEqual({
@@ -70,7 +69,7 @@ describe('mapRelationFormVmToRelaionVM', () => {
     const id = '33';
 
     // Act
-    const result = mapRelationFormVmToRelaionVM(relationForm, id);
+    const result = mapRelationFormVmToRelationVM(relationForm, id);
 
     // Assert
     expect(result).toEqual({
@@ -95,7 +94,7 @@ describe('mapRelationFormVmToRelaionVM', () => {
     const id = '33';
 
     // Act
-    const result = mapRelationFormVmToRelaionVM(relationForm, id);
+    const result = mapRelationFormVmToRelationVM(relationForm, id);
 
     // Assert
     expect(result).toEqual({

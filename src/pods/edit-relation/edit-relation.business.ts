@@ -9,7 +9,7 @@ import {
 } from '@/core/providers/canvas-schema';
 import { FormValueVm, RelationFormVm } from './edit-relation.vm';
 
-export const mapRelationFormVmToRelaionVM = (
+export const mapRelationFormVmToRelationVM = (
   values: RelationFormVm,
   relationId?: GUID
 ): RelationVm => {
@@ -23,7 +23,7 @@ export const mapRelationFormVmToRelaionVM = (
   };
 };
 
-export const mapRelationsTipeToDropdonwVm = (): DropdownOptionVm[] => [
+export const mapRelationsTypeToDropdownVm = (): DropdownOptionVm[] => [
   { id: '1', label: '1:1' },
   { id: '2', label: '1:M' },
   { id: '3', label: 'M:1' },
@@ -37,19 +37,19 @@ export const mapRelationsTipeToDropdonwVm = (): DropdownOptionVm[] => [
 // #118 Add unit tests to edit relation business
 //https://github.com/Lemoncode/mongo-modeler/issues/118
 
-const mapTableToDropdonwVm = (table: TableVm): DropdownOptionVm => ({
+const mapTableToDropdownVm = (table: TableVm): DropdownOptionVm => ({
   id: table.id,
   label: table.tableName,
 });
 
-export const mapTableListToDropdonwVm = (
+export const mapTableListToDropdownVm = (
   canvasSchema: DatabaseSchemaVm
 ): DropdownOptionVm[] =>
   canvasSchema.tables.map(
-    (table): DropdownOptionVm => mapTableToDropdonwVm(table)
+    (table): DropdownOptionVm => mapTableToDropdownVm(table)
   );
 
-const returnTablefromCanvasShema = (
+const returnTableFromCanvasSchema = (
   id: GUID,
   canvasSchema: DatabaseSchemaVm
 ): TableVm => {
@@ -83,7 +83,7 @@ export const mapTablesFieldsToPkOptionVm = (
   if (!id) {
     return returnOptionsFromTable(emptyFields);
   }
-  const table = returnTablefromCanvasShema(id, canvasSchema);
+  const table = returnTableFromCanvasSchema(id, canvasSchema);
   const options = returnOptionsFromTable(table.fields);
 
   return options;
@@ -95,7 +95,7 @@ const mapTableToFormValueVm = (table: TableVm): FormValueVm => ({
   label: table.tableName,
 });
 
-const mapFieldVmtoFormValueVm = (field: FieldVm): FormValueVm => ({
+const mapFieldVmToFormValueVm = (field: FieldVm): FormValueVm => ({
   id: field.id,
   label: field.name,
 });
@@ -104,7 +104,7 @@ const createFormValueFromTableId = (
   id: GUID,
   canvasSchema: DatabaseSchemaVm
 ): FormValueVm => {
-  const findTable = returnTablefromCanvasShema(id, canvasSchema);
+  const findTable = returnTableFromCanvasSchema(id, canvasSchema);
   return mapTableToFormValueVm(findTable);
 };
 
@@ -122,22 +122,22 @@ export const findFieldRecursively = (
   return undefined;
 };
 
-const createFormValueFromFielId = (
+const createFormValueFromFieldId = (
   tableId: GUID,
   fieldId: GUID,
   canvasSchema: DatabaseSchemaVm
 ): FormValueVm => {
-  const findTable = returnTablefromCanvasShema(tableId, canvasSchema);
+  const findTable = returnTableFromCanvasSchema(tableId, canvasSchema);
   const findField = findFieldRecursively(findTable.fields, fieldId);
 
   if (!findField) {
     throw new Error(`Field with ID ${fieldId} not found`);
   }
-  return mapFieldVmtoFormValueVm(findField);
+  return mapFieldVmToFormValueVm(findField);
 };
 
 const createFormValueFromType = (type: RelationType): FormValueVm => {
-  const typeOptionList = mapRelationsTipeToDropdonwVm();
+  const typeOptionList = mapRelationsTypeToDropdownVm();
   const findType = typeOptionList.find(typeOption => typeOption.label === type);
 
   if (!findType) {
@@ -172,13 +172,13 @@ export const createInitialIdValues = (
     canvasSchema
   );
 
-  const fromFieldIdFormValue = createFormValueFromFielId(
+  const fromFieldIdFormValue = createFormValueFromFieldId(
     fromTableId,
     fromFieldId,
     canvasSchema
   );
 
-  const toFieldIdFormValue = createFormValueFromFielId(
+  const toFieldIdFormValue = createFormValueFromFieldId(
     toTableId,
     toFieldId,
     canvasSchema
