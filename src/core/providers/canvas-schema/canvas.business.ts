@@ -184,8 +184,7 @@ export const calculateRelationYOffset = (
   fieldId: GUID,
   table: TableVm
 ): number => {
-  const initialYPosition =
-    table.y + TABLE_CONST.HEADER_HEIGHT + TABLE_CONST.ROW_HEIGHT / 2;
+  const initialYPosition = table.y + TABLE_CONST.HEADER_HEIGHT;
   const result = seekField(
     fieldId,
     { found: false, YPosition: initialYPosition, parentCollapsed: false },
