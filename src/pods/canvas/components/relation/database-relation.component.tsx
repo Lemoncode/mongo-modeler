@@ -1,5 +1,5 @@
 import React from 'react';
-import { RelationType } from '@/core/providers/canvas-schema';
+import { RelationType, TABLE_CONST } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
 import { ClickableLineComponent, ForkComponent } from './components';
 import {
@@ -46,6 +46,13 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
     isDrawLeftToRight
   );
 
+  const oneToOneRelationPath = `
+  M ${originXMinusFork} ${startCoords.y} 
+  H ${originXMinusFork - TABLE_CONST.HORIZONTAL_LEFT_EXTENSION} 
+  V ${endCoords.y} 
+  H ${originXMinusFork}
+  `;
+
   return (
     <svg>
       {/* Glow filter if selected */}
@@ -59,17 +66,29 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
         </filter>
       </defs>
 
-      {/* Base line of the relationship */}
-      <line
-        x1={originXMinusFork}
-        y1={startCoords.y}
-        x2={destinationXMinusFork}
-        y2={endCoords.y}
-        className={
-          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
-        }
-        filter={isSelected ? `url(#table_glow)` : ''}
-      />
+      {/* Render a path for 1:1 relationships */}
+      {relationType === '1:1' && (
+        <path
+          d={oneToOneRelationPath}
+          className={
+            isSelected ? classes.selectedRelation : classes.nonSelectedRelation
+          }
+          filter={isSelected ? `url(#table_glow)` : ''}
+        />
+      )}
+
+      {relationType !== '1:1' && (
+        <line
+          x1={originXMinusFork}
+          y1={startCoords.y}
+          x2={destinationXMinusFork}
+          y2={endCoords.y}
+          className={
+            isSelected ? classes.selectedRelation : classes.nonSelectedRelation
+          }
+          filter={isSelected ? `url(#table_glow)` : ''}
+        />
+      )}
 
       {/* Draw the fork */}
       {relationType === '1:M' && (
