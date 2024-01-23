@@ -1,32 +1,47 @@
 import React from 'react';
 import { ThemeContext } from './theme-context';
-import { ThemeModel, createInitialTheme } from './theme.model';
+import { ThemeModel } from './theme.model';
+import {
+  retrieveThemePreferenceFromLocalStorage,
+  saveThemePreferenceToLocalStorage,
+} from './theme.business';
 
 interface Props {
   children: React.ReactNode;
 }
-export const ThemeProvider: React.FC<Props> = (props) => {
+
+export const ThemeProvider: React.FC<Props> = props => {
   const { children } = props;
-  const [theme, setTheme] = React.useState<ThemeModel>(createInitialTheme());
+  const [theme, setTheme] = React.useState<ThemeModel>(
+    retrieveThemePreferenceFromLocalStorage
+  );
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => ({
-      ...prevTheme,
-      themeMode: prevTheme.themeMode === 'light' ? 'dark' : 'light',
-    }));
+    setTheme(prevTheme => {
+      const newTheme = {
+        ...prevTheme,
+        themeMode: prevTheme.themeMode === 'light' ? 'dark' : 'light',
+      } as ThemeModel;
+
+      saveThemePreferenceToLocalStorage(newTheme.themeMode);
+
+      return newTheme;
+    });
   };
 
   return (
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
-  )
-}
+  );
+};
 
 export const useThemeContext = () => {
   const context = React.useContext(ThemeContext);
   if (context === null) {
-    throw new Error('useThemeContext: Ensure you have wrapped your app with ThemeProvider');
+    throw new Error(
+      'useThemeContext: Ensure you have wrapped your app with ThemeProvider'
+    );
   }
 
   return context;
