@@ -1,21 +1,9 @@
 export const retrieveValueFromLocalStorage = <T>(key: string): T | null => {
-  try {
-    const storedValue = localStorage.getItem(key);
-    if (storedValue !== null) {
-      return JSON.parse(storedValue);
-    }
-
-    return null;
-  } catch (error) {
-    throw new Error(`Error retrieving ${key} from localStorage: ${error}`);
-  }
+  const storedValue = localStorage.getItem(key);
+  return storedValue !== null ? JSON.parse(storedValue) : null;
 };
 
 export const saveValueToLocalStorage = <T>(key: string, value: T): void => {
-  try {
-    const serializedValue = JSON.stringify(value);
-    localStorage.setItem(key, serializedValue);
-  } catch (error) {
-    throw new Error(`Error saving ${key} to localStorage: ${error}`);
-  }
+  const serializedValue = JSON.stringify(value);
+  localStorage.setItem(key, serializedValue);
 };

@@ -23,11 +23,7 @@ export const ThemeProvider: React.FC<Props> = props => {
         themeMode: prevTheme.themeMode === 'light' ? 'dark' : 'light',
       } as ThemeModel;
 
-      try {
-        saveThemePreferenceToLocalStorage(newTheme.themeMode);
-      } catch (error) {
-        throw new Error('Failed to save new theme preference to local storage');
-      }
+      saveThemePreferenceToLocalStorage(newTheme.themeMode);
 
       return newTheme;
     });

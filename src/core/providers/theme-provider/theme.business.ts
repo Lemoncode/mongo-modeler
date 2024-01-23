@@ -4,18 +4,21 @@ import {
   retrieveValueFromLocalStorage,
 } from '@/common/local-storage';
 
-export const saveThemePreferenceToLocalStorage = (themeValue: string): void => {
-  saveValueToLocalStorage('themeMode', themeValue);
+export const saveThemePreferenceToLocalStorage = (themeValue: string) => {
+  try {
+    saveValueToLocalStorage<string>('themeMode', themeValue);
+  } catch (e) {
+    console.warn('Failed to save in localStorage');
+  }
 };
 
 export const retrieveThemePreferenceFromLocalStorage = (): ThemeModel => {
-  const themeMode = retrieveValueFromLocalStorage<'dark' | 'light'>(
-    'themeMode'
-  );
-
-  if (themeMode !== null) {
-    return { themeMode };
-  } else {
+  try {
+    const themeMode = retrieveValueFromLocalStorage<'dark' | 'light'>(
+      'themeMode'
+    );
+    return themeMode !== null ? { themeMode } : createInitialTheme();
+  } catch {
     return createInitialTheme();
   }
 };
