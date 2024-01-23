@@ -593,7 +593,7 @@ describe('canvas-schema.business', () => {
   });
 
   describe('addNewTable', () => {
-    it('Should add a new table with the fields is empty array in the "databaseSchemaVm"', () => {
+    it('Should add a new table with empty fields array in the "databaseSchemaVm"', () => {
       // Arrange
       const table: TableVm = {
         id: '2',
@@ -746,7 +746,7 @@ describe('canvas-schema.business', () => {
       // Assert
       expect(result).toEqual(expectedResult);
     });
-    it('Should add a new table with the fields and children in the "databaseSchemaVm"', () => {
+    it('Should add a new table with fields and childrens in the "databaseSchemaVm"', () => {
       // Arrange
       const table: TableVm = {
         id: '2',
