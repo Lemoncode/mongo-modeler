@@ -4,7 +4,6 @@ import {
   useModalDialogContext,
 } from '@/core/providers';
 import { GUID, Size } from '@/core/model';
-import { mockSchema } from './canvas.mock.data';
 import classes from './canvas.pod.module.css';
 import {
   RelationVm,
@@ -20,7 +19,7 @@ import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 
 export const CanvasPod: React.FC = () => {
-  const { openModal, closeModal } = useModalDialogContext();
+  const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
     canvasSchema,
     loadSchema,
@@ -29,16 +28,21 @@ export const CanvasPod: React.FC = () => {
     doFieldToggleCollapse,
     doSelectElement,
     updateFullRelation,
+    doUndo,
+    doRedo,
   } = useCanvasSchemaContext();
   const { canvasViewSettings, setScrollPosition } =
     useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor } = canvasViewSettings;
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
+  // From now onwards use the examples under db-exampls folder
+  // Open ...
+  /*
   React.useEffect(() => {
     loadSchema(mockSchema);
   }, []);
-
+  */
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
@@ -97,6 +101,28 @@ export const CanvasPod: React.FC = () => {
   const onSelectElement = (relationId: GUID | null) => {
     doSelectElement(relationId);
   };
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      //Support for MetaKey in Firefox is available only from version 118 onwards,
+      // and we are currently on version 121. Should we consider implementing support for older versions?
+      if (e.metaKey && e.key === 'z' && !e.shiftKey) {
+        doUndo();
+      }
+
+      if (e.metaKey && e.shiftKey && e.key === 'z') {
+        doRedo();
+      }
+    };
+
+    modalDialog.isOpen
+      ? document.removeEventListener('keydown', handleKeyDown)
+      : document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [modalDialog.isOpen]);
 
   return (
     <div
