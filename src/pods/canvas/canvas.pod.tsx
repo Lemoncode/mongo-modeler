@@ -22,7 +22,6 @@ export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
     canvasSchema,
-    loadSchema,
     updateTablePosition,
     updateFullTable,
     doFieldToggleCollapse,
@@ -30,13 +29,14 @@ export const CanvasPod: React.FC = () => {
     updateFullRelation,
     doUndo,
     doRedo,
+    deleteSelectedItem,
   } = useCanvasSchemaContext();
   const { canvasViewSettings, setScrollPosition } =
     useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor } = canvasViewSettings;
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
-  // From now onwards use the examples under db-exampls folder
+  // From now onwards use the examples under db-examples folder
   // Open ...
   /*
   React.useEffect(() => {
@@ -113,6 +113,12 @@ export const CanvasPod: React.FC = () => {
       if (e.metaKey && e.shiftKey && e.key === 'z') {
         doRedo();
       }
+
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        if (canvasSchema.selectedElementId) {
+          deleteSelectedItem(canvasSchema.selectedElementId);
+        }
+      }
     };
 
     modalDialog.isOpen
@@ -122,7 +128,7 @@ export const CanvasPod: React.FC = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [modalDialog.isOpen]);
+  }, [modalDialog.isOpen, canvasSchema.selectedElementId]);
 
   return (
     <div

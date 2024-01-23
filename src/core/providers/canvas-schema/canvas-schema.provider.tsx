@@ -87,7 +87,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
       })
     );
   };
-  console.log(canvasSchema);
+
   // TODO: #90
   //https://github.com/Lemoncode/mongo-modeler/issues/90
   const addRelation = (relation: RelationVm) => {
@@ -159,7 +159,6 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     setSchema(currentSchema =>
       deleteItemFromCanvasSchema(currentSchema, selectedElementId)
     );
-    console.log(canvasSchema);
   };
   return (
     <CanvasSchemaContext.Provider
