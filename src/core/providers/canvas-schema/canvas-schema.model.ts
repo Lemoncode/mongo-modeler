@@ -67,4 +67,6 @@ export interface CanvasSchemaContextVm {
   canRedo: () => boolean;
   doUndo: () => void;
   doRedo: () => void;
+  updateFullRelation: (relation: RelationVm) => void;
+  deleteSelectedItem: (selectedElementId: GUID) => void;
 }

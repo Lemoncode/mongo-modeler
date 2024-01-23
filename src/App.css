@@ -14,6 +14,7 @@
   --highlight-color: #e6eaf2;
   --primary-toolbar: #fefdfe;
   --text-color: #202020;
+  --text-disabled: #a9a9a9;
 }
 .dark {
   --primary-background: #2e263e;
@@ -22,6 +23,7 @@
   --highlight-color: #4d425f;
   --primary-toolbar: #342c44;
   --text-color: #d1d6e1;
+  --text-disabled: #5a5564;
 }
 
 .logo {

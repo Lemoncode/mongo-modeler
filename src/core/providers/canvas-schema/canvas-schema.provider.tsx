@@ -13,8 +13,9 @@ import {
   moveTableToTop,
   doFieldToggleCollapseLogic,
   doesRelationAlreadyExists,
+  deleteItemFromCanvasSchema,
 } from './canvas.business';
-import { updateTable } from './canvas-schema.business';
+import { updateRelation, updateTable } from './canvas-schema.business';
 import { useHistoryManager } from '@/common/undo-redo';
 
 function useStateWithInterceptor<S>(
@@ -99,6 +100,10 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     }
   };
 
+  const updateFullRelation = (relationUpdated: RelationVm) => {
+    setSchema(prevSchema => updateRelation(relationUpdated, prevSchema));
+  };
+
   const updateTablePosition = (
     itemInfo: UpdatePositionItemInfo,
     isDragFinished: boolean
@@ -150,6 +155,11 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     return canUndoLogic();
   };
 
+  const deleteSelectedItem = (selectedElementId: GUID) => {
+    setSchema(currentSchema =>
+      deleteItemFromCanvasSchema(currentSchema, selectedElementId)
+    );
+  };
   return (
     <CanvasSchemaContext.Provider
       value={{
@@ -166,6 +176,8 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         canRedo,
         doUndo,
         doRedo,
+        updateFullRelation,
+        deleteSelectedItem,
       }}
     >
       {children}
