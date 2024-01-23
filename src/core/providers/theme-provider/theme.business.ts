@@ -14,10 +14,8 @@ export const saveThemePreferenceToLocalStorage = (themeValue: string) => {
 
 export const retrieveThemePreferenceFromLocalStorage = (): ThemeModel => {
   try {
-    const themeMode = retrieveValueFromLocalStorage<'dark' | 'light'>(
-      'themeMode'
-    );
-    return themeMode !== null ? { themeMode } : createInitialTheme();
+    const themeMode = retrieveValueFromLocalStorage('themeMode');
+    return themeMode ? { themeMode } : createInitialTheme();
   } catch {
     return createInitialTheme();
   }

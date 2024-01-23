@@ -1,6 +1,6 @@
-export const retrieveValueFromLocalStorage = <T>(key: string): T | null => {
+export const retrieveValueFromLocalStorage = (key: string) => {
   const storedValue = localStorage.getItem(key);
-  return storedValue !== null ? JSON.parse(storedValue) : null;
+  return storedValue ? JSON.parse(storedValue) : null;
 };
 
 export const saveValueToLocalStorage = <T>(key: string, value: T): void => {
