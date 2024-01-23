@@ -15,7 +15,11 @@ import {
   doesRelationAlreadyExists,
   deleteItemFromCanvasSchema,
 } from './canvas.business';
-import { updateRelation, updateTable } from './canvas-schema.business';
+import {
+  addNewTable,
+  updateRelation,
+  updateTable,
+} from './canvas-schema.business';
 import { useHistoryManager } from '@/common/undo-redo';
 
 function useStateWithInterceptor<S>(
@@ -81,11 +85,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   // TODO: #56 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/56
   const addTable = (table: TableVm) => {
-    setSchema(prevSchema =>
-      produce(prevSchema, draft => {
-        draft.tables.push(table);
-      })
-    );
+    setSchema(prevSchema => addNewTable(table, prevSchema));
   };
 
   // TODO: #90

@@ -86,6 +86,14 @@ export const updateTable = (
     }
   });
 
+export const addNewTable = (
+  table: TableVm,
+  databaseSchema: DatabaseSchemaVm
+): DatabaseSchemaVm =>
+  produce(databaseSchema, draft => {
+    draft.tables.push(table);
+  });
+
 export const updateRelation = (
   relation: RelationVm,
   dbSchema: DatabaseSchemaVm
