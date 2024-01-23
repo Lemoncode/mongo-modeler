@@ -915,7 +915,103 @@ describe('canvas-schema.business', () => {
       // Assert
       expect(result).toEqual(expectedResult);
     });
-    it('Should not add or update when the new table id already exists in "databaseSchema".', () => {
+    it('Should add a new table when the table in "databaseSchemaVm" is an empty array', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '2',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            name: '_id',
+            type: 'objectId',
+            children: [],
+          },
+          {
+            id: '3',
+            PK: false,
+            name: '_name',
+            type: 'string',
+            children: [
+              {
+                id: '2',
+                PK: false,
+                name: '_otherName',
+                type: 'string',
+              },
+            ],
+          },
+        ],
+        tableName: 'ProductA',
+        x: 15,
+        y: 15,
+      };
+      const databaseSchema: DatabaseSchemaVm = {
+        tables: [],
+        relations: [
+          {
+            id: '21',
+            fromFieldId: '1',
+            fromTableId: '1',
+            toFieldId: '31',
+            toTableId: '42',
+            type: '1:M',
+          },
+        ],
+        selectedElementId: null,
+      };
+      const expectedResult: DatabaseSchemaVm = {
+        tables: [
+          {
+            id: '2',
+            fields: [
+              {
+                id: '1',
+                PK: true,
+                name: '_id',
+                type: 'objectId',
+                children: [],
+              },
+              {
+                id: '3',
+                PK: false,
+                name: '_name',
+                type: 'string',
+                children: [
+                  {
+                    id: '2',
+                    PK: false,
+                    name: '_otherName',
+                    type: 'string',
+                  },
+                ],
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+        ],
+        relations: [
+          {
+            id: '21',
+            fromFieldId: '1',
+            fromTableId: '1',
+            toFieldId: '31',
+            toTableId: '42',
+            type: '1:M',
+          },
+        ],
+        selectedElementId: null,
+      };
+
+      // Act
+      const result = addNewTable(table, databaseSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+    it('Should not add or update when the new table id already exists in "databaseSchemaVm".', () => {
       // Arrange
       const table: TableVm = {
         id: '1',
@@ -1048,189 +1144,6 @@ describe('canvas-schema.business', () => {
                 children: [],
               },
             ],
-          },
-        ],
-        relations: [
-          {
-            id: '21',
-            fromFieldId: '1',
-            fromTableId: '1',
-            toFieldId: '31',
-            toTableId: '42',
-            type: '1:M',
-          },
-        ],
-        selectedElementId: null,
-      };
-
-      // Act
-      const result = addNewTable(table, databaseSchema);
-
-      // Assert
-      expect(result).toEqual(expectedResult);
-    });
-    it('', () => {
-      // Arrange
-      const table: TableVm = {
-        id: '2',
-        fields: [
-          {
-            id: '1',
-            PK: true,
-            name: '_id',
-            type: 'objectId',
-            children: [],
-          },
-          {
-            id: '3',
-            PK: false,
-            name: '_name',
-            type: 'string',
-            children: [
-              {
-                id: '2',
-                PK: false,
-                name: '_otherName',
-                type: 'string',
-              },
-            ],
-          },
-        ],
-        tableName: 'ProductA',
-        x: 15,
-        y: 15,
-      };
-      const databaseSchema: DatabaseSchemaVm = {
-        tables: [
-          {
-            id: '1',
-            x: 160,
-            y: 150,
-            tableName: 'tags',
-            fields: [
-              {
-                id: '1',
-                PK: true,
-                name: '_id',
-                type: 'objectId',
-                children: [],
-              },
-              {
-                id: '2',
-                name: '_name',
-                type: 'string',
-                PK: false,
-              },
-            ],
-          },
-          {
-            id: '41',
-            x: 520,
-            y: 80,
-            tableName: 'Restaurant',
-            fields: [
-              {
-                id: '1',
-                PK: true,
-                name: '_id',
-                type: 'objectId',
-                children: [],
-              },
-              {
-                id: '31',
-                PK: true,
-                name: '_tagsId',
-                type: 'objectId',
-                children: [],
-              },
-            ],
-          },
-        ],
-        relations: [
-          {
-            id: '21',
-            fromFieldId: '1',
-            fromTableId: '1',
-            toFieldId: '31',
-            toTableId: '42',
-            type: '1:M',
-          },
-        ],
-        selectedElementId: null,
-      };
-      const expectedResult: DatabaseSchemaVm = {
-        tables: [
-          {
-            id: '1',
-            x: 160,
-            y: 150,
-            tableName: 'tags',
-            fields: [
-              {
-                id: '1',
-                PK: true,
-                name: '_id',
-                type: 'objectId',
-                children: [],
-              },
-              {
-                id: '2',
-                name: '_name',
-                type: 'string',
-                PK: false,
-              },
-            ],
-          },
-          {
-            id: '41',
-            x: 520,
-            y: 80,
-            tableName: 'Restaurant',
-            fields: [
-              {
-                id: '1',
-                PK: true,
-                name: '_id',
-                type: 'objectId',
-                children: [],
-              },
-              {
-                id: '31',
-                PK: true,
-                name: '_tagsId',
-                type: 'objectId',
-                children: [],
-              },
-            ],
-          },
-          {
-            id: '2',
-            fields: [
-              {
-                id: '1',
-                PK: true,
-                name: '_id',
-                type: 'objectId',
-                children: [],
-              },
-              {
-                id: '3',
-                PK: false,
-                name: '_name',
-                type: 'string',
-                children: [
-                  {
-                    id: '2',
-                    PK: false,
-                    name: '_otherName',
-                    type: 'string',
-                  },
-                ],
-              },
-            ],
-            tableName: 'ProductA',
-            x: 15,
-            y: 15,
           },
         ],
         relations: [
