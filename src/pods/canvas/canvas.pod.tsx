@@ -22,7 +22,6 @@ export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
     canvasSchema,
-    loadSchema,
     updateTablePosition,
     updateFullTable,
     doFieldToggleCollapse,
