@@ -1,9 +1,9 @@
 import React from 'react';
 import { ThemeContext } from './theme-context';
-import { ThemeModel, createInitialTheme } from './theme.model';
+import { ThemeModel } from './theme.model';
 import {
-  retrieveThemeFromLocalStorage,
-  saveThemeToLocalStorage,
+  retrieveThemePreferenceFromLocalStorage,
+  saveThemePreferenceToLocalStorage,
 } from './theme.business';
 
 interface Props {
@@ -12,30 +12,26 @@ interface Props {
 
 export const ThemeProvider: React.FC<Props> = props => {
   const { children } = props;
-  const [theme, setTheme] = React.useState<ThemeModel>(createInitialTheme());
-
-  const chosenThemeModeKey = 'themeMode';
-  const chosenThemeModeValue = theme.themeMode === 'light' ? 'dark' : 'light';
+  const [theme, setTheme] = React.useState<ThemeModel>(
+    retrieveThemePreferenceFromLocalStorage
+  );
 
   const toggleTheme = () => {
-    saveThemeToLocalStorage(chosenThemeModeKey, chosenThemeModeValue);
-
-    setTheme(prevTheme => ({
-      ...prevTheme,
-      themeMode: prevTheme.themeMode === 'light' ? 'dark' : 'light',
-    }));
-  };
-
-  React.useEffect(() => {
-    const retrieveThemeMode = retrieveThemeFromLocalStorage(chosenThemeModeKey);
-
-    if (retrieveThemeMode) {
-      setTheme(prevTheme => ({
+    setTheme(prevTheme => {
+      const newTheme = {
         ...prevTheme,
-        themeMode: retrieveThemeMode,
-      }));
-    }
-  }, []);
+        themeMode: prevTheme.themeMode === 'light' ? 'dark' : 'light',
+      } as ThemeModel;
+
+      try {
+        saveThemePreferenceToLocalStorage(newTheme.themeMode);
+      } catch (error) {
+        throw new Error('Failed to save new theme preference to local storage');
+      }
+
+      return newTheme;
+    });
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

@@ -1,2 +1,1 @@
-export * from './retrieveValueFromLocalSt';
-export * from './saveValueFromLocalSt';
+export * from './local-storage.helpers';

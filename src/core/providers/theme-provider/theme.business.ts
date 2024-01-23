@@ -1,17 +1,21 @@
+import { ThemeModel, createInitialTheme } from './theme.model';
 import {
   saveValueToLocalStorage,
   retrieveValueFromLocalStorage,
 } from '@/common/local-storage';
 
-export const saveThemeToLocalStorage = (
-  themeKey: string,
-  themeValue: string
-): void => {
-  saveValueToLocalStorage(themeKey, themeValue);
+export const saveThemePreferenceToLocalStorage = (themeValue: string): void => {
+  saveValueToLocalStorage('themeMode', themeValue);
 };
 
-export const retrieveThemeFromLocalStorage = (
-  themeKey: string
-): void | null => {
-  return retrieveValueFromLocalStorage(themeKey);
+export const retrieveThemePreferenceFromLocalStorage = (): ThemeModel => {
+  const themeMode = retrieveValueFromLocalStorage<'dark' | 'light'>(
+    'themeMode'
+  );
+
+  if (themeMode !== null) {
+    return { themeMode };
+  } else {
+    return createInitialTheme();
+  }
 };
