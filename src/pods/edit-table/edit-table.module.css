@@ -5,7 +5,8 @@
   margin: 10px;
 }
 
-.fieldRow {
+.fieldRow,
+.header-row {
   display: grid;
   grid-template-columns: auto auto auto 3fr 2fr 80px 340px;
   gap: 0px;
@@ -68,9 +69,16 @@
   margin-left: 140px;
 }
 
+/*The top position of the two position sticky's are 
+related to each other and to the dialog header*/
+.indent0.header-row {
+  position: sticky;
+  top: 5.3125rem;
+  z-index: 3;
+}
 .table-name {
   position: sticky;
-  top: 40px;
+  top: 2.5rem;
   left: 0px;
   padding-top: 10px;
   padding-bottom: 10px;

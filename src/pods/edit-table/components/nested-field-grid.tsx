@@ -34,7 +34,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   onMoveUpField,
 }) => {
   const renderFieldHeaders = () => (
-    <div className={`${classes.fieldRow} ${classes[`indent${level}`]}`}>
+    <div className={`${classes.headerRow} ${classes[`indent${level}`]}`}>
       <div className={`${classes.headerCell} ${classes.expandCell}`}>
         Expand
       </div>

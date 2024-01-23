@@ -22,7 +22,6 @@ export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
     canvasSchema,
-    loadSchema,
     updateTablePosition,
     updateFullTable,
     doFieldToggleCollapse,
@@ -36,7 +35,7 @@ export const CanvasPod: React.FC = () => {
   const { canvasSize, zoomFactor } = canvasViewSettings;
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
-  // From now onwards use the examples under db-exampls folder
+  // From now onwards use the examples under db-examples folder
   // Open ...
   /*
   React.useEffect(() => {
