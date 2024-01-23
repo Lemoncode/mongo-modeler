@@ -1,6 +1,6 @@
 import React from 'react';
-import { RelationType, TABLE_CONST } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
+import { RelationType, TABLE_CONST } from '@/core/providers';
 import { ClickableLineComponent } from './components';
 import { calculateOriginMinusForkWidthLogic } from './relation.business';
 import classes from './database-relation.component.module.css';
