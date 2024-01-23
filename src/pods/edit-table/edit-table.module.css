@@ -28,8 +28,8 @@
   align-items: center;
   justify-content: center;
   border: 1px solid #ccc;
-  border-top: none;
   border-left: none;
+  border-top: none;
 }
 .fieldCell + .fieldCell,
 .headerCell + .headerCell {
@@ -41,17 +41,17 @@
   border-right: none;
 }
 
+.headerCell {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #f2f2f2;
+}
+
 .commands-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   gap: 10px;
-}
-
-.headerCell {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  background-color: #f2f2f2;
 }
 
 .expandCell {
@@ -98,7 +98,7 @@ related to each other and to the dialog header*/
 .header-row {
   position: sticky;
   top: 5.3125rem;
-  z-index: 3;
+  z-index: 2;
 }
 .table-name {
   position: sticky;
@@ -106,15 +106,19 @@ related to each other and to the dialog header*/
   left: 0px;
   padding-top: 10px;
   padding-bottom: 10px;
-  z-index: 2;
+  z-index: 3;
   text-align: left;
   background-color: var(--primary-background);
   border-bottom: 1px solid #ccc;
 }
+
 .table-name label {
   display: flex;
   align-items: baseline;
   gap: 10px;
+}
+.table-name input {
+  padding: 3px;
 }
 
 /* .commands-container button {
@@ -149,10 +153,16 @@ related to each other and to the dialog header*/
 .input-name input {
   width: 100%;
   margin-right: 5px;
+  padding: 3px;
 }
 
 .fieldCell select {
   width: 100%;
   margin-right: 5px;
   margin-left: 5px;
+  padding: 3px;
 }
+
+/* .tableEditor .fieldRow:last-child {
+  background-color: red;
+} */
