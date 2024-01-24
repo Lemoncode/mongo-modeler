@@ -99,6 +99,15 @@
 .indent7 {
   padding-left: calc(var(--padding-table) * 7);
 }
+.indent8 {
+  padding-left: calc(var(--padding-table) * 8);
+}
+.indent9 {
+  padding-left: calc(var(--padding-table) * 9);
+}
+.indent10 {
+  padding-left: calc(var(--padding-table) * 10);
+}
 
 /*The top position of the two position sticky's are 
 related to each other and to the dialog header*/
