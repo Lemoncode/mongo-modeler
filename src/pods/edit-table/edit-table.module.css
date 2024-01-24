@@ -41,10 +41,6 @@
   text-align: center; /* Center the button in the cell */
 }
 
-/* TODO: this solution is not ideal, we would need to add more indent levels */
-/* #59 */
-/* https://github.com/Lemoncode/mongo-modeler/issues/59 */
-
 /*The top position of the two position sticky's are 
 related to each other and to the dialog header*/
 .indent0.header-row {
