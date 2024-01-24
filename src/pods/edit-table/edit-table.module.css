@@ -31,6 +31,7 @@
   justify-content: center;
   padding: 5px;
 }
+
 .fieldCell + .fieldCell,
 .headerCell + .headerCell {
   border-left: 1px solid var(--border-color);
@@ -104,7 +105,7 @@ related to each other and to the dialog header*/
 .header-row {
   position: sticky;
   top: 5.3125rem;
-  z-index: 2;
+  z-index: 1;
 }
 .table-name {
   position: sticky;
@@ -112,7 +113,7 @@ related to each other and to the dialog header*/
   left: 0px;
   padding-top: 10px;
   padding-bottom: 10px;
-  z-index: 3;
+  z-index: 2;
   text-align: left;
   background-color: var(--primary-background);
   border-bottom: 1px solid var(--border-color);
