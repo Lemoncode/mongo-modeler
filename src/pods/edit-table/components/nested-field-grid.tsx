@@ -33,8 +33,10 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   onMoveDownField,
   onMoveUpField,
 }) => {
+  const indent = level * 20;
+
   const renderFieldHeaders = () => (
-    <div className={classes.headerRow} style={{ marginLeft: level * 20 }}>
+    <div className={classes.headerRow} style={{ marginLeft: `${indent}px` }}>
       <div className={`${classes.headerCell} ${classes.expandCell}`}>
         Expand
       </div>
@@ -56,7 +58,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
 
   const renderField = (field: FieldVm): JSX.Element => (
     <React.Fragment key={field.id}>
-      <div className={classes.fieldRow} style={{ marginLeft: level * 20 }}>
+      <div className={classes.fieldRow} style={{ marginLeft: `${indent}px` }}>
         <div className={`${classes.fieldCell} ${classes.expandCell}`}>
           {field.type === 'object' ? (
             <button onClick={() => toggleExpand(field.id)}>
