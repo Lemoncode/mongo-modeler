@@ -44,30 +44,6 @@
 /* TODO: this solution is not ideal, we would need to add more indent levels */
 /* #59 */
 /* https://github.com/Lemoncode/mongo-modeler/issues/59 */
-.indent0 {
-  margin-left: 0;
-}
-.indent1 {
-  margin-left: 20px;
-}
-.indent2 {
-  margin-left: 40px;
-}
-.indent3 {
-  margin-left: 60px;
-}
-.indent4 {
-  margin-left: 80px;
-}
-.indent5 {
-  margin-left: 100px;
-}
-.indent6 {
-  margin-left: 120px;
-}
-.indent7 {
-  margin-left: 140px;
-}
 
 /*The top position of the two position sticky's are 
 related to each other and to the dialog header*/
