@@ -8,7 +8,7 @@ const TABLE_WIDTH = 320; // Width of the table rectangle
 const HEADER_HEIGHT = FONT_SIZE + ROW_PADDING; // Height of the table header
 const DEFAULT_TABLE_WIDTH = TABLE_WIDTH;
 const ROW_HEIGHT = FONT_SIZE + ROW_PADDING; // Height of the table line
-const HORIZONTAL_LEFT_EXTENSION = 15; // Horizontal extension for the relation line 1:1
+const HORIZONTAL_LEFT_EXTENSION = 20; // Horizontal extension for the relation line 1:1
 
 export const TABLE_CONST = {
   FONT_SIZE,
