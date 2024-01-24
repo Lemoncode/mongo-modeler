@@ -69,6 +69,15 @@ export const EditTableComponent: React.FC<Props> = props => {
         </label>
       </div>
       <div className={classes.tableEditor}>
+        <div className={classes.headerRow}>
+          <div className={classes.headerCell}>Name</div>
+          <div className={classes.headerCell}>PK</div>
+          <div className={classes.headerCell}>FK</div>
+          <div className={classes.headerCell}>Type</div>
+          <div className={classes.headerCell}>isArray</div>
+          <div className={classes.headerCell}>Actions</div>
+        </div>
+
         <NestedFieldGrid
           fields={table.fields}
           level={0}

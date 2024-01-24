@@ -16,16 +16,3 @@
   background: none;
   fill: var(--text-color);
 }
-
-button:hover {
-  box-shadow: 0 0 3px 2px var(--accent-color);
-}
-
-button:disabled {
-  color: var(--text-disabled);
-  cursor: default;
-}
-
-button:disabled:hover {
-  box-shadow: none;
-}
