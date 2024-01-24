@@ -1,11 +1,12 @@
 import React from 'react';
 import { Coords, GUID } from '@/core/model';
 import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
-import DatabaseRelationshipComponent from './database-relation.component';
+import DatabaseRelationshipTwoTablesComponent from './database-relation-two-tables.component';
 import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
 } from '@/core/providers/canvas-schema/canvas.business';
+import { DatabaseRelationSelfComponent } from './database-relation-self.component';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
@@ -50,15 +51,27 @@ export const DatabaseRelationCollectionComponent: React.FC<
       <React.Fragment
         key={`${relation.fromTableId}-${relation.fromFieldId}-${relation.toTableId}-${relation.toFieldId}`}
       >
-        <DatabaseRelationshipComponent
-          id={relation.id}
-          onClick={onSelectRelation}
-          onDoubleClick={onEditRelation}
-          relationType={relation.type}
-          startCoords={startCoords}
-          endCoords={endCoords}
-          isSelected={relation.id === schema.selectedElementId}
-        />
+        {relation.fromTableId !== relation.toTableId ? (
+          <DatabaseRelationshipTwoTablesComponent
+            id={relation.id}
+            onClick={onSelectRelation}
+            onDoubleClick={onEditRelation}
+            relationType={relation.type}
+            startCoords={startCoords}
+            endCoords={endCoords}
+            isSelected={relation.id === schema.selectedElementId}
+          />
+        ) : (
+          <DatabaseRelationSelfComponent
+            id={relation.id}
+            onClick={onSelectRelation}
+            onDoubleClick={onEditRelation}
+            relationType={relation.type}
+            startCoords={startCoords}
+            endCoords={endCoords}
+            isSelected={relation.id === schema.selectedElementId}
+          />
+        )}
       </React.Fragment>
     );
   };

@@ -22,7 +22,7 @@ export const ClickableLineComponent: React.FC<Props> = props => {
       y1={startCoords.y}
       x2={endCoords.x}
       y2={endCoords.y}
-      strokeWidth={25}
+      strokeWidth={40}
       stroke="transparent"
       onClick={handleClick}
       onDoubleClick={() => onDoubleClick(id)}
