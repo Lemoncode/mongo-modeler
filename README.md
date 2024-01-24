@@ -24,9 +24,11 @@ We are working on releasing a first Beta in the coming months.
 Your feedback and contributions are welcome! If you have ideas for new features or have found a bug, we would love to hear about it. Here's how you can contribute:
 
 Report a Bug 🐛
+
 If you encounter a bug in the project, please first check if it has already been reported in our GitHub Issues. If you don't find it there, feel free to open a new issue. Provide as many details as possible, including steps to reproduce the bug, the environment in which it occurs (operating system, project version, etc.), and any other relevant details.
 
 Propose a New Feature ✨
+
 Do you have an idea to improve the project? Great! Share your thoughts with us by opening a new GitHub Issue under the feature request label. Describe the feature you would like to see, how and why you think it would be a valuable addition to the project.
 
 ## Technologies
