@@ -19,7 +19,9 @@ interface DatabaseRelationshipProps {
   isSelected: boolean;
 }
 
-const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
+const DatabaseRelationTwoTablesComponent: React.FC<
+  DatabaseRelationshipProps
+> = ({
   id,
   relationType,
   startCoords,
@@ -98,4 +100,4 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
   );
 };
 
-export default DatabaseRelationshipComponent;
+export default DatabaseRelationTwoTablesComponent;
