@@ -2,10 +2,8 @@ import React from 'react';
 import { Coords, GUID } from '@/core/model';
 import { RelationType, TABLE_CONST } from '@/core/providers';
 import { ClickableLineComponent, ForkComponent } from './components';
-import {
-  calculateOriginMinusForkWidthLogic,
-  isDrawLeftToRightLogic,
-} from './relation.business';
+import { isDrawLeftToRightLogic } from './relation.business';
+import { calculateOriginMinusFork } from './database-relation-self.business';
 import classes from './database-relation.component.module.css';
 
 interface DatabaseSelfRelationshipProps {
@@ -38,10 +36,7 @@ export const DatabaseRelationSelfComponent: React.FC<
     endCoords
   );
 
-  const originXMinusFork = calculateOriginMinusForkWidthLogic(
-    relationType,
-    startCoords
-  );
+  const originXMinusFork = calculateOriginMinusFork(startCoords);
 
   const oneToOneRelationSelfPath = `
   M ${startCoords.x} ${startCoords.y} 
@@ -99,7 +94,7 @@ export const DatabaseRelationSelfComponent: React.FC<
       {relationType === '1:M' && (
         <ForkComponent
           isSelected={isSelected}
-          forkCoords={{ x: endCoords.x - 10, y: endCoords.y }}
+          forkCoords={{ x: originXMinusFork, y: endCoords.y }}
           drawLeftToRight={!isDrawLeftToRight}
         />
       )}
