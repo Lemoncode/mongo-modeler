@@ -3,7 +3,7 @@ import { Coords, GUID } from '@/core/model';
 import { RelationType, TABLE_CONST } from '@/core/providers';
 import { ClickableLineComponent, ForkComponent } from './components';
 import { isDrawLeftToRightLogic } from './relation.business';
-import { calculateOriginMinusFork } from './database-relation-self.business';
+import { selfRelationcalculateOriginMinusFork } from './database-relation-self.business';
 import classes from './database-relation.component.module.css';
 
 interface DatabaseSelfRelationshipProps {
@@ -36,7 +36,7 @@ export const DatabaseRelationSelfComponent: React.FC<
     endCoords
   );
 
-  const originXMinusFork = calculateOriginMinusFork(startCoords);
+  const originXMinusFork = selfRelationcalculateOriginMinusFork(startCoords);
 
   const oneToOneRelationSelfPath = `
   M ${startCoords.x} ${startCoords.y} 
