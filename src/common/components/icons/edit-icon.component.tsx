@@ -1,4 +1,3 @@
-// delete ?
 export const Edit = () => {
   return (
     <svg
