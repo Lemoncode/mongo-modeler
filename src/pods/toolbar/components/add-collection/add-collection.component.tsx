@@ -8,7 +8,7 @@ import {
   TableVm,
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
-import { EDIT_TABLE_TITLE } from '@/common/components/modal-dialog';
+import { ADD_COLLECTION_TITLE } from '@/common/components/modal-dialog';
 
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -32,7 +32,7 @@ export const AddCollection = () => {
         relations={canvasSchema.relations}
         onSave={handleAddTable}
       />,
-      EDIT_TABLE_TITLE
+      ADD_COLLECTION_TITLE
     );
   };
   return (
