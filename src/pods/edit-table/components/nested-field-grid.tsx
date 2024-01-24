@@ -3,6 +3,7 @@ import classes from '../edit-table.module.css';
 import { FieldType, GUID } from '@/core/model';
 import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
 import { Commands } from './commands/commands.component';
+import { RightArrowIcon, ExpandDown } from '@/common/components';
 
 interface NestedFieldGridProps {
   fields: FieldVm[];
@@ -33,20 +34,6 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   onMoveDownField,
   onMoveUpField,
 }) => {
-  const renderFieldHeaders = () => (
-    <div className={`${classes.headerRow} ${classes[`indent${level}`]}`}>
-      <div className={`${classes.headerCell} ${classes.expandCell}`}>
-        Expand
-      </div>
-      <div className={classes.headerCell}>PK</div>
-      <div className={classes.headerCell}>FK</div>
-      <div className={classes.headerCell}>Name</div>
-      <div className={classes.headerCell}>Type</div>
-      <div className={classes.headerCell}>isArray</div>
-      <div className={classes.headerCell}>Actions</div>
-    </div>
-  );
-
   const handleAddField = (fieldId: GUID, isChildren: boolean) => {
     if (isChildren) {
       expandField(fieldId);
@@ -56,15 +43,29 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
 
   const renderField = (field: FieldVm): JSX.Element => (
     <React.Fragment key={field.id}>
-      <div className={`${classes.fieldRow} ${classes[`indent${level}`]}`}>
-        <div className={`${classes.fieldCell} ${classes.expandCell}`}>
+      <div className={`${classes.fieldRow} `}>
+        <div
+          className={`${classes.fieldCell} ${classes.expandCell} ${classes[`indent${level}`]}`}
+        >
           {field.type === 'object' ? (
             <button onClick={() => toggleExpand(field.id)}>
-              {expandedFields.has(field.id) ? '▼' : '▶'}
+              {expandedFields.has(field.id) ? (
+                <ExpandDown />
+              ) : (
+                <RightArrowIcon />
+              )}
             </button>
           ) : (
-            <div /> // Empty div just to keep constant width
+            <div className={classes.buttonSpace} /> // Empty div just to keep constant width
           )}
+          <div className={classes.inputName}>
+            <input
+              value={field.name}
+              onChange={e => {
+                updateFieldValue(field, 'name', e.target.value);
+              }}
+            />
+          </div>
         </div>
         <div className={classes.fieldCell}>
           <input
@@ -80,14 +81,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             onChange={() => updateFieldValue(field, 'FK', !field.FK)}
           />
         </div>
-        <div className={classes.fieldCell}>
-          <input
-            value={field.name}
-            onChange={e => {
-              updateFieldValue(field, 'name', e.target.value);
-            }}
-          />
-        </div>
+
         <div className={classes.fieldCell}>
           <select
             value={field.type}
@@ -139,7 +133,6 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
 
   return (
     <div className={classes.nestedGrid}>
-      {renderFieldHeaders()}
       {fields.map(field => renderField(field))}
     </div>
   );
