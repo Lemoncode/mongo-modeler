@@ -1,7 +1,7 @@
 import React from 'react';
 import { Coords, GUID } from '@/core/model';
 import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
-import DatabaseRelationshipComponent from './database-relation.component';
+import DatabaseRelationshipTwoTablesComponent from './database-relation-two-tables.component';
 import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
@@ -52,7 +52,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
         key={`${relation.fromTableId}-${relation.fromFieldId}-${relation.toTableId}-${relation.toFieldId}`}
       >
         {relation.fromTableId !== relation.toTableId ? (
-          <DatabaseRelationshipComponent
+          <DatabaseRelationshipTwoTablesComponent
             id={relation.id}
             onClick={onSelectRelation}
             onDoubleClick={onEditRelation}

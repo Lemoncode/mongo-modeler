@@ -9,7 +9,7 @@ import {
 } from './relation.business';
 import classes from './database-relation.component.module.css';
 
-interface DatabaseRelationshipProps {
+interface DatabaseRelationshipTwoTablesProps {
   id: GUID;
   relationType: RelationType;
   startCoords: Coords;
@@ -19,7 +19,9 @@ interface DatabaseRelationshipProps {
   isSelected: boolean;
 }
 
-const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
+const DatabaseRelationshipTwoTablesComponent: React.FC<
+  DatabaseRelationshipTwoTablesProps
+> = ({
   id,
   relationType,
   startCoords,
@@ -98,4 +100,4 @@ const DatabaseRelationshipComponent: React.FC<DatabaseRelationshipProps> = ({
   );
 };
 
-export default DatabaseRelationshipComponent;
+export default DatabaseRelationshipTwoTablesComponent;

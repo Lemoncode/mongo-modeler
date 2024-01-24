@@ -8,7 +8,6 @@ export const DeleteButton: React.FC = () => {
   const { canvasSchema, deleteSelectedItem } = useCanvasSchemaContext();
   const handleDeleteSelectedItemClick = () => {
     if (canvasSchema.selectedElementId) {
-      console.log(canvasSchema.selectedElementId);
       deleteSelectedItem(canvasSchema.selectedElementId);
     }
   };
