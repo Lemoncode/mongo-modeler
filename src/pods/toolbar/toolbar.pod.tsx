@@ -4,7 +4,7 @@ import {
   ZoomInButton,
   ZoomOutButton,
   RelationButton,
-  EditButton,
+  AddCollection,
   ThemeToggleButton,
   ExportButton,
   NewButton,
@@ -24,7 +24,7 @@ export const ToolbarPod: React.FC = () => {
       <SaveButton />
       <ZoomInButton />
       <ZoomOutButton />
-      <EditButton />
+      <AddCollection />
       <RelationButton />
       <UndoButton />
       <RedoButton />
