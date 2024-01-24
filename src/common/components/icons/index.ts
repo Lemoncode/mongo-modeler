@@ -12,3 +12,4 @@ export * from './save-icon.component';
 export * from './undo-icon.component';
 export * from './redo-icon.component';
 export * from './trash-icon.component';
+export * from './collection-icon.component';
