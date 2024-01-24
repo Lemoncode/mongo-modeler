@@ -3,7 +3,7 @@ import classes from '../edit-table.module.css';
 import { FieldType, GUID } from '@/core/model';
 import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
 import { Commands } from './commands/commands.component';
-import { CollapseObjectIcon, ExpandObjectIcon } from '@/common/components';
+import { RightArrowIcon, ExpandDown } from '@/common/components';
 
 interface NestedFieldGridProps {
   fields: FieldVm[];
@@ -50,9 +50,9 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           {field.type === 'object' ? (
             <button onClick={() => toggleExpand(field.id)}>
               {expandedFields.has(field.id) ? (
-                <CollapseObjectIcon />
+                <ExpandDown />
               ) : (
-                <ExpandObjectIcon />
+                <RightArrowIcon />
               )}
             </button>
           ) : (
