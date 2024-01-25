@@ -2,9 +2,6 @@
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   margin: 10px;
-  border: 1px solid var(--border-color);
-  border-bottom: none;
-  border-top: none;
   min-width: 800px;
 }
 
@@ -13,7 +10,7 @@
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   grid-column: 1 / -1;
-  border-bottom: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
 }
 
 .nestedGrid {
@@ -41,7 +38,6 @@
   padding: 8px 5px;
   background-color: var(--highlight-color);
   color: var(--text-color);
-  border-top: 1px solid var(--border-color);
 }
 
 .commands-container {

@@ -4,6 +4,7 @@ import { FieldType, GUID } from '@/core/model';
 import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
 import { Commands } from './commands/commands.component';
 import { RightArrowIcon, ExpandDown } from '@/common/components';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface NestedFieldGridProps {
   fields: FieldVm[];
@@ -43,7 +44,29 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
 
   const renderField = (field: FieldVm): JSX.Element => (
     <React.Fragment key={field.id}>
-      <div className={`${classes.fieldRow} `}>
+      <motion.div
+        className={`${classes.fieldRow} `}
+        initial={{
+          opacity: 0,
+          x: -200,
+          scale: 0.8,
+          borderTopWidth: 1,
+        }}
+        animate={{
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          borderTopWidth: 0,
+          transition: { duration: 0.3 },
+        }}
+        exit={{
+          opacity: 0,
+          x: -200,
+          scale: 0.8,
+          borderTopWidth: 1,
+          transition: { duration: 0.3 },
+        }}
+      >
         <div
           className={`${classes.fieldCell} ${classes.expandCell} ${classes[`indent${level}`]}`}
         >
@@ -113,7 +136,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             onMoveUpField={onMoveUpField}
           />
         </div>
-      </div>
+      </motion.div>
       {field.children && expandedFields.has(field.id) && (
         <NestedFieldGrid
           fields={field.children}
@@ -133,7 +156,9 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
 
   return (
     <div className={classes.nestedGrid}>
-      {fields.map(field => renderField(field))}
+      <AnimatePresence initial={false}>
+        {fields.map(field => renderField(field))}
+      </AnimatePresence>
     </div>
   );
 };
