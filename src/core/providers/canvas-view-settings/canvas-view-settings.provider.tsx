@@ -4,7 +4,7 @@ import {
   createInitialSettings,
 } from './canvas-view-settings.model';
 import { CanvasViewSettingsContext } from './canvas-view-settings.context';
-import { Size } from '@/core/model';
+import { Coords, Size } from '@/core/model';
 
 interface Props {
   children: React.ReactNode;
@@ -14,6 +14,10 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   const { children } = props;
   const [canvasViewSettings, setCanvasViewSettings] =
     React.useState<CanvasViewSettingsModel>(createInitialSettings());
+  const [scrollPosition, setScrollPosition] = React.useState<Coords>({
+    x: 0,
+    y: 0,
+  });
 
   const zoomIn = () =>
     setCanvasViewSettings({
@@ -36,7 +40,14 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
 
   return (
     <CanvasViewSettingsContext.Provider
-      value={{ canvasViewSettings, zoomIn, zoomOut, setCanvasSize }}
+      value={{
+        canvasViewSettings,
+        scrollPosition,
+        zoomIn,
+        zoomOut,
+        setCanvasSize,
+        setScrollPosition,
+      }}
     >
       {children}
     </CanvasViewSettingsContext.Provider>

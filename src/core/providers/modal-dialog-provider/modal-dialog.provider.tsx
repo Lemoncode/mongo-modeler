@@ -14,10 +14,12 @@ export const ModalDialogProvider: React.FC<Props> = props => {
   const [modalDialog, setModalDialog] = React.useState<ModalDialogModel>(
     createInitialModalDialog()
   );
-  const openModal = (component: React.ReactNode | null) => {
+
+  const openModal = (component: React.ReactNode | null, title: string) => {
     setModalDialog({
       isOpen: true,
       selectedComponent: component,
+      title,
     });
   };
 
@@ -25,6 +27,7 @@ export const ModalDialogProvider: React.FC<Props> = props => {
     setModalDialog({
       isOpen: false,
       selectedComponent: null,
+      title: '',
     });
   };
   return (

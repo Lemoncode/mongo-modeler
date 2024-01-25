@@ -6,7 +6,14 @@ import {
   mapTableVmToEditTableVm,
 } from './edit-table.mapper';
 import { EditTableComponent } from './edit-table.component';
-import { updateFieldValueLogic } from './edit-table.business';
+import { produce } from 'immer';
+import { GUID } from '@/core/model';
+import {
+  addFieldLogic,
+  moveDownField,
+  moveUpField,
+  removeField,
+} from './edit-table.business';
 
 interface Props {
   table?: canvasVm.TableVm; // TODO: should we have our own Vm?
@@ -46,19 +53,72 @@ export const EditTablePod: React.FC<Props> = props => {
     value: editTableVm.FieldVm[K]
   ) => {
     setEditTable(currentTable =>
-      updateFieldValueLogic(currentTable, { fieldToUpdate, key, value })
+      // TODO: Extract this into a business method and add unit test support
+      // #61
+      // https://github.com/Lemoncode/mongo-modeler/issues/61
+      produce(currentTable, draftTable => {
+        // Find and update the field by it's id
+        const findAndUpdateField = (fields: editTableVm.FieldVm[]): boolean => {
+          const formerField = fields.find(f => f.id === fieldToUpdate.id);
+          if (formerField) {
+            if (
+              key === 'type' &&
+              formerField[key] === 'object' &&
+              value !== 'object'
+            ) {
+              formerField.children = undefined;
+            }
+            formerField[key] = value;
+            return true; // Field found and updated
+          }
+          // Recursively search in nested fields
+          for (const field of fields) {
+            if (field.children && findAndUpdateField(field.children)) {
+              return true; // Field found and updated in nested field
+            }
+          }
+
+          return false; // Field not found
+        };
+
+        findAndUpdateField(draftTable.fields);
+      })
     );
   };
 
+  const onDeleteField = (fieldId: GUID) => {
+    setEditTable(currentTable => removeField(currentTable, fieldId));
+  };
+
+  const onAddField = (fieldId: GUID, isChildren: boolean) => {
+    setEditTable(currentTable =>
+      addFieldLogic(currentTable, fieldId, isChildren)
+    );
+  };
+
+  const updateTableName = (tableName: string) => {
+    setEditTable({ ...editTable, tableName });
+  };
+
+  const onMoveDownField = (fieldId: GUID) => {
+    setEditTable(currentTable => moveDownField(currentTable, fieldId));
+  };
+
+  const onMoveUpField = (fieldId: GUID) => {
+    setEditTable(currentTable => moveUpField(currentTable, fieldId));
+  };
   return (
-    <div>
-      <h2>Edit table</h2>
-      <p>Table name: {editTable?.tableName}</p>
+    <>
       <EditTableComponent
         table={editTable}
         updateFieldValue={updateFieldValue}
+        onDeleteField={onDeleteField}
+        onAddField={onAddField}
+        updateTableName={updateTableName}
+        onMoveDownField={onMoveDownField}
+        onMoveUpField={onMoveUpField}
       />
       <button onClick={() => handleSubmit(editTable)}>Apply</button>
-    </div>
+    </>
   );
 };

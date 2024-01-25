@@ -1,6 +1,12 @@
 import { Coords, GUID, Size } from '@/core/model';
-import { DatabaseSchemaVm, FieldVm, TableVm } from './canvas-schema.model';
+import {
+  DatabaseSchemaVm,
+  FieldVm,
+  TableVm,
+  RelationVm,
+} from './canvas-schema.model';
 import { TABLE_CONST } from './canvas.const';
+import { produce } from 'immer';
 
 export interface UpdateInfo {
   id: GUID;
@@ -203,3 +209,48 @@ export const calculateRelationYCoordinate = (
   yOrigin: calculateRelationYOffset(fieldIdORigin, tableOrigin),
   yDestination: calculateRelationYOffset(fieldIdDestination, tableDestination),
 });
+
+export const doFieldToggleCollapseLogic = (
+  currentSchema: DatabaseSchemaVm,
+  tableId: GUID,
+  fieldId: GUID
+) =>
+  produce(currentSchema, draft => {
+    const table = draft.tables.find(t => t.id === tableId);
+    if (table) {
+      const field = findField(table.fields, fieldId);
+      if (field) {
+        field.isCollapsed = !field.isCollapsed;
+      }
+    }
+  });
+
+// #90 AddRelation avoid adding a relation that already exists
+export const doesRelationAlreadyExists = (
+  databaseSchema: DatabaseSchemaVm,
+  newRelation: RelationVm
+): boolean => {
+  return databaseSchema.relations.some(
+    relation =>
+      relation.fromTableId === newRelation.fromTableId &&
+      relation.toTableId === newRelation.toTableId &&
+      relation.fromFieldId === newRelation.fromFieldId &&
+      relation.toFieldId === newRelation.toFieldId &&
+      relation.type === newRelation.type
+  );
+};
+
+export const deleteItemFromCanvasSchema = (
+  currentSchema: DatabaseSchemaVm,
+  selectedItemId: GUID
+) =>
+  produce(currentSchema, draft => {
+    draft.tables = draft.tables.filter(t => t.id !== selectedItemId);
+    draft.relations = draft.relations.filter(
+      r =>
+        r.id !== selectedItemId &&
+        r.fromTableId !== selectedItemId &&
+        r.toTableId !== selectedItemId
+    );
+    draft.selectedElementId = null;
+  });

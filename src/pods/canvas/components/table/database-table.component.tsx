@@ -1,29 +1,40 @@
 // Importaciones necesarias
 import React from 'react';
-import { Coords, GUID, Size } from '@/core/model';
-import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
+import { GUID, Size } from '@/core/model';
+import {
+  FieldVm,
+  TableVm,
+  UpdatePositionFn,
+} from '@/core/providers/canvas-schema';
 import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
-import { TABLE_CONST } from '@/core/providers/canvas-schema';
+import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { DatabaseTableRow } from './database-table-row.component';
+import { TruncatedText } from './truncated-text.component';
 
+// TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
+// TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
 interface Props {
   tableInfo: TableVm;
-  updatePosition: (
-    id: string,
-    position: Coords,
-    totalHeight: number,
-    canvasSize: Size
-  ) => void;
+  updatePosition: UpdatePositionFn;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
   onEditTable: (tableInfo: TableVm) => void;
+  canvasSize: Size;
+  isSelected: boolean;
+  selectTable: (tableId: GUID) => void;
 }
+
+const HEADER_TITLE_GAP = 15;
+const TITLE_MARGIN_LEFT = 10;
 
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
   onEditTable,
   updatePosition,
   onToggleCollapse,
+  canvasSize,
+  isSelected,
+  selectTable,
 }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
 
@@ -83,8 +94,18 @@ export const DatabaseTable: React.FC<Props> = ({
     tableInfo.x,
     tableInfo.y,
     updatePosition,
-    totalHeight
+    totalHeight,
+    canvasSize
   );
+
+  const rectStyle = {
+    filter: isSelected ? 'url(#table_component_selected)' : 'none', // Aplica el filtro si está seleccionado
+  };
+
+  const handleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
+    selectTable(tableInfo.id);
+    e.stopPropagation();
+  };
 
   const handleDoubleClick = () => {
     onEditTable(tableInfo);
@@ -94,13 +115,20 @@ export const DatabaseTable: React.FC<Props> = ({
       transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
       onMouseDown={onMouseDown}
       className={classes.tableContainer}
+      onClick={handleClick}
     >
+      <defs>
+        <filter id="table_component_selected" x="0" y="0">
+          <feDropShadow dx="5" dy="5" stdDeviation="2" />
+        </filter>
+      </defs>
       <rect
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
-        height={totalHeight}
+        height={totalHeight + HEADER_TITLE_GAP}
         className={classes.tableBackground}
+        style={rectStyle}
       />
       <rect
         x="0"
@@ -110,17 +138,23 @@ export const DatabaseTable: React.FC<Props> = ({
         className={classes.tableHeader}
         onDoubleClick={handleDoubleClick}
       />
-      <text x="10" y={TABLE_CONST.FONT_SIZE} className={classes.tableText}>
-        {tableInfo.tableName}
-      </text>
 
-      {renderedRows}
+      <TruncatedText
+        text={tableInfo.tableName}
+        x={TITLE_MARGIN_LEFT}
+        y={0}
+        width={TABLE_CONST.TABLE_WIDTH - TITLE_MARGIN_LEFT}
+        height={TABLE_CONST.FONT_SIZE}
+        textClass={classes.tableText}
+      />
+
+      <g transform={`translate(0, ${HEADER_TITLE_GAP})`}>{renderedRows}</g>
 
       <rect
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
-        height={totalHeight}
+        height={totalHeight + HEADER_TITLE_GAP}
         className={classes.table}
       />
     </g>

@@ -1,13 +1,53 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
   DatabaseSchemaVm,
+  RelationVm,
   TableVm,
+  UpdatePositionItemInfo,
   createDefaultDatabaseSchemaVm,
 } from './canvas-schema.model';
-import { Coords, GUID, Size } from '@/core/model';
-import { findField, moveTableToTop } from './canvas.business';
+import { GUID } from '@/core/model';
+import {
+  moveTableToTop,
+  doFieldToggleCollapseLogic,
+  doesRelationAlreadyExists,
+  deleteItemFromCanvasSchema,
+} from './canvas.business';
+import {
+  addNewTable,
+  updateRelation,
+  updateTable,
+} from './canvas-schema.business';
+import { useHistoryManager } from '@/common/undo-redo';
+
+function useStateWithInterceptor<S>(
+  initialState: S | (() => S),
+  schemaInterceptorFn: (schema: S) => void
+): [S, Dispatch<SetStateAction<S>>, Dispatch<SetStateAction<S>>] {
+  const [canvasSchema, setInternalCanvasSchema] =
+    React.useState<S>(initialState);
+
+  const setSchema = (newSchema: React.SetStateAction<S>): void => {
+    // If newSchema is a function, use it to calculate the new state based on the current state
+    // Otherwise, use newSchema directly
+    const updatedSchema =
+      newSchema instanceof Function ? newSchema(canvasSchema) : newSchema;
+
+    schemaInterceptorFn(updatedSchema);
+
+    return setInternalCanvasSchema(newSchema);
+  };
+
+  const setSchemaSkipInterceptor = (
+    newSchema: React.SetStateAction<S>
+  ): void => {
+    return setInternalCanvasSchema(newSchema);
+  };
+
+  return [canvasSchema, setSchema, setSchemaSkipInterceptor];
+}
 
 interface Props {
   children: React.ReactNode;
@@ -15,77 +55,129 @@ interface Props {
 
 export const CanvasSchemaProvider: React.FC<Props> = props => {
   const { children } = props;
+  const {
+    addSnapshot,
+    canRedo: canRedoLogic,
+    canUndo: canUndoLogic,
+    redo,
+    undo,
+    getCurrentState: getCurrentUndoHistoryState,
+  } = useHistoryManager(createDefaultDatabaseSchemaVm());
+
   // TODO: consider moving all these to useReducer (discuss first if needed)
   // #54 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/54
-  const [canvasSchema, setSchema] = React.useState<DatabaseSchemaVm>(
-    createDefaultDatabaseSchemaVm()
-  );
+  const [canvasSchema, setSchema, setSchemaSkipHistory] =
+    useStateWithInterceptor(createDefaultDatabaseSchemaVm(), addSnapshot);
 
   const loadSchema = (newSchema: DatabaseSchemaVm) => {
     setSchema(newSchema);
   };
 
+  const createEmptySchema = () => {
+    setSchema(createDefaultDatabaseSchemaVm());
+  };
+
   const updateFullTable = (table: TableVm) => {
-    // TODO: move this to index and add unit tests support
-    // #55 created to track this
-    // https://github.com/Lemoncode/mongo-modeler/issues/55
-    setSchema(prevSchema =>
-      produce(prevSchema, draft => {
-        const tableIndex = draft.tables.findIndex(t => t.id === table.id);
-        if (tableIndex !== -1) {
-          draft.tables[tableIndex] = table;
-        }
-      })
-    );
+    setSchema(prevSchema => updateTable(table, prevSchema));
   };
 
   // TODO: #56 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/56
   const addTable = (table: TableVm) => {
-    setSchema(prevSchema =>
-      produce(prevSchema, draft => {
-        draft.tables.push(table);
-      })
-    );
+    setSchema(prevSchema => addNewTable(table, prevSchema));
+  };
+
+  // TODO: #90
+  //https://github.com/Lemoncode/mongo-modeler/issues/90
+  const addRelation = (relation: RelationVm) => {
+    if (!doesRelationAlreadyExists(canvasSchema, relation)) {
+      setSchema(prevSchema =>
+        produce(prevSchema, draft => {
+          draft.relations.push(relation);
+        })
+      );
+    }
+  };
+
+  const updateFullRelation = (relationUpdated: RelationVm) => {
+    setSchema(prevSchema => updateRelation(relationUpdated, prevSchema));
   };
 
   const updateTablePosition = (
-    id: string,
-    position: Coords,
-    totalHeight: number,
-    canvasSize: Size
+    itemInfo: UpdatePositionItemInfo,
+    isDragFinished: boolean
   ) => {
-    setSchema(prevSchema =>
-      moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
-    );
+    const { id, position, totalHeight, canvasSize } = itemInfo;
+    isDragFinished
+      ? setSchema(prevSchema =>
+          moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
+        )
+      : setSchemaSkipHistory(prevSchema =>
+          moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
+        );
   };
 
   // TODO: #57 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/57
-  const doFieldToggleCollapse = (tableId: string, fieldId: GUID): void => {
-    setSchema(currentSchema =>
-      produce(currentSchema, draft => {
-        const table = draft.tables.find(t => t.id === tableId);
-        if (table) {
-          const field = findField(table.fields, fieldId);
-          if (field) {
-            field.isCollapsed = !field.isCollapsed;
-          }
-        }
-      })
+  const doFieldToggleCollapse = (tableId: GUID, fieldId: GUID): void => {
+    setSchemaSkipHistory(currentSchema =>
+      doFieldToggleCollapseLogic(currentSchema, tableId, fieldId)
     );
   };
 
+  const doSelectElement = (id: GUID | null) => {
+    setSchemaSkipHistory(currentSchema => ({
+      ...currentSchema,
+      selectedElementId: id,
+    }));
+  };
+
+  const doUndo = () => {
+    if (canUndo()) {
+      undo();
+      setSchemaSkipHistory(getCurrentUndoHistoryState());
+    }
+  };
+
+  const doRedo = () => {
+    if (canRedo()) {
+      redo();
+      setSchemaSkipHistory(getCurrentUndoHistoryState());
+    }
+  };
+
+  const canRedo = () => {
+    return canRedoLogic();
+  };
+
+  const canUndo = () => {
+    return canUndoLogic();
+  };
+
+  const deleteSelectedItem = (selectedElementId: GUID) => {
+    setSchema(currentSchema =>
+      deleteItemFromCanvasSchema(currentSchema, selectedElementId)
+    );
+  };
   return (
     <CanvasSchemaContext.Provider
       value={{
         canvasSchema,
+        createEmptySchema,
         loadSchema,
         updateTablePosition,
         doFieldToggleCollapse,
         updateFullTable,
         addTable,
+        addRelation,
+        doSelectElement,
+        canUndo,
+        canRedo,
+        doUndo,
+        doRedo,
+        updateFullRelation,
+        deleteSelectedItem,
       }}
     >
       {children}

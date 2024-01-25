@@ -4,9 +4,11 @@ import {
   RelationVm,
   TableVm,
 } from '@/core/providers/canvas-schema';
+import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 
-const tagTableId = '1';
-const restaurantTableId = '2';
+const tagRelationId = GenerateGUID();
+const tagTableId = GenerateGUID();
+const restaurantTableId = GenerateGUID();
 const tagFieldId = GenerateGUID();
 const restauranteNameFieldGUID = GenerateGUID();
 const restaurantTagFieldGUID = GenerateGUID();
@@ -15,6 +17,7 @@ const restaurantIdField = GenerateGUID();
 
 const mockRelations: RelationVm[] = [
   {
+    id: tagRelationId,
     fromTableId: tagTableId,
     toTableId: restaurantTableId,
     fromFieldId: tagFieldId,
@@ -26,7 +29,7 @@ const mockRelations: RelationVm[] = [
 const mockTables: TableVm[] = [
   {
     id: tagTableId,
-    x: 100,
+    x: TABLE_CONST.DEFAULT_TABLE_WIDTH / 2,
     y: 150,
     tableName: 'tags',
     fields: [
@@ -34,7 +37,7 @@ const mockTables: TableVm[] = [
         id: tagFieldId,
         name: 'id',
         PK: true,
-        type: 'number',
+        type: 'int',
       },
       {
         id: restauranteNameFieldGUID,
@@ -46,14 +49,14 @@ const mockTables: TableVm[] = [
   },
   {
     id: restaurantTableId,
-    x: 500,
+    x: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
     y: 80,
     tableName: 'Restaurant',
     fields: [
       {
         id: restaurantIdField,
         name: 'id',
-        type: 'number',
+        type: 'int',
         PK: false,
       },
       {
@@ -71,7 +74,7 @@ const mockTables: TableVm[] = [
           {
             id: GenerateGUID(),
             name: 'id',
-            type: 'number',
+            type: 'objectId',
             PK: false,
           },
           {
@@ -84,12 +87,13 @@ const mockTables: TableVm[] = [
             id: GenerateGUID(),
             name: 'dishes',
             type: 'object',
+            isArray: true,
             PK: false,
             children: [
               {
                 id: GenerateGUID(),
                 name: 'id',
-                type: 'number',
+                type: 'objectId',
                 PK: false,
               },
               {
@@ -101,7 +105,7 @@ const mockTables: TableVm[] = [
               {
                 id: GenerateGUID(),
                 name: 'price',
-                type: 'number',
+                type: 'decimal',
                 PK: false,
               },
             ],
@@ -111,7 +115,8 @@ const mockTables: TableVm[] = [
       {
         id: restaurantTagFieldGUID,
         name: 'tags',
-        type: 'number',
+        type: 'objectId',
+        isArray: true,
         PK: false,
       },
       {
@@ -141,7 +146,7 @@ const mockTables: TableVm[] = [
           {
             id: GenerateGUID(),
             name: 'zip',
-            type: 'number',
+            type: 'int',
             PK: false,
           },
         ],
@@ -151,6 +156,7 @@ const mockTables: TableVm[] = [
 ];
 
 export const mockSchema: DatabaseSchemaVm = {
+  selectedElementId: null,
   tables: mockTables,
   relations: mockRelations,
 };
