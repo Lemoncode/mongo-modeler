@@ -2,6 +2,8 @@ import { produce } from 'immer';
 import { FieldVm, TableVm } from './edit-table.vm';
 import { GUID } from '@/core/model';
 import * as editTableVm from './edit-table.vm';
+import * as canvasVm from '@/core/providers/canvas-schema';
+import { mapTableVmToEditTableVm } from './edit-table.mapper';
 
 // TODO: Add unit test support
 // #75
@@ -108,3 +110,11 @@ export const moveUpField = (table: TableVm, fieldId: GUID): TableVm => {
     moveUpFieldRecursive(draftTable.fields);
   });
 };
+
+export const doMapOrCreateTable = (
+  relations: canvasVm.RelationVm[],
+  table?: canvasVm.TableVm
+): editTableVm.TableVm =>
+  table
+    ? mapTableVmToEditTableVm(table, relations)
+    : editTableVm.createDefaultTable();
