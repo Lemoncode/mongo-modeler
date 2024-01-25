@@ -1,18 +1,17 @@
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   padding: 10px;
   background-color: var(--primary-toolbar);
   border-bottom: 2px solid var(--highlight-color);
 }
 
 .button {
+  background: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  justify-content: center;
   color: var(--text-color);
-  background: none;
   fill: var(--text-color);
 }

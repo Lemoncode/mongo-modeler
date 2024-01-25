@@ -125,7 +125,22 @@ related to each other and to the dialog header*/
   gap: 10px;
 }
 .table-name input {
-  padding: 3px;
+  max-width: 190px;
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: var(--highlight-color);
+  color: var(--text-color);
+  transition: 0.3s ease;
+}
+.table-name input:focus,
+.table-name input:hover {
+  outline: none;
+  border-color: var(--primary-gradient-end);
+  box-shadow: 0 0 0 4px rgba(252, 133, 6, 0.1);
 }
 
 .fieldCell button {

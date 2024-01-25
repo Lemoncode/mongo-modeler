@@ -2,6 +2,7 @@
   margin: 0 auto;
   text-align: center;
   --padding-table: 38px;
+  --button-fill-color: #202020;
 }
 
 * {
@@ -11,22 +12,36 @@
 .light {
   --primary-background: #f1f5f9;
   --secondary-background: #fefdfe;
-  --accent-color: #e367f4;
+  --accent-color: #a32525;
   --highlight-color: #e6eaf2;
   --primary-toolbar: #fefdfe;
   --text-color: #202020;
   --text-disabled: #a9a9a9;
   --border-color: #b6b6b6;
+  --primary-gradient-start: #e6e9f3;
+  --primary-gradient-end: #fcd08a;
+  --gradient: linear-gradient(
+    98deg,
+    var(--primary-gradient-start) 28%,
+    var(--primary-gradient-end) 80%
+  );
 }
 .dark {
   --primary-background: #2e263e;
   --secondary-background: #342c44;
-  --accent-color: #00e5ff;
+  --accent-color: #ee7373;
   --highlight-color: #4d425f;
   --primary-toolbar: #342c44;
   --text-color: #d1d6e1;
   --text-disabled: #5a5564;
   --border-color: #898989;
+  --primary-gradient-start: #025373;
+  --primary-gradient-end: #01a9c6;
+  --gradient: linear-gradient(
+    98deg,
+    var(--primary-gradient-start) 28%,
+    var(--primary-gradient-end) 80%
+  );
 }
 
 .logo {
@@ -88,7 +103,7 @@ button:focus-visible {
 }
 
 button:hover {
-  box-shadow: 0 0 3px 2px var(--accent-color);
+  background-color: var(--highlight-color);
 }
 
 button:disabled {
