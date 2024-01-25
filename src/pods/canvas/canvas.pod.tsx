@@ -13,7 +13,7 @@ import {
 import { EditTablePod } from '../edit-table';
 import {
   EDIT_RELATION_TITLE,
-  EDIT_TABLE_TITLE,
+  EDIT_COLLECTION_TITLE,
 } from '@/common/components/modal-dialog';
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
@@ -67,7 +67,7 @@ export const CanvasPod: React.FC = () => {
         relations={canvasSchema.relations}
         onSave={handleTableEditUpdate}
       />,
-      EDIT_TABLE_TITLE
+      EDIT_COLLECTION_TITLE
     );
   };
 
