@@ -6,7 +6,7 @@ import {
   mapTableVmToEditTableVm,
 } from './edit-table.mapper';
 import { EditTableComponent } from './edit-table.component';
-import { produce } from 'immer';
+import { updateFieldValueLogic } from './edit-table.business';
 
 interface Props {
   table?: canvasVm.TableVm; // TODO: should we have our own Vm?
@@ -46,29 +46,7 @@ export const EditTablePod: React.FC<Props> = props => {
     value: editTableVm.FieldVm[K]
   ) => {
     setEditTable(currentTable =>
-      // TODO: Extract this into a business method and add unit test support
-      // #61
-      // https://github.com/Lemoncode/mongo-modeler/issues/61
-      produce(currentTable, draftTable => {
-        // Find and update the field by it's id
-        const findAndUpdateField = (fields: editTableVm.FieldVm[]): boolean => {
-          const formerField = fields.find(f => f.id === fieldToUpdate.id);
-          if (formerField) {
-            formerField[key] = value;
-            return true; // Field found and updated
-          }
-          // Recursively search in nested fields
-          for (const field of fields) {
-            if (field.children && findAndUpdateField(field.children)) {
-              return true; // Field found and updated in nested field
-            }
-          }
-
-          return false; // Field not found
-        };
-
-        findAndUpdateField(draftTable.fields);
-      })
+      updateFieldValueLogic(currentTable, { fieldToUpdate, key, value })
     );
   };
 
