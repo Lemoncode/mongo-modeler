@@ -137,28 +137,53 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           />
         </div>
       </motion.div>
-      {field.children && expandedFields.has(field.id) && (
-        <NestedFieldGrid
-          fields={field.children}
-          level={level + 1}
-          expandedFields={expandedFields}
-          toggleExpand={toggleExpand}
-          expandField={expandField}
-          updateFieldValue={updateFieldValue}
-          onDeleteField={onDeleteField}
-          onAddField={onAddField}
-          onMoveDownField={onMoveDownField}
-          onMoveUpField={onMoveUpField}
-        />
-      )}
+      <AnimatePresence initial={false}>
+        {field.children && expandedFields.has(field.id) && (
+          <NestedFieldGrid
+            fields={field.children}
+            level={level + 1}
+            expandedFields={expandedFields}
+            toggleExpand={toggleExpand}
+            expandField={expandField}
+            updateFieldValue={updateFieldValue}
+            onDeleteField={onDeleteField}
+            onAddField={onAddField}
+            onMoveDownField={onMoveDownField}
+            onMoveUpField={onMoveUpField}
+          />
+        )}
+      </AnimatePresence>
     </React.Fragment>
   );
 
   return (
-    <div className={classes.nestedGrid}>
-      <AnimatePresence initial={false}>
-        {fields.map(field => renderField(field))}
-      </AnimatePresence>
-    </div>
+    <motion.div
+      className={classes.nestedGrid}
+      key={level}
+      initial="collapsed"
+      animate="open"
+      exit="collapsed"
+      variants={{
+        open: { opacity: 1, height: 'auto' },
+        collapsed: { opacity: 0, height: 0 },
+      }}
+      transition={{ duration: 0.8 }}
+    >
+      <motion.div
+        initial="collapsed"
+        animate="open"
+        exit="collapsed"
+        variants={{
+          open: { opacity: 1 },
+          collapsed: { opacity: 0 },
+        }}
+        transition={{ duration: 0.8 }}
+        className={classes.content}
+      >
+        <AnimatePresence initial={false}>
+          {fields.map(field => renderField(field))}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
   );
 };

@@ -3,6 +3,7 @@ import classes from './edit-table.module.css';
 import { FieldVm, TableVm } from './edit-table.vm';
 import { NestedFieldGrid } from './components/nested-field-grid';
 import { GUID } from '@/core/model';
+import { AnimatePresence } from 'framer-motion';
 
 interface Props {
   table: TableVm;
@@ -68,6 +69,7 @@ export const EditTableComponent: React.FC<Props> = props => {
           />
         </label>
       </div>
+
       <div className={classes.tableEditor}>
         <div className={classes.headerRow}>
           <div className={classes.headerCell}>Name</div>
@@ -77,7 +79,7 @@ export const EditTableComponent: React.FC<Props> = props => {
           <div className={classes.headerCell}>isArray</div>
           <div className={classes.headerCell}>Actions</div>
         </div>
-
+        {/* <AnimatePresence initial={false}> */}
         <NestedFieldGrid
           fields={table.fields}
           level={0}
@@ -90,6 +92,7 @@ export const EditTableComponent: React.FC<Props> = props => {
           onMoveDownField={onMoveDownField}
           onMoveUpField={onMoveUpField}
         />
+        {/* </AnimatePresence> */}
       </div>
     </>
   );

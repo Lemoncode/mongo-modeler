@@ -18,7 +18,12 @@
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   grid-column: 1 / -1;
 }
-
+.content {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: auto 60px 60px 150px 80px 250px;
+  transform-origin: top center;
+}
 .fieldCell,
 .headerCell {
   width: 100%;
@@ -64,6 +69,10 @@
   }
   .expandCell {
     min-width: 300px;
+  }
+
+  .content {
+    grid-template-columns: subgrid;
   }
 }
 
