@@ -196,6 +196,13 @@ describe('edit-table.business', () => {
   });
 
   describe('doMapOrCreateTable', () => {
+    const { createDefaultTableMock } = vi.hoisted(() => {
+      return { createDefaultTableMock: vi.fn() };
+    });
+    vi.mock('./edit-table.vm.ts', () => {
+      return { createDefaultTable: createDefaultTableMock };
+    });
+
     it('Should return mapped table when there is a table', () => {
       // Arrange
       const table: canvasVm.TableVm = {
@@ -278,8 +285,21 @@ describe('edit-table.business', () => {
       };
 
       // Act
-
-      vi.mock('@/core/model', () => ({ GenerateGUID: () => '2' }));
+      createDefaultTableMock.mockReturnValue({
+        id: '2',
+        fields: [
+          {
+            id: '2',
+            PK: true,
+            FK: false,
+            name: '_id',
+            type: 'objectId',
+          },
+        ],
+        tableName: 'New Table',
+        x: 0,
+        y: 0,
+      });
 
       const result = doMapOrCreateTable(relation);
 
@@ -303,7 +323,7 @@ describe('edit-table.business', () => {
       ];
 
       const expectedResult: TableVm = {
-        id: '2',
+        id: '3',
         fields: [
           {
             id: '2',
@@ -319,8 +339,21 @@ describe('edit-table.business', () => {
       };
 
       // Act
-
-      vi.mock('@/core/model', () => ({ GenerateGUID: () => '2' }));
+      createDefaultTableMock.mockReturnValue({
+        id: '3',
+        fields: [
+          {
+            id: '2',
+            PK: true,
+            FK: false,
+            name: '_id',
+            type: 'objectId',
+          },
+        ],
+        tableName: 'New Table',
+        x: 0,
+        y: 0,
+      });
 
       const result = doMapOrCreateTable(relation, table);
 
