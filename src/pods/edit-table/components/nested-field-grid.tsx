@@ -41,7 +41,12 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
     }
     onAddField(fieldId, isChildren);
   };
+  const [expanded, setExpanded] = React.useState(true);
 
+  const handleClickExpand = (field: FieldVm) => {
+    toggleExpand(field.id);
+    setExpanded(!expanded);
+  };
   const renderField = (field: FieldVm): JSX.Element => (
     <React.Fragment key={field.id}>
       <motion.div
@@ -71,7 +76,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           className={`${classes.fieldCell} ${classes.expandCell} ${classes[`indent${level}`]}`}
         >
           {field.type === 'object' ? (
-            <button onClick={() => toggleExpand(field.id)}>
+            <button onClick={() => handleClickExpand(field)}>
               {expandedFields.has(field.id) ? (
                 <ExpandDown />
               ) : (
@@ -169,21 +174,23 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
       }}
       transition={{ duration: 0.8 }}
     >
-      <motion.div
-        initial="collapsed"
-        animate="open"
-        exit="collapsed"
-        variants={{
-          open: { opacity: 1 },
-          collapsed: { opacity: 0 },
-        }}
-        transition={{ duration: 0.8 }}
-        className={classes.content}
-      >
-        <AnimatePresence initial={false}>
-          {fields.map(field => renderField(field))}
-        </AnimatePresence>
-      </motion.div>
+      {expanded && (
+        <motion.div
+          initial="collapsed"
+          animate="open"
+          exit="collapsed"
+          variants={{
+            open: { opacity: 1 },
+            collapsed: { opacity: 0 },
+          }}
+          transition={{ duration: 0.8 }}
+          className={classes.content}
+        >
+          <AnimatePresence initial={false}>
+            {fields.map(field => renderField(field))}
+          </AnimatePresence>
+        </motion.div>
+      )}
     </motion.div>
   );
 };
