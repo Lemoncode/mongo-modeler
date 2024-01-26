@@ -41,6 +41,7 @@
   /* text */
   --text-color: #d1d6e1;
   --text-disabled: #5a5564;
+  --text-hover: #102617;
 
   /* background */
   --background-50: #e2e7eb;
@@ -96,13 +97,6 @@
   --text-color: #202020;
   --text-disabled: #a9a9a9;
   --border-color: #b6b6b6;
-  --primary-gradient-start: #e6e9f3;
-  --primary-gradient-end: #fcd08a;
-  --gradient: linear-gradient(
-    98deg,
-    var(--primary-gradient-start) 28%,
-    var(--primary-gradient-end) 80%
-  );
 }
 .dark {
   --primary-background: var(--background-800);
@@ -113,13 +107,6 @@
   --text-color: #d1d6e1;
   --text-disabled: #5a5564;
   --border-color: #898989;
-  --primary-gradient-start: #025373;
-  --primary-gradient-end: #01a9c6;
-  --gradient: linear-gradient(
-    98deg,
-    var(--primary-gradient-start) 28%,
-    var(--primary-gradient-end) 80%
-  );
 }
 
 .logo {
@@ -182,6 +169,7 @@ button:focus-visible {
 
 button:hover {
   background-color: var(--highlight-color);
+  color: var(--text-hover);
 }
 
 button:disabled {

@@ -24,7 +24,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  background: var(--gradient);
+  background: var(--secondary-300);
   padding: 0.2rem 0.5rem 0.2rem 1rem;
   color: black;
 }
@@ -52,7 +52,7 @@
 }
 
 .dialog-button:hover {
-  background: var(--accent-color);
+  background: var(--secondary-600);
 }
 .dialog-component {
   padding: 2rem;
