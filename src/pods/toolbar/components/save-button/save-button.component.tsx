@@ -13,7 +13,8 @@ const DEFAULT_FILE_EXTENSION = 'mml';
 
 export const SaveButton = () => {
   const { canvasSchema } = useCanvasSchemaContext();
-  const { filename: openedFilename } = useCanvasViewSettingsContext();
+  const { filename: openedFilename, setFilename } =
+    useCanvasViewSettingsContext();
 
   const content = JSON.stringify(canvasSchema);
 
@@ -26,7 +27,7 @@ export const SaveButton = () => {
     if (window.showDirectoryPicker === undefined) {
       downloadFile(filename, content, 'application/json');
     } else {
-      saveFileModern(
+      const savedFilename = await saveFileModern(
         {
           filename,
           extension: DEFAULT_FILE_EXTENSION,
@@ -34,6 +35,10 @@ export const SaveButton = () => {
         },
         content
       );
+
+      if (savedFilename) {
+        setFilename(savedFilename);
+      }
     }
     URL.revokeObjectURL(url);
   };
