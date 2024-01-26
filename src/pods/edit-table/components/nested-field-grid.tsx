@@ -68,20 +68,35 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           </div>
         </div>
         <div className={classes.fieldCell}>
-          <input
-            type="checkbox"
-            checked={field.PK}
-            onChange={() => updateFieldValue(field, 'PK', !field.PK)}
-          />
+          <div className={classes.checkbox}>
+            <input
+              type="checkbox"
+              id="check-21"
+              checked={field.PK}
+              onChange={() => updateFieldValue(field, 'PK', !field.PK)}
+            />
+            <label htmlFor="check-21">
+              <svg viewBox="0,0,50,50">
+                <path d="M5 30 L 20 45 L 45 5"></path>
+              </svg>
+            </label>
+          </div>
         </div>
         <div className={classes.fieldCell}>
-          <input
-            type="checkbox"
-            checked={field.FK}
-            onChange={() => updateFieldValue(field, 'FK', !field.FK)}
-          />
+          <div className={classes.checkbox}>
+            <input
+              type="checkbox"
+              id="check-2"
+              checked={field.FK}
+              onChange={() => updateFieldValue(field, 'FK', !field.FK)}
+            />
+            <label htmlFor="check-2">
+              <svg viewBox="0,0,50,50">
+                <path d="M5 30 L 20 45 L 45 5"></path>
+              </svg>
+            </label>
+          </div>
         </div>
-
         <div className={classes.fieldCell}>
           <select
             value={field.type}
@@ -97,11 +112,21 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           </select>
         </div>
         <div className={classes.fieldCell}>
-          <input
-            type="checkbox"
-            checked={field.isArray}
-            onChange={() => updateFieldValue(field, 'isArray', !field.isArray)}
-          />
+          <div className={classes.checkbox}>
+            <input
+              id="check-3"
+              type="checkbox"
+              checked={field.isArray}
+              onChange={() =>
+                updateFieldValue(field, 'isArray', !field.isArray)
+              }
+            />
+            <label htmlFor="check-3">
+              <svg viewBox="0,0,50,50">
+                <path d="M5 30 L 20 45 L 45 5"></path>
+              </svg>
+            </label>
+          </div>
         </div>
         <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
           <Commands

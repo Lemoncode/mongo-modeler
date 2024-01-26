@@ -193,3 +193,48 @@ related to each other and to the dialog header*/
   margin-left: 5px;
   padding: 3px;
 }
+
+/*checkbox*/
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkbox input:checked + label svg path {
+  stroke-dashoffset: 0;
+}
+
+.checkbox input + label {
+  display: block;
+  border: 1px solid var(--primary-600);
+  width: 25px;
+  height: 25px;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: var(--primary-100);
+  transition: all 0.2s ease;
+}
+
+/* .checkbox input:focus + label {
+  transform: scale(1.03);
+} */
+
+/* .checkbox input + label:active {
+  transform: scale(1.03);
+} */
+
+.checkbox input + label svg {
+  pointer-events: none;
+  padding: 5%;
+}
+
+.checkbox input + label svg path {
+  fill: none;
+  stroke: var(--primary-600);
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 101;
+  transition: all 250ms cubic-bezier(1, 0, 0.37, 0.91);
+}

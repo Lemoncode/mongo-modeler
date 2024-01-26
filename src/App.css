@@ -84,7 +84,9 @@
   --border-radius-xxxl: calc(var(--border-radius-unit) * 16);
 }
 
-* {
+*,
+*:after,
+*:before {
   box-sizing: border-box;
 }
 
