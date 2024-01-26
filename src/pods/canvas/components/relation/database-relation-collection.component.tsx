@@ -1,10 +1,6 @@
 import React from 'react';
 import { Coords, GUID } from '@/core/model';
-import {
-  DatabaseSchemaVm,
-  RelationVm,
-  TABLE_CONST,
-} from '@/core/providers/canvas-schema';
+import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
 import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
@@ -12,6 +8,7 @@ import {
 import { DatabaseRelationSelfComponent } from './database-relation-self.component';
 import { DatabaseRelationshipTwoTablePathComponent } from './database-relation-two-tables-path.component';
 import { DatabaseRelationshipTwoTablesStraightComponent } from './database-relation-two-tables-straight.component';
+import { isOverLapping } from './database-relation-collection.business';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
@@ -52,9 +49,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
       y: YCoords.yDestination,
     };
 
-    const isOverLapping =
-      fromTable.x + TABLE_CONST.TABLE_WIDTH > toTable.x &&
-      fromTable.x < toTable.x + TABLE_CONST.TABLE_WIDTH;
+    console.log(isOverLapping(fromTable.x, toTable.x));
 
     return (
       <React.Fragment
@@ -70,7 +65,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
             endCoords={endCoords}
             isSelected={relation.id === schema.selectedElementId}
           />
-        ) : isOverLapping ? (
+        ) : isOverLapping(fromTable.x, toTable.x) ? (
           <DatabaseRelationshipTwoTablePathComponent
             id={relation.id}
             onClick={onSelectRelation}
