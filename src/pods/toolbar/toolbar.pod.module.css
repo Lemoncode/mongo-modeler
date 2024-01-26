@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-evenly;
   padding: 10px;
-  background-color: var(--primary-toolbar);
-  border-bottom: 2px solid var(--highlight-color);
+  background-color: var(--background-500);
+  border-bottom: 2px solid var(--primary-300);
 }
 
 .button {

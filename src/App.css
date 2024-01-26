@@ -40,7 +40,7 @@
 
   /* text */
   --text-color: #d1d6e1;
-  --text-disabled: #5a5564;
+  --text-disabled: #516476;
   --text-hover: #102617;
 
   /* background */
@@ -70,6 +70,16 @@
   --fw-medium: 500;
   --fw-bold: 600;
   --fw-extrabold: 700;
+
+  /*border-radius*/
+  --border-radius-unit: 4px;
+  --border-radius-xs: calc(var(--border-radius-unit) * 2);
+  --border-radius-s: calc(var(--border-radius-unit) * 3);
+  --border-radius-m: calc(var(--border-radius-unit) * 4);
+  --border-radius-l: calc(var(--border-radius-unit) * 6);
+  --border-radius-xl: calc(var(--border-radius-unit) * 8);
+  --border-radius-xxl: calc(var(--border-radius-unit) * 12);
+  --border-radius-xxxl: calc(var(--border-radius-unit) * 16);
 }
 
 * {
@@ -89,21 +99,12 @@
   --background-800: #fbfdfc;
   --background-900: #fdfefe;
 
-  --primary-background: var(--background-800);
-  --secondary-background: var(--background-700);
-  --accent-color: #a32525;
-  --highlight-color: var(--primary-300);
-  --primary-toolbar: var(--background-500);
   --text-color: #202020;
   --text-disabled: #a9a9a9;
+  /*Todo*/
   --border-color: #b6b6b6;
 }
 .dark {
-  --primary-background: var(--background-800);
-  --secondary-background: var(--background-700);
-  --accent-color: #ee7373;
-  --highlight-color: var(--primary-300);
-  --primary-toolbar: var(--background-500);
   --text-color: #d1d6e1;
   --text-disabled: #516476;
   --border-color: #898989;
@@ -114,11 +115,11 @@
 }
 
 button {
-  border-radius: 8px;
+  border-radius: var(--border-radius-m);
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-medium);
   font-family: inherit;
   background-color: inherit;
   cursor: pointer;
@@ -128,11 +129,11 @@ button {
 
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 2px auto var(--primary-500);
 }
 
 button:hover {
-  background-color: var(--highlight-color);
+  background-color: var(--primary-200);
   color: var(--text-hover);
 }
 
@@ -142,15 +143,14 @@ button:disabled {
 }
 
 button:disabled:hover {
-  box-shadow: none;
   background-color: transparent;
 }
 
 input,
 select {
-  background-color: var(--primary-background);
+  background-color: var(--primary-100);
   border: 1px solid var(--border-color);
-  border-radius: 2px;
+  border-radius: var(--border-radius-xxs);
   color: var(--text-color);
 }
 
