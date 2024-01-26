@@ -344,7 +344,7 @@ describe('edit table - updateFieldValueLogic function', () => {
     //Assert
     expect(result).toEqual(expectedResult);
   });
-  it('should', () => {
+  it('should return children updated when value is an object', () => {
     //Arrange
     const table: editTableVm.TableVm = {
       fields: [
@@ -356,7 +356,7 @@ describe('edit table - updateFieldValueLogic function', () => {
           type: 'object',
           children: [
             {
-              id: '1',
+              id: '2',
               name: 'tableName',
               PK: true,
               FK: false,
@@ -365,11 +365,12 @@ describe('edit table - updateFieldValueLogic function', () => {
           ],
         },
       ],
-      id: '1',
+      id: '3',
       tableName: 'tableName',
       x: 7,
       y: 10,
     };
+
     const fieldUpdate: editTableVm.FieldVm = {
       id: '1',
       PK: false,
@@ -378,7 +379,7 @@ describe('edit table - updateFieldValueLogic function', () => {
       type: 'object',
       children: [
         {
-          id: '1',
+          id: '2',
           name: 'newTableName',
           PK: true,
           FK: false,
@@ -397,7 +398,7 @@ describe('edit table - updateFieldValueLogic function', () => {
           type: 'object',
           children: [
             {
-              id: '1',
+              id: '2',
               name: 'newTableName',
               PK: true,
               FK: false,
@@ -406,7 +407,7 @@ describe('edit table - updateFieldValueLogic function', () => {
           ],
         },
       ],
-      id: '1',
+      id: '3',
       tableName: 'tableName',
       x: 7,
       y: 10,
@@ -414,8 +415,101 @@ describe('edit table - updateFieldValueLogic function', () => {
     //Act
     const result = updateFieldValueLogic(table, {
       fieldToUpdate: fieldUpdate,
-      key: 'type',
-      value: 'object',
+      key: 'children',
+      value: [
+        {
+          id: '2',
+          name: 'newTableName',
+          PK: true,
+          FK: false,
+          type: 'string',
+        },
+      ],
+    });
+    //Assert
+    expect(result).toEqual(expectedResult);
+  });
+  it('should id', () => {
+    //Arrange
+    const table: editTableVm.TableVm = {
+      fields: [
+        {
+          id: '1',
+          PK: false,
+          FK: true,
+          name: 'fieldName',
+          type: 'object',
+          children: [
+            {
+              id: '2',
+              name: 'tableName',
+              PK: true,
+              FK: false,
+              type: 'string',
+            },
+          ],
+        },
+      ],
+      id: '3',
+      tableName: 'tableName',
+      x: 7,
+      y: 10,
+    };
+
+    const fieldUpdate: editTableVm.FieldVm = {
+      id: '1',
+      PK: false,
+      FK: true,
+      name: 'fieldName',
+      type: 'object',
+      children: [
+        {
+          id: '4',
+          name: 'newTableName',
+          PK: true,
+          FK: false,
+          type: 'string',
+        },
+      ],
+    };
+
+    const expectedResult: editTableVm.TableVm = {
+      fields: [
+        {
+          id: '1',
+          PK: false,
+          FK: true,
+          name: 'fieldName',
+          type: 'object',
+          children: [
+            {
+              id: '2',
+              name: 'tableName',
+              PK: true,
+              FK: false,
+              type: 'string',
+            },
+          ],
+        },
+      ],
+      id: '3',
+      tableName: 'tableName',
+      x: 7,
+      y: 10,
+    };
+    //Act
+    const result = updateFieldValueLogic(table, {
+      fieldToUpdate: fieldUpdate,
+      key: 'children',
+      value: [
+        {
+          id: '5',
+          name: 'newTableName',
+          PK: true,
+          FK: false,
+          type: 'string',
+        },
+      ],
     });
     //Assert
     expect(result).toEqual(expectedResult);
