@@ -7,9 +7,9 @@ import {
   calculateOriginMinusForkWidthLogic,
   isDrawLeftToRightLogic,
 } from './relation.business';
-// import classes from './database-relation.component.module.css';
+import classes from './database-relation.component.module.css';
 
-interface DatabaseRelationshipMiddleProps {
+interface DatabaseRelationshipTwoTablesProps {
   id: GUID;
   relationType: RelationType;
   startCoords: Coords;
@@ -19,8 +19,8 @@ interface DatabaseRelationshipMiddleProps {
   isSelected: boolean;
 }
 
-export const DatabaseRelationshipMiddleComponent: React.FC<
-  DatabaseRelationshipMiddleProps
+export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
+  DatabaseRelationshipTwoTablesProps
 > = ({
   id,
   relationType,
@@ -62,18 +62,16 @@ export const DatabaseRelationshipMiddleComponent: React.FC<
       </defs>
 
       {/* Base line of the relationship */}
-      {/* {startCoords.x > endCoords.x && (
-        <line
-          x1={originXMinusFork}
-          y1={startCoords.y}
-          x2={originXMinusFork}
-          y2={endCoords.y}
-          className={
-            isSelected ? classes.selectedRelation : classes.nonSelectedRelation
-          }
-          filter={isSelected ? `url(#table_glow)` : ''}
-        />
-      )} */}
+      <line
+        x1={originXMinusFork}
+        y1={startCoords.y}
+        x2={destinationXMinusFork}
+        y2={endCoords.y}
+        className={
+          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
+        }
+        filter={isSelected ? `url(#table_glow)` : ''}
+      />
 
       {/* Draw the fork */}
       {relationType === '1:M' && (

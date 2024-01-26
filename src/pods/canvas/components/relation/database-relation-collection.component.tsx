@@ -1,13 +1,17 @@
 import React from 'react';
 import { Coords, GUID } from '@/core/model';
-import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
+import {
+  DatabaseSchemaVm,
+  RelationVm,
+  TABLE_CONST,
+} from '@/core/providers/canvas-schema';
 import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
 } from '@/core/providers/canvas-schema/canvas.business';
 import { DatabaseRelationSelfComponent } from './database-relation-self.component';
-import { DatabaseRelationshipMiddleComponent } from './database-relation-middle.component';
-import { DatabaseRelationshipTwoTablesComponent } from './database-relation-two-tables.component';
+import { DatabaseRelationshipTwoTablePathComponent } from './database-relation-two-tables-path.component';
+import { DatabaseRelationshipTwoTablesStraightComponent } from './database-relation-two-tables-straight.component';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
@@ -48,8 +52,10 @@ export const DatabaseRelationCollectionComponent: React.FC<
       y: YCoords.yDestination,
     };
 
-    console.log('startCoords', startCoords);
-    console.log('endCoords', endCoords);
+    const isOverLapping =
+      fromTable.x + TABLE_CONST.TABLE_WIDTH > toTable.x &&
+      fromTable.x < toTable.x + TABLE_CONST.TABLE_WIDTH;
+
     return (
       <React.Fragment
         key={`${relation.fromTableId}-${relation.fromFieldId}-${relation.toTableId}-${relation.toFieldId}`}
@@ -64,8 +70,8 @@ export const DatabaseRelationCollectionComponent: React.FC<
             endCoords={endCoords}
             isSelected={relation.id === schema.selectedElementId}
           />
-        ) : startCoords.x > endCoords.x ? (
-          <DatabaseRelationshipMiddleComponent
+        ) : isOverLapping ? (
+          <DatabaseRelationshipTwoTablePathComponent
             id={relation.id}
             onClick={onSelectRelation}
             onDoubleClick={onEditRelation}
@@ -75,7 +81,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
             isSelected={relation.id === schema.selectedElementId}
           />
         ) : (
-          <DatabaseRelationshipTwoTablesComponent
+          <DatabaseRelationshipTwoTablesStraightComponent
             id={relation.id}
             onClick={onSelectRelation}
             onDoubleClick={onEditRelation}
