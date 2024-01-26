@@ -429,7 +429,7 @@ describe('edit table - updateFieldValueLogic function', () => {
     //Assert
     expect(result).toEqual(expectedResult);
   });
-  it('should id', () => {
+  it('should not update if children IDs don`t match ', () => {
     //Arrange
     const table: editTableVm.TableVm = {
       fields: [
@@ -457,20 +457,11 @@ describe('edit table - updateFieldValueLogic function', () => {
     };
 
     const fieldUpdate: editTableVm.FieldVm = {
-      id: '1',
-      PK: false,
-      FK: true,
-      name: 'fieldName',
-      type: 'object',
-      children: [
-        {
-          id: '4',
-          name: 'newTableName',
-          PK: true,
-          FK: false,
-          type: 'string',
-        },
-      ],
+      id: '4',
+      name: 'newTableName',
+      PK: true,
+      FK: false,
+      type: 'string',
     };
 
     const expectedResult: editTableVm.TableVm = {
@@ -501,15 +492,7 @@ describe('edit table - updateFieldValueLogic function', () => {
     const result = updateFieldValueLogic(table, {
       fieldToUpdate: fieldUpdate,
       key: 'children',
-      value: [
-        {
-          id: '5',
-          name: 'newTableName',
-          PK: true,
-          FK: false,
-          type: 'string',
-        },
-      ],
+      value: [fieldUpdate],
     });
     //Assert
     expect(result).toEqual(expectedResult);
