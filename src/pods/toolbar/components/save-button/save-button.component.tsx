@@ -7,7 +7,9 @@ import {
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
-const defaultFileName = 'diagram.mml';
+const DEFAULT_FILE_NAME = 'diagram';
+const DEFAULT_EXTENSION_DESCRIPTION = 'Mongo Modeler';
+const DEFAULT_FILE_EXTENSION = 'mml';
 
 export const SaveButton = () => {
   const { canvasSchema } = useCanvasSchemaContext();
@@ -16,7 +18,7 @@ export const SaveButton = () => {
   const content = JSON.stringify(canvasSchema);
 
   const saveFile = async (openedFilename: string) => {
-    const filename = openedFilename !== '' ? openedFilename : defaultFileName;
+    const filename = openedFilename !== '' ? openedFilename : DEFAULT_FILE_NAME;
 
     const blob = new Blob([content], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -24,7 +26,14 @@ export const SaveButton = () => {
     if (window.showDirectoryPicker === undefined) {
       downloadFile(filename, content, 'application/json');
     } else {
-      saveFileModern(filename, content);
+      saveFileModern(
+        {
+          filename,
+          extension: DEFAULT_FILE_EXTENSION,
+          description: DEFAULT_EXTENSION_DESCRIPTION,
+        },
+        content
+      );
     }
     URL.revokeObjectURL(url);
   };
