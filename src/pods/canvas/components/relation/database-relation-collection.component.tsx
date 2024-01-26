@@ -1,12 +1,13 @@
 import React from 'react';
 import { Coords, GUID } from '@/core/model';
 import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
-import DatabaseRelationshipTwoTablesComponent from './database-relation-two-tables.component';
 import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
 } from '@/core/providers/canvas-schema/canvas.business';
 import { DatabaseRelationSelfComponent } from './database-relation-self.component';
+import { DatabaseRelationshipMiddleComponent } from './database-relation-middle.component';
+import { DatabaseRelationshipTwoTablesComponent } from './database-relation-two-tables.component';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
@@ -47,12 +48,24 @@ export const DatabaseRelationCollectionComponent: React.FC<
       y: YCoords.yDestination,
     };
 
+    console.log('startCoords', startCoords);
+    console.log('endCoords', endCoords);
     return (
       <React.Fragment
         key={`${relation.fromTableId}-${relation.fromFieldId}-${relation.toTableId}-${relation.toFieldId}`}
       >
-        {relation.fromTableId !== relation.toTableId ? (
-          <DatabaseRelationshipTwoTablesComponent
+        {relation.fromTableId === relation.toTableId ? (
+          <DatabaseRelationSelfComponent
+            id={relation.id}
+            onClick={onSelectRelation}
+            onDoubleClick={onEditRelation}
+            relationType={relation.type}
+            startCoords={startCoords}
+            endCoords={endCoords}
+            isSelected={relation.id === schema.selectedElementId}
+          />
+        ) : startCoords.x > endCoords.x ? (
+          <DatabaseRelationshipMiddleComponent
             id={relation.id}
             onClick={onSelectRelation}
             onDoubleClick={onEditRelation}
@@ -62,7 +75,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
             isSelected={relation.id === schema.selectedElementId}
           />
         ) : (
-          <DatabaseRelationSelfComponent
+          <DatabaseRelationshipTwoTablesComponent
             id={relation.id}
             onClick={onSelectRelation}
             onDoubleClick={onEditRelation}
