@@ -7,16 +7,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(16, 16, 16, 0.35);
+  background-color: var(--veil-background-modal);
 }
 
 .dialog {
-  background-color: var(--primary-background);
+  position: relative;
+  z-index: 1;
+  background-color: var(--background-600);
   color: var(--text-color);
   width: 80%;
   height: 80%;
   overflow: scroll;
+  border-radius: var(--border-radius-l);
 }
+
 .dialog-header {
   position: sticky;
   top: 0;
@@ -25,17 +29,20 @@
   gap: 10px;
   align-items: center;
   background: var(--secondary-300);
-  padding: 0.2rem 0.5rem 0.2rem 1rem;
-  color: black;
+  padding: var(--space-sm);
+  padding-left: var(--space-lg);
+  color: var(--text-dark);
+  border-bottom: 1px solid var(--secondary-600);
 }
 .dialog-header span {
   margin: 0;
 }
+
 .dialog-title {
   margin: 0;
   font-weight: normal;
-  font-size: 18px;
-  color: var(--text-color);
+  font-size: var(--fs-md);
+  color: var(--text-dark);
 }
 .dialog-subtitle {
   margin: 0;
@@ -46,9 +53,10 @@
   width: fit-content;
   margin-left: auto;
   background-color: transparent;
-  color: var(--text-color);
+  color: inherit;
   padding: 0.5rem;
   line-height: 0;
+  font-size: var(--fs-l);
 }
 
 .dialog-button:hover {
