@@ -4,7 +4,9 @@ import { useCanvasSchemaContext } from '@/core/providers';
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
-const defaultFileName = 'diagram.mml';
+const DEFAULT_FILE_NAME = 'diagram';
+const DEFAULT_EXTENSION_DESCRIPTION = 'Mongo Modeler';
+const DEFAULT_FILE_EXTENSION = 'mml';
 
 export const SaveButton = () => {
   const { canvasSchema } = useCanvasSchemaContext();
@@ -17,7 +19,14 @@ export const SaveButton = () => {
     if (window.showDirectoryPicker === undefined) {
       downloadFile(filename, content, 'application/json');
     } else {
-      saveFileModern(filename, content);
+      saveFileModern(
+        {
+          filename: DEFAULT_FILE_NAME,
+          extension: DEFAULT_FILE_EXTENSION,
+          description: DEFAULT_EXTENSION_DESCRIPTION,
+        },
+        content
+      );
     }
     URL.revokeObjectURL(url);
   };
@@ -26,7 +35,7 @@ export const SaveButton = () => {
     <ToolbarButton
       icon={<SaveIcon />}
       label={'Save'}
-      onClick={() => saveFile(defaultFileName)}
+      onClick={() => saveFile(DEFAULT_FILE_NAME)}
       className={classes.button}
     />
   );
