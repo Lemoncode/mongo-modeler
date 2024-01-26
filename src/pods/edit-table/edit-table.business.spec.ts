@@ -344,4 +344,80 @@ describe('edit table - updateFieldValueLogic function', () => {
     //Assert
     expect(result).toEqual(expectedResult);
   });
+  it('should', () => {
+    //Arrange
+    const table: editTableVm.TableVm = {
+      fields: [
+        {
+          id: '1',
+          PK: false,
+          FK: true,
+          name: 'fieldName',
+          type: 'object',
+          children: [
+            {
+              id: '1',
+              name: 'tableName',
+              PK: true,
+              FK: false,
+              type: 'string',
+            },
+          ],
+        },
+      ],
+      id: '1',
+      tableName: 'tableName',
+      x: 7,
+      y: 10,
+    };
+    const fieldUpdate: editTableVm.FieldVm = {
+      id: '1',
+      PK: false,
+      FK: true,
+      name: 'fieldName',
+      type: 'object',
+      children: [
+        {
+          id: '1',
+          name: 'newTableName',
+          PK: true,
+          FK: false,
+          type: 'string',
+        },
+      ],
+    };
+
+    const expectedResult: editTableVm.TableVm = {
+      fields: [
+        {
+          id: '1',
+          PK: false,
+          FK: true,
+          name: 'fieldName',
+          type: 'object',
+          children: [
+            {
+              id: '1',
+              name: 'newTableName',
+              PK: true,
+              FK: false,
+              type: 'string',
+            },
+          ],
+        },
+      ],
+      id: '1',
+      tableName: 'tableName',
+      x: 7,
+      y: 10,
+    };
+    //Act
+    const result = updateFieldValueLogic(table, {
+      fieldToUpdate: fieldUpdate,
+      key: 'type',
+      value: 'object',
+    });
+    //Assert
+    expect(result).toEqual(expectedResult);
+  });
 });
