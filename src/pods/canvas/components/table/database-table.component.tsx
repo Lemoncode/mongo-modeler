@@ -11,6 +11,7 @@ import { useDraggable } from './table-drag.hook';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { DatabaseTableRow } from './database-table-row.component';
 import { TruncatedText } from './truncated-text.component';
+import { Edit } from '@/common/components';
 
 // TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
@@ -110,12 +111,15 @@ export const DatabaseTable: React.FC<Props> = ({
   const handleDoubleClick = () => {
     onEditTable(tableInfo);
   };
+  const pencilIconClick = () => {
+    onEditTable(tableInfo);
+  };
+
   return (
     <g
       transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
       onMouseDown={onMouseDown}
       className={classes.tableContainer}
-      onClick={handleClick}
     >
       <defs>
         <filter id="table_component_selected" x="0" y="0">
@@ -138,7 +142,6 @@ export const DatabaseTable: React.FC<Props> = ({
         className={classes.tableHeader}
         onDoubleClick={handleDoubleClick}
       />
-
       <TruncatedText
         text={tableInfo.tableName}
         x={TITLE_MARGIN_LEFT}
@@ -147,15 +150,32 @@ export const DatabaseTable: React.FC<Props> = ({
         height={TABLE_CONST.FONT_SIZE}
         textClass={classes.tableText}
       />
-
-      <g transform={`translate(0, ${HEADER_TITLE_GAP})`}>{renderedRows}</g>
-
+      {isSelected && (
+        <g
+          transform={`translate(${TABLE_CONST.TABLE_WIDTH - 25}, 0)`}
+          onClick={pencilIconClick}
+        >
+          <Edit />
+        </g>
+      )}
+      ;<g transform={`translate(0, ${HEADER_TITLE_GAP})`}>{renderedRows}</g>
       <rect
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
         height={totalHeight + HEADER_TITLE_GAP}
         className={classes.table}
+      />
+      <rect
+        x="0"
+        y="0"
+        width={
+          isSelected ? TABLE_CONST.TABLE_WIDTH - 25 : TABLE_CONST.TABLE_WIDTH
+        }
+        height={TABLE_CONST.HEADER_HEIGHT}
+        fill="transparent"
+        onClick={handleClick}
+        onDoubleClick={handleDoubleClick}
       />
     </g>
   );
