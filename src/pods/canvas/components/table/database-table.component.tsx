@@ -27,6 +27,8 @@ interface Props {
 
 const HEADER_TITLE_GAP = 15;
 const TITLE_MARGIN_LEFT = 10;
+const PENCIL_ICON_WIDTH = 30;
+const PENCIL_MARGIN_RIGHT = 5;
 
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
@@ -104,15 +106,18 @@ export const DatabaseTable: React.FC<Props> = ({
   };
 
   const handleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
-    selectTable(tableInfo.id);
+    if (!isSelected) {
+      selectTable(tableInfo.id);
+    }
     e.stopPropagation();
   };
 
   const handleDoubleClick = () => {
     onEditTable(tableInfo);
   };
-  const pencilIconClick = () => {
+  const pencilIconClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
     onEditTable(tableInfo);
+    e.stopPropagation();
   };
 
   return (
@@ -140,6 +145,9 @@ export const DatabaseTable: React.FC<Props> = ({
         width={TABLE_CONST.TABLE_WIDTH}
         height={TABLE_CONST.HEADER_HEIGHT}
         className={classes.tableHeader}
+        onClick={e => {
+          e.stopPropagation();
+        }}
         onDoubleClick={handleDoubleClick}
       />
       <TruncatedText
@@ -152,9 +160,17 @@ export const DatabaseTable: React.FC<Props> = ({
       />
       {isSelected && (
         <g
-          transform={`translate(${TABLE_CONST.TABLE_WIDTH - 25}, 0)`}
+          transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 0)`}
           onClick={pencilIconClick}
         >
+          <rect
+            x="0"
+            y="0"
+            width={PENCIL_ICON_WIDTH + PENCIL_MARGIN_RIGHT}
+            height="25"
+            fill="transparent"
+            onClick={() => console.log('** Clicked on Rect **')}
+          />
           <Edit />
         </g>
       )}
@@ -170,7 +186,9 @@ export const DatabaseTable: React.FC<Props> = ({
         x="0"
         y="0"
         width={
-          isSelected ? TABLE_CONST.TABLE_WIDTH - 25 : TABLE_CONST.TABLE_WIDTH
+          isSelected
+            ? TABLE_CONST.TABLE_WIDTH - PENCIL_ICON_WIDTH
+            : TABLE_CONST.TABLE_WIDTH
         }
         height={TABLE_CONST.HEADER_HEIGHT}
         fill="transparent"
