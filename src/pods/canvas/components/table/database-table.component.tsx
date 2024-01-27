@@ -169,7 +169,7 @@ export const DatabaseTable: React.FC<Props> = ({
             width={PENCIL_ICON_WIDTH + PENCIL_MARGIN_RIGHT}
             height="25"
             fill="transparent"
-            onClick={() => console.log('** Clicked on Rect **')}
+            onClick={pencilIconClick}
           />
           <Edit />
         </g>
