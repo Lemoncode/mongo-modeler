@@ -4,6 +4,10 @@
   margin: 10px;
   min-width: 800px;
 }
+.tableEditor ul {
+  padding: 0;
+  margin: 0;
+}
 
 .fieldRow,
 .header-row {
@@ -11,6 +15,9 @@
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   grid-column: 1 / -1;
   border: 1px solid var(--border-color);
+}
+.fieldRow {
+  cursor: grab;
 }
 
 .nestedGrid {

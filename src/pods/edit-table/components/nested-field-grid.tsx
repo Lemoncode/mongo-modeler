@@ -4,9 +4,10 @@ import { FieldType, GUID } from '@/core/model';
 import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
 import { Commands } from './commands/commands.component';
 import { RightArrowIcon, ExpandDown } from '@/common/components';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, Reorder } from 'framer-motion';
 
 interface NestedFieldGridProps {
+  id?: GUID;
   fields: FieldVm[];
   level: number;
   expandedFields: Set<string>;
@@ -21,9 +22,12 @@ interface NestedFieldGridProps {
   onAddField: (fieldId: GUID, isChildren: boolean) => void;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
+
+  onDragField: (fields: FieldVm[], id?: GUID) => void;
 }
 
 export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
+  id,
   fields,
   level,
   expandedFields,
@@ -34,6 +38,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   onAddField,
   onMoveDownField,
   onMoveUpField,
+  onDragField,
 }) => {
   const handleAddField = (fieldId: GUID, isChildren: boolean) => {
     if (isChildren) {
@@ -41,15 +46,13 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
     }
     onAddField(fieldId, isChildren);
   };
-  const [expanded, setExpanded] = React.useState(true);
 
-  const handleClickExpand = (field: FieldVm) => {
-    toggleExpand(field.id);
-    setExpanded(!expanded);
-  };
   const renderField = (field: FieldVm): JSX.Element => (
     <React.Fragment key={field.id}>
-      <motion.div
+      <Reorder.Item
+        value={field}
+        key={field.id}
+        style={{ y: 0 }}
         className={`${classes.fieldRow} `}
         initial={{
           opacity: 0,
@@ -76,7 +79,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           className={`${classes.fieldCell} ${classes.expandCell} ${classes[`indent${level}`]}`}
         >
           {field.type === 'object' ? (
-            <button onClick={() => handleClickExpand(field)}>
+            <button onClick={() => toggleExpand(field.id)}>
               {expandedFields.has(field.id) ? (
                 <ExpandDown />
               ) : (
@@ -141,28 +144,30 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             onMoveUpField={onMoveUpField}
           />
         </div>
-      </motion.div>
-      <AnimatePresence initial={false}>
-        {field.children && expandedFields.has(field.id) && (
-          <NestedFieldGrid
-            fields={field.children}
-            level={level + 1}
-            expandedFields={expandedFields}
-            toggleExpand={toggleExpand}
-            expandField={expandField}
-            updateFieldValue={updateFieldValue}
-            onDeleteField={onDeleteField}
-            onAddField={onAddField}
-            onMoveDownField={onMoveDownField}
-            onMoveUpField={onMoveUpField}
-          />
-        )}
-      </AnimatePresence>
+      </Reorder.Item>
+      {field.children && expandedFields.has(field.id) && (
+        <NestedFieldGrid
+          id={field.id}
+          fields={field.children}
+          level={level + 1}
+          expandedFields={expandedFields}
+          toggleExpand={toggleExpand}
+          expandField={expandField}
+          updateFieldValue={updateFieldValue}
+          onDeleteField={onDeleteField}
+          onAddField={onAddField}
+          onMoveDownField={onMoveDownField}
+          onMoveUpField={onMoveUpField}
+          onDragField={onDragField}
+        />
+      )}
     </React.Fragment>
   );
 
   return (
-    <motion.div
+    <Reorder.Group
+      values={fields}
+      onReorder={fields => onDragField(fields, id)}
       className={classes.nestedGrid}
       key={level}
       initial="collapsed"
@@ -174,23 +179,9 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
       }}
       transition={{ duration: 0.8 }}
     >
-      {expanded && (
-        <motion.div
-          initial="collapsed"
-          animate="open"
-          exit="collapsed"
-          variants={{
-            open: { opacity: 1 },
-            collapsed: { opacity: 0 },
-          }}
-          transition={{ duration: 0.8 }}
-          className={classes.content}
-        >
-          <AnimatePresence initial={false}>
-            {fields.map(field => renderField(field))}
-          </AnimatePresence>
-        </motion.div>
-      )}
-    </motion.div>
+      <AnimatePresence initial={false}>
+        {fields.map(field => renderField(field))}
+      </AnimatePresence>
+    </Reorder.Group>
   );
 };

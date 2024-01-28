@@ -3,7 +3,6 @@ import classes from './edit-table.module.css';
 import { FieldVm, TableVm } from './edit-table.vm';
 import { NestedFieldGrid } from './components/nested-field-grid';
 import { GUID } from '@/core/model';
-import { AnimatePresence } from 'framer-motion';
 
 interface Props {
   table: TableVm;
@@ -17,6 +16,7 @@ interface Props {
   updateTableName: (value: string) => void;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
+  onDragField: (fields: FieldVm[], id?: GUID) => void;
 }
 
 export const EditTableComponent: React.FC<Props> = props => {
@@ -28,6 +28,7 @@ export const EditTableComponent: React.FC<Props> = props => {
     updateTableName,
     onMoveDownField,
     onMoveUpField,
+    onDragField,
   } = props;
   const [expandedFields, setExpandedFields] = useState<Set<string>>(new Set());
 
@@ -79,7 +80,7 @@ export const EditTableComponent: React.FC<Props> = props => {
           <div className={classes.headerCell}>isArray</div>
           <div className={classes.headerCell}>Actions</div>
         </div>
-        {/* <AnimatePresence initial={false}> */}
+
         <NestedFieldGrid
           fields={table.fields}
           level={0}
@@ -91,8 +92,8 @@ export const EditTableComponent: React.FC<Props> = props => {
           onAddField={onAddField}
           onMoveDownField={onMoveDownField}
           onMoveUpField={onMoveUpField}
+          onDragField={onDragField}
         />
-        {/* </AnimatePresence> */}
       </div>
     </>
   );

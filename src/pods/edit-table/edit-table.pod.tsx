@@ -10,6 +10,7 @@ import { produce } from 'immer';
 import { GUID } from '@/core/model';
 import {
   addFieldLogic,
+  findFieldRecursively,
   moveDownField,
   moveUpField,
   removeField,
@@ -107,6 +108,22 @@ export const EditTablePod: React.FC<Props> = props => {
   const onMoveUpField = (fieldId: GUID) => {
     setEditTable(currentTable => moveUpField(currentTable, fieldId));
   };
+
+  const onDragField = (fields: editTableVm.FieldVm[], id?: GUID) => {
+    if (id) {
+      setEditTable(currentTable =>
+        produce(currentTable, draftTable => {
+          const findField = findFieldRecursively(draftTable.fields, id);
+          if (findField && findField.children) {
+            findField.children = fields;
+          }
+        })
+      );
+    } else {
+      setEditTable({ ...editTable, fields });
+    }
+  };
+
   return (
     <>
       <EditTableComponent
@@ -117,6 +134,7 @@ export const EditTablePod: React.FC<Props> = props => {
         updateTableName={updateTableName}
         onMoveDownField={onMoveDownField}
         onMoveUpField={onMoveUpField}
+        onDragField={onDragField}
       />
       <button onClick={() => handleSubmit(editTable)}>Apply</button>
     </>
