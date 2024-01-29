@@ -2,10 +2,7 @@ import React from 'react';
 import { produce } from 'immer';
 import * as canvasVm from '@/core/providers/canvas-schema';
 import * as editTableVm from './edit-table.vm';
-import {
-  mapEditTableVmToTableVm,
-  mapTableVmToEditTableVm,
-} from './edit-table.mapper';
+import { mapEditTableVmToTableVm } from './edit-table.mapper';
 import { EditTableComponent } from './edit-table.component';
 import { GUID } from '@/core/model';
 import {
@@ -14,6 +11,7 @@ import {
   moveDownField,
   moveUpField,
   removeField,
+  doMapOrCreateTable,
 } from './edit-table.business';
 import { updateFieldValueLogic } from './edit-table.business';
 
@@ -36,13 +34,9 @@ interface Props {
 // something visible to the user
 export const EditTablePod: React.FC<Props> = props => {
   const { table, relations, onSave } = props;
-  // TODO:
-  // #60
-  // https://github.com/Lemoncode/mongo-modeler/issues/60
-  const [editTable, setEditTable] = React.useState<editTableVm.TableVm>(
-    table
-      ? mapTableVmToEditTableVm(table, relations)
-      : editTableVm.createDefaultTable()
+
+  const [editTable, setEditTable] = React.useState<editTableVm.TableVm>(() =>
+    doMapOrCreateTable(relations, table)
   );
 
   const handleSubmit = (table: editTableVm.TableVm) => {
