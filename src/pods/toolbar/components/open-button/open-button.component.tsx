@@ -1,12 +1,16 @@
 import React from 'react';
 import { OpenIcon } from '@/common/components/icons/open-icon.component';
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
-import { useCanvasSchemaContext } from '@/core/providers';
+import {
+  useCanvasSchemaContext,
+  useCanvasViewSettingsContext,
+} from '@/core/providers';
 import { FileInput, OnFileSelectedCallback } from '@/common/file-input';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
 export const OpenButton: React.FC = () => {
   const { loadSchema } = useCanvasSchemaContext();
+  const { setFilename } = useCanvasViewSettingsContext();
 
   const handleFileRead = (fileContent: string) => {
     try {
@@ -18,6 +22,7 @@ export const OpenButton: React.FC = () => {
   };
 
   const handleOpenButtonClick: OnFileSelectedCallback = (file: File) => {
+    setFilename(file.name);
     const reader = new FileReader();
     reader.onload = e => {
       const fileContent = e.target?.result as string;

@@ -16,6 +16,7 @@ interface Props {
   updateTableName: (value: string) => void;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
+  onDragField: (fields: FieldVm[], id?: GUID) => void;
 }
 
 export const EditTableComponent: React.FC<Props> = props => {
@@ -27,6 +28,7 @@ export const EditTableComponent: React.FC<Props> = props => {
     updateTableName,
     onMoveDownField,
     onMoveUpField,
+    onDragField,
   } = props;
   const [expandedFields, setExpandedFields] = useState<Set<string>>(new Set());
 
@@ -68,6 +70,7 @@ export const EditTableComponent: React.FC<Props> = props => {
           />
         </label>
       </div>
+
       <div className={classes.tableEditor}>
         <div className={classes.headerRow}>
           <div className={classes.headerCell}>Name</div>
@@ -89,6 +92,7 @@ export const EditTableComponent: React.FC<Props> = props => {
           onAddField={onAddField}
           onMoveDownField={onMoveDownField}
           onMoveUpField={onMoveUpField}
+          onDragField={onDragField}
         />
       </div>
     </>

@@ -5,6 +5,45 @@ import * as editTableVm from './edit-table.vm';
 import * as canvasVm from '@/core/providers/canvas-schema';
 import { mapTableVmToEditTableVm } from './edit-table.mapper';
 
+export interface UpdateFieldValueParams<K extends keyof editTableVm.FieldVm> {
+  fieldToUpdate: editTableVm.FieldVm;
+  key: K;
+  value: editTableVm.FieldVm[K];
+}
+
+export const updateFieldValueLogic = <K extends keyof editTableVm.FieldVm>(
+  table: editTableVm.TableVm,
+  params: UpdateFieldValueParams<K>
+) => {
+  return produce(table, draftTable => {
+    // Find and update the field by it's id
+    const findAndUpdateField = (fields: editTableVm.FieldVm[]): boolean => {
+      const formerField = fields.find(f => f.id === params.fieldToUpdate.id);
+      if (formerField) {
+        if (
+          params.key === 'type' &&
+          formerField[params.key] === 'object' &&
+          params.value !== 'object'
+        ) {
+          formerField.children = undefined;
+        }
+        formerField[params.key] = params.value;
+        return true; // Field found and updated
+      }
+      // Recursively search in nested fields
+      for (const field of fields) {
+        if (field.children && findAndUpdateField(field.children)) {
+          return true; // Field found and updated in nested field
+        }
+      }
+
+      return false; // Field not found
+    };
+
+    findAndUpdateField(draftTable.fields);
+  });
+};
+
 // TODO: Add unit test support
 // #75
 // https://github.com/Lemoncode/mongo-modeler/issues/75
@@ -118,3 +157,17 @@ export const doMapOrCreateTable = (
   table
     ? mapTableVmToEditTableVm(table, relations)
     : editTableVm.createDefaultTable();
+
+export const findFieldRecursively = (
+  fields: editTableVm.FieldVm[],
+  id: GUID
+): editTableVm.FieldVm | undefined => {
+  for (const field of fields) {
+    if (field.id === id) return field;
+    if (field.children) {
+      const found = findFieldRecursively(field.children, id);
+      if (found) return found;
+    }
+  }
+  return undefined;
+};

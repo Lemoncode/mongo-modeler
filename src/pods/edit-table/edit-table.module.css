@@ -2,10 +2,11 @@
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   margin: 10px;
-  border: 1px solid var(--border-color);
-  border-bottom: none;
-  border-top: none;
   min-width: 800px;
+}
+.tableEditor ul {
+  padding: 0;
+  margin: 0;
 }
 
 .fieldRow,
@@ -13,15 +14,32 @@
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   grid-column: 1 / -1;
-  border-bottom: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
+  border-top-width: 0.5px;
+  border-bottom-width: 0.5px;
+  background-color: var(--primary-background);
+}
+.fieldRow {
+  cursor: grab;
+}
+.nestedGrid ul li:last-child {
+  border-bottom: 0.5px solid var(--border-color);
 }
 
+.tableEditor > ul > li:last-child {
+  border-bottom: 1px solid var(--border-color);
+}
 .nestedGrid {
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   grid-column: 1 / -1;
 }
-
+.content {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: auto 60px 60px 150px 80px 250px;
+  transform-origin: top center;
+}
 .fieldCell,
 .headerCell {
   width: 100%;
@@ -41,7 +59,6 @@
   padding: 8px 5px;
   background-color: var(--highlight-color);
   color: var(--text-color);
-  border-top: 1px solid var(--border-color);
 }
 
 .commands-container {
@@ -68,6 +85,10 @@
   }
   .expandCell {
     min-width: 300px;
+  }
+
+  .content {
+    grid-template-columns: subgrid;
   }
 }
 
@@ -115,6 +136,7 @@ related to each other and to the dialog header*/
   position: sticky;
   top: 5.3125rem;
   z-index: 1;
+  border-top-width: 1px;
 }
 .table-name {
   position: sticky;
