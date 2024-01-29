@@ -13,9 +13,6 @@ export const updateFieldValueLogic = <K extends keyof editTableVm.FieldVm>(
   table: editTableVm.TableVm,
   params: UpdateFieldValueParams<K>
 ) => {
-  // TODO: Extract this into a business method and add unit test support
-  // #61 https://github.com/Lemoncode/mongo-modeler/issues/61
-
   return produce(table, draftTable => {
     // Find and update the field by it's id
     const findAndUpdateField = (fields: editTableVm.FieldVm[]): boolean => {

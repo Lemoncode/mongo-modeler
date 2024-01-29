@@ -45,9 +45,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
     <React.Fragment key={field.id}>
       <div className={`${classes.fieldRow} `}>
         <div
-          className={`${classes.fieldCell} ${classes.expandCell} ${
-            classes[`indent${level}`]
-          }`}
+          className={`${classes.fieldCell} ${classes.expandCell} ${classes[`indent${level}`]}`}
         >
           {field.type === 'object' ? (
             <button onClick={() => toggleExpand(field.id)}>
