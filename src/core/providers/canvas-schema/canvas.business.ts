@@ -184,13 +184,14 @@ export const calculateRelationYOffset = (
   fieldId: GUID,
   table: TableVm
 ): number => {
-  const initialYPosition = table.y + TABLE_CONST.HEADER_HEIGHT;
+  const initialYPosition =
+    table.y + TABLE_CONST.HEADER_HEIGHT + TABLE_CONST.HEADER_TITLE_GAP;
   const result = seekField(
     fieldId,
     { found: false, YPosition: initialYPosition, parentCollapsed: false },
     table.fields
   );
-  const center = result.YPosition + TABLE_CONST.ROW_HEIGHT / 2;
+  const center = result.YPosition + TABLE_CONST.ROW_HEIGHT / 2 - 3;
 
   return center;
 };
