@@ -429,7 +429,7 @@ describe('edit table - updateFieldValueLogic function', () => {
     //Assert
     expect(result).toEqual(expectedResult);
   });
-  it('should not update if children IDs don`t match ', () => {
+  it('should not update if children IDs don`t match', () => {
     //Arrange
     const table: editTableVm.TableVm = {
       fields: [
