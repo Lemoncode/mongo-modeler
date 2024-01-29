@@ -38,15 +38,24 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     });
   };
 
+  const setFilename = (filename: string) => {
+    setCanvasViewSettings({
+      ...canvasViewSettings,
+      filename,
+    });
+  };
+
   return (
     <CanvasViewSettingsContext.Provider
       value={{
         canvasViewSettings,
         scrollPosition,
+        filename: canvasViewSettings.filename,
         zoomIn,
         zoomOut,
         setCanvasSize,
         setScrollPosition,
+        setFilename,
       }}
     >
       {children}
