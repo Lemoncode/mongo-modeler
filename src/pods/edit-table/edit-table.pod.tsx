@@ -1,4 +1,5 @@
 import React from 'react';
+import { produce } from 'immer';
 import * as canvasVm from '@/core/providers/canvas-schema';
 import * as editTableVm from './edit-table.vm';
 import {
