@@ -1,8 +1,13 @@
 import React from 'react';
 import { RelationType } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
-import { getRelationPath } from './database-relation-two-tables-path.business';
+import {
+  getForkCoords,
+  getRelationPath,
+} from './database-relation-two-tables-path.business';
 import { ClickablePathComponent } from './components/clickeable-path.component';
+import { isDrawLeftToRightLogic } from './relation.business';
+import { ForkComponent } from './components';
 import classes from './database-relation.component.module.css';
 interface DatabaseRelationshipMiddleProps {
   id: GUID;
@@ -25,6 +30,12 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
   onClick,
   onDoubleClick,
 }) => {
+  const isDrawLeftToRight = isDrawLeftToRightLogic(
+    relationType,
+    startCoords,
+    endCoords
+  );
+
   return (
     <svg>
       {/* Glow filter if selected */}
@@ -44,6 +55,22 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
         }
         filter={isSelected ? `url(#table_glow)` : ''}
       />
+
+      {/* Draw the fork */}
+      {relationType === '1:M' && (
+        <ForkComponent
+          isSelected={isSelected}
+          forkCoords={getForkCoords(relationType, startCoords, endCoords)}
+          drawLeftToRight={!isDrawLeftToRight}
+        />
+      )}
+      {relationType === 'M:1' && (
+        <ForkComponent
+          isSelected={isSelected}
+          forkCoords={getForkCoords(relationType, startCoords, endCoords)}
+          drawLeftToRight={isDrawLeftToRight}
+        />
+      )}
 
       <ClickablePathComponent
         id={id}
