@@ -1,8 +1,9 @@
 import React from 'react';
 import { RelationType } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
-import { DatabaseRelationshipTwoTablesStraightComponent } from './database-relation-two-tables-straight.component';
-
+import classes from './database-relation.component.module.css';
+import { ClickableLineComponent } from './components';
+import { getRelationPath } from './database-relation-two-tables-path.business';
 interface DatabaseRelationshipMiddleProps {
   id: GUID;
   relationType: RelationType;
@@ -17,24 +18,40 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
   DatabaseRelationshipMiddleProps
 > = ({
   id,
-  relationType,
   startCoords,
+  relationType,
   endCoords,
   isSelected,
   onClick,
   onDoubleClick,
 }) => {
-  console.log('DRAW PATH CONNECTOR');
-
   return (
-    <DatabaseRelationshipTwoTablesStraightComponent
-      id={id}
-      onClick={onClick}
-      onDoubleClick={onDoubleClick}
-      relationType={relationType}
-      startCoords={startCoords}
-      endCoords={endCoords}
-      isSelected={isSelected}
-    />
+    <svg>
+      {/* Glow filter if selected */}
+      <defs>
+        <filter id="table_glow">
+          <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
+          <feMerge>
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <path
+        d={getRelationPath(relationType, startCoords, endCoords)}
+        className={
+          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
+        }
+        filter={isSelected ? `url(#table_glow)` : ''}
+      />
+
+      <ClickableLineComponent
+        id={id}
+        startCoords={startCoords}
+        endCoords={endCoords}
+        onClick={onClick}
+        onDoubleClick={onDoubleClick}
+      />
+    </svg>
   );
 };
