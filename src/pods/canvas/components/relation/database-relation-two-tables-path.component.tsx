@@ -5,7 +5,7 @@ import {
   getForkCoords,
   getRelationPath,
 } from './database-relation-two-tables-path.business';
-import { ClickablePathComponent } from './components/clickeable-path.component';
+import { ClickablePathComponent } from './components/clickable-path.component';
 import { isDrawLeftToRightLogic } from './relation.business';
 import { ForkComponent } from './components';
 import classes from './database-relation.component.module.css';
