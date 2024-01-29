@@ -22,7 +22,6 @@ interface NestedFieldGridProps {
   onAddField: (fieldId: GUID, isChildren: boolean) => void;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
-
   onDragField: (fields: FieldVm[], id?: GUID) => void;
 }
 
@@ -46,7 +45,28 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
     }
     onAddField(fieldId, isChildren);
   };
-
+  const variantsGroup = {
+    open: { opacity: 1, height: 'auto' },
+    collapsed: { opacity: 0, height: 0 },
+  };
+  const variantsItem = {
+    left: {
+      opacity: 0,
+      x: -200,
+      scale: 0.8,
+    },
+    stay: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: { duration: 0.3 },
+    },
+  };
+  const handleDrag = (field: FieldVm) => {
+    if (expandedFields.has(field.id)) {
+      toggleExpand(field.id);
+    }
+  };
   const renderField = (field: FieldVm): JSX.Element => (
     <React.Fragment key={field.id}>
       <Reorder.Item
@@ -54,25 +74,14 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
         key={field.id}
         style={{ y: 0 }}
         className={`${classes.fieldRow} `}
-        initial={{
-          opacity: 0,
-          x: -200,
-          scale: 0.8,
-          borderTopWidth: 1,
-        }}
-        animate={{
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          borderTopWidth: 0,
-          transition: { duration: 0.3 },
-        }}
-        exit={{
-          opacity: 0,
-          x: -200,
-          scale: 0.8,
-          borderTopWidth: 1,
-          transition: { duration: 0.3 },
+        initial="left"
+        animate="stay"
+        exit="left"
+        variants={variantsItem}
+        transition={{ duration: 0.3 }}
+        onDragStart={() => handleDrag(field)}
+        whileDrag={{
+          cursor: 'grabbing',
         }}
       >
         <div
@@ -173,10 +182,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
       initial="collapsed"
       animate="open"
       exit="collapsed"
-      variants={{
-        open: { opacity: 1, height: 'auto' },
-        collapsed: { opacity: 0, height: 0 },
-      }}
+      variants={variantsGroup}
       transition={{ duration: 0.8 }}
     >
       <AnimatePresence initial={false}>
