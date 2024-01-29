@@ -1,9 +1,9 @@
 import React from 'react';
 import { RelationType } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
-import classes from './database-relation.component.module.css';
-import { ClickableLineComponent } from './components';
 import { getRelationPath } from './database-relation-two-tables-path.business';
+import { ClickablePathComponent } from './components/clickeable-path.component';
+import classes from './database-relation.component.module.css';
 interface DatabaseRelationshipMiddleProps {
   id: GUID;
   relationType: RelationType;
@@ -45,12 +45,16 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
         filter={isSelected ? `url(#table_glow)` : ''}
       />
 
-      <ClickableLineComponent
+      <ClickablePathComponent
         id={id}
         startCoords={startCoords}
         endCoords={endCoords}
+        relationType={relationType}
         onClick={onClick}
         onDoubleClick={onDoubleClick}
+        className={
+          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
+        }
       />
     </svg>
   );
