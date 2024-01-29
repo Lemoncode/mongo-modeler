@@ -191,7 +191,9 @@ export const calculateRelationYOffset = (
     { found: false, YPosition: initialYPosition, parentCollapsed: false },
     table.fields
   );
-  const center = result.YPosition + TABLE_CONST.ROW_HEIGHT / 2 - 3;
+
+  //Need 2px to control text position
+  const center = result.YPosition + TABLE_CONST.ROW_HEIGHT / 2 - 2;
 
   return center;
 };
