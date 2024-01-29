@@ -46,7 +46,7 @@ H 100
 `);
     });
 
-    it('should return  when relationType is 1:1 and startCoords.x = endCoords.x', () => {
+    it('should return  when relationType is 1:1 and startCoords.x equals endCoords.x', () => {
       // Arrange
       const relationType = '1:1';
       const startCoords = { x: 50, y: 50 };
