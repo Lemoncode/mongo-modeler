@@ -1,8 +1,9 @@
 import React from 'react';
-import { RelationType, TABLE_CONST } from '@/core/providers/canvas-schema';
+import { RelationType } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
 import classes from './database-relation.component.module.css';
 import { ClickableLineComponent } from './components';
+import { getRelationPath } from './database-relation-two-tables-path.business';
 interface DatabaseRelationshipMiddleProps {
   id: GUID;
   relationType: RelationType;
@@ -24,28 +25,6 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
   onClick,
   onDoubleClick,
 }) => {
-  const oneToOneRelationSelfPathLeft = `
-  M ${startCoords.x - TABLE_CONST.TABLE_WIDTH} ${startCoords.y} 
-  H ${startCoords.x - (TABLE_CONST.TABLE_WIDTH + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION)} 
-  V ${endCoords.y} 
-  H ${endCoords.x}
-  `;
-
-  const oneToOneRelationSelfPathRight = `
-  M ${startCoords.x + TABLE_CONST.TABLE_WIDTH} ${startCoords.y}
-  H ${startCoords.x + TABLE_CONST.TABLE_WIDTH + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION}
-  V ${endCoords.y}
-  H ${endCoords.x}
-  `;
-
-  const getRelationPath = () => {
-    if (relationType === '1:1') {
-      return startCoords.x < endCoords.x
-        ? oneToOneRelationSelfPathRight
-        : oneToOneRelationSelfPathLeft;
-    }
-  };
-
   return (
     <svg>
       {/* Glow filter if selected */}
@@ -59,7 +38,7 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
         </filter>
       </defs>
       <path
-        d={getRelationPath()}
+        d={getRelationPath(relationType, startCoords, endCoords)}
         className={
           isSelected ? classes.selectedRelation : classes.nonSelectedRelation
         }
