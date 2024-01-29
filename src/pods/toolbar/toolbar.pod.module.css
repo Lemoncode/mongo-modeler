@@ -3,7 +3,7 @@
   justify-content: space-evenly;
   padding: 10px;
   background-color: var(--bg-toolbar);
-  border-bottom: 2px solid var(--primary-border-color);
+  border-bottom: 2px solid var(--highlight-color);
 }
 
 .button {

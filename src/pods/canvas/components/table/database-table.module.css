@@ -15,18 +15,13 @@
 
 .table {
   fill: none;
-  border-radius: 20px;
 }
 
 .table__background {
   fill: var(--bg-table);
+  stroke: var(--primary-border-color);
 }
 
 .tableTextRow {
   fill: var(--text-color);
-}
-
-.custom-drop-shadow {
-  filter: url(#table_component_selected);
-  --shadow-color: #ff0000;
 }

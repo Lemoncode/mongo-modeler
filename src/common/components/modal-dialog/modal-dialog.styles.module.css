@@ -40,7 +40,7 @@
   margin: 0;
   font-weight: var(--fw-regular);
   font-size: var(--fs-md);
-  color: var(--text-color);
+  color: var(--text-dark);
 }
 .dialog-subtitle {
   margin: 0;

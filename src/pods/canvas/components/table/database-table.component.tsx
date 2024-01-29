@@ -172,8 +172,8 @@ export const DatabaseTable: React.FC<Props> = ({
             x="0"
             y="0"
             width={PENCIL_ICON_WIDTH + PENCIL_MARGIN_RIGHT}
-            height="25"
             fill="transparent"
+            height="25"
             onClick={pencilIconClick}
           />
           <Edit />

@@ -7,7 +7,10 @@
   margin: 0 auto;
   text-align: center;
   --padding-table: 38px;
-
+  --relation-color: #ffae42;
+  --veil-modal-light: #0f0e0e7c;
+  --veil-modal-dark: #2426308a;
+  --border-color: #7b8fa1;
   /* spacing */
 
   --space-unit: 4px;
@@ -43,11 +46,11 @@
   --secondary-800: #573c1c;
   --secondary-900: #2b1e0e;
   /* text */
-  --text-color: #d1d6e1;
-  --text-disabled: #516476;
+  --text-color: #f3eded;
+  --text-disabled: #9e9997;
   --text-hover: #102617;
-  --text-white: #ffffff;
-  --text-dark: #000000;
+  --text-white: #f3eded;
+  --text-dark: #202020;
 
   /* background */
   --background-50: #e2e7eb;
@@ -60,6 +63,17 @@
   --background-700: #1c2d3f;
   --background-800: #142231;
   --background-900: #0f1924;
+
+  --backround-secondary-50: #fafbfc;
+  --backround-secondary-100: #f4f6f8;
+  --backround-secondary-200: #eaedf1;
+  --backround-secondary-300: #dfe5ea;
+  --backround-secondary-400: #d5dce3;
+  --backround-secondary-500: #cad3dc;
+  --backround-secondary-600: #a2a9b0;
+  --backround-secondary-700: #797f84;
+  --backround-secondary-800: #515458;
+  --backround-secondary-900: #282a2c;
 
   /*font-sizes*/
   --fs-xs: 12px;
@@ -91,61 +105,59 @@
 
 .light {
   /* background */
-  --bg-canvas: #eef9f1;
-  --bg-toolbar: #96d9ab;
-  --bg-input: #dcf2e3;
-  --bg-table: #f7eada;
+  --bg-canvas: var(--backround-secondary-50);
+  --bg-toolbar: var(--backround-secondary-300);
+  --bg-input: var(--primary-200);
+  --bg-table: var(--backround-secondary-100);
 
-  --primary-color: #fbf5ed;
-  --accent-color: #40995c;
-  --highlight-color: #e1ab6c;
-  --header-table: #d99647;
+  --primary-color: var(--backround-secondary-200);
+  --accent-color: var(--background-500);
+  --highlight-color: var(--secondary-400);
+  --header-table: var(--primary-600);
 
   /* buttons */
-  --hover-button: #73cc8f;
-  --button-secondary: #e1ab6c;
-  --hover-button-secondary: #ae7839;
-  --hover-input: #b9e5c7;
+  --hover-button: var(--primary-200);
+  --button-secondary: var(--secondary-400);
+  --hover-button-secondary: var(--secondary-600);
+  --hover-input: var(--primary-300);
 
   /* text */
-  --text-color: #202020;
-  --text-disabled: #778692;
-  --veil-background-modal: rgba(15, 14, 14, 0.486);
+  --text-color: var(--text-dark);
+  --text-disabled: #9e9997;
+  --veil-background-modal: var(--veil-modal-light);
 
   /* border */
-  --primary-border-color: #40995c;
-  --secondary-border-color: #7b8fa1;
-  --border-checkbox: #40995c;
-  --shadow-filter: #204c2e;
+  --primary-border-color: var(--primary-600);
+  --secondary-border-color: var(--border-color);
+  --border-checkbox: var(--primary-600);
+  --shadow-filter: var(--relation-color);
 }
 .dark {
   /* background */
-  --bg-canvas: #0f1924;
-  --bg-toolbar: #102617;
-  --bg-input: #7b8fa1;
-  --bg-table: #2b3c50;
+  --bg-canvas: var(--background-800);
+  --bg-toolbar: var(--background-400);
+  --bg-input: var(--background-300);
+  --bg-table: var(--background-700);
 
-  --primary-color: #0f1924;
-  --accent-color: #b87325;
-  --highlight-color: #40995c;
-  --header-table: #307345;
+  --primary-color: var(--background-700);
+  --accent-color: var(--background-900);
+  --highlight-color: var(--secondary-400);
+  --header-table: var(--primary-600);
 
   /* buttons */
-  --button-secondary: #40995c;
-  --hover-button: #455a6c;
-  --hover-button-secondary: #204c2e;
-  --hover-input: #455a6c;
-
+  --button-secondary: var(--secondary-400);
+  --hover-button-secondary: var(--secondary-600);
+  --hover-button: var(--primary-600);
   /* text */
-  --text-color: #f3eded;
-  --text-disabled: #daccc8;
-  --veil-background-modal: #2426308a;
+  --text-color: var(--text-white);
+  --text-disabled: #9e9997;
+  --veil-background-modal: var(--veil-modal-dark);
 
   /* border */
-  --primary-border-color: #ee932b;
-  --secondary-border-color: #3f4244;
-  --border-checkbox: #ee932b;
-  --shadow-filter: #ee932b;
+  --primary-border-color: var(--primary-600);
+  --secondary-border-color: var(--border-color);
+  --border-checkbox: var(--primary-600);
+  --shadow-filter: var(--secondary-400);
 }
 
 button {
@@ -193,6 +205,7 @@ input {
 input:focus {
   border-bottom: 2px solid var(--primary-border-color);
   border-radius: 4px 4px 2px 2px;
+  background-color: var(--hover-input);
 }
 select:hover,
 input:hover {
@@ -223,7 +236,7 @@ option {
 
 .button-secondary {
   background-color: var(--button-secondary);
-  color: var(--text-color);
+  color: var(--text-dark);
   margin-top: var(--space-md);
   border-radius: var(--border-radius-s);
 }
