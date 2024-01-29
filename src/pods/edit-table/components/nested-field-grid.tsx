@@ -4,8 +4,10 @@ import { FieldType, GUID } from '@/core/model';
 import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
 import { Commands } from './commands/commands.component';
 import { RightArrowIcon, ExpandDown } from '@/common/components';
+import { AnimatePresence, Reorder } from 'framer-motion';
 
 interface NestedFieldGridProps {
+  id?: GUID;
   fields: FieldVm[];
   level: number;
   expandedFields: Set<string>;
@@ -20,9 +22,11 @@ interface NestedFieldGridProps {
   onAddField: (fieldId: GUID, isChildren: boolean) => void;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
+  onDragField: (fields: FieldVm[], id?: GUID) => void;
 }
 
 export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
+  id,
   fields,
   level,
   expandedFields,
@@ -33,6 +37,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   onAddField,
   onMoveDownField,
   onMoveUpField,
+  onDragField,
 }) => {
   const handleAddField = (fieldId: GUID, isChildren: boolean) => {
     if (isChildren) {
@@ -40,10 +45,45 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
     }
     onAddField(fieldId, isChildren);
   };
-
+  const variantsGroup = {
+    open: { opacity: 1, height: 'auto' },
+    collapsed: { opacity: 0, height: 0 },
+  };
+  const variantsItem = {
+    left: {
+      opacity: 0,
+      x: -200,
+      scale: 0.8,
+    },
+    stay: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: { duration: 0.3 },
+    },
+  };
+  const handleDrag = (field: FieldVm) => {
+    if (expandedFields.has(field.id)) {
+      toggleExpand(field.id);
+    }
+  };
   const renderField = (field: FieldVm): JSX.Element => (
     <React.Fragment key={field.id}>
-      <div className={`${classes.fieldRow} `}>
+      <Reorder.Item
+        value={field}
+        key={field.id}
+        style={{ y: 0 }}
+        className={`${classes.fieldRow} `}
+        initial="left"
+        animate="stay"
+        exit="left"
+        variants={variantsItem}
+        transition={{ duration: 0.3 }}
+        onDragStart={() => handleDrag(field)}
+        whileDrag={{
+          cursor: 'grabbing',
+        }}
+      >
         <div
           className={`${classes.fieldCell} ${classes.expandCell} ${classes[`indent${level}`]}`}
         >
@@ -138,9 +178,10 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             onMoveUpField={onMoveUpField}
           />
         </div>
-      </div>
+      </Reorder.Item>
       {field.children && expandedFields.has(field.id) && (
         <NestedFieldGrid
+          id={field.id}
           fields={field.children}
           level={level + 1}
           expandedFields={expandedFields}
@@ -151,14 +192,27 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           onAddField={onAddField}
           onMoveDownField={onMoveDownField}
           onMoveUpField={onMoveUpField}
+          onDragField={onDragField}
         />
       )}
     </React.Fragment>
   );
 
   return (
-    <div className={classes.nestedGrid}>
-      {fields.map(field => renderField(field))}
-    </div>
+    <Reorder.Group
+      values={fields}
+      onReorder={fields => onDragField(fields, id)}
+      className={classes.nestedGrid}
+      key={level}
+      initial="collapsed"
+      animate="open"
+      exit="collapsed"
+      variants={variantsGroup}
+      transition={{ duration: 0.8 }}
+    >
+      <AnimatePresence initial={false}>
+        {fields.map(field => renderField(field))}
+      </AnimatePresence>
+    </Reorder.Group>
   );
 };

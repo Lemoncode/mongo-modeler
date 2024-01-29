@@ -1,19 +1,20 @@
 import React from 'react';
+import { produce } from 'immer';
 import * as canvasVm from '@/core/providers/canvas-schema';
 import * as editTableVm from './edit-table.vm';
-import {
-  mapEditTableVmToTableVm,
-  mapTableVmToEditTableVm,
-} from './edit-table.mapper';
+import { mapEditTableVmToTableVm } from './edit-table.mapper';
 import { EditTableComponent } from './edit-table.component';
-import { produce } from 'immer';
 import { GUID } from '@/core/model';
 import {
   addFieldLogic,
+  findFieldRecursively,
   moveDownField,
   moveUpField,
   removeField,
+  doMapOrCreateTable,
 } from './edit-table.business';
+import { updateFieldValueLogic } from './edit-table.business';
+
 interface Props {
   table?: canvasVm.TableVm; // TODO: should we have our own Vm?
   relations: canvasVm.RelationVm[];
@@ -33,13 +34,9 @@ interface Props {
 // something visible to the user
 export const EditTablePod: React.FC<Props> = props => {
   const { table, relations, onSave } = props;
-  // TODO:
-  // #60
-  // https://github.com/Lemoncode/mongo-modeler/issues/60
-  const [editTable, setEditTable] = React.useState<editTableVm.TableVm>(
-    table
-      ? mapTableVmToEditTableVm(table, relations)
-      : editTableVm.createDefaultTable()
+
+  const [editTable, setEditTable] = React.useState<editTableVm.TableVm>(() =>
+    doMapOrCreateTable(relations, table)
   );
 
   const handleSubmit = (table: editTableVm.TableVm) => {
@@ -55,33 +52,8 @@ export const EditTablePod: React.FC<Props> = props => {
       // TODO: Extract this into a business method and add unit test support
       // #61
       // https://github.com/Lemoncode/mongo-modeler/issues/61
-      produce(currentTable, draftTable => {
-        // Find and update the field by it's id
-        const findAndUpdateField = (fields: editTableVm.FieldVm[]): boolean => {
-          const formerField = fields.find(f => f.id === fieldToUpdate.id);
-          if (formerField) {
-            if (
-              key === 'type' &&
-              formerField[key] === 'object' &&
-              value !== 'object'
-            ) {
-              formerField.children = undefined;
-            }
-            formerField[key] = value;
-            return true; // Field found and updated
-          }
-          // Recursively search in nested fields
-          for (const field of fields) {
-            if (field.children && findAndUpdateField(field.children)) {
-              return true; // Field found and updated in nested field
-            }
-          }
 
-          return false; // Field not found
-        };
-
-        findAndUpdateField(draftTable.fields);
-      })
+      updateFieldValueLogic(currentTable, { fieldToUpdate, key, value })
     );
   };
 
@@ -106,6 +78,22 @@ export const EditTablePod: React.FC<Props> = props => {
   const onMoveUpField = (fieldId: GUID) => {
     setEditTable(currentTable => moveUpField(currentTable, fieldId));
   };
+
+  const onDragField = (fields: editTableVm.FieldVm[], id?: GUID) => {
+    if (id) {
+      setEditTable(currentTable =>
+        produce(currentTable, draftTable => {
+          const findField = findFieldRecursively(draftTable.fields, id);
+          if (findField && findField.children) {
+            findField.children = fields;
+          }
+        })
+      );
+    } else {
+      setEditTable({ ...editTable, fields });
+    }
+  };
+
   return (
     <>
       <EditTableComponent
@@ -116,6 +104,7 @@ export const EditTablePod: React.FC<Props> = props => {
         updateTableName={updateTableName}
         onMoveDownField={onMoveDownField}
         onMoveUpField={onMoveUpField}
+        onDragField={onDragField}
       />
       <button
         className="button-secondary"

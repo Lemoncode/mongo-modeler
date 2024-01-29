@@ -1,9 +1,14 @@
 import React from 'react';
 import { RelationType } from '@/core/providers/canvas-schema';
 import { Coords, GUID } from '@/core/model';
+import {
+  getForkCoords,
+  getRelationPath,
+} from './database-relation-two-tables-path.business';
+import { ClickablePathComponent } from './components/clickable-path.component';
+import { isDrawLeftToRightLogic } from './relation.business';
+import { ForkComponent } from './components';
 import classes from './database-relation.component.module.css';
-import { ClickableLineComponent } from './components';
-import { getRelationPath } from './database-relation-two-tables-path.business';
 interface DatabaseRelationshipMiddleProps {
   id: GUID;
   relationType: RelationType;
@@ -25,6 +30,12 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
   onClick,
   onDoubleClick,
 }) => {
+  const isDrawLeftToRight = isDrawLeftToRightLogic(
+    relationType,
+    startCoords,
+    endCoords
+  );
+
   return (
     <svg>
       {/* Glow filter if selected */}
@@ -45,12 +56,32 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
         filter={isSelected ? `url(#table_glow)` : ''}
       />
 
-      <ClickableLineComponent
+      {/* Draw the fork */}
+      {relationType === '1:M' && (
+        <ForkComponent
+          isSelected={isSelected}
+          forkCoords={getForkCoords(relationType, startCoords, endCoords)}
+          drawLeftToRight={!isDrawLeftToRight}
+        />
+      )}
+      {relationType === 'M:1' && (
+        <ForkComponent
+          isSelected={isSelected}
+          forkCoords={getForkCoords(relationType, startCoords, endCoords)}
+          drawLeftToRight={isDrawLeftToRight}
+        />
+      )}
+
+      <ClickablePathComponent
         id={id}
         startCoords={startCoords}
         endCoords={endCoords}
+        relationType={relationType}
         onClick={onClick}
         onDoubleClick={onDoubleClick}
+        className={
+          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
+        }
       />
     </svg>
   );

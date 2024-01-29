@@ -25,7 +25,6 @@ interface Props {
   selectTable: (tableId: GUID) => void;
 }
 
-const HEADER_TITLE_GAP = 15;
 const TITLE_MARGIN_LEFT = 10;
 const PENCIL_ICON_WIDTH = 30;
 const PENCIL_MARGIN_RIGHT = 5;
@@ -140,7 +139,7 @@ export const DatabaseTable: React.FC<Props> = ({
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
-        height={totalHeight + HEADER_TITLE_GAP}
+        height={totalHeight + TABLE_CONST.HEADER_TITLE_GAP}
         className={classes.tableBackground}
         style={rectStyle}
       />
@@ -179,12 +178,15 @@ export const DatabaseTable: React.FC<Props> = ({
           <Edit />
         </g>
       )}
-      ;<g transform={`translate(0, ${HEADER_TITLE_GAP})`}>{renderedRows}</g>
+      ;
+      <g transform={`translate(0, ${TABLE_CONST.HEADER_TITLE_GAP})`}>
+        {renderedRows}
+      </g>
       <rect
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
-        height={totalHeight + HEADER_TITLE_GAP}
+        height={totalHeight + TABLE_CONST.HEADER_TITLE_GAP}
         className={classes.table}
       />
       <rect
