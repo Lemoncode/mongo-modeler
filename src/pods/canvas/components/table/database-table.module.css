@@ -13,6 +13,10 @@
   fill: var(--highlight-color);
 }
 
+rect:hover {
+  cursor: pointer;
+}
+
 .table {
   fill: none;
   stroke: var(--highlight-color);

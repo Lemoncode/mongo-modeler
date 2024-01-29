@@ -10,3 +10,7 @@
   stroke-width: 4px;
   fill: none;
 }
+
+line:hover {
+  cursor: pointer;
+}
