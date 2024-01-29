@@ -108,3 +108,17 @@ export const moveUpField = (table: TableVm, fieldId: GUID): TableVm => {
     moveUpFieldRecursive(draftTable.fields);
   });
 };
+
+export const findFieldRecursively = (
+  fields: editTableVm.FieldVm[],
+  id: GUID
+): editTableVm.FieldVm | undefined => {
+  for (const field of fields) {
+    if (field.id === id) return field;
+    if (field.children) {
+      const found = findFieldRecursively(field.children, id);
+      if (found) return found;
+    }
+  }
+  return undefined;
+};
