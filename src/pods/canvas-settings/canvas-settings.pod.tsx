@@ -29,7 +29,9 @@ export const CanvasSettingsComponent: React.FC<Props> = props => {
             <div className={classes.container}>
               <InputFormik label="Width" name="width" placeholder="Width" />
               <InputFormik label="Height" name="height" placeholder="Height" />
-              <button type="submit">On Change Settings</button>
+              <button type="submit" className="button-secondary">
+                On Change Settings
+              </button>
             </div>
           </Form>
         )}

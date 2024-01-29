@@ -119,7 +119,12 @@ export const DatabaseTable: React.FC<Props> = ({
     >
       <defs>
         <filter id="table_component_selected" x="0" y="0">
-          <feDropShadow dx="5" dy="5" stdDeviation="2" />
+          <feDropShadow
+            dx="3"
+            dy="3"
+            stdDeviation="4"
+            flood-color="var(--shadow-filter)"
+          />
         </filter>
       </defs>
       <rect

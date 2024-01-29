@@ -14,7 +14,6 @@ import {
   moveUpField,
   removeField,
 } from './edit-table.business';
-
 interface Props {
   table?: canvasVm.TableVm; // TODO: should we have our own Vm?
   relations: canvasVm.RelationVm[];
@@ -118,7 +117,12 @@ export const EditTablePod: React.FC<Props> = props => {
         onMoveDownField={onMoveDownField}
         onMoveUpField={onMoveUpField}
       />
-      <button onClick={() => handleSubmit(editTable)}>Apply</button>
+      <button
+        className="button-secondary"
+        onClick={() => handleSubmit(editTable)}
+      >
+        Apply
+      </button>
     </>
   );
 };

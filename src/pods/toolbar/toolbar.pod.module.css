@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-evenly;
   padding: 10px;
-  background-color: var(--primary-toolbar);
-  border-bottom: 2px solid var(--highlight-color);
+  background-color: var(--bg-toolbar);
+  border-bottom: 2px solid var(--primary-border-color);
 }
 
 .button {
@@ -12,6 +12,5 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  color: var(--text-color);
   fill: var(--text-color);
 }

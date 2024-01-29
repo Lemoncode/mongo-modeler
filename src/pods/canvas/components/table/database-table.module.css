@@ -6,18 +6,23 @@
 }
 
 .tableHeader {
-  fill: var(--highlight-color);
+  fill: var(--header-table);
 }
 
 .table {
   fill: none;
-  stroke: var(--highlight-color);
+  border-radius: 20px;
 }
 
 .table__background {
-  fill: var(--secondary-background);
+  fill: var(--bg-table);
 }
 
 .tableTextRow {
   fill: var(--text-color);
+}
+
+.custom-drop-shadow {
+  filter: url(#table_component_selected);
+  --shadow-color: #ff0000;
 }
