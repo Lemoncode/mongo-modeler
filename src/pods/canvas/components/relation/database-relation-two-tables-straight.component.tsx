@@ -19,7 +19,7 @@ interface DatabaseRelationshipTwoTablesProps {
   isSelected: boolean;
 }
 
-const DatabaseRelationshipTwoTablesComponent: React.FC<
+export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
   DatabaseRelationshipTwoTablesProps
 > = ({
   id,
@@ -99,5 +99,3 @@ const DatabaseRelationshipTwoTablesComponent: React.FC<
     </svg>
   );
 };
-
-export default DatabaseRelationshipTwoTablesComponent;

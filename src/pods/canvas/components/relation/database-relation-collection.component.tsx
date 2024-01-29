@@ -1,12 +1,15 @@
 import React from 'react';
 import { Coords, GUID } from '@/core/model';
 import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
-import DatabaseRelationshipTwoTablesComponent from './database-relation-two-tables.component';
 import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
 } from '@/core/providers/canvas-schema/canvas.business';
 import { DatabaseRelationSelfComponent } from './database-relation-self.component';
+import { DatabaseRelationshipTwoTablePathComponent } from './database-relation-two-tables-path.component';
+import { DatabaseRelationshipTwoTablesStraightComponent } from './database-relation-two-tables-straight.component';
+import { isOverLapping } from './database-relation-collection.business';
+import { LayoutType } from './relation.vm';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
@@ -47,31 +50,60 @@ export const DatabaseRelationCollectionComponent: React.FC<
       y: YCoords.yDestination,
     };
 
+    const getLayoutType = (): LayoutType => {
+      if (relation.fromTableId === relation.toTableId) return 'self';
+      if (isOverLapping(fromTable.x, toTable.x)) return 'overlapping';
+      return 'straight';
+    };
+
+    const renderRelation = () => {
+      const layoutType = getLayoutType();
+
+      switch (layoutType) {
+        case 'self':
+          return (
+            <DatabaseRelationSelfComponent
+              id={relation.id}
+              onClick={onSelectRelation}
+              onDoubleClick={onEditRelation}
+              relationType={relation.type}
+              startCoords={startCoords}
+              endCoords={endCoords}
+              isSelected={relation.id === schema.selectedElementId}
+            />
+          );
+        case 'overlapping':
+          return (
+            <DatabaseRelationshipTwoTablePathComponent
+              id={relation.id}
+              onClick={onSelectRelation}
+              onDoubleClick={onEditRelation}
+              relationType={relation.type}
+              startCoords={startCoords}
+              endCoords={endCoords}
+              isSelected={relation.id === schema.selectedElementId}
+            />
+          );
+        case 'straight':
+          return (
+            <DatabaseRelationshipTwoTablesStraightComponent
+              id={relation.id}
+              onClick={onSelectRelation}
+              onDoubleClick={onEditRelation}
+              relationType={relation.type}
+              startCoords={startCoords}
+              endCoords={endCoords}
+              isSelected={relation.id === schema.selectedElementId}
+            />
+          );
+      }
+    };
+
     return (
       <React.Fragment
         key={`${relation.fromTableId}-${relation.fromFieldId}-${relation.toTableId}-${relation.toFieldId}`}
       >
-        {relation.fromTableId !== relation.toTableId ? (
-          <DatabaseRelationshipTwoTablesComponent
-            id={relation.id}
-            onClick={onSelectRelation}
-            onDoubleClick={onEditRelation}
-            relationType={relation.type}
-            startCoords={startCoords}
-            endCoords={endCoords}
-            isSelected={relation.id === schema.selectedElementId}
-          />
-        ) : (
-          <DatabaseRelationSelfComponent
-            id={relation.id}
-            onClick={onSelectRelation}
-            onDoubleClick={onEditRelation}
-            relationType={relation.type}
-            startCoords={startCoords}
-            endCoords={endCoords}
-            isSelected={relation.id === schema.selectedElementId}
-          />
-        )}
+        {renderRelation()}
       </React.Fragment>
     );
   };
