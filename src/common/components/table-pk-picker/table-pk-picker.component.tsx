@@ -21,7 +21,8 @@ export const TablePkPicker: React.FC<Props> = props => {
     props;
 
   const path = value?.label && generateLabel(options, value.id, []);
-  const [selectedPath, setSelectedPath] = React.useState(path || '');
+  const [selectedPath, setSelectedPath] = React.useState(path);
+
   const [optionsListVisible, setOptionsListVisible] = React.useState(false);
   const [currentSelectedKeyFieldId, setCurrentSelectedKeyFieldId] =
     React.useState(value?.id);
@@ -35,6 +36,10 @@ export const TablePkPicker: React.FC<Props> = props => {
     setOptionsListVisible(false);
     onChange(option);
   };
+
+  React.useEffect(() => {
+    if (!value?.label) setSelectedPath('');
+  }, [value]);
 
   return (
     <>
