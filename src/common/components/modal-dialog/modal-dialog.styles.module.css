@@ -51,7 +51,7 @@
   width: fit-content;
   margin-left: auto;
   background-color: transparent;
-  color: var(--text-color);
+  color: var(--text-dark);
   padding: var(--space-xs);
   line-height: 0;
 }

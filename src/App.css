@@ -107,7 +107,7 @@
   /* background */
   --bg-canvas: var(--backround-secondary-50);
   --bg-toolbar: var(--backround-secondary-300);
-  --bg-input: var(--primary-200);
+  --bg-input: var(--background-100);
   --bg-table: var(--backround-secondary-100);
 
   --primary-color: var(--backround-secondary-200);
@@ -119,7 +119,7 @@
   --hover-button: var(--primary-200);
   --button-secondary: var(--secondary-400);
   --hover-button-secondary: var(--secondary-600);
-  --hover-input: var(--primary-300);
+  --hover-input: var(--background-200);
 
   /* text */
   --text-color: var(--text-dark);
@@ -127,16 +127,20 @@
   --veil-background-modal: var(--veil-modal-light);
 
   /* border */
-  --primary-border-color: var(--primary-600);
+  --primary-border-color: var(--background-600);
   --secondary-border-color: var(--border-color);
-  --border-checkbox: var(--primary-600);
   --shadow-filter: var(--relation-color);
+
+  /* checkbox */
+  --bg-checkbox: var(--backround-secondary-50);
+  --hover-checkbox: var(--background-400);
+  --border-checkbox: var(--background-200);
 }
 .dark {
   /* background */
   --bg-canvas: var(--background-800);
   --bg-toolbar: var(--background-400);
-  --bg-input: var(--background-300);
+  --bg-input: var(--background-400);
   --bg-table: var(--background-700);
 
   --primary-color: var(--background-700);
@@ -148,16 +152,22 @@
   --button-secondary: var(--secondary-400);
   --hover-button-secondary: var(--secondary-600);
   --hover-button: var(--primary-600);
+  --hover-input: var(--background-500);
+
   /* text */
   --text-color: var(--text-white);
   --text-disabled: #9e9997;
   --veil-background-modal: var(--veil-modal-dark);
 
   /* border */
-  --primary-border-color: var(--primary-600);
+  --primary-border-color: var(--background-200);
   --secondary-border-color: var(--border-color);
-  --border-checkbox: var(--primary-600);
   --shadow-filter: var(--secondary-400);
+
+  /* checkbox */
+  --bg-checkbox: var(--background-50);
+  --border-checkbox: var(--background-400);
+  --hover-checkbox: var(--background-200);
 }
 
 button {

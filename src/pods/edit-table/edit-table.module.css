@@ -240,12 +240,12 @@ related to each other and to the dialog header*/
 }
 .checkbox input + label {
   display: block;
-  border: 1px solid var(--border-checkbox);
+  border: 2px solid var(--border-checkbox);
   width: 25px;
   height: 25px;
   border-radius: 6px;
   cursor: pointer;
-  background-color: var(--secondary-50);
+  background-color: var(--bg-checkbox);
   transition: all 0.2s ease;
 }
 .checkbox input:focus + label {
@@ -253,11 +253,11 @@ related to each other and to the dialog header*/
 }
 
 .checkbox input:hover + label {
-  border: 2px solid var(--border-checkbox);
-  box-shadow: 0 0 3px var(--border-checkbox);
+  border: 2px solid var(--hover-checkbox);
+  box-shadow: 0 0 4px var(--hover-checkbox);
 }
 .checkbox input + label:active {
-  border: 1px solid var(--border-checkbox);
+  border: 3px solid var(--border-checkbox);
 }
 
 .checkbox input + label svg {
@@ -266,8 +266,8 @@ related to each other and to the dialog header*/
 }
 .checkbox input + label svg path {
   fill: none;
-  stroke: var(--border-checkbox);
-  stroke-width: 4px;
+  stroke: var(--primary-500);
+  stroke-width: 5px;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 100;
