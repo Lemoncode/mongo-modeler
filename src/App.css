@@ -8,8 +8,10 @@
   text-align: center;
   --padding-table: 38px;
   --relation-color: #ecad5a;
+  --border-radius-table: var(--border-radius-s);
+  --checkbox-size: 22px;
   /* todo */
-  --veil-modal: #0f10168a;
+  --veil-modal: #0d0d1185;
   --border-color: #7b8fa1;
   /* spacing */
 
@@ -109,12 +111,9 @@
   /* background */
   --bg-canvas: var(--background-800);
   --bg-toolbar: var(--background-400);
-  --bg-input: var(--background-400);
+  --bg-input: var(--background-500);
   --bg-table: var(--background-700);
 
-  --primary-color: var(--background-700);
-  --accent-color: var(--background-900);
-  --highlight-color: var(--primary-400);
   --header-table: var(--primary-300);
 
   /* buttons */
@@ -128,11 +127,11 @@
 
   /* border */
   --primary-border-color: var(--primary-300);
-  --secondary-border-color: blue;
+  --secondary-border-color: var(--background-300);
   --shadow-filter: var(--primary-600);
 
   /* checkbox */
-  --bg-checkbox: var(--background-50);
+  --bg-checkbox: var(--background-500);
   --border-checkbox: var(--background-400);
   --hover-checkbox: var(--background-200);
 }
@@ -148,6 +147,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
   color: var(--text-color);
+  transition: all 0.3s ease-in-out;
 }
 
 button:focus,
@@ -157,7 +157,7 @@ button:focus-visible {
 
 button:hover {
   background-color: var(--hover-button);
-  color: var(--text-color);
+  color: var(--text-dark);
 }
 
 button:disabled {
@@ -171,7 +171,7 @@ button:disabled:hover {
 
 input {
   background-color: var(--bg-input);
-  border: 1px solid var(--primary-border-color);
+  border: 1px solid var(--background-500);
   border-radius: var(--border-radius-xs);
   color: var(--text-color);
   padding: var(--space-xs);
@@ -180,8 +180,7 @@ input {
   outline: none;
 }
 input:focus {
-  border-bottom: 2px solid var(--primary-border-color);
-  border-radius: 4px 4px 2px 2px;
+  border: 2px solid var(--primary-border-color);
   background-color: var(--hover-input);
 }
 select:hover,
@@ -198,8 +197,9 @@ option {
 }
 
 input[type='checkbox'] {
-  width: 25px;
-  height: 25px;
+  margin: 0;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
   cursor: pointer;
 }
 

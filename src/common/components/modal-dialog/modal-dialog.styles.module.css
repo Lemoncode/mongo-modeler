@@ -13,7 +13,7 @@
 .dialog {
   position: relative;
   z-index: 1;
-  background-color: var(--primary-color);
+  background-color: var(--background-700);
   color: var(--text-color);
   width: 80%;
   height: 80%;

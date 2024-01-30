@@ -1,11 +1,12 @@
 .table-container {
   user-select: none;
 }
+.table-container svg path {
+  fill: var(--text-dark);
+  pointer-events: none;
+}
 
 .tableText {
-  font-family: 'Arial', sans-serif;
-  font-size: 14px;
-  cursor: pointer;
   fill: var(--text-dark);
 }
 

@@ -2,9 +2,6 @@
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   margin: 10px;
-  border: 1px solid var(--secondary-border-color);
-  border-bottom: none;
-  border-top: none;
   min-width: 800px;
 }
 .tableEditor ul {
@@ -17,20 +14,22 @@
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   grid-column: 1 / -1;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--secondary-border-color);
   border-top-width: 0.5px;
   border-bottom-width: 0.5px;
-  background-color: var(--primary-background);
+  background-color: var(--background-700);
 }
 .fieldRow {
   cursor: grab;
 }
 .nestedGrid ul li:last-child {
-  border-bottom: 0.5px solid var(--border-color);
+  border-bottom: 0.5px solid var(--secondary-border-color);
 }
 
 .tableEditor > ul > li:last-child {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--secondary-border-color);
+  border-bottom-left-radius: var(--border-radius-table);
+  border-bottom-right-radius: var(--border-radius-table);
 }
 .nestedGrid {
   display: grid;
@@ -62,9 +61,8 @@
 }
 .headerCell {
   padding: var(--space-xs) 5px;
-  background-color: var(--accent-color);
+  background-color: var(--background-900);
   color: var(--text-white);
-  border-top: 1px solid var(--secondary-border-color);
 }
 
 .commands-container {
@@ -140,19 +138,29 @@
 related to each other and to the dialog header*/
 .header-row {
   position: sticky;
-  top: 5.3125rem;
+  top: 0;
   z-index: 1;
   border-top-width: 1px;
 }
+.header-row,
+.header-row .headerCell:first-child {
+  border-top-left-radius: var(--border-radius-table);
+}
+.header-row,
+.header-row .headerCell:last-child {
+  border-top-right-radius: var(--border-radius-table);
+}
+
 .table-name {
+  background-color: var(--background-700);
   position: sticky;
-  top: 2.5rem;
+  top: 3rem;
   left: 0px;
-  padding-top: var(--space-xs);
-  padding-bottom: var(--space-xs);
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
   z-index: 2;
   text-align: left;
-  border-bottom: 1px solid var(--secondary-border-color);
+  border-bottom: 1px solid var(--primary-border-color);
 }
 
 .table-name label {
@@ -162,20 +170,6 @@ related to each other and to the dialog header*/
 }
 .table-name input {
   max-width: 190px;
-  padding: var(--space-xs);
-  border: none;
-  border-radius: var(--border-radius-xs);
-  outline: none;
-  background-color: var(--bg-input);
-  color: var(--text-color);
-  transition: 0.3s ease;
-}
-.table-name input:focus,
-.table-name input:hover {
-  outline: none;
-  border-color: var(--primary-border-color);
-  box-shadow: 0 0 0 2px var(--primary-border-color);
-  background-color: var(--hover-input);
 }
 
 .fieldCell button {
@@ -201,19 +195,6 @@ related to each other and to the dialog header*/
   align-items: center;
 }
 
-.input-name input {
-  width: 100%;
-  margin-right: 5px;
-}
-.input-name input:focus {
-  border-bottom: 2px solid var(--primary-border-color);
-  border-radius: 4px 4px 2px 2px;
-  background-color: var(--hover-input);
-}
-.input-name input:hover {
-  outline: 1px solid var(--primary-border-color);
-  background-color: var(--hover-input);
-}
 .expandCell button {
   padding: 3px;
   min-width: 30px;
@@ -226,6 +207,7 @@ related to each other and to the dialog header*/
   margin-left: 5px;
   padding: 3px;
 }
+
 .checkbox {
   position: relative;
 }
@@ -240,9 +222,9 @@ related to each other and to the dialog header*/
 }
 .checkbox input + label {
   display: block;
-  border: 2px solid var(--border-checkbox);
-  width: 25px;
-  height: 25px;
+  border: 2px solid transparent;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
   border-radius: 6px;
   cursor: pointer;
   background-color: var(--bg-checkbox);
@@ -266,7 +248,7 @@ related to each other and to the dialog header*/
 }
 .checkbox input + label svg path {
   fill: none;
-  stroke: var(--primary-500);
+  stroke: var(--primary-300);
   stroke-width: 5px;
   stroke-linecap: round;
   stroke-linejoin: round;

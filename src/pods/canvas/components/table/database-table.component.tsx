@@ -160,14 +160,14 @@ export const DatabaseTable: React.FC<Props> = ({
       <TruncatedText
         text={tableInfo.tableName}
         x={TITLE_MARGIN_LEFT}
-        y={2}
+        y={4}
         width={TABLE_CONST.TABLE_WIDTH - TITLE_MARGIN_LEFT}
         height={TABLE_CONST.FONT_SIZE}
         textClass={classes.tableText}
       />
       {isSelected && (
         <g
-          transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 0)`}
+          transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
           onClick={pencilIconClick}
         >
           <rect
@@ -177,6 +177,7 @@ export const DatabaseTable: React.FC<Props> = ({
             fill="transparent"
             height="25"
             onClick={pencilIconClick}
+            style={{ cursor: 'pointer' }}
           />
           <Edit />
         </g>
@@ -204,6 +205,7 @@ export const DatabaseTable: React.FC<Props> = ({
         fill="transparent"
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}
+        style={{ cursor: 'pointer' }}
       />
     </g>
   );
