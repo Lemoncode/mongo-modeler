@@ -7,9 +7,9 @@
   margin: 0 auto;
   text-align: center;
   --padding-table: 38px;
-  --relation-color: #ffae42;
-  --veil-modal-light: #0f0e0e7c;
-  --veil-modal-dark: #2426308a;
+  --relation-color: #ecad5a;
+  /* todo */
+  --veil-modal: #0f10168a;
   --border-color: #7b8fa1;
   /* spacing */
 
@@ -45,12 +45,14 @@
   --secondary-700: #825a2b;
   --secondary-800: #573c1c;
   --secondary-900: #2b1e0e;
+
   /* text */
   --text-color: #f3eded;
-  --text-disabled: #9e9997;
-  --text-hover: #102617;
-  --text-white: #f3eded;
+  --text-disabled: #757575;
   --text-dark: #202020;
+  /* --text-hover: #102617; */
+  /* --text-white: #f3eded;
+  --text-dark: #202020; */
 
   /* background */
   --background-50: #e2e7eb;
@@ -64,16 +66,16 @@
   --background-800: #142231;
   --background-900: #0f1924;
 
-  --backround-secondary-50: #fafbfc;
-  --backround-secondary-100: #f4f6f8;
-  --backround-secondary-200: #eaedf1;
-  --backround-secondary-300: #dfe5ea;
-  --backround-secondary-400: #d5dce3;
-  --backround-secondary-500: #cad3dc;
-  --backround-secondary-600: #a2a9b0;
-  --backround-secondary-700: #797f84;
-  --backround-secondary-800: #515458;
-  --backround-secondary-900: #282a2c;
+  /* --background-secondary-50: #fafbfc;
+  --background-secondary-100: #f4f6f8;
+  --background-secondary-200: #eaedf1;
+  --background-secondary-300: #dfe5ea;
+  --background-secondary-400: #d5dce3;
+  --background-secondary-500: #cad3dc;
+  --background-secondary-600: #a2a9b0;
+  --background-secondary-700: #797f84;
+  --background-secondary-800: #515458;
+  --background-secondary-900: #282a2c; */
 
   /*font-sizes*/
   --fs-xs: 12px;
@@ -103,39 +105,6 @@
   --border-radius-xxxl: calc(var(--border-radius-unit) * 16);
 }
 
-.light {
-  /* background */
-  --bg-canvas: var(--backround-secondary-50);
-  --bg-toolbar: var(--backround-secondary-300);
-  --bg-input: var(--background-100);
-  --bg-table: var(--backround-secondary-100);
-
-  --primary-color: var(--backround-secondary-200);
-  --accent-color: var(--background-500);
-  --highlight-color: var(--secondary-400);
-  --header-table: var(--primary-600);
-
-  /* buttons */
-  --hover-button: var(--primary-200);
-  --button-secondary: var(--secondary-400);
-  --hover-button-secondary: var(--secondary-600);
-  --hover-input: var(--background-200);
-
-  /* text */
-  --text-color: var(--text-dark);
-  --text-disabled: #9e9997;
-  --veil-background-modal: var(--veil-modal-light);
-
-  /* border */
-  --primary-border-color: var(--background-600);
-  --secondary-border-color: var(--border-color);
-  --shadow-filter: var(--relation-color);
-
-  /* checkbox */
-  --bg-checkbox: var(--backround-secondary-50);
-  --hover-checkbox: var(--background-400);
-  --border-checkbox: var(--background-200);
-}
 .dark {
   /* background */
   --bg-canvas: var(--background-800);
@@ -145,24 +114,22 @@
 
   --primary-color: var(--background-700);
   --accent-color: var(--background-900);
-  --highlight-color: var(--secondary-400);
-  --header-table: var(--primary-600);
+  --highlight-color: var(--primary-400);
+  --header-table: var(--primary-300);
 
   /* buttons */
   --button-secondary: var(--secondary-400);
   --hover-button-secondary: var(--secondary-600);
-  --hover-button: var(--primary-600);
+  --hover-button: var(--primary-300);
   --hover-input: var(--background-500);
 
   /* text */
-  --text-color: var(--text-white);
-  --text-disabled: #9e9997;
-  --veil-background-modal: var(--veil-modal-dark);
+  --veil-background-modal: #2426308a;
 
   /* border */
-  --primary-border-color: var(--background-200);
-  --secondary-border-color: var(--border-color);
-  --shadow-filter: var(--secondary-400);
+  --primary-border-color: var(--primary-300);
+  --secondary-border-color: blue;
+  --shadow-filter: var(--primary-600);
 
   /* checkbox */
   --bg-checkbox: var(--background-50);
@@ -230,22 +197,22 @@ option {
   color: var(--text-color);
 }
 
-.light input[type='checkbox'] {
-  color-scheme: light;
+input[type='checkbox'] {
   width: 25px;
   height: 25px;
   cursor: pointer;
+}
+
+.light input[type='checkbox'] {
+  color-scheme: light;
 }
 
 .dark input[type='checkbox'] {
   color-scheme: dark;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
 }
 
 .button-secondary {
-  background-color: var(--button-secondary);
+  background-color: var(--secondary-300);
   color: var(--text-dark);
   margin-top: var(--space-md);
   border-radius: var(--border-radius-s);

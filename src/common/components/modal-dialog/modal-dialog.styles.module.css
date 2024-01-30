@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--veil-background-modal);
+  background-color: var(--veil-modal);
 }
 
 .dialog {
@@ -18,7 +18,7 @@
   width: 80%;
   height: 80%;
   overflow: scroll;
-  border-radius: var(--border-radius-l);
+  border-radius: var(--border-radius-m);
 }
 .dialog-header {
   position: sticky;
@@ -27,11 +27,11 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  background: var(--highlight-color);
+  background: var(--secondary-300);
   padding: var(--space-xs);
   padding-left: var(--space-md);
   color: var(--text-dark);
-  border-bottom: 1px solid var(--secondary-border-color);
+  border-radius: var(--border-radius-m);
 }
 .dialog-header span {
   margin: 0;

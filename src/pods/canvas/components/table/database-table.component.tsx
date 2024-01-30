@@ -28,6 +28,7 @@ interface Props {
 const TITLE_MARGIN_LEFT = 10;
 const PENCIL_ICON_WIDTH = 30;
 const PENCIL_MARGIN_RIGHT = 5;
+const TABLE_BORDER_RADIUS = 8;
 
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
@@ -138,12 +139,14 @@ export const DatabaseTable: React.FC<Props> = ({
       <rect
         x="0"
         y="0"
+        rx={TABLE_BORDER_RADIUS}
         width={TABLE_CONST.TABLE_WIDTH}
         height={totalHeight + TABLE_CONST.HEADER_TITLE_GAP}
         className={classes.tableBackground}
         style={rectStyle}
       />
       <rect
+        rx={TABLE_BORDER_RADIUS}
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
@@ -157,7 +160,7 @@ export const DatabaseTable: React.FC<Props> = ({
       <TruncatedText
         text={tableInfo.tableName}
         x={TITLE_MARGIN_LEFT}
-        y={0}
+        y={2}
         width={TABLE_CONST.TABLE_WIDTH - TITLE_MARGIN_LEFT}
         height={TABLE_CONST.FONT_SIZE}
         textClass={classes.tableText}
