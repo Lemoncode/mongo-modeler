@@ -20,36 +20,37 @@ export const ExportButton = () => {
 
   const { canvasSize, zoomFactor } = canvasViewSettings;
 
-  const getMaxXFromSchemaTables = (tables: TableVm[]): { x: number } => {
-    if (tables.length === 0) {
-      return { x: 0 };
-    }
-    const maxX = tables.reduce(
-      (max, table) => (table.x > max ? table.x : max),
-      tables[0].x
-    );
-
-    return { x: maxX };
+  const getMaxXFromSchemaTables = (tables: TableVm[]): number => {
+    if (tables.length === 0) return 0;
+    return tables.sort((tableA, tableB) => tableB.x - tableA.x)[0].x;
   };
 
-  const maxX = getMaxXFromSchemaTables(canvasSchema.tables)?.x;
-
-  let viewBoxSize: Size = React.useMemo<Size>(
-    () => ({
-      width: (maxX + TABLE_CONST.TABLE_WIDTH) * zoomFactor,
-      height: canvasSize.height * zoomFactor,
-    }),
-    [zoomFactor, canvasSize, maxX]
+  const getMaxX = React.useMemo<number>(
+    () => getMaxXFromSchemaTables(canvasSchema.tables),
+    [canvasSchema.tables]
   );
 
-  // console.log('canvasSize.width', canvasSize.width - (maxX + TABLE_CONST.TABLE_WIDTH));
-  const exportSvg = () => {
-    // viewBoxSize = { ...viewBoxSize, width: maxX };
+  const viewBoxSize: Size = React.useMemo<Size>(
+    () => ({
+      width: getMaxX + TABLE_CONST.TABLE_WIDTH,
+      height: canvasSize.height,
+    }),
+    [zoomFactor, canvasSize, getMaxX]
+  );
 
+  const downloadCanvasSize: Size = React.useMemo<Size>(
+    () => ({
+      ...canvasSize,
+      width: getMaxX + TABLE_CONST.TABLE_WIDTH,
+    }),
+    [zoomFactor, canvasSize, getMaxX]
+  );
+
+  const exportSvg = () => {
     const svg = (
       <CanvasExportSvgComponent
         viewBoxSize={viewBoxSize}
-        canvasSize={canvasSize}
+        canvasSize={downloadCanvasSize}
         canvasSchema={canvasSchema}
         onUpdateTablePosition={() => {}}
         onToggleCollapse={() => {}}
@@ -61,7 +62,7 @@ export const ExportButton = () => {
   };
 
   const exportImage = () => {
-    const image = (
+    const svg = (
       <CanvasExportSvgComponent
         viewBoxSize={viewBoxSize}
         canvasSize={canvasSize}
@@ -72,7 +73,7 @@ export const ExportButton = () => {
       />
     );
 
-    downloadImage(image, viewBoxSize);
+    downloadImage(svg, downloadCanvasSize);
   };
 
   const handleExportToFormat = (exportType: ExportType) => {
