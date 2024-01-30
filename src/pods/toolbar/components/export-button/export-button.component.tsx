@@ -6,12 +6,15 @@ import {
   useModalDialogContext,
   useCanvasSchemaContext,
   useCanvasViewSettingsContext,
-  TableVm,
   TABLE_CONST,
 } from '@/core/providers';
 import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import {
+  getMaxPositionYFromTables,
+  getMaxPositionXFromTables,
+} from './export-button.business';
 
 export const ExportButton = () => {
   const { openModal } = useModalDialogContext();
@@ -20,36 +23,20 @@ export const ExportButton = () => {
 
   const { canvasSize, zoomFactor } = canvasViewSettings;
 
-  const getMaxXFromSchemaTables = (tables: TableVm[]): number => {
-    if (tables.length === 0) return 0;
-    return tables.sort((tableA, tableB) => tableB.x - tableA.x)[0].x;
-  };
-
-  const getMaxX = React.useMemo<number>(
-    () => getMaxXFromSchemaTables(canvasSchema.tables),
-    [canvasSchema.tables]
-  );
-
-  const viewBoxSize: Size = React.useMemo<Size>(
-    () => ({
-      width: getMaxX + TABLE_CONST.TABLE_WIDTH,
-      height: canvasSize.height,
-    }),
-    [zoomFactor, canvasSize, getMaxX]
-  );
-
   const downloadCanvasSize: Size = React.useMemo<Size>(
     () => ({
-      ...canvasSize,
-      width: getMaxX + TABLE_CONST.TABLE_WIDTH,
+      width:
+        getMaxPositionXFromTables(canvasSchema.tables) +
+        TABLE_CONST.TABLE_WIDTH +
+        100,
+      height: getMaxPositionYFromTables(canvasSchema.tables) + 100,
     }),
-    [zoomFactor, canvasSize, getMaxX]
+    [zoomFactor, canvasSize, canvasSchema.tables]
   );
 
   const exportSvg = () => {
     const svg = (
       <CanvasExportSvgComponent
-        viewBoxSize={viewBoxSize}
         canvasSize={downloadCanvasSize}
         canvasSchema={canvasSchema}
         onUpdateTablePosition={() => {}}
@@ -64,7 +51,6 @@ export const ExportButton = () => {
   const exportImage = () => {
     const svg = (
       <CanvasExportSvgComponent
-        viewBoxSize={viewBoxSize}
         canvasSize={canvasSize}
         canvasSchema={canvasSchema}
         onUpdateTablePosition={() => {}}

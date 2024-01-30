@@ -4,7 +4,6 @@ import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
 
 interface Props {
-  viewBoxSize: Size;
   canvasSize: Size;
   canvasSchema: DatabaseSchemaVm;
   onUpdateTablePosition: (
@@ -19,7 +18,6 @@ interface Props {
 
 export const CanvasExportSvgComponent: React.FC<Props> = props => {
   const {
-    // viewBoxSize,
     canvasSize,
     canvasSchema,
     onUpdateTablePosition,
