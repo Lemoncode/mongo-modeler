@@ -6,6 +6,8 @@ import {
   useModalDialogContext,
   useCanvasSchemaContext,
   useCanvasViewSettingsContext,
+  TableVm,
+  TABLE_CONST,
 } from '@/core/providers';
 import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
@@ -18,15 +20,32 @@ export const ExportButton = () => {
 
   const { canvasSize, zoomFactor } = canvasViewSettings;
 
-  const viewBoxSize: Size = React.useMemo<Size>(
+  const getMaxXFromSchemaTables = (tables: TableVm[]): { x: number } => {
+    if (tables.length === 0) {
+      return { x: 0 };
+    }
+    const maxX = tables.reduce(
+      (max, table) => (table.x > max ? table.x : max),
+      tables[0].x
+    );
+
+    return { x: maxX };
+  };
+
+  const maxX = getMaxXFromSchemaTables(canvasSchema.tables)?.x;
+
+  let viewBoxSize: Size = React.useMemo<Size>(
     () => ({
-      width: canvasSize.width * zoomFactor,
+      width: (maxX + TABLE_CONST.TABLE_WIDTH) * zoomFactor,
       height: canvasSize.height * zoomFactor,
     }),
-    [zoomFactor, canvasSize]
+    [zoomFactor, canvasSize, maxX]
   );
 
+  // console.log('canvasSize.width', canvasSize.width - (maxX + TABLE_CONST.TABLE_WIDTH));
   const exportSvg = () => {
+    // viewBoxSize = { ...viewBoxSize, width: maxX };
+
     const svg = (
       <CanvasExportSvgComponent
         viewBoxSize={viewBoxSize}
@@ -42,7 +61,7 @@ export const ExportButton = () => {
   };
 
   const exportImage = () => {
-    const svg = (
+    const image = (
       <CanvasExportSvgComponent
         viewBoxSize={viewBoxSize}
         canvasSize={canvasSize}
@@ -53,7 +72,7 @@ export const ExportButton = () => {
       />
     );
 
-    downloadImage(svg, viewBoxSize);
+    downloadImage(image, viewBoxSize);
   };
 
   const handleExportToFormat = (exportType: ExportType) => {
