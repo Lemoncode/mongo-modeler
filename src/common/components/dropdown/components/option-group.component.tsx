@@ -45,6 +45,7 @@ interface OptionProps {
 
 const Option: React.FC<OptionProps> = props => {
   const { options, selectedOption, name, handleOptionClick } = props;
+
   return options.map(option => (
     <li key={option.id}>
       <div className={classes.svg}>
