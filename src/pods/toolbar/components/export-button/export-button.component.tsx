@@ -28,8 +28,10 @@ export const ExportButton = () => {
       width:
         getMaxPositionXFromTables(canvasSchema.tables) +
         TABLE_CONST.TABLE_WIDTH +
-        100,
-      height: getMaxPositionYFromTables(canvasSchema.tables) + 100,
+        TABLE_CONST.CANVAS_PADDING,
+      height:
+        getMaxPositionYFromTables(canvasSchema.tables) +
+        TABLE_CONST.CANVAS_PADDING,
     }),
     [zoomFactor, canvasSize, canvasSchema.tables]
   );

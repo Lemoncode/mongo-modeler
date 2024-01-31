@@ -16,8 +16,12 @@ export const getFieldsCount = (fields: FieldVm[]): number =>
 
 export const calculateTableHeight = (fields: FieldVm[]): number => {
   const countFieldInTable = getFieldsCount(fields);
+  const rowHeightTotal = countFieldInTable * TABLE_CONST.ROW_HEIGHT;
+  const headerHeight = TABLE_CONST.HEADER_HEIGHT;
+  const headerTitleGap = TABLE_CONST.HEADER_TITLE_GAP;
+  const bottomPadding = TABLE_CONST.ROW_PADDING;
 
-  return countFieldInTable * TABLE_CONST.ROW_HEIGHT + TABLE_CONST.HEADER_HEIGHT;
+  return rowHeightTotal + headerHeight + headerTitleGap + bottomPadding;
 };
 
 export const calculateTableEndYPosition = (table: TableVm): number => {

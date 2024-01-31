@@ -10,6 +10,7 @@ const DEFAULT_TABLE_WIDTH = TABLE_WIDTH;
 const ROW_HEIGHT = FONT_SIZE + ROW_PADDING; // Height of the table line
 const HORIZONTAL_LEFT_EXTENSION = 20; // Horizontal extension for the relation line 1:1
 const HEADER_TITLE_GAP = 15;
+const CANVAS_PADDING = 100; // Represents the additional space around the canvas, we use it to add a space for the tables when we export the schema
 
 export const TABLE_CONST = {
   FONT_SIZE,
@@ -24,4 +25,5 @@ export const TABLE_CONST = {
   ROW_HEIGHT,
   HORIZONTAL_LEFT_EXTENSION,
   HEADER_TITLE_GAP,
+  CANVAS_PADDING,
 };
