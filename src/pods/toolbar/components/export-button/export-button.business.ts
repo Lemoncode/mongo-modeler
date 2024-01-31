@@ -5,7 +5,7 @@ export const getMaxPositionXFromTables = (tables: TableVm[]): number => {
   return [...tables].sort((tableA, tableB) => tableB.x - tableA.x)[0].x;
 };
 
-const getFieldsCount = (fields: FieldVm[]): number =>
+export const getFieldsCount = (fields: FieldVm[]): number =>
   fields.reduce((acc, field) => {
     if (field.children && field.children.length > 0 && !field.isCollapsed) {
       return acc + 1 + getFieldsCount(field.children);
@@ -14,13 +14,13 @@ const getFieldsCount = (fields: FieldVm[]): number =>
     return acc + 1;
   }, 0);
 
-const calculateTableHeight = (fields: FieldVm[]): number => {
+export const calculateTableHeight = (fields: FieldVm[]): number => {
   const countFieldInTable = getFieldsCount(fields);
 
   return countFieldInTable * TABLE_CONST.ROW_HEIGHT + TABLE_CONST.HEADER_HEIGHT;
 };
 
-const calculateTableEndYPosition = (table: TableVm): number => {
+export const calculateTableEndYPosition = (table: TableVm): number => {
   const tableHeight = calculateTableHeight(table.fields);
 
   return table.y + tableHeight;
