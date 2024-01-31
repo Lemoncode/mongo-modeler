@@ -1,9 +1,7 @@
 import { FieldVm, TableVm, TABLE_CONST } from '@/core/providers';
 
-export const getMaxPositionXFromTables = (tables: TableVm[]): number => {
-  if (tables.length === 0) return 0;
-  return [...tables].sort((tableA, tableB) => tableB.x - tableA.x)[0].x;
-};
+export const getMaxPositionXFromTables = (tables: TableVm[]): number =>
+  tables.length === 0 ? 0 : Math.max(...tables.map(table => table.x));
 
 export const getFieldsCount = (fields: FieldVm[]): number =>
   fields.reduce((acc, field) => {
@@ -30,10 +28,5 @@ export const calculateTableEndYPosition = (table: TableVm): number => {
   return table.y + tableHeight;
 };
 
-export const getMaxPositionYFromTables = (tables: TableVm[]): number => {
-  if (tables.length === 0) return 0;
-
-  return [...tables]
-    .map(table => calculateTableEndYPosition(table))
-    .sort((yA, yB) => yB - yA)[0];
-};
+export const getMaxPositionYFromTables = (tables: TableVm[]): number =>
+  tables.length === 0 ? 0 : Math.max(...tables.map(calculateTableEndYPosition));

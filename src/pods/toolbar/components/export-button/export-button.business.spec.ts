@@ -537,7 +537,7 @@ describe('export-button.business', () => {
 
   // TODO: THIS TEST MUST BE CHANGE  WHEN WE CHANGE THE CONST USE IN THE FUNCTION
   describe('calculateTableHeight', () => {
-    it('should return 144 when fields count is 5', () => {
+    it('should return 169 when fields count is 5', () => {
       // Arrange
       const fields: FieldVm[] = [
         {
@@ -576,10 +576,10 @@ describe('export-button.business', () => {
       const result = calculateTableHeight(fields);
 
       // Assert
-      expect(result).toEqual(144);
+      expect(result).toEqual(169);
     });
 
-    it('should return 72 when fields count is 2', () => {
+    it('should return 97 when fields count is 2', () => {
       // Arrange
       const fields: FieldVm[] = [
         {
@@ -602,10 +602,10 @@ describe('export-button.business', () => {
       const result = calculateTableHeight(fields);
 
       // Assert
-      expect(result).toEqual(72);
+      expect(result).toEqual(97);
     });
 
-    it('should return 48 when fields count is 2 and isCollapsed is true', () => {
+    it('should return 73 when fields count is 2 and isCollapsed is true', () => {
       // Arrange
       const fields: FieldVm[] = [
         {
@@ -630,10 +630,10 @@ describe('export-button.business', () => {
       const result = calculateTableHeight(fields);
 
       // Assert
-      expect(result).toEqual(48);
+      expect(result).toEqual(73);
     });
 
-    it('should return 48 when fields count is 1 and isCollapsed is true and children isCollapsed is true', () => {
+    it('should return 73 when fields count is 1 and isCollapsed is true and children isCollapsed is true', () => {
       // Arrange
       const fields: FieldVm[] = [
         {
@@ -659,13 +659,13 @@ describe('export-button.business', () => {
       const result = calculateTableHeight(fields);
 
       // Assert
-      expect(result).toEqual(48);
+      expect(result).toEqual(73);
     });
   });
 
   //TODO: THIS TEST MUST BE CHANGE  WHEN WE CHANGE THE CONST USE IN THE FUNCTION calculateTableHeight
   describe('calculateTableEndYPosition', () => {
-    it('should return 194 when fields count is 5 and table y is 50', () => {
+    it('should return 219 when fields count is 5 and table y is 50', () => {
       // Arrange
       const table: TableVm = {
         id: '1',
@@ -710,10 +710,10 @@ describe('export-button.business', () => {
       const result = calculateTableEndYPosition(table);
 
       // Assert
-      expect(result).toEqual(194);
+      expect(result).toEqual(219);
     });
 
-    it('should return 102 when fields count is 2 and table y is 30', () => {
+    it('should return 127 when fields count is 2 and table y is 30', () => {
       // Arrange
       const table: TableVm = {
         id: '1',
@@ -742,10 +742,10 @@ describe('export-button.business', () => {
       const result = calculateTableEndYPosition(table);
 
       // Assert
-      expect(result).toEqual(102);
+      expect(result).toEqual(127);
     });
 
-    it('should return 48 when fields count is 2 and table y is 40', () => {
+    it('should return 113 when fields count is 2 and table y is 40', () => {
       // Arrange
       const table: TableVm = {
         id: '1',
@@ -776,7 +776,7 @@ describe('export-button.business', () => {
       const result = calculateTableEndYPosition(table);
 
       // Assert
-      expect(result).toEqual(88);
+      expect(result).toEqual(113);
     });
   });
 
@@ -792,7 +792,7 @@ describe('export-button.business', () => {
       expect(result).toEqual(0);
     });
 
-    it('should return 92 max position y from tables', () => {
+    it('should return 117 max position y from tables', () => {
       // Arrange
       const tables: TableVm[] = [
         {
@@ -835,10 +835,10 @@ describe('export-button.business', () => {
       const result = getMaxPositionYFromTables(tables);
 
       // Assert
-      expect(result).toEqual(92);
+      expect(result).toEqual(117);
     });
 
-    it('should return 77 max position y from tables', () => {
+    it('should return 102 max position y from tables', () => {
       // Arrange
       const tables: TableVm[] = [
         {
@@ -881,7 +881,7 @@ describe('export-button.business', () => {
       const result = getMaxPositionYFromTables(tables);
 
       // Assert
-      expect(result).toEqual(77);
+      expect(result).toEqual(102);
     });
   });
 });
