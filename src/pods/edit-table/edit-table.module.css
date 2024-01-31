@@ -1,7 +1,7 @@
 .tableEditor {
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
-  margin: 10px;
+  margin: var(--space-md);
   min-width: 800px;
 }
 .tableEditor ul {
@@ -49,16 +49,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-xs);
+  padding: var(--space-cells);
 }
 
 .fieldCell + .fieldCell,
 .headerCell + .headerCell {
   border-left: 1px solid var(--secondary-border-color);
 }
-.fieldCell select {
-  padding: 10px;
-}
+
 .headerCell {
   padding: var(--space-xs) 5px;
   background-color: var(--background-900);
@@ -168,6 +166,7 @@ related to each other and to the dialog header*/
   align-items: baseline;
   gap: 10px;
 }
+
 .table-name input {
   max-width: 190px;
 }
@@ -182,12 +181,6 @@ related to each other and to the dialog header*/
   min-height: 31px;
 }
 
-.button-space {
-  padding: 0.4em 0.6em;
-  font-size: var(--fs-m);
-  min-width: 30px;
-  min-height: 30px;
-}
 .input-name {
   width: 100%;
   height: 100%;
@@ -195,65 +188,15 @@ related to each other and to the dialog header*/
   align-items: center;
 }
 
-.expandCell button {
-  padding: 3px;
+.button-space {
+  padding: 0.4em 0.6em;
+  font-size: var(--fs-m);
   min-width: 30px;
   min-height: 30px;
 }
 
-.fieldCell select {
-  width: 100%;
-  margin-right: 5px;
-  margin-left: 5px;
+.expandCell button {
   padding: 3px;
-}
-
-.checkbox {
-  position: relative;
-}
-.checkbox input {
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  left: 0;
-}
-.checkbox input:checked + label svg path {
-  stroke-dashoffset: 0;
-}
-.checkbox input + label {
-  display: block;
-  border: 2px solid transparent;
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  border-radius: 6px;
-  cursor: pointer;
-  background-color: var(--bg-checkbox);
-  transition: all 0.2s ease;
-}
-.checkbox input:focus + label {
-  border: 2px solid var(--border-checkbox);
-}
-
-.checkbox input:hover + label {
-  border: 2px solid var(--hover-checkbox);
-  box-shadow: 0 0 4px var(--hover-checkbox);
-}
-.checkbox input + label:active {
-  border: 3px solid var(--border-checkbox);
-}
-
-.checkbox input + label svg {
-  pointer-events: none;
-  padding: 5%;
-}
-.checkbox input + label svg path {
-  fill: none;
-  stroke: var(--primary-300);
-  stroke-width: 5px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 101;
-  transition: all 250ms cubic-bezier(1, 0, 0.37, 0.91);
-  pointer-events: none;
+  min-width: 30px;
+  min-height: 30px;
 }

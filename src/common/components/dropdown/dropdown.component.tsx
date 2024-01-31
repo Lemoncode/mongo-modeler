@@ -33,7 +33,7 @@ export const Dropdown: React.FC<Props> = props => {
   return (
     <>
       <div
-        className={`${classes.selectSelect} ${isError && classes.selectError}`}
+        className={`${classes.selectSelect} ${isError && classes.selectError} ${optionsListVisible && classes.selectActive}`}
       >
         <div
           className={classes.selectChosen}

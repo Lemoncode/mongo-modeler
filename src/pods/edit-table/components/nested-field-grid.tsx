@@ -108,7 +108,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           </div>
         </div>
         <div className={classes.fieldCell}>
-          <div className={classes.checkbox}>
+          <div className="checkbox">
             <input
               type="checkbox"
               id="check1"
@@ -123,7 +123,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           </div>
         </div>
         <div className={classes.fieldCell}>
-          <div className={classes.checkbox}>
+          <div className="checkbox">
             <input
               type="checkbox"
               id="check2"
@@ -152,7 +152,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           </select>
         </div>
         <div className={classes.fieldCell}>
-          <div className={classes.checkbox}>
+          <div className="checkbox">
             <input
               id="check3"
               type="checkbox"

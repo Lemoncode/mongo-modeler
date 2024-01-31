@@ -61,4 +61,5 @@
 }
 .dialog-component {
   padding: var(--space-xxxl);
+  --text-disabled: #828282;
 }
