@@ -9,12 +9,12 @@ import {
   TABLE_CONST,
 } from '@/core/providers';
 import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
-import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
 import {
   getMaxPositionYFromTables,
   getMaxPositionXFromTables,
 } from './export-button.business';
+import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
+import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
 export const ExportButton = () => {
   const { openModal } = useModalDialogContext();
