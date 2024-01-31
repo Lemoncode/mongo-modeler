@@ -1,6 +1,6 @@
 .select-select {
   --border-select-width: 1px;
-  --border-select-color: var(--background-400);
+  --border-select-color: var(--input-border-color);
   position: relative;
   width: 100%;
   border: var(--border-select-width) solid var(--border-select-color);
@@ -39,12 +39,12 @@
 }
 
 .select-select:hover {
-  --border-select-color: var(--primary-300);
+  --border-select-color: var(--input-border-color-active);
   box-shadow: 0 0 4px var(--hover-checkbox);
   background-color: var(--hover-input);
 }
 .select-active {
-  --border-select-color: var(--primary-300);
+  --border-select-color: var(--input-border-color-active);
   box-shadow: 0 0 4px var(--hover-checkbox);
   background-color: var(--hover-input);
 }
@@ -69,12 +69,10 @@
 .options label {
   cursor: pointer;
   color: var(--text-color);
-  background-color: var(--primary-background);
 }
 
 .options label:hover {
-  /* background-color: rgb(217, 217, 217); */
-  color: var(--primary-300);
+  color: var(--input-border-color-active);
 }
 
 .options input[type='radio'] {
@@ -92,7 +90,7 @@
   justify-content: center;
   width: 20px;
   height: 21px;
-  color: var(--primary-300);
+  color: var(--input-border-color-active);
 }
 
 /*Veil works because it is being used within a modal*/

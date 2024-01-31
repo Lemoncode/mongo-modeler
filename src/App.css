@@ -13,7 +13,7 @@
   --checkbox-size: 22px;
   --space-cells: 9px;
   --color-error: rgb(247, 44, 44);
-
+  --border-toolbar: 1.5px solid var(--primary-700);
   /* todo */
   --veil-modal: #0d0d1185;
 
@@ -69,7 +69,7 @@
   --background-800: #142231;
   --background-900: #0f1924;
 
-  /* --background-secondary-50: #fafbfc;
+  --background-secondary-50: #fafbfc;
   --background-secondary-100: #f4f6f8;
   --background-secondary-200: #eaedf1;
   --background-secondary-300: #dfe5ea;
@@ -78,7 +78,7 @@
   --background-secondary-600: #a2a9b0;
   --background-secondary-700: #797f84;
   --background-secondary-800: #515458;
-  --background-secondary-900: #282a2c; */
+  --background-secondary-900: #282a2c;
 
   /*font-sizes*/
   --fs-xs: 12px;
@@ -106,25 +106,76 @@
   --border-radius-xl: calc(var(--border-radius-unit) * 8);
   --border-radius-xxl: calc(var(--border-radius-unit) * 12);
   --border-radius-xxxl: calc(var(--border-radius-unit) * 16);
+
+  --input-border-color: var(--background-400);
+  --edit-table-header: var(--background-900);
+  --input-border-color-active: var(--primary-300);
+}
+
+.light {
+  /* text */
+  --text-color: #202020;
+  --text-disabled: #919191;
+
+  /* todo */
+  --veil-modal: #50505085;
+
+  /* Modal */
+  --background-dialog: #f9fafb;
+
+  /* Canvas */
+  --bg-canvas: #fcfdfd;
+  --bg-table: #f9fafb;
+  --header-table: var(--primary-300);
+
+  /* Toolbar */
+  --bg-toolbar: #e8ecef;
+  --border-toolbar: 1.5px solid var(--primary-200);
+
+  /* Input */
+  --bg-input: #f3f5f7;
+  --hover-input: #f3f5f7;
+  --input-border-color: #b5b9bc;
+  --input-border-color-active: var(--primary-500);
+
+  /*Edit-table*/
+  --edit-table-header: var(--background-900);
+
+  /* buttons */
+  --button-secondary: var(--secondary-600);
+  --hover-button-secondary: var(--secondary-600);
+  --hover-button: var(--primary-300);
+
+  /* border */
+  --primary-border-color: var(--primary-400);
+  --secondary-border-color: #b5b9bc;
+  --shadow-filter: var(--primary-600);
+
+  /* checkbox */
+  --bg-checkbox: #e2e7eb;
+
+  /* Not working*/
+  --hover-checkbox: var(--background-200);
 }
 
 .dark {
-  /* background */
+  /* Modal */
+  --background-dialog: var(--background-700);
+
+  /* Canvas */
   --bg-canvas: var(--background-800);
   --bg-toolbar: var(--background-400);
-  --bg-input: var(--background-500);
   --bg-table: var(--background-700);
-
   --header-table: var(--primary-300);
+
+  /* Input */
+  --bg-input: var(--background-500);
+  --hover-input: var(--background-500);
 
   /* buttons */
   --button-secondary: var(--secondary-400);
   --hover-button-secondary: var(--secondary-600);
   --hover-button: var(--primary-300);
-  --hover-input: var(--background-500);
-
-  /* text */
-  --veil-background-modal: #2426308a;
 
   /* border */
   --primary-border-color: var(--primary-300);
@@ -192,13 +243,14 @@ select {
   width: 100%;
   border: none;
   outline: none;
-  border: 1px solid var(--background-400);
+
+  border: 1px solid var(--input-border-color);
   transition: all 0.2s ease;
 }
 
 input:focus,
 select:focus {
-  border: 1px solid var(--primary-border-color);
+  border: 1px solid var(--input-border-color-active);
   background-color: var(--hover-input);
 }
 
@@ -243,16 +295,16 @@ input[type='checkbox'] {
 
 .checkbox input + label {
   display: block;
-  border: 1px solid var(--background-400);
+  border: 1px solid var(--input-border-color);
   width: var(--checkbox-size);
   height: var(--checkbox-size);
   border-radius: 6px;
   cursor: pointer;
-  background-color: var(--bg-checkbox);
+  background-color: var(--bg-input);
   transition: all 0.2s ease;
 }
 .checkbox input:focus + label {
-  border: 1px solid var(--primary-border-color);
+  border: 1px solid var(--input-border-color-active);
 }
 
 .checkbox input:hover + label {
@@ -270,7 +322,7 @@ input[type='checkbox'] {
 
 .checkbox input + label svg path {
   fill: none;
-  stroke: var(--primary-300);
+  stroke: var(--primary-500);
   stroke-width: 5px;
   stroke-linecap: round;
   stroke-linejoin: round;

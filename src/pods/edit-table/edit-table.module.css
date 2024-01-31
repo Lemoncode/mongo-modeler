@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   margin: var(--space-md);
+  margin-top: 0;
   min-width: 800px;
 }
 .tableEditor ul {
@@ -17,11 +18,13 @@
   border: 1px solid var(--secondary-border-color);
   border-top-width: 0.5px;
   border-bottom-width: 0.5px;
-  background-color: var(--background-700);
+  background-color: var(--background-dialog);
 }
+
 .fieldRow {
   cursor: grab;
 }
+
 .nestedGrid ul li:last-child {
   border-bottom: 0.5px solid var(--secondary-border-color);
 }
@@ -31,6 +34,11 @@
   border-bottom-left-radius: var(--border-radius-table);
   border-bottom-right-radius: var(--border-radius-table);
 }
+
+.tableEditor > ul > li:first-child {
+  border-top: none;
+}
+
 .nestedGrid {
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
@@ -59,8 +67,10 @@
 
 .headerCell {
   padding: var(--space-xs) 5px;
-  background-color: var(--background-900);
+  background-color: var(--edit-table-header);
   color: var(--text-white);
+  border-top: 1px solid var(--secondary-border-color);
+  border-bottom: 1px solid var(--secondary-border-color);
 }
 
 .commands-container {
@@ -136,21 +146,25 @@
 related to each other and to the dialog header*/
 .header-row {
   position: sticky;
-  top: 0;
+  top: 7.1rem;
   z-index: 1;
-  border-top-width: 1px;
+  border: none;
+  border-radius: 0px;
+  padding-top: var(--space-md);
 }
-.header-row,
+
 .header-row .headerCell:first-child {
   border-top-left-radius: var(--border-radius-table);
+  border-left: 1px solid var(--secondary-border-color);
 }
-.header-row,
+
 .header-row .headerCell:last-child {
   border-top-right-radius: var(--border-radius-table);
+  border-right: 1px solid var(--secondary-border-color);
 }
 
 .table-name {
-  background-color: var(--background-700);
+  background-color: var(--background-dialog);
   position: sticky;
   top: 3rem;
   left: 0px;

@@ -13,13 +13,14 @@
 .dialog {
   position: relative;
   z-index: 1;
-  background-color: var(--background-700);
+  background-color: var(--background-dialog);
   color: var(--text-color);
   width: 80%;
   height: 80%;
   overflow: scroll;
   border-radius: var(--border-radius-m);
 }
+
 .dialog-header {
   position: sticky;
   top: 0;
@@ -62,4 +63,7 @@
 .dialog-component {
   padding: var(--space-xxxl);
   --text-disabled: #828282;
+}
+.light .dialog-component {
+  --text-disabled: #c02e2e;
 }
