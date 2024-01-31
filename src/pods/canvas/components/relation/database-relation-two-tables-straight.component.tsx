@@ -39,7 +39,8 @@ export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
 
   const originXMinusFork = calculateOriginMinusForkWidthLogic(
     relationType,
-    startCoords
+    startCoords,
+    isDrawLeftToRight
   );
 
   const destinationXMinusFork = calculateDestinationXMinusForkLogic(
@@ -85,7 +86,7 @@ export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
         <ForkComponent
           isSelected={isSelected}
           forkCoords={{ x: originXMinusFork, y: startCoords.y }}
-          drawLeftToRight={!isDrawLeftToRight}
+          drawLeftToRight={isDrawLeftToRight}
         />
       )}
 
