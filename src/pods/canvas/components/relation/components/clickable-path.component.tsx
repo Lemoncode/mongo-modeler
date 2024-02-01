@@ -1,6 +1,7 @@
 import { Coords, GUID } from '@/core/model';
 import { RelationType } from '@/core/providers';
 import { getRelationPath } from '../database-relation-two-tables-path.business';
+import classes from './clickable-path.component.module.css';
 
 interface Props {
   id: GUID;
@@ -9,19 +10,11 @@ interface Props {
   relationType: RelationType;
   onClick: (relationId: GUID) => void;
   onDoubleClick: (relationId: GUID) => void;
-  className?: string;
 }
 
 export const ClickablePathComponent: React.FC<Props> = props => {
-  const {
-    id,
-    startCoords,
-    endCoords,
-    relationType,
-    onClick,
-    onDoubleClick,
-    className,
-  } = props;
+  const { id, startCoords, endCoords, relationType, onClick, onDoubleClick } =
+    props;
 
   const handleClick = (e: React.MouseEvent<SVGLineElement, MouseEvent>) => {
     onClick(id);
@@ -31,11 +24,11 @@ export const ClickablePathComponent: React.FC<Props> = props => {
   return (
     <path
       d={getRelationPath(relationType, startCoords, endCoords)}
-      strokeWidth={40}
       stroke="transparent"
+      strokeWidth={40}
       onClick={handleClick}
       onDoubleClick={() => onDoubleClick(id)}
-      className={className}
+      className={classes.path}
     />
   );
 };
