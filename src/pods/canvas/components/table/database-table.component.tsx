@@ -144,6 +144,7 @@ export const DatabaseTable: React.FC<Props> = ({
         height={totalHeight + TABLE_CONST.HEADER_TITLE_GAP}
         className={classes.tableBackground}
         style={rectStyle}
+        stroke="1.2"
       />
       <rect
         rx={TABLE_BORDER_RADIUS}
