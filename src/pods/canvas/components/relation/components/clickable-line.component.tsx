@@ -26,6 +26,7 @@ export const ClickableLineComponent: React.FC<Props> = props => {
       stroke="transparent"
       onClick={handleClick}
       onDoubleClick={() => onDoubleClick(id)}
+      style={{ cursor: 'pointer' }}
     />
   );
 };

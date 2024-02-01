@@ -6,6 +6,10 @@
   pointer-events: none;
 }
 
+.table-container:hover {
+  cursor: grabbing;
+}
+
 .tableText {
   fill: var(--text-dark);
 }
