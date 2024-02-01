@@ -62,7 +62,7 @@ export const EditTableComponent: React.FC<Props> = props => {
     <>
       <div className={classes.tableName}>
         <label>
-          Table:
+          Collection:
           <input
             type="text"
             value={table.tableName}

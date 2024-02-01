@@ -46,7 +46,7 @@ export const TablePkPicker: React.FC<Props> = props => {
       <div
         className={`${classes.selectSelect} ${
           isError && !disabled && classes.selectError
-        } ${disabled && classes.selectDisabled}`}
+        } ${disabled && classes.selectDisabled} ${optionsListVisible && classes.selectActive}`}
       >
         <div
           className={classes.selectChosen}

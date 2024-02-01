@@ -1,47 +1,22 @@
-.select {
-  display: flex;
-  align-items: baseline;
-  text-align: left;
-  gap: 10px;
-}
-.select-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.select p {
-  margin: 0;
-}
-.select-label {
-  min-width: 20ch;
-}
 .select-select {
-  --border-color: #ccc;
-  --border-width: 1px;
-  --boder: var(--border-width) solid var(--border-color);
+  --border-select-width: 1px;
+  --border-select-color: var(--input-border-color);
   position: relative;
   width: 100%;
-  border: var(--boder);
-  background-color: var(--primary-background);
-}
-.select-error {
-  --border-color: #ff0000;
-}
-.select-disabled {
-  color: #ccc;
+  border: var(--border-select-width) solid var(--border-select-color);
+  background-color: var(--bg-input);
+  border-radius: var(--border-radius-xs);
+  transition: all 0.2s ease;
 }
 
 .select-chosen {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px;
+  padding: var(--space-xs);
   cursor: pointer;
 }
-.select-disabled .select-chosen {
-  cursor: auto;
-}
+
 .select-text {
   width: 100%;
 }
@@ -54,12 +29,51 @@
   display: none;
   position: absolute;
   z-index: 2;
-  top: calc(100% + var(--border-width));
-  left: calc(0px - var(--border-width));
-  width: calc(100% + var(--border-width) * 2);
-  border: var(--boder);
+  top: calc(100% + var(--border-select-width));
+  left: calc(0px - var(--border-select-width));
+  width: calc(100% + var(--border-select-width) * 2);
+  border: var(--border-select-width) solid var(--border-select-color);
   border-top: none;
-  background-color: var(--primary-background);
+  background-color: var(--bg-input);
+  border-radius: var(--border-radius-xs);
+}
+
+/* Active */
+.select-select:hover {
+  --border-select-color: var(--input-border-color-active);
+  box-shadow: 0 0 4px var(--hover-checkbox);
+  background-color: var(--hover-input);
+}
+.select-active {
+  --border-select-color: var(--input-border-color-active);
+  box-shadow: 0 0 4px var(--hover-checkbox);
+  background-color: var(--hover-input);
+}
+
+/* Disable */
+.select-disabled {
+  --border-select-color: var(--bg-input-disabled);
+  background-color: var(--bg-input-disabled);
+  color: var(--text-disabled);
+  box-shadow: none;
+}
+.select-disabled.select-select:hover {
+  box-shadow: none;
+  background-color: var(--bg-input-disabled);
+  --border-select-color: var(--bg-input-disabled);
+}
+
+.select-disabled .select-chosen {
+  cursor: auto;
+}
+
+/* Error */
+.select-error {
+  --border-select-color: var(--color-error);
+}
+
+.select-error.select-select:hover {
+  --border-select-color: var(--color-error);
 }
 
 .options ul {
@@ -69,17 +83,16 @@
 
 .options li {
   font-size: 16px;
-  color: grey;
+  color: var(--text-disabled);
 }
 
 .options label {
   cursor: pointer;
   color: var(--text-color);
-  background-color: var(--primary-background);
 }
 
 .options label:hover {
-  background-color: rgb(217, 217, 217);
+  color: var(--input-border-color-active);
 }
 
 .options input[type='radio'] {
@@ -97,7 +110,7 @@
   justify-content: center;
   width: 20px;
   height: 21px;
-  color: var(--text-color);
+  color: var(--input-border-color-active);
 }
 
 /*Veil works because it is being used within a modal*/
@@ -108,10 +121,4 @@
   z-index: 1;
   top: 0;
   left: 0;
-}
-
-.error {
-  color: #ff0000;
-  font-size: 12px;
-  margin-left: 6px;
 }

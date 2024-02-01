@@ -12,11 +12,11 @@ export const ThemeToggleButton: React.FC<Props> = ({
   lightLabel,
 }) => {
   const { theme, toggleTheme } = useThemeContext();
-  const label = theme.themeMode === 'dark' ? darkLabel : lightLabel;
+  const label = theme.themeMode === 'dark' ? lightLabel : darkLabel;
   return (
     <ToolbarButton
       className={classes.button}
-      icon={theme.themeMode === 'dark' ? <DarkIcon /> : <LightIcon />}
+      icon={theme.themeMode === 'dark' ? <LightIcon /> : <DarkIcon />}
       label={label}
       onClick={toggleTheme}
     />

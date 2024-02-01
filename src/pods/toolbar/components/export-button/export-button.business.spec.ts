@@ -1,4 +1,4 @@
-import { FieldVm, TableVm } from '@/core/providers';
+import { FieldVm, TABLE_CONST, TableVm } from '@/core/providers';
 import {
   calculateTableEndYPosition,
   calculateTableHeight,
@@ -576,7 +576,12 @@ describe('export-button.business', () => {
       const result = calculateTableHeight(fields);
 
       // Assert
-      expect(result).toEqual(169);
+      const expected =
+        TABLE_CONST.HEADER_HEIGHT +
+        TABLE_CONST.HEADER_TITLE_GAP +
+        TABLE_CONST.ROW_HEIGHT * 5 +
+        TABLE_CONST.ROW_PADDING;
+      expect(result).toEqual(expected);
     });
 
     it('should return 97 when fields count is 2', () => {
@@ -602,7 +607,12 @@ describe('export-button.business', () => {
       const result = calculateTableHeight(fields);
 
       // Assert
-      expect(result).toEqual(97);
+      const expected =
+        TABLE_CONST.HEADER_HEIGHT +
+        TABLE_CONST.HEADER_TITLE_GAP +
+        TABLE_CONST.ROW_HEIGHT * 2 +
+        TABLE_CONST.ROW_PADDING;
+      expect(result).toEqual(expected);
     });
 
     it('should return 73 when fields count is 2 and isCollapsed is true', () => {
@@ -630,7 +640,12 @@ describe('export-button.business', () => {
       const result = calculateTableHeight(fields);
 
       // Assert
-      expect(result).toEqual(73);
+      const expected =
+        TABLE_CONST.HEADER_HEIGHT +
+        TABLE_CONST.HEADER_TITLE_GAP +
+        TABLE_CONST.ROW_HEIGHT +
+        TABLE_CONST.ROW_PADDING;
+      expect(result).toEqual(expected);
     });
 
     it('should return 73 when fields count is 1 and isCollapsed is true and children isCollapsed is true', () => {
@@ -659,7 +674,12 @@ describe('export-button.business', () => {
       const result = calculateTableHeight(fields);
 
       // Assert
-      expect(result).toEqual(73);
+      const expected =
+        TABLE_CONST.HEADER_HEIGHT +
+        TABLE_CONST.HEADER_TITLE_GAP +
+        TABLE_CONST.ROW_HEIGHT +
+        TABLE_CONST.ROW_PADDING;
+      expect(result).toEqual(expected);
     });
   });
 
@@ -710,7 +730,13 @@ describe('export-button.business', () => {
       const result = calculateTableEndYPosition(table);
 
       // Assert
-      expect(result).toEqual(219);
+      const expected =
+        TABLE_CONST.HEADER_HEIGHT +
+        TABLE_CONST.HEADER_TITLE_GAP +
+        TABLE_CONST.ROW_HEIGHT * 5 +
+        TABLE_CONST.ROW_PADDING +
+        table.y;
+      expect(result).toEqual(expected);
     });
 
     it('should return 127 when fields count is 2 and table y is 30', () => {
@@ -742,10 +768,16 @@ describe('export-button.business', () => {
       const result = calculateTableEndYPosition(table);
 
       // Assert
-      expect(result).toEqual(127);
+      const expected =
+        TABLE_CONST.HEADER_HEIGHT +
+        TABLE_CONST.HEADER_TITLE_GAP +
+        TABLE_CONST.ROW_HEIGHT * 2 +
+        TABLE_CONST.ROW_PADDING +
+        table.y;
+      expect(result).toEqual(expected);
     });
 
-    it('should return 113 when fields count is 2 and table y is 40', () => {
+    it('should return 113 when fields count is 2, the only child is collapsed and table y is 40', () => {
       // Arrange
       const table: TableVm = {
         id: '1',
@@ -755,7 +787,6 @@ describe('export-button.business', () => {
             PK: true,
             name: 'field1',
             type: 'string',
-
             isCollapsed: true,
             children: [
               {
@@ -776,7 +807,13 @@ describe('export-button.business', () => {
       const result = calculateTableEndYPosition(table);
 
       // Assert
-      expect(result).toEqual(113);
+      const expected =
+        TABLE_CONST.HEADER_HEIGHT +
+        TABLE_CONST.HEADER_TITLE_GAP +
+        TABLE_CONST.ROW_HEIGHT +
+        TABLE_CONST.ROW_PADDING +
+        table.y;
+      expect(result).toEqual(expected);
     });
   });
 
@@ -835,7 +872,13 @@ describe('export-button.business', () => {
       const result = getMaxPositionYFromTables(tables);
 
       // Assert
-      expect(result).toEqual(117);
+      const expected =
+        TABLE_CONST.HEADER_HEIGHT +
+        TABLE_CONST.HEADER_TITLE_GAP +
+        TABLE_CONST.ROW_HEIGHT * 2 +
+        TABLE_CONST.ROW_PADDING +
+        tables[0].y;
+      expect(result).toEqual(expected);
     });
 
     it('should return 102 max position y from tables', () => {
@@ -881,7 +924,13 @@ describe('export-button.business', () => {
       const result = getMaxPositionYFromTables(tables);
 
       // Assert
-      expect(result).toEqual(102);
+      const expected =
+        TABLE_CONST.HEADER_HEIGHT +
+        TABLE_CONST.HEADER_TITLE_GAP +
+        TABLE_CONST.ROW_HEIGHT * 2 +
+        TABLE_CONST.ROW_PADDING +
+        tables[0].y;
+      expect(result).toEqual(expected);
     });
   });
 });

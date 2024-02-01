@@ -7,16 +7,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(16, 16, 16, 0.35);
+  background-color: var(--veil-modal);
 }
 
 .dialog {
-  background-color: var(--primary-background);
+  position: relative;
+  z-index: 1;
+  background-color: var(--background-dialog);
   color: var(--text-color);
   width: 80%;
   height: 80%;
   overflow: scroll;
+  border-radius: var(--border-radius-m);
 }
+
 .dialog-header {
   position: sticky;
   top: 0;
@@ -24,31 +28,35 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  background-color: var(--accent-color);
-  padding: 0.2rem 0.5rem 0.2rem 1rem;
-  color: black;
+  background: var(--secondary-300);
+  padding: var(--space-xs);
+  padding-left: var(--space-md);
+  color: var(--text-dark);
+  border-radius: var(--border-radius-m);
 }
 .dialog-header span {
   margin: 0;
 }
 .dialog-title {
   margin: 0;
-  font-weight: normal;
-  font-size: 18px;
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-md);
+  color: var(--text-dark);
 }
 .dialog-subtitle {
   margin: 0;
-  font-weight: normal;
-  font-size: 16px;
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-m);
 }
 .dialog-button {
   width: fit-content;
   margin-left: auto;
   background-color: transparent;
-  color: black;
-  padding: 0.5rem;
+  color: var(--text-dark);
+  padding: var(--space-xs);
   line-height: 0;
 }
-.dialog-component {
-  padding: 2rem;
+
+.dialog-button:hover {
+  background: var(--hover-button-secondary);
 }

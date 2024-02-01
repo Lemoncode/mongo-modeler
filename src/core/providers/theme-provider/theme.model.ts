@@ -3,5 +3,5 @@ export interface ThemeModel {
 }
 
 export const createInitialTheme = (): ThemeModel => ({
-  themeMode: 'light',
-})
+  themeMode: 'dark',
+});

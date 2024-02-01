@@ -1,25 +1,26 @@
 .table-container {
   user-select: none;
 }
+.table-container svg path {
+  fill: var(--text-dark);
+  pointer-events: none;
+}
 
 .tableText {
-  font-family: 'Arial', sans-serif;
-  font-size: 14px;
-  cursor: pointer;
-  fill: var(--text-color);
+  fill: var(--text-dark);
 }
 
 .tableHeader {
-  fill: var(--highlight-color);
+  fill: var(--header-table);
 }
 
 .table {
   fill: none;
-  stroke: var(--highlight-color);
 }
 
 .table__background {
-  fill: var(--secondary-background);
+  fill: var(--bg-table);
+  stroke: var(--primary-border-color);
 }
 
 .tableTextRow {

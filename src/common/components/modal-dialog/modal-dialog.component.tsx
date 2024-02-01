@@ -37,7 +37,7 @@ export const ModalDialog: React.FC = () => {
               </svg>
             </button>
           </div>
-          <div className={styles.dialogComponent}>
+          <div className="dialog-component">
             {modalDialog.selectedComponent}
           </div>
         </div>
