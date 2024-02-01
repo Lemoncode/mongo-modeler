@@ -6,8 +6,13 @@ import {
   useModalDialogContext,
   useCanvasSchemaContext,
   useCanvasViewSettingsContext,
+  TABLE_CONST,
 } from '@/core/providers';
 import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
+import {
+  getMaxPositionYFromTables,
+  getMaxPositionXFromTables,
+} from './export-button.business';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
@@ -18,19 +23,23 @@ export const ExportButton = () => {
 
   const { canvasSize, zoomFactor } = canvasViewSettings;
 
-  const viewBoxSize: Size = React.useMemo<Size>(
+  const downloadCanvasSize: Size = React.useMemo<Size>(
     () => ({
-      width: canvasSize.width * zoomFactor,
-      height: canvasSize.height * zoomFactor,
+      width:
+        getMaxPositionXFromTables(canvasSchema.tables) +
+        TABLE_CONST.TABLE_WIDTH +
+        TABLE_CONST.CANVAS_PADDING,
+      height:
+        getMaxPositionYFromTables(canvasSchema.tables) +
+        TABLE_CONST.CANVAS_PADDING,
     }),
-    [zoomFactor, canvasSize]
+    [zoomFactor, canvasSize, canvasSchema.tables]
   );
 
   const exportSvg = () => {
     const svg = (
       <CanvasExportSvgComponent
-        viewBoxSize={viewBoxSize}
-        canvasSize={canvasSize}
+        canvasSize={downloadCanvasSize}
         canvasSchema={canvasSchema}
         onUpdateTablePosition={() => {}}
         onToggleCollapse={() => {}}
@@ -44,7 +53,6 @@ export const ExportButton = () => {
   const exportImage = () => {
     const svg = (
       <CanvasExportSvgComponent
-        viewBoxSize={viewBoxSize}
         canvasSize={canvasSize}
         canvasSchema={canvasSchema}
         onUpdateTablePosition={() => {}}
@@ -53,7 +61,7 @@ export const ExportButton = () => {
       />
     );
 
-    downloadImage(svg, viewBoxSize);
+    downloadImage(svg, downloadCanvasSize);
   };
 
   const handleExportToFormat = (exportType: ExportType) => {
