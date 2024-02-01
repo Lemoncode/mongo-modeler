@@ -4,21 +4,24 @@
   text-align: left;
   gap: 10px;
 }
+
 .select-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
+
 .select p {
   margin: 0;
 }
+
 .select-label {
   min-width: 20ch;
 }
 
 .error {
-  color: #ff0000;
+  color: var(--color-error);
   font-size: 12px;
   margin-left: 6px;
 }
