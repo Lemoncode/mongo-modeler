@@ -2,6 +2,10 @@
   user-select: none;
 }
 
+.table-container:hover {
+  cursor: grabbing;
+}
+
 .tableText {
   font-family: 'Arial', sans-serif;
   font-size: 14px;
