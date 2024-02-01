@@ -6,7 +6,6 @@ import {
   getMaxPositionXFromTables,
   getMaxPositionYFromTables,
 } from './export-button.business';
-import { calcLength } from 'framer-motion';
 
 describe('export-button.business', () => {
   describe('getMaxPositionXFromTables', () => {
