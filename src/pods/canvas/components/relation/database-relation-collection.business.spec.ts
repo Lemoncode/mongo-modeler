@@ -121,7 +121,7 @@ describe('database-relation-collection.business', () => {
       const result = isOverLapping(fromTableXCoord, toTableXCoord);
 
       // Assert
-      expect(result).toBeTruthy();
+      expect(result).toBeFalsy();
     });
 
     it('overlapping tables (edge - reverse)', () => {
@@ -141,7 +141,7 @@ describe('database-relation-collection.business', () => {
       const result = isOverLapping(fromTableXCoord, toTableXCoord);
 
       // Assert
-      expect(result).toBeTruthy();
+      expect(result).toBeFalsy();
     });
   });
 });

@@ -26,10 +26,12 @@ export const calculateTablePosition = (
         ...table,
         //TODO: DEFAULT_TABLE_WIDTH that's the width of the table and we will have to treat this in a separate case
         x: Math.max(
-          0,
+          TABLE_CONST.HORIZONTAL_LEFT_EXTENSION * 2,
           Math.min(
             updateInfo.position.x,
-            canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH
+            canvasSize.width -
+              TABLE_CONST.DEFAULT_TABLE_WIDTH -
+              TABLE_CONST.HORIZONTAL_LEFT_EXTENSION * 2
           )
         ),
         y: Math.max(
@@ -90,7 +92,7 @@ export const calculateRelationXCoordinateEnd = (
   tableOrigin: TableVm,
   tableDestination: TableVm
 ): number =>
-  tableDestination.x < tableOrigin.x
+  tableDestination.x <= tableOrigin.x
     ? tableDestination.x + TABLE_CONST.DEFAULT_TABLE_WIDTH
     : tableDestination.x;
 
