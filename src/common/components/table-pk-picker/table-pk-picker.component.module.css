@@ -52,13 +52,15 @@
 
 /* Disable */
 .select-disabled {
-  --border-select-color: var(--bg-input);
+  --border-select-color: var(--bg-input-disabled);
+  background-color: var(--bg-input-disabled);
   color: var(--text-disabled);
+  box-shadow: none;
 }
 .select-disabled.select-select:hover {
   box-shadow: none;
-  background-color: var(--bg-input);
-  --border-select-color: var(--bg-input);
+  background-color: var(--bg-input-disabled);
+  --border-select-color: var(--bg-input-disabled);
 }
 
 .select-disabled .select-chosen {

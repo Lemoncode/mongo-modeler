@@ -60,10 +60,3 @@
 .dialog-button:hover {
   background: var(--hover-button-secondary);
 }
-.dialog-component {
-  padding: var(--space-xxxl);
-  --text-disabled: #828282;
-}
-.light .dialog-component {
-  --text-disabled: #c02e2e;
-}

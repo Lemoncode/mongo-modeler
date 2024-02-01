@@ -69,17 +69,6 @@
   --background-800: #142231;
   --background-900: #0f1924;
 
-  --background-secondary-50: #fafbfc;
-  --background-secondary-100: #f4f6f8;
-  --background-secondary-200: #eaedf1;
-  --background-secondary-300: #dfe5ea;
-  --background-secondary-400: #d5dce3;
-  --background-secondary-500: #cad3dc;
-  --background-secondary-600: #a2a9b0;
-  --background-secondary-700: #797f84;
-  --background-secondary-800: #515458;
-  --background-secondary-900: #282a2c;
-
   /*font-sizes*/
   --fs-xs: 12px;
   --fs-s: 14px;
@@ -115,31 +104,32 @@
 .light {
   /* text */
   --text-color: #202020;
-  --text-disabled: #919191;
+  --text-disabled: #aeaeae;
 
   /* todo */
   --veil-modal: #50505085;
 
   /* Modal */
-  --background-dialog: #f9fafb;
+  --background-dialog: #f6f7f9;
 
   /* Canvas */
-  --bg-canvas: #fcfdfd;
-  --bg-table: #f9fafb;
+  --bg-canvas: #f9fafb;
+  --bg-table: #f6f7f9;
   --header-table: var(--primary-300);
 
   /* Toolbar */
-  --bg-toolbar: #e8ecef;
+  --bg-toolbar: #f0f2f5;
   --border-toolbar: 1.5px solid var(--primary-200);
 
   /* Input */
   --bg-input: #f3f5f7;
+  --bg-input-disabled: #f0f2f5;
   --hover-input: #f3f5f7;
   --input-border-color: #b5b9bc;
   --input-border-color-active: var(--primary-500);
 
   /*Edit-table*/
-  --edit-table-header: var(--background-900);
+  --edit-table-header: #e0e6eb;
 
   /* buttons */
   --button-secondary: var(--secondary-600);
@@ -170,6 +160,7 @@
 
   /* Input */
   --bg-input: var(--background-500);
+  --bg-input-disabled: var(--background-600);
   --hover-input: var(--background-500);
 
   /* buttons */
@@ -330,4 +321,13 @@ input[type='checkbox'] {
   stroke-dashoffset: 101;
   transition: all 250ms cubic-bezier(1, 0, 0.37, 0.91);
   pointer-events: none;
+}
+
+.dialog-component {
+  padding: var(--space-xxxl);
+  --text-disabled: #828282;
+}
+
+.light .dialog-component {
+  --text-disabled: #aeaeae;
 }
