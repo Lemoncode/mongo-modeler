@@ -271,7 +271,7 @@ describe('calculateRelationXCoordinate', () => {
     // Assert
     expect(result).toEqual({
       xOrigin: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
-      xDestination: TABLE_CONST.DEFAULT_TABLE_WIDTH + 200,
+      xDestination: TABLE_CONST.DEFAULT_TABLE_WIDTH * 2 + 200,
     });
   });
 });

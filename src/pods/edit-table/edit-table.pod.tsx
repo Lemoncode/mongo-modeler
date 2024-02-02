@@ -107,7 +107,12 @@ export const EditTablePod: React.FC<Props> = props => {
         onMoveUpField={onMoveUpField}
         onDragField={onDragField}
       />
-      <button onClick={() => handleSubmit(editTable)}>Apply</button>
+      <button
+        className="button-secondary"
+        onClick={() => handleSubmit(editTable)}
+      >
+        Apply
+      </button>
       <button onClick={() => onClose()}>Cancel</button>
     </>
   );

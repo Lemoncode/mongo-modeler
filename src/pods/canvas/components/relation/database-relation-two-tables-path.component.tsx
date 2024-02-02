@@ -79,9 +79,6 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
         relationType={relationType}
         onClick={onClick}
         onDoubleClick={onDoubleClick}
-        className={
-          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
-        }
       />
     </svg>
   );

@@ -1,20 +1,19 @@
 .select-select {
-  --border-width: 1px;
-  --border-color: #ccc;
-  --boder: var(--border-width) solid var(--border-color);
+  --border-select-width: 1px;
+  --border-select-color: var(--input-border-color);
   position: relative;
   width: 100%;
-  border: var(--boder);
-  background-color: var(--primary-background);
+  border: var(--border-select-width) solid var(--border-select-color);
+  background-color: var(--bg-input);
+  border-radius: var(--border-radius-xs);
+  transition: all 0.2s ease;
 }
-.select-error {
-  --border-color: #ff0000;
-}
+
 .select-chosen {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px;
+  padding: var(--space-xs);
   cursor: pointer;
 }
 
@@ -30,14 +29,33 @@
   display: none;
   position: absolute;
   z-index: 2;
-  top: calc(100% + var(--border-width));
-  left: calc(0px - var(--border-width));
-  width: calc(100% + var(--border-width) * 2);
-  border: var(--boder);
+  top: calc(100% + var(--border-select-width));
+  left: calc(0px - var(--border-select-width));
+  width: calc(100% + var(--border-select-width) * 2);
+  border: var(--border-select-width) solid var(--border-select-color);
   border-top: none;
-  background-color: var(--primary-background);
+  background-color: var(--bg-input);
+  border-radius: var(--border-radius-xs);
 }
 
+.select-select:hover {
+  --border-select-color: var(--input-border-color-active);
+  box-shadow: 0 0 4px var(--hover-checkbox);
+  background-color: var(--hover-input);
+}
+.select-active {
+  --border-select-color: var(--input-border-color-active);
+  box-shadow: 0 0 4px var(--hover-checkbox);
+  background-color: var(--hover-input);
+}
+
+.select-error {
+  --border-select-color: var(--color-error);
+}
+
+.select-error.select-select:hover {
+  --border-select-color: var(--color-error);
+}
 .options ul {
   list-style: none;
   padding-left: 20px;
@@ -45,17 +63,16 @@
 
 .options li {
   font-size: 16px;
-  color: grey;
+  color: var(--text-disabled);
 }
 
 .options label {
   cursor: pointer;
   color: var(--text-color);
-  background-color: var(--primary-background);
 }
 
 .options label:hover {
-  background-color: rgb(217, 217, 217);
+  color: var(--input-border-color-active);
 }
 
 .options input[type='radio'] {
@@ -73,7 +90,7 @@
   justify-content: center;
   width: 20px;
   height: 21px;
-  color: var(--text-color);
+  color: var(--input-border-color-active);
 }
 
 /*Veil works because it is being used within a modal*/

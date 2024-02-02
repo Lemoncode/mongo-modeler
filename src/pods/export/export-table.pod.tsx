@@ -24,38 +24,47 @@ export const ExportTablePod: React.FC<Props> = props => {
   return (
     <>
       <div className={classes.inputContent}>
-        <label htmlFor="svg">
+        <div className={classes.radioButton}>
           <input
+            className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="svg"
+            id="radio2"
             aria-label="SVG"
             onChange={() => handleExportType('svg')}
           />
-          SVG
-        </label>
-        <label htmlFor="png">
+          <label htmlFor="radio2" className={classes.radioButtonLabel}>
+            <span className={classes.radioButtonCustom}></span>SVG
+          </label>
+        </div>
+        <div className={classes.radioButton}>
           <input
+            className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="png"
+            id="radio1"
             aria-label="PNG"
             onChange={() => handleExportType('png')}
           />
-          PNG
-        </label>
-        <label htmlFor="mongo">
+          <label htmlFor="radio1" className={classes.radioButtonLabel}>
+            <span className={classes.radioButtonCustom}></span>PNG
+          </label>
+        </div>
+        <div className={classes.radioButton}>
           <input
+            className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="mongo"
+            id="radio3"
             aria-label="Mongo Schema"
             onChange={() => handleExportType('mongo')}
           />
-          Mongo Schema
-        </label>
+          <label htmlFor="radio3" className={classes.radioButtonLabel}>
+            <span className={classes.radioButtonCustom}></span>Mongo Schema
+          </label>
+        </div>
       </div>
-      <button className={classes.buttonExport} onClick={handleExportClick}>
+      <button className="button-secondary" onClick={handleExportClick}>
         Export
       </button>
     </>

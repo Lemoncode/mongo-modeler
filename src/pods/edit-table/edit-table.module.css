@@ -1,7 +1,8 @@
 .tableEditor {
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
-  margin: 10px;
+  margin: var(--space-md);
+  margin-top: 0;
   min-width: 800px;
 }
 .tableEditor ul {
@@ -14,21 +15,30 @@
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
   grid-column: 1 / -1;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--secondary-border-color);
   border-top-width: 0.5px;
   border-bottom-width: 0.5px;
-  background-color: var(--primary-background);
+  background-color: var(--background-dialog);
 }
+
 .fieldRow {
   cursor: grab;
 }
+
 .nestedGrid ul li:last-child {
-  border-bottom: 0.5px solid var(--border-color);
+  border-bottom: 0.5px solid var(--secondary-border-color);
 }
 
 .tableEditor > ul > li:last-child {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--secondary-border-color);
+  border-bottom-left-radius: var(--border-radius-table);
+  border-bottom-right-radius: var(--border-radius-table);
 }
+
+.tableEditor > ul > li:first-child {
+  border-top: none;
+}
+
 .nestedGrid {
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 250px;
@@ -47,18 +57,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
+  padding: var(--space-cells);
 }
 
 .fieldCell + .fieldCell,
 .headerCell + .headerCell {
-  border-left: 1px solid var(--border-color);
+  border-left: 1px solid var(--secondary-border-color);
 }
 
 .headerCell {
-  padding: 8px 5px;
-  background-color: var(--highlight-color);
-  color: var(--text-color);
+  padding: var(--space-xs) 5px;
+  background-color: var(--edit-table-header);
+  color: var(--text-white);
+  border-top: 1px solid var(--secondary-border-color);
+  border-bottom: 1px solid var(--secondary-border-color);
 }
 
 .commands-container {
@@ -134,20 +146,33 @@
 related to each other and to the dialog header*/
 .header-row {
   position: sticky;
-  top: 5.3125rem;
+  top: 7.1rem;
   z-index: 1;
-  border-top-width: 1px;
+  border: none;
+  border-radius: 0px;
+  padding-top: var(--space-md);
 }
+
+.header-row .headerCell:first-child {
+  border-top-left-radius: var(--border-radius-table);
+  border-left: 1px solid var(--secondary-border-color);
+}
+
+.header-row .headerCell:last-child {
+  border-top-right-radius: var(--border-radius-table);
+  border-right: 1px solid var(--secondary-border-color);
+}
+
 .table-name {
+  background-color: var(--background-dialog);
   position: sticky;
-  top: 2.5rem;
+  top: 3rem;
   left: 0px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
   z-index: 2;
   text-align: left;
-  background-color: var(--primary-background);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--primary-border-color);
 }
 
 .table-name label {
@@ -155,8 +180,9 @@ related to each other and to the dialog header*/
   align-items: baseline;
   gap: 10px;
 }
+
 .table-name input {
-  padding: 3px;
+  max-width: 190px;
 }
 
 .fieldCell button {
@@ -164,17 +190,11 @@ related to each other and to the dialog header*/
   align-items: center;
   justify-content: center;
   padding: 0.4em 0.6em;
-  font-size: 16px;
+  font-size: var(--fs-m);
   min-width: 38px;
   min-height: 31px;
 }
 
-.button-space {
-  padding: 0.4em 0.6em;
-  font-size: 16px;
-  min-width: 30px;
-  min-height: 30px;
-}
 .input-name {
   width: 100%;
   height: 100%;
@@ -182,21 +202,15 @@ related to each other and to the dialog header*/
   align-items: center;
 }
 
-.input-name input {
-  width: 100%;
-  margin-right: 5px;
-  padding: 3px;
+.button-space {
+  padding: 0.4em 0.6em;
+  font-size: var(--fs-m);
+  min-width: 30px;
+  min-height: 30px;
 }
 
 .expandCell button {
   padding: 3px;
   min-width: 30px;
   min-height: 30px;
-}
-
-.fieldCell select {
-  width: 100%;
-  margin-right: 5px;
-  margin-left: 5px;
-  padding: 3px;
 }

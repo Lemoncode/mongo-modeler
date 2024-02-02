@@ -14,9 +14,13 @@ export const isDrawLeftToRightLogic = (
 
 export const calculateOriginMinusForkWidthLogic = (
   relationType: RelationType,
-  startCoords: Coords
-) => (relationType === 'M:1' ? startCoords.x - FORK_WIDTH : startCoords.x);
-
+  startCoords: Coords,
+  isDrawLeftToRight: boolean
+) => {
+  return relationType === 'M:1'
+    ? startCoords.x - (isDrawLeftToRight ? 1 : -1) * FORK_WIDTH
+    : startCoords.x;
+};
 export const calculateDestinationXMinusForkLogic = (
   relationType: RelationType,
   endCoords: Coords,

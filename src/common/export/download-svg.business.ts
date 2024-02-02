@@ -24,8 +24,6 @@ export const downloadImage = (svg: JSX.Element, viewBoxSize: Size) => {
       // add scale factor to see the image clearly
       // Revisit this check #124
       // https://github.com/Lemoncode/mongo-modeler/issues/124
-      const scaleFactor = 2;
-      ctx.scale(scaleFactor, scaleFactor);
       ctx.drawImage(image, 0, 0);
       const imageUrl = canvas.toDataURL('image/png');
 

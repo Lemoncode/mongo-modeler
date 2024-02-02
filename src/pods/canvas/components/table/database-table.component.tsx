@@ -28,6 +28,7 @@ interface Props {
 const TITLE_MARGIN_LEFT = 10;
 const PENCIL_ICON_WIDTH = 30;
 const PENCIL_MARGIN_RIGHT = 5;
+const TABLE_BORDER_RADIUS = 8;
 
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
@@ -127,18 +128,26 @@ export const DatabaseTable: React.FC<Props> = ({
     >
       <defs>
         <filter id="table_component_selected" x="0" y="0">
-          <feDropShadow dx="5" dy="5" stdDeviation="2" />
+          <feDropShadow
+            dx="3"
+            dy="3"
+            stdDeviation="4"
+            flood-color="var(--shadow-filter)"
+          />
         </filter>
       </defs>
       <rect
         x="0"
         y="0"
+        rx={TABLE_BORDER_RADIUS}
         width={TABLE_CONST.TABLE_WIDTH}
         height={totalHeight + TABLE_CONST.HEADER_TITLE_GAP}
         className={classes.tableBackground}
         style={rectStyle}
+        stroke="1.2"
       />
       <rect
+        rx={TABLE_BORDER_RADIUS}
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
@@ -152,23 +161,24 @@ export const DatabaseTable: React.FC<Props> = ({
       <TruncatedText
         text={tableInfo.tableName}
         x={TITLE_MARGIN_LEFT}
-        y={0}
+        y={4}
         width={TABLE_CONST.TABLE_WIDTH - TITLE_MARGIN_LEFT}
         height={TABLE_CONST.FONT_SIZE}
         textClass={classes.tableText}
       />
       {isSelected && (
         <g
-          transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 0)`}
+          transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
           onClick={pencilIconClick}
         >
           <rect
             x="0"
             y="0"
             width={PENCIL_ICON_WIDTH + PENCIL_MARGIN_RIGHT}
-            height="25"
             fill="transparent"
+            height="25"
             onClick={pencilIconClick}
+            style={{ cursor: 'pointer' }}
           />
           <Edit />
         </g>
@@ -196,6 +206,7 @@ export const DatabaseTable: React.FC<Props> = ({
         fill="transparent"
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}
+        style={{ cursor: 'pointer' }}
       />
     </g>
   );

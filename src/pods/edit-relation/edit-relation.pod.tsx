@@ -53,7 +53,9 @@ export const EditRelationPod: React.FC<Props> = props => {
             values={values}
             canvasSchema={canvasSchema}
           />
-          <button type="submit">Apply</button>
+          <button type="submit" className="button-secondary">
+            Apply
+          </button>
         </Form>
       )}
     </Formik>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useField } from 'formik';
+import { useField, useFormikContext } from 'formik';
 import classes from './dropdown.component.module.css';
 import { Dropdown, DropdownOptionVm } from '../../dropdown';
 
@@ -14,7 +14,7 @@ interface DropDownFormikProps {
 //TODO
 export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
   const { options, label, selectTitle } = props;
-
+  const formik = useFormikContext();
   //useField allows us to extract all formik metadata about that field
   const [field, meta, helpers] = useField(props.name ?? '');
 
@@ -40,6 +40,12 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
           isError={isError}
           onChange={field => {
             setValue(field);
+            if (inputFieldProps.name === 'fromTableId') {
+              formik.setFieldValue('fromFieldId', { id: '', label: '' });
+            }
+            if (inputFieldProps.name === 'toTableId') {
+              formik.setFieldValue('toFieldId', { id: '', label: '' });
+            }
           }}
         ></Dropdown>
         {isError && <span className={classes.error}>{meta.error}</span>}

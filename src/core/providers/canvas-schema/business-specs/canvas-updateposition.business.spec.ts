@@ -214,7 +214,10 @@ describe('calculateTablePosition', () => {
       tables: [
         {
           id: '1',
-          x: canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH,
+          x:
+            canvasSize.width -
+            TABLE_CONST.DEFAULT_TABLE_WIDTH -
+            TABLE_CONST.HORIZONTAL_LEFT_EXTENSION * 2,
           y: 500,
           tableName: 'tags',
           fields: [
@@ -258,7 +261,9 @@ describe('calculateTablePosition', () => {
     expect(result).toEqual(expected);
     expect(expected.tables[0].x).toBeGreaterThan(0);
     expect(expected.tables[0].x).toBe(
-      canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH
+      canvasSize.width -
+        TABLE_CONST.DEFAULT_TABLE_WIDTH -
+        TABLE_CONST.HORIZONTAL_LEFT_EXTENSION * 2
     );
     expect(expected.tables[0].y).toBeGreaterThan(0);
     expect(expected.tables[0].y).toBeLessThanOrEqual(
@@ -472,7 +477,7 @@ describe('calculateTablePosition', () => {
       tables: [
         {
           id: '1',
-          x: 0,
+          x: 40,
           y: 100,
           tableName: 'tags',
           fields: [
@@ -514,7 +519,7 @@ describe('calculateTablePosition', () => {
     };
 
     expect(result).toEqual(expected);
-    expect(expected.tables[0].x).toBe(0);
+    expect(expected.tables[0].x).toBe(40);
     expect(expected.tables[0].x).toBeLessThanOrEqual(
       canvasSize.width - TABLE_CONST.DEFAULT_TABLE_WIDTH
     );
