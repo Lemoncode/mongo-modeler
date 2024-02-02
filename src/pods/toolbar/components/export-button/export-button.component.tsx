@@ -44,7 +44,6 @@ export const ExportButton = () => {
   );
 
   const exportSvg = () => {
-    console.log('tablesWithExpandedFields', canvasSchema.tables);
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
