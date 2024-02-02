@@ -1,0 +1,46 @@
+.project {
+  font-size: 60px;
+  margin: 0;
+  color: var(--primary-300);
+  font-weight: var(--fw-extrabold);
+}
+.project-version {
+  margin: 0;
+  font-size: var(--fs-xl);
+}
+
+.team {
+  color: var(--secondary-300);
+}
+
+.member {
+  width: 120px;
+}
+
+.member-link {
+  display: block;
+  position: relative;
+  border-radius: 100%;
+  color: white;
+}
+
+.member-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 100%;
+  display: block;
+}
+
+.member-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #0a66c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
