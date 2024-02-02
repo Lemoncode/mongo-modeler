@@ -19,6 +19,7 @@ interface Props {
   table?: canvasVm.TableVm; // TODO: should we have our own Vm?
   relations: canvasVm.RelationVm[];
   onSave: (table: canvasVm.TableVm) => void;
+  onClose: () => void;
 }
 
 // Approach:
@@ -33,7 +34,7 @@ interface Props {
 // If it's a new table we will have to update X,Y coords to
 // something visible to the user
 export const EditTablePod: React.FC<Props> = props => {
-  const { table, relations, onSave } = props;
+  const { table, relations, onSave, onClose } = props;
 
   const [editTable, setEditTable] = React.useState<editTableVm.TableVm>(() =>
     doMapOrCreateTable(relations, table)
@@ -107,6 +108,7 @@ export const EditTablePod: React.FC<Props> = props => {
         onDragField={onDragField}
       />
       <button onClick={() => handleSubmit(editTable)}>Apply</button>
+      <button onClick={() => onClose()}>Cancel</button>
     </>
   );
 };
