@@ -7,11 +7,13 @@ import {
   useCanvasSchemaContext,
   useCanvasViewSettingsContext,
   TABLE_CONST,
+  TableVm,
 } from '@/core/providers';
 import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
 import {
   getMaxPositionYFromTables,
   getMaxPositionXFromTables,
+  expandAllFieldsInTables,
 } from './export-button.business';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
@@ -22,25 +24,30 @@ export const ExportButton = () => {
   const { canvasViewSettings } = useCanvasViewSettingsContext();
 
   const { canvasSize, zoomFactor } = canvasViewSettings;
+  canvasSchema.tables;
 
+  const tablesWithExpandedFields = React.useMemo<TableVm[]>(
+    () => expandAllFieldsInTables(canvasSchema.tables),
+    [canvasSchema.tables]
+  );
   const downloadCanvasSize: Size = React.useMemo<Size>(
     () => ({
       width:
-        getMaxPositionXFromTables(canvasSchema.tables) +
+        getMaxPositionXFromTables(tablesWithExpandedFields) +
         TABLE_CONST.TABLE_WIDTH +
         TABLE_CONST.CANVAS_PADDING,
       height:
-        getMaxPositionYFromTables(canvasSchema.tables) +
+        getMaxPositionYFromTables(tablesWithExpandedFields) +
         TABLE_CONST.CANVAS_PADDING,
     }),
-    [zoomFactor, canvasSize, canvasSchema.tables]
+    [zoomFactor, canvasSize, tablesWithExpandedFields]
   );
 
   const exportSvg = () => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={canvasSchema}
+        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
         onUpdateTablePosition={() => {}}
         onToggleCollapse={() => {}}
         onEditTable={() => {}}
@@ -53,8 +60,8 @@ export const ExportButton = () => {
   const exportImage = () => {
     const svg = (
       <CanvasExportSvgComponent
-        canvasSize={canvasSize}
-        canvasSchema={canvasSchema}
+        canvasSize={downloadCanvasSize}
+        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
         onUpdateTablePosition={() => {}}
         onToggleCollapse={() => {}}
         onEditTable={() => {}}

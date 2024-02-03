@@ -2,6 +2,7 @@ import { FieldVm, TABLE_CONST, TableVm } from '@/core/providers';
 import {
   calculateTableEndYPosition,
   calculateTableHeight,
+  expandAllFieldsInTables,
   getFieldsCount,
   getMaxPositionXFromTables,
   getMaxPositionYFromTables,
@@ -535,7 +536,6 @@ describe('export-button.business', () => {
     });
   });
 
-  // TODO: THIS TEST MUST BE CHANGE  WHEN WE CHANGE THE CONST USE IN THE FUNCTION
   describe('calculateTableHeight', () => {
     it('should return 169 when fields count is 5', () => {
       // Arrange
@@ -683,7 +683,6 @@ describe('export-button.business', () => {
     });
   });
 
-  //TODO: THIS TEST MUST BE CHANGE  WHEN WE CHANGE THE CONST USE IN THE FUNCTION calculateTableHeight
   describe('calculateTableEndYPosition', () => {
     it('should return 219 when fields count is 5 and table y is 50', () => {
       // Arrange
@@ -930,6 +929,321 @@ describe('export-button.business', () => {
         TABLE_CONST.ROW_HEIGHT * 2 +
         TABLE_CONST.ROW_PADDING +
         tables[0].y;
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('expandAllFieldsInTables', () => {
+    it('should return tables with all fields expanded with two tables', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                },
+              ],
+              isCollapsed: true,
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+        {
+          id: '2',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                },
+              ],
+              isCollapsed: true,
+            },
+          ],
+          tableName: 'table2',
+          x: 0,
+          y: 0,
+        },
+      ];
+
+      // Act
+      const result = expandAllFieldsInTables(tables);
+
+      // Assert
+      const expected: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                  isCollapsed: false,
+                  children: [],
+                },
+              ],
+              isCollapsed: false,
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+        {
+          id: '2',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                  isCollapsed: false,
+                  children: [],
+                },
+              ],
+              isCollapsed: false,
+            },
+          ],
+          tableName: 'table2',
+          x: 0,
+          y: 0,
+        },
+      ];
+      expect(result).toEqual(expected);
+    });
+
+    it('should return tables with all fields expanded with one table', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                },
+              ],
+              isCollapsed: true,
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+      ];
+
+      // Act
+      const result = expandAllFieldsInTables(tables);
+
+      // Assert
+      const expected: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                  isCollapsed: false,
+                  children: [],
+                },
+              ],
+              isCollapsed: false,
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+      ];
+      expect(result).toEqual(expected);
+    });
+
+    it('should return tables with all fields expanded with one table and one field', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                },
+              ],
+              isCollapsed: true,
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+      ];
+
+      // Act
+      const result = expandAllFieldsInTables(tables);
+
+      // Assert
+      const expected: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                  isCollapsed: false,
+                  children: [],
+                },
+              ],
+              isCollapsed: false,
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+      ];
+      expect(result).toEqual(expected);
+    });
+
+    it('should return tables with all fields expanded with one table and one field and one children', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                  children: [
+                    {
+                      id: '3',
+                      PK: false,
+                      name: 'field3',
+                      type: 'string',
+                    },
+                  ],
+                },
+              ],
+              isCollapsed: true,
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+      ];
+
+      // Act
+      const result = expandAllFieldsInTables(tables);
+
+      // Assert
+      const expected: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                  isCollapsed: false,
+                  children: [
+                    {
+                      id: '3',
+                      PK: false,
+                      name: 'field3',
+                      type: 'string',
+                      children: [],
+                      isCollapsed: false,
+                    },
+                  ],
+                },
+              ],
+              isCollapsed: false,
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+      ];
       expect(result).toEqual(expected);
     });
   });

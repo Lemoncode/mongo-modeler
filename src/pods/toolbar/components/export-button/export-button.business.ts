@@ -30,3 +30,16 @@ export const calculateTableEndYPosition = (table: TableVm): number => {
 
 export const getMaxPositionYFromTables = (tables: TableVm[]): number =>
   tables.length === 0 ? 0 : Math.max(...tables.map(calculateTableEndYPosition));
+
+const expandTableFields = (fields: FieldVm[]): FieldVm[] =>
+  fields.map(field => ({
+    ...field,
+    children: field.children ? expandTableFields(field.children) : [],
+    isCollapsed: false,
+  }));
+
+export const expandAllFieldsInTables = (table: TableVm[]) =>
+  table.map(table => ({
+    ...table,
+    fields: expandTableFields(table.fields),
+  }));
