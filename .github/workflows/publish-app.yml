@@ -1,0 +1,30 @@
+name: Publish app
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-react-app:
+    environment:
+      name: 'Website'
+      url: https://www.mongo-modeler.com
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_MONGOMOD_0B0B9B703 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: 'upload'
+          app_location: 'apps/react-app/dist'
+          skip_app_build: true
+          skip_api_build: true
+        env:
+          NODE_VERSION: 18.16.0
