@@ -15,6 +15,14 @@ const vitestConfig: VitestUserConfigInterface = {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), checker({ typescript: true })],
+  build: {
+    rollupOptions: {
+      input: {
+        main: './index.html',
+        editor: './editor.html',
+      },
+    },
+  },
   test: vitestConfig.test,
   resolve: {
     alias: {
