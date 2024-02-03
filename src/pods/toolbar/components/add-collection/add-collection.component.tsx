@@ -31,9 +31,13 @@ export const AddCollection = () => {
       <EditTablePod
         relations={canvasSchema.relations}
         onSave={handleAddTable}
+        onClose={handleCloseModal}
       />,
       ADD_COLLECTION_TITLE
     );
+  };
+  const handleCloseModal = () => {
+    closeModal();
   };
   return (
     <ToolbarButton

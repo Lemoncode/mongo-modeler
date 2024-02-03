@@ -60,12 +60,17 @@ export const CanvasPod: React.FC = () => {
     closeModal();
   };
 
+  const handleCloseEditTable = () => {
+    closeModal();
+  };
+
   const handleEditTable = (tableInfo: TableVm) => {
     openModal(
       <EditTablePod
         table={tableInfo}
         relations={canvasSchema.relations}
         onSave={handleTableEditUpdate}
+        onClose={handleCloseEditTable}
       />,
       EDIT_COLLECTION_TITLE
     );
