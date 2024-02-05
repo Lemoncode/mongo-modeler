@@ -3,44 +3,28 @@
   margin: 0;
   color: var(--primary-300);
   font-weight: var(--fw-extrabold);
+  line-height: 1.3;
 }
 .project-version {
   margin: 0;
   font-size: var(--fs-xl);
 }
 
+.project-community {
+  margin: 0;
+  margin-bottom: var(--space-xxxl);
+  color: #fc5969;
+}
+
 .team {
   color: var(--secondary-300);
+  text-align: left;
+  margin-bottom: var(--space-xxl);
 }
-
-.member {
-  width: 120px;
-}
-
-.member-link {
-  display: block;
-  position: relative;
-  border-radius: 100%;
-  color: white;
-}
-
-.member-link img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 100%;
-  display: block;
-}
-
-.member-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #0a66c2;
-  display: flex;
+.team-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   align-items: center;
-  justify-content: center;
+  justify-items: center;
+  gap: var(--space-xxl);
 }
