@@ -1,5 +1,5 @@
 .member {
-  width: 120px;
+  width: 100px;
 }
 
 .member-link {
@@ -10,16 +10,16 @@
 }
 
 .member-link img {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 100%;
   display: block;
 }
 
 .member-icon {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   border-radius: 100%;
   position: absolute;
   bottom: 0;
@@ -28,4 +28,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.member p {
+  line-height: 1.4;
+  margin-bottom: 0;
 }
