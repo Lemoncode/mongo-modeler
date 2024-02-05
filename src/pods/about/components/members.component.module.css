@@ -1,0 +1,36 @@
+.member {
+  width: 100px;
+}
+
+.member-link {
+  display: block;
+  position: relative;
+  border-radius: 100%;
+  color: white;
+}
+
+.member-link img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 100%;
+  display: block;
+}
+
+.member-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #0a66c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member p {
+  line-height: 1.4;
+  margin-bottom: 0;
+}

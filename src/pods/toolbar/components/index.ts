@@ -11,3 +11,4 @@ export * from './undo-button';
 export * from './redo-button';
 export * from './delete-button';
 export * from './add-collection';
+export * from './about-button';
