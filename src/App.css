@@ -194,9 +194,8 @@ button {
   transition: all 0.3s ease-in-out;
 }
 
-button:focus,
 button:focus-visible {
-  outline: 2px auto var(--border-button);
+  outline: 1px auto var(--primary-300);
 }
 
 button:hover {
@@ -222,6 +221,23 @@ button:disabled:hover {
 
 .button-secondary:hover {
   background-color: var(--hover-button-secondary);
+}
+
+.button-tertiary {
+  background-color: var(--background-500);
+}
+
+.button-tertiary:hover {
+  background-color: var(--background-300);
+  color: var(--text-dark);
+}
+
+.two-buttons {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-top: var(--space-md);
+  gap: var(--space-lg);
 }
 
 /* Input */
