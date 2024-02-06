@@ -5,10 +5,13 @@ import './App.css';
 
 function App() {
   const { theme } = useThemeContext();
-  const [width, setWidth] = React.useState(true);
+  const [isSupportedScreenResolution, setSupportedScreenResolution] =
+    React.useState(true);
 
   const handleResize = () => {
-    window.innerWidth < 1080 ? setWidth(false) : setWidth(true);
+    window.innerWidth < 1080
+      ? setSupportedScreenResolution(false)
+      : setSupportedScreenResolution(true);
   };
 
   React.useEffect(() => {
@@ -22,7 +25,7 @@ function App() {
 
   return (
     <div className={theme.themeMode}>
-      {width ? <MainScene /> : <MobileTabletScene />}
+      {isSupportedScreenResolution ? <MainScene /> : <MobileTabletScene />}
     </div>
   );
 }
