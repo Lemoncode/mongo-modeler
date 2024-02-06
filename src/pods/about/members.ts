@@ -18,7 +18,7 @@ export const memberList: Member[] = [
     id: '2',
     name: 'Tony',
     surname: 'Torres',
-    urlLinkedin: '',
+    urlLinkedin: 'https://es.linkedin.com/in/antonio-torres-sanchez-8aa762224/',
     image: './assets/tony-torres.jpeg',
   },
   {
@@ -51,7 +51,7 @@ export const memberList: Member[] = [
   },
   {
     id: '7',
-    name: `Leticia`,
+    name: 'Leticia',
     surname: 'de la Osa',
     urlLinkedin: 'https://www.linkedin.com/in/deletidev/',
     image: './assets/leticia-de-la-osa.jpeg',

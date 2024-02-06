@@ -3,10 +3,7 @@
 *:before {
   box-sizing: border-box;
 }
-
-#root {
-  margin: 0 auto;
-  text-align: center;
+:root {
   --padding-table: 38px;
   --relation-color: #ecad5a;
   --border-radius-table: var(--border-radius-s);
@@ -99,6 +96,11 @@
   --input-border-color: var(--background-400);
   --edit-table-header: var(--background-900);
   --input-border-color-active: var(--primary-300);
+}
+
+#root {
+  margin: 0 auto;
+  text-align: center;
 }
 
 .light {

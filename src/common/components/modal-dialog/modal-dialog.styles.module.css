@@ -15,7 +15,8 @@
   z-index: 1;
   background-color: var(--background-dialog);
   color: var(--text-color);
-  width: 80%;
+  width: 90%;
+  max-width: 1280px;
   height: 80%;
   overflow: scroll;
   border-radius: var(--border-radius-m);
