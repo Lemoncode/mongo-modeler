@@ -317,7 +317,7 @@ export const mFlix: DatabaseSchemaVm = {
           id: 'ed2b1a46-ffb2-4a4e-9c93-20fd77767686',
           PK: false,
           name: 'user_id',
-          type: 'object',
+          type: 'objectId',
           children: [],
         },
         {
