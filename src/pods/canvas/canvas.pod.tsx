@@ -17,6 +17,7 @@ import {
 } from '@/common/components/modal-dialog';
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
+import { mFlix } from './m-flix.mock.data';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
@@ -144,7 +145,12 @@ export const CanvasPod: React.FC = () => {
     >
       {canvasSchema.tables.length === 0 && (
         <div className={classes.load}>
-          <button onClick={() => loadSchema()}>Load sample model</button>
+          <button
+            className={classes.loadButton}
+            onClick={() => loadSchema(mFlix)}
+          >
+            Load sample model
+          </button>
         </div>
       )}
       <CanvasSvgComponent
