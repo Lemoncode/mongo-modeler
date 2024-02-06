@@ -30,6 +30,7 @@ export const CanvasPod: React.FC = () => {
     doUndo,
     doRedo,
     deleteSelectedItem,
+    loadSchema,
   } = useCanvasSchemaContext();
   const { canvasViewSettings, setScrollPosition } =
     useCanvasViewSettingsContext();
@@ -141,6 +142,11 @@ export const CanvasPod: React.FC = () => {
       ref={containerRef}
       onScroll={handleScroll}
     >
+      {canvasSchema.tables.length === 0 && (
+        <div className={classes.load}>
+          <button onClick={() => loadSchema()}>Load sample model</button>
+        </div>
+      )}
       <CanvasSvgComponent
         viewBoxSize={viewBoxSize}
         canvasSize={canvasSize}
