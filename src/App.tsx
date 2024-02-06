@@ -8,7 +8,7 @@ function App() {
   const [width, setWidth] = React.useState(true);
 
   const handleResize = () => {
-    window.innerWidth < 1160 ? setWidth(false) : setWidth(true);
+    window.innerWidth < 1080 ? setWidth(false) : setWidth(true);
   };
 
   React.useEffect(() => {
