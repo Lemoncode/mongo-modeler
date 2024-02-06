@@ -1,12 +1,15 @@
 import { Add } from '@/common/components/icons/add-icon.component';
 import { CommandIconButton } from './command-icon-button';
-import { AddFolder } from '@/common/components/icons/add-folder.component';
-import { RemoveIcon } from '@/common/components/icons/remove-icon.component';
 import { FieldVm } from '../../edit-table.vm';
 import { GUID } from '@/core/model';
-import { DownIcon } from '@/common/components/icons/down-icon';
-import { UpIcon } from '@/common/components/icons/up-icon.component';
 import { isFirstItemInArray, isLastItemInArray } from './commands.business';
+import {
+  DragDropIcon,
+  AddFolder,
+  UpIcon,
+  DownIcon,
+  RemoveIcon,
+} from '@/common/components';
 
 interface Props {
   onDeleteField: (fieldId: GUID) => void;
@@ -15,6 +18,7 @@ interface Props {
   fields: FieldVm[];
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
+  onDrag: (e: React.PointerEvent<HTMLButtonElement>, field: FieldVm) => void;
 }
 
 export const Commands: React.FC<Props> = (props: Props) => {
@@ -25,6 +29,7 @@ export const Commands: React.FC<Props> = (props: Props) => {
     onAddField,
     onMoveDownField,
     onMoveUpField,
+    onDrag,
   } = props;
 
   return (
@@ -52,6 +57,10 @@ export const Commands: React.FC<Props> = (props: Props) => {
         icon={<DownIcon />}
         onClick={() => onMoveDownField(field.id)}
         disabled={isLastItemInArray(fields, field.id)}
+      />
+      <CommandIconButton
+        icon={<DragDropIcon />}
+        onPointerDown={e => onDrag(e, field)}
       />
     </>
   );
