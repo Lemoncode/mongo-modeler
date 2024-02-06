@@ -380,12 +380,15 @@ input[type='checkbox'] {
   background-color: var(--primary-300);
 }
 
+.light .load-button {
+  color: var(--background-200);
+}
+.light .load-button::before {
+  background-color: var(--background-200);
+}
 .light .load-button:hover {
   color: var(--primary-600);
 }
 .light .load-button:hover.load-button::before {
   background-color: var(--primary-600);
-}
-.light .load-button {
-  color: var(--background-100);
 }
