@@ -3,7 +3,7 @@ import classes from '../edit-table.module.css';
 import { FieldType, GUID } from '@/core/model';
 import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
 import { Commands } from './commands/commands.component';
-import { RightArrowIcon, ExpandDown } from '@/common/components';
+import { RightArrowIcon, ExpandDown, DragDropIcon } from '@/common/components';
 import { AnimatePresence, Reorder, useDragControls } from 'framer-motion';
 
 interface NestedFieldGridProps {
@@ -63,12 +63,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
       transition: { duration: 0.3 },
     },
   };
-  const handleDrag = (
-    e: React.PointerEvent<HTMLButtonElement>,
-    field: FieldVm
-  ) => {
-    console.log(dragControls);
-    dragControls.start(e);
+  const handleDrag = (field: FieldVm) => {
     if (expandedFields.has(field.id)) {
       toggleExpand(field.id);
     }
@@ -89,12 +84,19 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
         // whileDrag={{
         //   cursor: 'grabbing',
         // }}
-        dragListener={false}
+        // dragListener={false}
         dragControls={dragControls}
       >
         <div
           className={`${classes.fieldCell} ${classes.expandCell} ${classes[`indent${level}`]}`}
         >
+          <button
+            onPointerDown={(e: React.PointerEvent<HTMLButtonElement>) => {
+              dragControls.start(e);
+            }}
+          >
+            <DragDropIcon />
+          </button>
           {field.type === 'object' ? (
             <button onClick={() => toggleExpand(field.id)}>
               {expandedFields.has(field.id) ? (
@@ -184,7 +186,6 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             onAddField={handleAddField}
             onMoveDownField={onMoveDownField}
             onMoveUpField={onMoveUpField}
-            onDrag={handleDrag}
           />
         </div>
       </Reorder.Item>

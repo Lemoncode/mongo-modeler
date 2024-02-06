@@ -1,19 +1,14 @@
 interface Props {
-  onClick?: () => void;
+  onClick: () => void;
   icon: JSX.Element;
   disabled?: boolean;
-  onPointerDown?: (e: React.PointerEvent<HTMLButtonElement>) => void;
 }
 
 export const CommandIconButton: React.FC<Props> = props => {
-  const { onClick, icon, disabled, onPointerDown } = props;
+  const { onClick, icon, disabled } = props;
 
   return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      onPointerDown={e => onPointerDown && onPointerDown(e)}
-    >
+    <button onClick={onClick} disabled={disabled}>
       {icon}
     </button>
   );
