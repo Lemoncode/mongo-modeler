@@ -32,11 +32,14 @@
   padding: var(--space-xs);
   padding-left: var(--space-md);
   color: var(--text-dark);
-  border-radius: var(--border-radius-m);
+  border-top-left-radius: var(--border-radius-m);
+  border-top-right-radius: var(--border-radius-m);
 }
+
 .dialog-header span {
   margin: 0;
 }
+
 .dialog-title {
   margin: 0;
   font-weight: var(--fw-regular);
