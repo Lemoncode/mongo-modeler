@@ -3,10 +3,7 @@
 *:before {
   box-sizing: border-box;
 }
-
-#root {
-  margin: 0 auto;
-  text-align: center;
+:root {
   --padding-table: 38px;
   --relation-color: #ecad5a;
   --border-radius-table: var(--border-radius-s);
@@ -99,6 +96,11 @@
   --input-border-color: var(--background-400);
   --edit-table-header: var(--background-900);
   --input-border-color-active: var(--primary-300);
+}
+
+#root {
+  margin: 0 auto;
+  text-align: center;
 }
 
 .light {
@@ -194,9 +196,8 @@ button {
   transition: all 0.3s ease-in-out;
 }
 
-button:focus,
 button:focus-visible {
-  outline: 2px auto var(--border-button);
+  outline: 1px auto var(--primary-300);
 }
 
 button:hover {
@@ -222,6 +223,23 @@ button:disabled:hover {
 
 .button-secondary:hover {
   background-color: var(--hover-button-secondary);
+}
+
+.button-tertiary {
+  background-color: var(--background-500);
+}
+
+.button-tertiary:hover {
+  background-color: var(--background-300);
+  color: var(--text-dark);
+}
+
+.two-buttons {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-top: var(--space-md);
+  gap: var(--space-lg);
 }
 
 /* Input */
@@ -324,7 +342,7 @@ input[type='checkbox'] {
 }
 
 .dialog-component {
-  padding: var(--space-xxxl);
+  padding: var(--space-xxl);
   --text-disabled: #828282;
 }
 

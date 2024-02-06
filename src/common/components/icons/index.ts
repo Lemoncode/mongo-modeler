@@ -15,3 +15,5 @@ export * from './trash-icon.component';
 export * from './collection-icon.component';
 export * from './right-arrow.component';
 export * from './expand-down-icon.component';
+export * from './about-icon.component';
+export * from './linkedin-icon.component';

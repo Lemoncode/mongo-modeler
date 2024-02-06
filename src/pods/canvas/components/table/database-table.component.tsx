@@ -147,6 +147,13 @@ export const DatabaseTable: React.FC<Props> = ({
         stroke="1.2"
       />
       <rect
+        x="0"
+        y={TABLE_CONST.HEADER_HEIGHT - 5}
+        width={TABLE_CONST.TABLE_WIDTH}
+        height="5"
+        className={classes.tableHeader}
+      />
+      <rect
         rx={TABLE_BORDER_RADIUS}
         x="0"
         y="0"

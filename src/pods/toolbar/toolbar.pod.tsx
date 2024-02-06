@@ -13,6 +13,7 @@ import {
   UndoButton,
   RedoButton,
   DeleteButton,
+  AboutButton,
 } from './components';
 import classes from './toolbar.pod.module.css';
 
@@ -31,6 +32,7 @@ export const ToolbarPod: React.FC = () => {
       <ExportButton />
       <DeleteButton />
       <CanvasSettingButton />
+      <AboutButton />
       <ThemeToggleButton darkLabel="Dark Mode" lightLabel="Light Mode" />
     </div>
   );

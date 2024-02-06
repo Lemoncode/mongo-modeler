@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-800);
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding: var(--space-xl);
+}
+
+.container h3 {
+  text-align: left;
+  font-size: var(--fs-xl);
+  line-height: 1.2;
+  color: var(--primary-300);
+}
+
+.container p {
+  text-align: left;
+  font-size: var(--fs-md);
+}
+@media screen and (min-width: 550px) {
+  .container p {
+    margin-bottom: var(--space-xxl);
+  }
+}
+
+.container img {
+  display: block;
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.wrapper {
+  max-width: 55ch;
+  margin-right: auto;
+  margin-left: auto;
+}
