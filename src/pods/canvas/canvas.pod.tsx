@@ -17,6 +17,7 @@ import {
 } from '@/common/components/modal-dialog';
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
+import { mFlix } from './m-flix.mock.data';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
@@ -30,10 +31,11 @@ export const CanvasPod: React.FC = () => {
     doUndo,
     doRedo,
     deleteSelectedItem,
+    loadSchema,
   } = useCanvasSchemaContext();
-  const { canvasViewSettings, setScrollPosition } =
+  const { canvasViewSettings, setScrollPosition, setLoadSample } =
     useCanvasViewSettingsContext();
-  const { canvasSize, zoomFactor } = canvasViewSettings;
+  const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
   // From now onwards use the examples under db-examples folder
@@ -141,6 +143,19 @@ export const CanvasPod: React.FC = () => {
       ref={containerRef}
       onScroll={handleScroll}
     >
+      {loadSample && (
+        <div className={classes.load}>
+          <button
+            className="load-button"
+            onClick={() => {
+              loadSchema(mFlix);
+              setLoadSample(false);
+            }}
+          >
+            Load sample model
+          </button>
+        </div>
+      )}
       <CanvasSvgComponent
         viewBoxSize={viewBoxSize}
         canvasSize={canvasSize}

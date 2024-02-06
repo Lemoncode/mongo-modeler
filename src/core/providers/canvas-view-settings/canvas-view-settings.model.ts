@@ -5,6 +5,7 @@ export interface CanvasViewSettingsModel {
   zoomFactor: number;
   scrollPosition: Coords;
   filename: string;
+  loadSample: boolean;
 }
 
 export const createInitialSettings = () => ({
@@ -12,6 +13,7 @@ export const createInitialSettings = () => ({
   zoomFactor: 1,
   scrollPosition: { x: 0, y: 0 },
   filename: '',
+  loadSample: true,
 });
 
 export interface CanvasViewSettingsContextModel {
@@ -23,4 +25,5 @@ export interface CanvasViewSettingsContextModel {
   setFilename: (filename: string) => void;
   zoomIn: () => void;
   zoomOut: () => void;
+  setLoadSample: (loadSample: boolean) => void;
 }

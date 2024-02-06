@@ -13,7 +13,7 @@ import { ADD_COLLECTION_TITLE } from '@/common/components/modal-dialog';
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
   const { canvasSchema, addTable } = useCanvasSchemaContext();
-  const { scrollPosition } = useCanvasViewSettingsContext();
+  const { scrollPosition, setLoadSample } = useCanvasViewSettingsContext();
 
   const handleAddTable = (newTable: TableVm) => {
     const ADD_TABLE_MARGIN = 15;
@@ -27,6 +27,7 @@ export const AddCollection = () => {
     closeModal();
   };
   const handleEditTableClick = () => {
+    setLoadSample(false);
     openModal(
       <EditTablePod
         relations={canvasSchema.relations}
