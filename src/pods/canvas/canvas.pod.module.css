@@ -19,9 +19,3 @@
   align-items: center;
   justify-content: center;
 }
-
-.load-button {
-  background-color: var(--primary-300);
-  color: var(--text-dark);
-  font-size: var(--fs-md);
-}

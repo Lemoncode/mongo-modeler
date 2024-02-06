@@ -33,9 +33,9 @@ export const CanvasPod: React.FC = () => {
     deleteSelectedItem,
     loadSchema,
   } = useCanvasSchemaContext();
-  const { canvasViewSettings, setScrollPosition } =
+  const { canvasViewSettings, setScrollPosition, setLoadSample } =
     useCanvasViewSettingsContext();
-  const { canvasSize, zoomFactor } = canvasViewSettings;
+  const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
   // From now onwards use the examples under db-examples folder
@@ -143,11 +143,14 @@ export const CanvasPod: React.FC = () => {
       ref={containerRef}
       onScroll={handleScroll}
     >
-      {canvasSchema.tables.length === 0 && (
+      {loadSample && (
         <div className={classes.load}>
           <button
-            className={classes.loadButton}
-            onClick={() => loadSchema(mFlix)}
+            className="load-button"
+            onClick={() => {
+              loadSchema(mFlix);
+              setLoadSample(false);
+            }}
           >
             Load sample model
           </button>

@@ -45,6 +45,13 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     });
   };
 
+  const setLoadSample = (loadSample: boolean) => {
+    setCanvasViewSettings({
+      ...canvasViewSettings,
+      loadSample,
+    });
+  };
+
   return (
     <CanvasViewSettingsContext.Provider
       value={{
@@ -56,6 +63,7 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
         setCanvasSize,
         setScrollPosition,
         setFilename,
+        setLoadSample,
       }}
     >
       {children}

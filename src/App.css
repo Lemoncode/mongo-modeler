@@ -231,7 +231,12 @@ button:disabled:hover {
   background-color: var(--background-300);
   color: var(--text-dark);
 }
-
+.light .button-tertiary {
+  background-color: var(--background-200);
+}
+.light .button-tertiary:hover {
+  background-color: var(--background-300);
+}
 .two-buttons {
   display: flex;
   align-items: baseline;
@@ -345,5 +350,37 @@ input[type='checkbox'] {
 }
 
 .light .dialog-component {
-  --text-disabled: #aeaeae;
+  --text-disabled: #f3eded;
+}
+
+.load-button {
+  background-color: transparent;
+  font-size: var(--fs-m);
+  position: relative;
+  padding: 0;
+}
+
+.load-button::before {
+  content: '';
+  position: absolute;
+  bottom: -2.7px;
+  left: 0;
+  width: 100%;
+  background-color: var(--text-color);
+  height: 1.5px;
+}
+.load-button:hover {
+  background-color: transparent;
+  color: var(--primary-300);
+}
+
+.load-button:hover.load-button::before {
+  background-color: var(--primary-300);
+}
+
+.light .load-button:hover {
+  color: var(--primary-600);
+}
+.light .load-button:hover.load-button::before {
+  background-color: var(--primary-600);
 }
