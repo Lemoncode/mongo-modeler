@@ -353,11 +353,13 @@ input[type='checkbox'] {
   --text-disabled: #f3eded;
 }
 
+/*load-button*/
 .load-button {
   background-color: transparent;
-  font-size: var(--fs-m);
+  font-size: var(--fs-xl);
   position: relative;
   padding: 0;
+  color: var(--background-400);
 }
 
 .load-button::before {
@@ -366,7 +368,7 @@ input[type='checkbox'] {
   bottom: -2.7px;
   left: 0;
   width: 100%;
-  background-color: var(--text-color);
+  background-color: var(--background-400);
   height: 1.5px;
 }
 .load-button:hover {
@@ -383,4 +385,7 @@ input[type='checkbox'] {
 }
 .light .load-button:hover.load-button::before {
   background-color: var(--primary-600);
+}
+.light .load-button {
+  color: var(--background-100);
 }
