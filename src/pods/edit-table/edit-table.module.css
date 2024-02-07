@@ -21,10 +21,6 @@
   background-color: var(--background-dialog);
 }
 
-.fieldRow {
-  cursor: grab;
-}
-
 .nestedGrid ul li:last-child {
   border-bottom: 0.5px solid var(--secondary-border-color);
 }
@@ -213,4 +209,11 @@ related to each other and to the dialog header*/
   padding: 3px;
   min-width: 30px;
   min-height: 30px;
+}
+
+.drag-button {
+  cursor: grab;
+}
+.drag-button svg {
+  pointer-events: none;
 }
