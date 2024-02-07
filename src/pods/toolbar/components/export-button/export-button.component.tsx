@@ -48,9 +48,6 @@ export const ExportButton = () => {
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
         canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
-        onUpdateTablePosition={() => {}}
-        onToggleCollapse={() => {}}
-        onEditTable={() => {}}
       />
     );
 
@@ -62,9 +59,6 @@ export const ExportButton = () => {
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
         canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
-        onUpdateTablePosition={() => {}}
-        onToggleCollapse={() => {}}
-        onEditTable={() => {}}
       />
     );
 

@@ -1,15 +1,12 @@
-import { GUID } from '@/core/model';
-import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
+import { FieldVm } from '@/core/providers/canvas-schema';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { calculateDBColumnsWidth } from '@/pods/edit-table/edit-table.business';
 import { exportStylesVariables } from '../../export-variables.const';
 
 interface Props {
-  tableInfo: TableVm;
   field: FieldVm;
   level: number;
   currentY: number;
-  onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
 }
 
 const FIELD_NAME_WIDTH_PERCENTAGE = 70;
@@ -20,7 +17,7 @@ const TABLE_CLEAN_WIDTH =
   TABLE_CONST.DEFAULT_TABLE_WIDTH - MARGIN_LEFT - MARGIN_RIGHT;
 
 export const DatabaseTableRow: React.FC<Props> = props => {
-  const { field, tableInfo, level, currentY, onToggleCollapse } = props;
+  const { field, level, currentY } = props;
 
   const isExpandable =
     field.type === 'object' && (field.children?.length ?? 0) > 0;
@@ -42,7 +39,6 @@ export const DatabaseTableRow: React.FC<Props> = props => {
               fontFamily: "'Arial', sans-serif",
               fontSize: '14px',
             }}
-            onClick={() => onToggleCollapse(tableInfo.id, field.id)}
           >
             {isExpanded ? '▼' : '►'}
           </text>

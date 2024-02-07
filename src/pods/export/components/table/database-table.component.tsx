@@ -1,34 +1,17 @@
 // Importaciones necesarias
 import React from 'react';
-import { Coords, GUID, Size } from '@/core/model';
 import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
-import { useDraggable } from './table-drag.hook';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { DatabaseTableRow } from './database-table-row.component';
 import { exportStylesVariables } from '../../export-variables.const';
 
 interface Props {
   tableInfo: TableVm;
-  updatePosition: (
-    id: string,
-    position: Coords,
-    totalHeight: number,
-    canvasSize: Size
-  ) => void;
-  onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
-  onEditTable: (tableInfo: TableVm) => void;
-  canvasSize: Size;
 }
 
 const HEADER_TITLE_GAP = 15;
 
-export const DatabaseTable: React.FC<Props> = ({
-  tableInfo,
-  onEditTable,
-  updatePosition,
-  onToggleCollapse,
-  canvasSize,
-}) => {
+export const DatabaseTable: React.FC<Props> = ({ tableInfo }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
 
   const renderRows = (
@@ -46,10 +29,8 @@ export const DatabaseTable: React.FC<Props> = ({
         <DatabaseTableRow
           key={field.id}
           field={field}
-          tableInfo={tableInfo}
           level={level}
           currentY={currentY}
-          onToggleCollapse={onToggleCollapse}
         />
       );
 
@@ -82,23 +63,8 @@ export const DatabaseTable: React.FC<Props> = ({
     return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Ajuste para el padding final
   }, [tableInfo.fields]);
 
-  const { onMouseDown } = useDraggable(
-    tableInfo.id,
-    tableInfo.x,
-    tableInfo.y,
-    updatePosition,
-    totalHeight,
-    canvasSize
-  );
-
-  const handleDoubleClick = () => {
-    onEditTable(tableInfo);
-  };
   return (
-    <g
-      transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
-      onMouseDown={onMouseDown}
-    >
+    <g transform={`translate(${tableInfo.x}, ${tableInfo.y})`}>
       <rect
         x="0"
         y="0"
@@ -112,7 +78,6 @@ export const DatabaseTable: React.FC<Props> = ({
         width={TABLE_CONST.TABLE_WIDTH}
         height={TABLE_CONST.HEADER_HEIGHT}
         style={{ fill: `${exportStylesVariables.HIGHLIGHT_COLOR}` }}
-        onDoubleClick={handleDoubleClick}
       />
       <text
         x="10"
