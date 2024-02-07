@@ -1,5 +1,5 @@
 import { GUID } from '@/core/model';
-import * as canvasModel from '@/core/providers/canvas-schema/canvas-schema.model';
+import * as canvasModel from '@/core/providers/canvas-schema/canvas-schema-vlatest.model';
 import * as editTableModel from './edit-table.vm';
 
 // Return -1 if is not a FK related field, otherwise return the fieldId

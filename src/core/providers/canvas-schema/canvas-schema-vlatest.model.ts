@@ -29,13 +29,17 @@ export interface RelationVm {
   type: RelationType;
 }
 
+export type Versions = '0.1';
+
 export interface DatabaseSchemaVm {
+  version: Versions;
   tables: TableVm[];
   relations: RelationVm[];
   selectedElementId: GUID | null;
 }
 
 export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
+  version: '0.1',
   tables: [],
   relations: [],
   selectedElementId: null,

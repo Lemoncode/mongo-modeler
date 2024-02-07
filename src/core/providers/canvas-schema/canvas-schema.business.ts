@@ -1,6 +1,6 @@
 import { produce } from 'immer';
-import { FieldVm, RelationVm, TableVm } from './canvas-schema.model';
-import { DatabaseSchemaVm } from './canvas-schema.model';
+import { FieldVm, RelationVm, TableVm } from './canvas-schema-vlatest.model';
+import { DatabaseSchemaVm } from './canvas-schema-vlatest.model';
 import { GUID } from '@/core/model';
 
 const getFieldIdCollectionFromTable = (table: TableVm): GUID[] => {
