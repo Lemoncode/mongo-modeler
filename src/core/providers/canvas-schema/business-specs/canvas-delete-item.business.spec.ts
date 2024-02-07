@@ -1,5 +1,5 @@
 import { GUID } from '@/core/model';
-import { DatabaseSchemaVm } from '../canvas-schema.model';
+import { DatabaseSchemaVm } from '../canvas-schema-vlatest.model';
 import { deleteItemFromCanvasSchema } from '../canvas.business';
 
 describe('deleteItemFromCanvasSchema', () => {

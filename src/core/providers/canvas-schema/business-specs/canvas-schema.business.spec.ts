@@ -1,4 +1,4 @@
-import { TableVm, DatabaseSchemaVm } from '../canvas-schema.model';
+import { TableVm, DatabaseSchemaVm } from '../canvas-schema-vlatest.model';
 import { addNewTable, updateTable } from '../canvas-schema.business';
 
 describe('canvas-schema.business', () => {

@@ -1,5 +1,5 @@
 import { doesRelationAlreadyExists } from './canvas.business';
-import { RelationVm, DatabaseSchemaVm } from './canvas-schema.model';
+import { RelationVm, DatabaseSchemaVm } from './canvas-schema-vlatest.model';
 
 describe('doesRelationAlreadyExists', () => {
   it('should return true if relation already exists', () => {
