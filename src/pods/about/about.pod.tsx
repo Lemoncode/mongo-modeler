@@ -3,8 +3,8 @@ import classes from './about.pod.module.css';
 import { memberList } from './members';
 import { MemberListComponent } from './components/members.component';
 import { useThemeContext } from '@/core/providers';
-import logoDark from '/public/assets/logo_mongo_modeler_dark_mode.svg';
-import logoLight from '/public/assets/logo_mongo_modeler_light_mode.svg';
+import logoDark from '/assets/logo_mongo_modeler_dark_mode.svg';
+import logoLight from '/assets/logo_mongo_modeler_light_mode.svg';
 
 export const AboutPod: React.FC = () => {
   const { theme } = useThemeContext();
