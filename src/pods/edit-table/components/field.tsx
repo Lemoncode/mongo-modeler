@@ -63,10 +63,15 @@ export const Field: React.FC<Props> = props => {
     onAddField(fieldId, isChildren);
   };
 
-  const handleDrag = (field: FieldVm) => {
+  const handlerPointerDown = (
+    e: React.PointerEvent<HTMLButtonElement>,
+    field: FieldVm
+  ) => {
+    dragControls.start(e);
     if (expandedFields.has(field.id)) {
       toggleExpand(field.id);
     }
+    e.currentTarget.style.cursor = 'grabbing';
   };
 
   return (
@@ -84,38 +89,34 @@ export const Field: React.FC<Props> = props => {
         dragListener={false}
         dragControls={dragControls}
       >
-        <div
-          className={`${classes.fieldCell} ${classes.expandCell} ${classes[`indent${level}`]}`}
-        >
+        <div className={classes.fieldCell}>
           <motion.button
             className={classes.dragButton}
-            onPointerDown={(e: React.PointerEvent<HTMLButtonElement>) => {
-              dragControls.start(e);
-              handleDrag(field);
-              e.currentTarget.style.cursor = 'grabbing';
-            }}
+            onPointerDown={e => handlerPointerDown(e, field)}
             onPointerUp={e => (e.currentTarget.style.cursor = 'grab')}
           >
             <DragDropIcon />
           </motion.button>
-          {field.type === 'object' ? (
-            <button onClick={() => toggleExpand(field.id)}>
-              {expandedFields.has(field.id) ? (
-                <ExpandDown />
-              ) : (
-                <RightArrowIcon />
-              )}
-            </button>
-          ) : (
-            <div className={classes.buttonSpace} /> // Empty div just to keep constant width
-          )}
-          <div className={classes.inputName}>
-            <input
-              value={field.name}
-              onChange={e => {
-                updateFieldValue(field, 'name', e.target.value);
-              }}
-            />
+          <div className={`${classes.expandCell} ${classes[`indent${level}`]}`}>
+            {field.type === 'object' ? (
+              <button onClick={() => toggleExpand(field.id)}>
+                {expandedFields.has(field.id) ? (
+                  <ExpandDown />
+                ) : (
+                  <RightArrowIcon />
+                )}
+              </button>
+            ) : (
+              <div className={classes.buttonSpace} /> // Empty div just to keep constant width
+            )}
+            <div className={classes.inputName}>
+              <input
+                value={field.name}
+                onChange={e => {
+                  updateFieldValue(field, 'name', e.target.value);
+                }}
+              />
+            </div>
           </div>
         </div>
         <div className={classes.fieldCell}>

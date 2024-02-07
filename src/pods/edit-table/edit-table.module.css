@@ -211,8 +211,11 @@ related to each other and to the dialog header*/
   min-height: 30px;
 }
 
-.drag-button {
+.fieldCell .drag-button {
   cursor: grab;
+  padding: 3px;
+  min-width: 30px;
+  min-height: 30px;
 }
 .drag-button svg {
   pointer-events: none;
