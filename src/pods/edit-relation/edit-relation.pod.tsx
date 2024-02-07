@@ -21,10 +21,11 @@ interface Props {
   canvasSchema: DatabaseSchemaVm;
   onChangeRelation: (relation: RelationVm) => void;
   relationId?: GUID;
+  onClose: () => void;
 }
 
 export const EditRelationPod: React.FC<Props> = props => {
-  const { canvasSchema, onChangeRelation, relationId } = props;
+  const { canvasSchema, onChangeRelation, relationId, onClose } = props;
 
   const relationsTypeOptions = mapRelationsTypeToDropdownVm();
 
@@ -53,9 +54,14 @@ export const EditRelationPod: React.FC<Props> = props => {
             values={values}
             canvasSchema={canvasSchema}
           />
-          <button type="submit" className="button-secondary">
-            Apply
-          </button>
+          <div className="two-buttons">
+            <button type="submit" className="button-secondary">
+              Apply
+            </button>
+            <button className="button-tertiary" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
         </Form>
       )}
     </Formik>
