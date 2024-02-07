@@ -96,6 +96,10 @@
   --input-border-color: var(--background-400);
   --edit-table-header: var(--background-900);
   --input-border-color-active: var(--primary-300);
+
+  /*About*/
+  --color-project: var(--primary-300);
+  --color-team: var(--secondary-300);
 }
 
 #root {
@@ -148,6 +152,10 @@
 
   /* Not working*/
   --hover-checkbox: var(--background-200);
+
+  /*About*/
+  --color-project: var(--primary-500);
+  --color-team: var(--secondary-600);
 }
 
 .dark {
