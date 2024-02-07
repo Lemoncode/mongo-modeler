@@ -62,7 +62,8 @@
       }
       .header {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: baseline;
         padding-top: 2rem;
       }
       .main {
@@ -153,6 +154,12 @@
         color: #73cc8f;
         font-weight: 600;
       }
+      .logo {
+        width: 50px;
+      }
+      .logo img {
+        object-fit: contain;
+      }
       @media screen and (max-width: 600px) {
         body {
           text-align: center;
@@ -240,6 +247,12 @@
   </head>
   <body>
     <header class="header container">
+      <div class="logo">
+        <img
+          src="/assets/logo_mongo_modeler_dark_mode.svg"
+          alt="Mongo Modeler Logo"
+        />
+      </div>
       <a href="https://github.com/Lemoncode/mongo-modeler"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
