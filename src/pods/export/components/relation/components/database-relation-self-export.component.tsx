@@ -1,8 +1,8 @@
 import { Coords } from '@/core/model';
+import React from 'react';
 import { RelationType, TABLE_CONST } from '@/core/providers';
 import { selfRelationcalculateOriginMinusFork } from '@/pods/canvas/components/relation/database-relation-self.business';
 import { isDrawLeftToRightLogic } from '@/pods/canvas/components/relation/relation.business';
-import React from 'react';
 import { ForkExportComponent } from './fork-export.component';
 
 interface Props {

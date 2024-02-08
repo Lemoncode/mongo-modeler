@@ -1,3 +1,4 @@
+import React from 'react';
 import { Coords } from '@/core/model';
 import { RelationType } from '@/core/providers';
 import {
@@ -5,8 +6,7 @@ import {
   calculateOriginMinusForkWidthLogic,
   isDrawLeftToRightLogic,
 } from '@/pods/canvas/components/relation/relation.business';
-import React from 'react';
-import { ForkExportComponent } from '.';
+import { ForkExportComponent } from './fork-export.component';
 
 interface Props {
   relationType: RelationType;
