@@ -54,6 +54,9 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
           isSelected ? classes.selectedRelation : classes.nonSelectedRelation
         }
         filter={isSelected ? `url(#table_glow)` : ''}
+        strokeWidth="2"
+        stroke="#ecad5a"
+        fill="none"
       />
 
       {/* Draw the fork */}

@@ -1,7 +1,7 @@
 import { Coords, GUID, Size } from '@/core/model';
 import { DatabaseSchemaVm, TableVm } from '@/core/providers/canvas-schema';
 import { DatabaseTable } from './components/table/database-table.component';
-import { DatabaseRelationCollectionComponent } from './components/relation';
+import { DatabaseRelationCollectionComponent } from '../canvas/components/relation';
 
 interface Props {
   canvasSize: Size;

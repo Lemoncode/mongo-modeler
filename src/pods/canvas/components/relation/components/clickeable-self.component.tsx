@@ -36,8 +36,9 @@ export const ClickableSelfComponent: React.FC<Props> = props => {
   return (
     <path
       d={relationSelfPath}
-      stroke="transparent"
       strokeWidth={40}
+      stroke="transparent"
+      fill="none"
       onClick={handleClick}
       onDoubleClick={handleDoubleClick}
       className={classes.path}

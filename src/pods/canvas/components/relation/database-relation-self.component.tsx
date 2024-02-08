@@ -4,8 +4,8 @@ import { RelationType, TABLE_CONST } from '@/core/providers';
 import { ForkComponent } from './components';
 import { isDrawLeftToRightLogic } from './relation.business';
 import { selfRelationcalculateOriginMinusFork } from './database-relation-self.business';
-import classes from './database-relation.component.module.css';
 import { ClickableSelfComponent } from './components/clickeable-self.component';
+import classes from './database-relation.component.module.css';
 
 interface DatabaseSelfRelationshipProps {
   id: GUID;
@@ -89,8 +89,8 @@ export const DatabaseRelationSelfComponent: React.FC<
           isSelected ? classes.selectedRelation : classes.nonSelectedRelation
         }
         filter={isSelected ? `url(#table_glow)` : ''}
-        strokeWidth={2}
-        stroke="#ffae42"
+        strokeWidth="2"
+        stroke="#ecad5a"
         fill="none"
       />
 
