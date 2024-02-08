@@ -7,9 +7,11 @@ import {
 } from '@/core/providers/canvas-schema/canvas.business';
 import { isOverLapping } from '@/pods/canvas/components/relation/database-relation-collection.business';
 import { LayoutType } from '@/pods/canvas/components/relation/relation.vm';
-import { DatabaseRelationshipTwoTablePathComponent } from '@/pods/canvas/components/relation/database-relation-two-tables-path.component';
-import { DatabaseRelationshipTwoTablesStraightComponent } from '@/pods/canvas/components/relation/database-relation-two-tables-straight.component';
-import { DatabaseRelationSelfExportComponent } from './components/database-relation-self-export-component';
+import {
+  DatabaseRelationSelfExportComponent,
+  DatabaseRelationshipTwoTablesStraightExportComponent,
+  DatabaseRelationshipTwoTablePathExportComponent,
+} from './components';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
@@ -68,26 +70,18 @@ export const DatabaseRelationCollectionComponent: React.FC<
           );
         case 'overlapping':
           return (
-            <DatabaseRelationshipTwoTablePathComponent
-              id={relation.id}
-              onClick={() => {}}
-              onDoubleClick={() => {}}
+            <DatabaseRelationshipTwoTablePathExportComponent
               relationType={relation.type}
               startCoords={startCoords}
               endCoords={endCoords}
-              isSelected={relation.id === schema.selectedElementId}
             />
           );
         case 'straight':
           return (
-            <DatabaseRelationshipTwoTablesStraightComponent
-              id={relation.id}
-              onClick={() => {}}
-              onDoubleClick={() => {}}
+            <DatabaseRelationshipTwoTablesStraightExportComponent
               relationType={relation.type}
               startCoords={startCoords}
               endCoords={endCoords}
-              isSelected={relation.id === schema.selectedElementId}
             />
           );
       }
