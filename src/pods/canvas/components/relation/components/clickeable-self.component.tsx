@@ -6,24 +6,16 @@ interface Props {
   id: GUID;
   startCoords: Coords;
   endCoords: Coords;
-  onClick?: (relationId: GUID) => void;
-  onDoubleClick?: (relationId: GUID) => void;
+  onClick: (relationId: GUID) => void;
+  onDoubleClick: (relationId: GUID) => void;
 }
 
 export const ClickableSelfComponent: React.FC<Props> = props => {
   const { id, startCoords, endCoords, onClick, onDoubleClick } = props;
 
   const handleClick = (e: React.MouseEvent<SVGLineElement, MouseEvent>) => {
-    if (onClick) {
-      onClick(id);
-    }
+    onClick(id);
     e.stopPropagation();
-  };
-
-  const handleDoubleClick = () => {
-    if (onDoubleClick) {
-      onDoubleClick(id);
-    }
   };
 
   const relationSelfPath = `
@@ -40,7 +32,7 @@ export const ClickableSelfComponent: React.FC<Props> = props => {
       stroke="transparent"
       fill="none"
       onClick={handleClick}
-      onDoubleClick={handleDoubleClick}
+      onDoubleClick={() => onDoubleClick(id)}
       className={classes.path}
     />
   );
