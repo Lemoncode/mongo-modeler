@@ -85,11 +85,10 @@ export const DatabaseRelationSelfComponent: React.FC<
       </defs>
       <path
         d={getRelationPathBasedOnType(relationType)}
-        className={isSelected ? classes.selectedRelation : ''}
+        className={
+          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
+        }
         filter={isSelected ? `url(#table_glow)` : ''}
-        strokeWidth="2"
-        stroke="#ecad5a"
-        fill="none"
       />
 
       {/* Draw the fork */}

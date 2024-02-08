@@ -14,8 +14,8 @@ interface DatabaseRelationshipTwoTablesProps {
   relationType: RelationType;
   startCoords: Coords;
   endCoords: Coords;
-  onClick?: (relationId: GUID) => void;
-  onDoubleClick?: (relationId: GUID) => void;
+  onClick: (relationId: GUID) => void;
+  onDoubleClick: (relationId: GUID) => void;
   isSelected: boolean;
 }
 
@@ -68,10 +68,10 @@ export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
         y1={startCoords.y}
         x2={destinationXMinusFork}
         y2={endCoords.y}
-        className={isSelected ? classes.selectedRelation : ''}
+        className={
+          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
+        }
         filter={isSelected ? `url(#table_glow)` : ''}
-        strokeWidth={2}
-        stroke="#ecad5a"
       />
 
       {/* Draw the fork */}
