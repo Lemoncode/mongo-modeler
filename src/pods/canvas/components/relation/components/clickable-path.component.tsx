@@ -24,9 +24,8 @@ export const ClickablePathComponent: React.FC<Props> = props => {
   return (
     <path
       d={getRelationPath(relationType, startCoords, endCoords)}
-      strokeWidth={40}
       stroke="transparent"
-      fill="none"
+      strokeWidth={40}
       onClick={handleClick}
       onDoubleClick={() => onDoubleClick(id)}
       className={classes.path}

@@ -29,7 +29,9 @@ export const ForkComponent: React.FC<Props> = props => {
         y1={forkCoords.y}
         x2={forkCoords.x + FORK_WIDTH * direction}
         y2={forkCoords.y - FORK_LINE_SPACING}
-        className={isSelected ? classes.selectedRelation : ''}
+        className={
+          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
+        }
       />
       <line
         x1={forkCoords.x}
