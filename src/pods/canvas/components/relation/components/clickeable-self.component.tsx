@@ -1,20 +1,17 @@
 import { Coords, GUID } from '@/core/model';
-import { RelationType } from '@/core/providers';
-import { getRelationPath } from '../database-relation-two-tables-path.business';
+import { TABLE_CONST } from '@/core/providers';
 import classes from './clickable-path.component.module.css';
 
 interface Props {
   id: GUID;
   startCoords: Coords;
   endCoords: Coords;
-  relationType: RelationType;
   onClick?: (relationId: GUID) => void;
   onDoubleClick?: (relationId: GUID) => void;
 }
 
-export const ClickablePathComponent: React.FC<Props> = props => {
-  const { id, startCoords, endCoords, relationType, onClick, onDoubleClick } =
-    props;
+export const ClickableSelfComponent: React.FC<Props> = props => {
+  const { id, startCoords, endCoords, onClick, onDoubleClick } = props;
 
   const handleClick = (e: React.MouseEvent<SVGLineElement, MouseEvent>) => {
     if (onClick) {
@@ -29,9 +26,16 @@ export const ClickablePathComponent: React.FC<Props> = props => {
     }
   };
 
+  const relationSelfPath = `
+  M ${startCoords.x} ${startCoords.y} 
+  H ${startCoords.x - TABLE_CONST.HORIZONTAL_LEFT_EXTENSION} 
+  V ${endCoords.y} 
+  H ${endCoords.x - TABLE_CONST.TABLE_WIDTH}
+  `;
+
   return (
     <path
-      d={getRelationPath(relationType, startCoords, endCoords)}
+      d={relationSelfPath}
       stroke="transparent"
       strokeWidth={40}
       onClick={handleClick}

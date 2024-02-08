@@ -13,8 +13,8 @@ import { LayoutType } from './relation.vm';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
-  onSelectRelation: (relationId: GUID) => void;
-  onEditRelation: (relationId: GUID) => void;
+  onSelectRelation?: (relationId: GUID) => void;
+  onEditRelation?: (relationId: GUID) => void;
 }
 
 export const DatabaseRelationCollectionComponent: React.FC<

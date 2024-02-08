@@ -14,8 +14,8 @@ interface DatabaseRelationshipTwoTablesProps {
   relationType: RelationType;
   startCoords: Coords;
   endCoords: Coords;
-  onClick: (relationId: GUID) => void;
-  onDoubleClick: (relationId: GUID) => void;
+  onClick?: (relationId: GUID) => void;
+  onDoubleClick?: (relationId: GUID) => void;
   isSelected: boolean;
 }
 
