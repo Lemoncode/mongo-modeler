@@ -50,19 +50,6 @@ export const ExportTablePod: React.FC<Props> = props => {
             <span className={classes.radioButtonCustom}></span>PNG
           </label>
         </div>
-        <div className={classes.radioButton}>
-          <input
-            className={classes.radioButtonInput}
-            type="radio"
-            name="export type"
-            id="radio3"
-            aria-label="Mongo Schema"
-            onChange={() => handleExportType('mongo')}
-          />
-          <label htmlFor="radio3" className={classes.radioButtonLabel}>
-            <span className={classes.radioButtonCustom}></span>Mongo Schema
-          </label>
-        </div>
       </div>
       <button className="button-secondary" onClick={handleExportClick}>
         Export
