@@ -31,9 +31,7 @@ export const ForkComponent: React.FC<Props> = props => {
         y1={forkCoords.y}
         x2={forkCoords.x + FORK_WIDTH * direction}
         y2={forkCoords.y - FORK_LINE_SPACING}
-        className={
-          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
-        }
+        className={isSelected ? classes.selectedRelation : ''}
         strokeWidth={2}
         stroke="#ecad5a"
       />

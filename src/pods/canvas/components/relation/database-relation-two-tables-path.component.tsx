@@ -50,9 +50,7 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
       </defs>
       <path
         d={getRelationPath(relationType, startCoords, endCoords)}
-        className={
-          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
-        }
+        className={isSelected ? classes.selectedRelation : ''}
         filter={isSelected ? `url(#table_glow)` : ''}
         strokeWidth="2"
         stroke="#ecad5a"

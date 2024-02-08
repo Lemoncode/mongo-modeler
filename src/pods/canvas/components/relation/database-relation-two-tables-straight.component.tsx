@@ -68,9 +68,7 @@ export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
         y1={startCoords.y}
         x2={destinationXMinusFork}
         y2={endCoords.y}
-        className={
-          isSelected ? classes.selectedRelation : classes.nonSelectedRelation
-        }
+        className={isSelected ? classes.selectedRelation : ''}
         filter={isSelected ? `url(#table_glow)` : ''}
         strokeWidth={2}
         stroke="#ecad5a"
