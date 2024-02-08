@@ -7,9 +7,9 @@ import {
 } from '@/core/providers/canvas-schema/canvas.business';
 import { isOverLapping } from '@/pods/canvas/components/relation/database-relation-collection.business';
 import { LayoutType } from '@/pods/canvas/components/relation/relation.vm';
-import { DatabaseRelationSelfComponent } from '@/pods/canvas/components/relation/database-relation-self.component';
 import { DatabaseRelationshipTwoTablePathComponent } from '@/pods/canvas/components/relation/database-relation-two-tables-path.component';
 import { DatabaseRelationshipTwoTablesStraightComponent } from '@/pods/canvas/components/relation/database-relation-two-tables-straight.component';
+import { DatabaseRelationSelfExportComponent } from './components/database-relation-self-export-component';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
@@ -60,14 +60,10 @@ export const DatabaseRelationCollectionComponent: React.FC<
       switch (layoutType) {
         case 'self':
           return (
-            <DatabaseRelationSelfComponent
-              id={relation.id}
-              onClick={() => {}}
-              onDoubleClick={() => {}}
+            <DatabaseRelationSelfExportComponent
               relationType={relation.type}
               startCoords={startCoords}
               endCoords={endCoords}
-              isSelected={relation.id === schema.selectedElementId}
             />
           );
         case 'overlapping':
