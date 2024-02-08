@@ -1,10 +1,9 @@
 import React from 'react';
 import { Coords, GUID } from '@/core/model';
 import { RelationType, TABLE_CONST } from '@/core/providers';
-import { ForkComponent } from './components';
+import { ForkComponent, ClickableSelfComponent } from './components';
 import { isDrawLeftToRightLogic } from './relation.business';
 import { selfRelationcalculateOriginMinusFork } from './database-relation-self.business';
-import { ClickableSelfComponent } from './components/clickeable-self.component';
 import classes from './database-relation.component.module.css';
 
 interface DatabaseSelfRelationshipProps {
@@ -12,8 +11,8 @@ interface DatabaseSelfRelationshipProps {
   relationType: RelationType;
   startCoords: Coords;
   endCoords: Coords;
-  onClick?: (relationId: GUID) => void;
-  onDoubleClick?: (relationId: GUID) => void;
+  onClick: (relationId: GUID) => void;
+  onDoubleClick: (relationId: GUID) => void;
   isSelected: boolean;
 }
 

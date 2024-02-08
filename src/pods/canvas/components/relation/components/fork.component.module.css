@@ -1,3 +1,10 @@
+/* TODO: use theme variables */
+.non-selected-relation {
+  stroke: var(--relation-color);
+  stroke-width: 2px;
+}
+
 .selected-relation {
+  stroke: var(--relation-color);
   stroke-width: 2px;
 }

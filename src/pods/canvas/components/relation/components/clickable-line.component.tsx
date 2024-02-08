@@ -4,24 +4,16 @@ interface Props {
   id: GUID;
   startCoords: Coords;
   endCoords: Coords;
-  onClick?: (relationId: GUID) => void;
-  onDoubleClick?: (relationId: GUID) => void;
+  onClick: (relationId: GUID) => void;
+  onDoubleClick: (relationId: GUID) => void;
 }
 
 export const ClickableLineComponent: React.FC<Props> = props => {
   const { id, startCoords, endCoords, onClick, onDoubleClick } = props;
 
   const handleClick = (e: React.MouseEvent<SVGLineElement, MouseEvent>) => {
-    if (onClick) {
-      onClick(id);
-    }
+    onClick(id);
     e.stopPropagation();
-  };
-
-  const handleDoubleClick = () => {
-    if (onDoubleClick) {
-      onDoubleClick(id);
-    }
   };
 
   return (
@@ -33,7 +25,7 @@ export const ClickableLineComponent: React.FC<Props> = props => {
       strokeWidth={40}
       stroke="transparent"
       onClick={handleClick}
-      onDoubleClick={handleDoubleClick}
+      onDoubleClick={() => onDoubleClick(id)}
       style={{ cursor: 'pointer' }}
     />
   );
