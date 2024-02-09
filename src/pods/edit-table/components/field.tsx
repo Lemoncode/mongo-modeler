@@ -180,6 +180,21 @@ export const Field: React.FC<Props> = props => {
             </label>
           </div>
         </div>
+        <div className={classes.fieldCell}>
+          <div className="checkbox">
+            <input
+              id="check4"
+              type="checkbox"
+              checked={field.isNN}
+              onChange={() => updateFieldValue(field, 'isNN', !field.isNN)}
+            />
+            <label htmlFor="check3">
+              <svg viewBox="0,0,50,50">
+                <path d="M5 30 L 20 45 L 45 5"></path>
+              </svg>
+            </label>
+          </div>
+        </div>
         <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
           <Commands
             field={field}
