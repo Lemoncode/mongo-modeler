@@ -3,6 +3,7 @@ import {
   FORK_LINE_SPACING,
   FORK_WIDTH,
 } from '@/pods/canvas/components/relation/relation.vm';
+import { exportStylesVariables } from '@/pods/export/export-variables.const';
 
 interface Props {
   forkCoords: Coords;
@@ -21,7 +22,7 @@ export const ForkExportComponent: React.FC<Props> = props => {
         y1={forkCoords.y}
         x2={forkCoords.x + FORK_WIDTH * direction}
         y2={forkCoords.y}
-        stroke="#ecad5a"
+        stroke={exportStylesVariables.RELATION_COLOR}
         strokeWidth={2}
       />
       <line
@@ -29,7 +30,7 @@ export const ForkExportComponent: React.FC<Props> = props => {
         y1={forkCoords.y}
         x2={forkCoords.x + FORK_WIDTH * direction}
         y2={forkCoords.y - FORK_LINE_SPACING}
-        stroke="#ecad5a"
+        stroke={exportStylesVariables.RELATION_COLOR}
         strokeWidth={2}
       />
       <line
@@ -37,7 +38,7 @@ export const ForkExportComponent: React.FC<Props> = props => {
         y1={forkCoords.y}
         x2={forkCoords.x + FORK_WIDTH * direction}
         y2={forkCoords.y + FORK_LINE_SPACING}
-        stroke="#ecad5a"
+        stroke={exportStylesVariables.RELATION_COLOR}
         strokeWidth={2}
       />
     </g>

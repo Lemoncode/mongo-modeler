@@ -6,6 +6,7 @@ import {
   calculateOriginMinusForkWidthLogic,
   isDrawLeftToRightLogic,
 } from '@/pods/canvas/components/relation/relation.business';
+import { exportStylesVariables } from '@/pods/export/export-variables.const';
 import { ForkExportComponent } from './fork-export.component';
 
 interface Props {
@@ -56,7 +57,7 @@ export const DatabaseRelationshipTwoTablesStraightExportComponent: React.FC<
         y1={startCoords.y}
         x2={destinationXMinusFork}
         y2={endCoords.y}
-        stroke="#ecad5a"
+        stroke={exportStylesVariables.RELATION_COLOR}
         strokeWidth={2}
       />
 
