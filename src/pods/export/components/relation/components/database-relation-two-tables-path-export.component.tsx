@@ -7,6 +7,7 @@ import {
   getRelationPath,
 } from '@/pods/canvas/components/relation/database-relation-two-tables-path.business';
 import { ForkExportComponent } from './fork-export.component';
+import { exportStylesVariables } from '@/pods/export/export-variables.const';
 
 interface Props {
   relationType: RelationType;
@@ -40,7 +41,7 @@ export const DatabaseRelationshipTwoTablePathExportComponent: React.FC<
       <path
         d={getRelationPath(relationType, startCoords, endCoords)}
         fill="none"
-        stroke="#ecad5a"
+        stroke={exportStylesVariables.RELATION_COLOR}
         strokeWidth={2}
       />
 

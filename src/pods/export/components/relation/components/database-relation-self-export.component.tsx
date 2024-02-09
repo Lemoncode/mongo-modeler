@@ -3,6 +3,7 @@ import { Coords } from '@/core/model';
 import { RelationType, TABLE_CONST } from '@/core/providers';
 import { selfRelationcalculateOriginMinusFork } from '@/pods/canvas/components/relation/database-relation-self.business';
 import { isDrawLeftToRightLogic } from '@/pods/canvas/components/relation/relation.business';
+import { exportStylesVariables } from '@/pods/export/export-variables.const';
 import { ForkExportComponent } from './fork-export.component';
 
 interface Props {
@@ -68,7 +69,7 @@ export const DatabaseRelationSelfExportComponent: React.FC<Props> = props => {
       <path
         d={getRelationPathBasedOnType(relationType)}
         fill="none"
-        stroke="#ecad5a"
+        stroke={exportStylesVariables.RELATION_COLOR}
         strokeWidth={2}
       />
 
