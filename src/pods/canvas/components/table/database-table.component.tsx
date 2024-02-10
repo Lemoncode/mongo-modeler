@@ -10,8 +10,8 @@ import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { DatabaseTableRow } from './database-table-row.component';
-import { TruncatedText } from './truncated-text.component';
-import { Edit } from '@/common/components';
+import { TABLE_BORDER_RADIUS, PENCIL_ICON_WIDTH } from './database-table.const';
+import { DatabaseTableHeader } from './database-table-header.component';
 
 // TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
@@ -24,11 +24,6 @@ interface Props {
   isSelected: boolean;
   selectTable: (tableId: GUID) => void;
 }
-
-const TITLE_MARGIN_LEFT = 10;
-const PENCIL_ICON_WIDTH = 30;
-const PENCIL_MARGIN_RIGHT = 5;
-const TABLE_BORDER_RADIUS = 8;
 
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
@@ -115,10 +110,6 @@ export const DatabaseTable: React.FC<Props> = ({
   const handleDoubleClick = () => {
     onEditTable(tableInfo);
   };
-  const pencilIconClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
-    onEditTable(tableInfo);
-    e.stopPropagation();
-  };
 
   return (
     <g
@@ -136,51 +127,11 @@ export const DatabaseTable: React.FC<Props> = ({
         style={rectStyle}
         stroke="1.2"
       />
-      <rect
-        x="0"
-        y={TABLE_CONST.HEADER_HEIGHT - 5}
-        width={TABLE_CONST.TABLE_WIDTH}
-        height="5"
-        className={classes.tableHeader}
+      <DatabaseTableHeader
+        onEditTable={handleDoubleClick}
+        isSelected={isSelected}
+        tableName={tableInfo.tableName}
       />
-      <rect
-        rx={TABLE_BORDER_RADIUS}
-        x="0"
-        y="0"
-        width={TABLE_CONST.TABLE_WIDTH}
-        height={TABLE_CONST.HEADER_HEIGHT}
-        className={classes.tableHeader}
-        onClick={e => {
-          e.stopPropagation();
-        }}
-        onDoubleClick={handleDoubleClick}
-      />
-      <TruncatedText
-        text={tableInfo.tableName}
-        x={TITLE_MARGIN_LEFT}
-        y={4}
-        width={TABLE_CONST.TABLE_WIDTH - TITLE_MARGIN_LEFT}
-        height={TABLE_CONST.FONT_SIZE}
-        textClass={classes.tableText}
-      />
-      {isSelected && (
-        <g
-          transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
-          onClick={pencilIconClick}
-        >
-          <rect
-            x="0"
-            y="0"
-            width={PENCIL_ICON_WIDTH + PENCIL_MARGIN_RIGHT}
-            fill="transparent"
-            height="25"
-            onClick={pencilIconClick}
-            style={{ cursor: 'pointer' }}
-          />
-          <Edit />
-        </g>
-      )}
-      ;
       <g transform={`translate(0, ${TABLE_CONST.HEADER_TITLE_GAP})`}>
         {renderedRows}
       </g>
