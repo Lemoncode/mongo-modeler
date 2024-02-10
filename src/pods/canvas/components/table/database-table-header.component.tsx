@@ -32,6 +32,8 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
         height="5"
         className={classes.tableHeader}
       />
+      {/* Trick: in a div in HTML/CSS you can define border radius only for top, in SVG not, that's why
+          we draw a first rect square and a second rect with border radius */}
       <rect
         rx={TABLE_BORDER_RADIUS}
         x="0"

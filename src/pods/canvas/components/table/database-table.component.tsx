@@ -6,12 +6,13 @@ import {
   TableVm,
   UpdatePositionFn,
 } from '@/core/providers/canvas-schema';
-import classes from './database-table.module.css';
 import { useDraggable } from './table-drag.hook';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { DatabaseTableRow } from './database-table-row.component';
-import { TABLE_BORDER_RADIUS, PENCIL_ICON_WIDTH } from './database-table.const';
+import { PENCIL_ICON_WIDTH } from './database-table.const';
 import { DatabaseTableHeader } from './database-table-header.component';
+import classes from './database-table.module.css';
+import { DatabaseTableBorder } from './database-table-border.component';
 
 // TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
@@ -96,10 +97,6 @@ export const DatabaseTable: React.FC<Props> = ({
     canvasSize
   );
 
-  const rectStyle = {
-    filter: isSelected ? 'url(#table_component_selected)' : 'none', // Apply filter if the table is selected (highlight selected table)
-  };
-
   const handleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
     if (!isSelected) {
       selectTable(tableInfo.id);
@@ -117,16 +114,7 @@ export const DatabaseTable: React.FC<Props> = ({
       onMouseDown={onMouseDown}
       className={classes.tableContainer}
     >
-      <rect
-        x="0"
-        y="0"
-        rx={TABLE_BORDER_RADIUS}
-        width={TABLE_CONST.TABLE_WIDTH}
-        height={totalHeight + TABLE_CONST.HEADER_TITLE_GAP}
-        className={classes.tableBackground}
-        style={rectStyle}
-        stroke="1.2"
-      />
+      <DatabaseTableBorder totalHeight={totalHeight} isSelected={isSelected} />
       <DatabaseTableHeader
         onEditTable={handleDoubleClick}
         isSelected={isSelected}
