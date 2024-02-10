@@ -89,7 +89,7 @@ export const DatabaseTable: React.FC<Props> = ({
       0,
       TABLE_CONST.HEADER_HEIGHT
     );
-    return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Ajuste para el padding final
+    return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Adjust for the last padding
   }, [tableInfo.fields]);
 
   const { onMouseDown } = useDraggable(
@@ -102,7 +102,7 @@ export const DatabaseTable: React.FC<Props> = ({
   );
 
   const rectStyle = {
-    filter: isSelected ? 'url(#table_component_selected)' : 'none', // Aplica el filtro si está seleccionado
+    filter: isSelected ? 'url(#table_component_selected)' : 'none', // Apply filter if the table is selected (highlight selected table)
   };
 
   const handleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
@@ -126,16 +126,6 @@ export const DatabaseTable: React.FC<Props> = ({
       onMouseDown={onMouseDown}
       className={classes.tableContainer}
     >
-      <defs>
-        <filter id="table_component_selected" x="0" y="0">
-          <feDropShadow
-            dx="3"
-            dy="3"
-            stdDeviation="4"
-            floodColor="var(--shadow-filter)"
-          />
-        </filter>
-      </defs>
       <rect
         x="0"
         y="0"
