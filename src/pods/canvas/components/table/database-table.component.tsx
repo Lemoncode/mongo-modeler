@@ -12,6 +12,7 @@ import { DatabaseTableRow } from './database-table-row.component';
 import { DatabaseTableHeader } from './database-table-header.component';
 import classes from './database-table.module.css';
 import { DatabaseTableBorder } from './database-table-border.component';
+import { DatabaseTableBody } from './database-table-body';
 
 // TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
@@ -119,9 +120,7 @@ export const DatabaseTable: React.FC<Props> = ({
         isSelected={isSelected}
         tableName={tableInfo.tableName}
       />
-      <g transform={`translate(0, ${TABLE_CONST.HEADER_TITLE_GAP})`}>
-        {renderedRows}
-      </g>
+      <DatabaseTableBody renderedRows={renderedRows} />
       {/* TODO: Check with the team, is this rect neccessary? */}
       {/*<rect
         x="0"
