@@ -13,13 +13,19 @@ interface Props {
   onEditTable: () => void;
   isSelected: boolean;
   tableName: string;
+  onSelectTable: () => void;
 }
 
 export const DatabaseTableHeader: React.FC<Props> = props => {
-  const { onEditTable, isSelected, tableName } = props;
+  const { onEditTable, isSelected, tableName, onSelectTable } = props;
 
   const pencilIconClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
     onEditTable();
+    e.stopPropagation();
+  };
+
+  const handleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
+    onSelectTable();
     e.stopPropagation();
   };
 
@@ -71,6 +77,21 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
           <Edit />
         </g>
       )}
+      {/* Clikable area to select the table or edit it*/}
+      <rect
+        x="0"
+        y="0"
+        width={
+          isSelected
+            ? TABLE_CONST.TABLE_WIDTH - PENCIL_ICON_WIDTH
+            : TABLE_CONST.TABLE_WIDTH
+        }
+        height={TABLE_CONST.HEADER_HEIGHT}
+        fill="transparent"
+        onClick={handleClick}
+        onDoubleClick={onEditTable}
+        style={{ cursor: 'pointer' }}
+      />
     </>
   );
 };

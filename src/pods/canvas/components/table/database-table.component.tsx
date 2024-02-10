@@ -9,7 +9,6 @@ import {
 import { useDraggable } from './table-drag.hook';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { DatabaseTableRow } from './database-table-row.component';
-import { PENCIL_ICON_WIDTH } from './database-table.const';
 import { DatabaseTableHeader } from './database-table-header.component';
 import classes from './database-table.module.css';
 import { DatabaseTableBorder } from './database-table-border.component';
@@ -97,11 +96,10 @@ export const DatabaseTable: React.FC<Props> = ({
     canvasSize
   );
 
-  const handleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
+  const handleSelectTable = () => {
     if (!isSelected) {
       selectTable(tableInfo.id);
     }
-    e.stopPropagation();
   };
 
   const handleDoubleClick = () => {
@@ -117,33 +115,21 @@ export const DatabaseTable: React.FC<Props> = ({
       <DatabaseTableBorder totalHeight={totalHeight} isSelected={isSelected} />
       <DatabaseTableHeader
         onEditTable={handleDoubleClick}
+        onSelectTable={handleSelectTable}
         isSelected={isSelected}
         tableName={tableInfo.tableName}
       />
       <g transform={`translate(0, ${TABLE_CONST.HEADER_TITLE_GAP})`}>
         {renderedRows}
       </g>
-      <rect
+      {/* TODO: Check with the team, is this rect neccessary? */}
+      {/*<rect
         x="0"
         y="0"
         width={TABLE_CONST.TABLE_WIDTH}
         height={totalHeight + TABLE_CONST.HEADER_TITLE_GAP}
         className={classes.table}
-      />
-      <rect
-        x="0"
-        y="0"
-        width={
-          isSelected
-            ? TABLE_CONST.TABLE_WIDTH - PENCIL_ICON_WIDTH
-            : TABLE_CONST.TABLE_WIDTH
-        }
-        height={TABLE_CONST.HEADER_HEIGHT}
-        fill="transparent"
-        onClick={handleClick}
-        onDoubleClick={handleDoubleClick}
-        style={{ cursor: 'pointer' }}
-      />
+      />*/}
     </g>
   );
 };
