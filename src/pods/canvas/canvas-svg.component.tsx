@@ -7,7 +7,7 @@ import {
 } from '@/core/providers/canvas-schema';
 import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
-import { SelectedTableFilterHighlightComponent } from './components/table/selected-table-filter-highlight.component';
+import { SelectedTableFilterHighlightComponent } from './components/table/components/selected-table-filter-highlight.component';
 
 interface Props {
   viewBoxSize: Size;

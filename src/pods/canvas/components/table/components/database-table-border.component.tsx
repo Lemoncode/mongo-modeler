@@ -1,6 +1,6 @@
 import { TABLE_CONST } from '@/core/providers';
-import { TABLE_BORDER_RADIUS } from './database-table.const';
-import classes from './database-table.module.css';
+import { TABLE_BORDER_RADIUS } from '../database-table.const';
+import classes from '../database-table.module.css';
 
 interface Props {
   totalHeight: number;

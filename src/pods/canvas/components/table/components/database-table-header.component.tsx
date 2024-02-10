@@ -6,8 +6,8 @@ import {
   PENCIL_MARGIN_RIGHT,
   TABLE_BORDER_RADIUS,
   TITLE_MARGIN_LEFT,
-} from './database-table.const';
-import classes from './database-table.module.css';
+} from '../database-table.const';
+import classes from '../database-table.module.css';
 
 interface Props {
   onEditTable: () => void;

@@ -1,18 +1,16 @@
 // Importaciones necesarias
 import React from 'react';
 import { GUID, Size } from '@/core/model';
-import {
-  FieldVm,
-  TableVm,
-  UpdatePositionFn,
-} from '@/core/providers/canvas-schema';
+import { TableVm, UpdatePositionFn } from '@/core/providers/canvas-schema';
 import { useDraggable } from './table-drag.hook';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
-import { DatabaseTableRow } from './database-table-row.component';
-import { DatabaseTableHeader } from './database-table-header.component';
+import {
+  DatabaseTableHeader,
+  DatabaseTableBorder,
+  DatabaseTableBody,
+} from './components';
+import { renderRows } from './database-table-render-rows.helper';
 import classes from './database-table.module.css';
-import { DatabaseTableBorder } from './database-table-border.component';
-import { DatabaseTableBody } from './database-table-body';
 
 // TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
@@ -37,53 +35,21 @@ export const DatabaseTable: React.FC<Props> = ({
 }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
 
-  const renderRows = (
-    fields: FieldVm[],
-    level: number,
-    startY: number
-  ): [JSX.Element[], number] => {
-    let currentY = startY;
-    let rows: JSX.Element[] = [];
-
-    fields.forEach(field => {
-      const isExpanded = !field.isCollapsed;
-
-      const row = (
-        <DatabaseTableRow
-          key={field.id}
-          field={field}
-          tableInfo={tableInfo}
-          level={level}
-          currentY={currentY}
-          onToggleCollapse={onToggleCollapse}
-        />
-      );
-
-      rows.push(row);
-      currentY += rowHeight;
-
-      if (isExpanded && field.children) {
-        const [childRows, newY] = renderRows(
-          field.children,
-          level + 1,
-          currentY
-        );
-        rows = rows.concat(childRows);
-        currentY = newY;
-      }
-    });
-
-    return [rows, currentY];
-  };
-
   const [renderedRows, totalHeight] = React.useMemo((): [
     JSX.Element[],
     number,
   ] => {
     const [rows, totalY] = renderRows(
-      tableInfo.fields,
-      0,
-      TABLE_CONST.HEADER_HEIGHT
+      {
+        tableInfo,
+        fields: tableInfo.fields,
+        level: 0,
+        startY: TABLE_CONST.HEADER_HEIGHT,
+        rowHeight,
+      },
+      {
+        onToggleCollapse,
+      }
     );
     return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Adjust for the last padding
   }, [tableInfo.fields]);
