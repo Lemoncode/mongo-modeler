@@ -2,6 +2,7 @@ import { Edit } from '@/common/components';
 import { TABLE_CONST } from '@/core/providers';
 import { TruncatedText } from './truncated-text.component';
 import {
+  PENCIL_ICON_HEIGHT,
   PENCIL_ICON_WIDTH,
   PENCIL_MARGIN_RIGHT,
   TABLE_BORDER_RADIUS,
@@ -19,7 +20,9 @@ interface Props {
 export const DatabaseTableHeader: React.FC<Props> = props => {
   const { onEditTable, isSelected, tableName, onSelectTable } = props;
 
-  const pencilIconClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
+  const handlePencilIconClick = (
+    e: React.MouseEvent<SVGGElement, MouseEvent>
+  ) => {
     onEditTable();
     e.stopPropagation();
   };
@@ -63,15 +66,15 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
       {isSelected && (
         <g
           transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
-          onClick={pencilIconClick}
+          onClick={handlePencilIconClick}
         >
           <rect
             x="0"
             y="0"
             width={PENCIL_ICON_WIDTH + PENCIL_MARGIN_RIGHT}
             fill="transparent"
-            height="25"
-            onClick={pencilIconClick}
+            height={PENCIL_ICON_HEIGHT}
+            onClick={handlePencilIconClick}
             style={{ cursor: 'pointer' }}
           />
           <Edit />

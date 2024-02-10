@@ -11,7 +11,7 @@ export const DatabaseTableBorder: React.FC<Props> = props => {
   const { totalHeight, isSelected } = props;
 
   const rectStyle = {
-    filter: isSelected ? 'url(#table_component_selected)' : 'none', // Apply filter if the table is selected (highlight selected table)
+    filter: isSelected ? 'url(#table_component_selected)' : 'none', // Apply SVG filter if the table is selected (highlight selected table)
   };
 
   return (
