@@ -19,25 +19,55 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     y: 0,
   });
 
-  const zoomIn = () =>
-    setCanvasViewSettings(canvasViewSettings => ({
-      ...canvasViewSettings,
-      zoomFactor: canvasViewSettings.zoomFactor * 1.1,
-      canvasSize: {
-        height: canvasViewSettings.canvasSize.height + 100,
-        width: canvasViewSettings.canvasSize.width + 100,
-      },
-    }));
+  const zoomIn = () => {
+    const maxZoomFactor = 2; // Factor de zoom máximo permitido
+    const zoomFactorIncrement = 0.1; // Incremento del factor de zoom
+    const newZoomFactor = Math.min(
+      canvasViewSettings.zoomFactor * (1 + zoomFactorIncrement),
+      maxZoomFactor
+    );
 
-  const zoomOut = () =>
+    // Calcula el cambio en el tamaño del lienzo de manera más moderada
+    const zoomFactorChange = newZoomFactor / canvasViewSettings.zoomFactor;
+    const newHeight =
+      canvasViewSettings.canvasSize.height * Math.sqrt(zoomFactorChange);
+    const newWidth =
+      canvasViewSettings.canvasSize.width * Math.sqrt(zoomFactorChange);
+
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
-      zoomFactor: canvasViewSettings.zoomFactor * 0.9,
+      zoomFactor: newZoomFactor,
       canvasSize: {
-        height: canvasViewSettings.canvasSize.height + 100,
-        width: canvasViewSettings.canvasSize.width + 100,
+        height: newHeight,
+        width: newWidth,
       },
     }));
+  };
+
+  const zoomOut = () => {
+    const minZoomFactor = 0.5; // Factor de zoom mínimo permitido
+    const zoomFactorDecrement = 0.1; // Decremento del factor de zoom
+    const newZoomFactor = Math.max(
+      canvasViewSettings.zoomFactor * (1 - zoomFactorDecrement),
+      minZoomFactor
+    );
+
+    // Calcula el cambio en el tamaño del lienzo de manera más moderada
+    const zoomFactorChange = newZoomFactor / canvasViewSettings.zoomFactor;
+    const newHeight =
+      canvasViewSettings.canvasSize.height / Math.sqrt(zoomFactorChange);
+    const newWidth =
+      canvasViewSettings.canvasSize.width / Math.sqrt(zoomFactorChange);
+
+    setCanvasViewSettings(canvasViewSettings => ({
+      ...canvasViewSettings,
+      zoomFactor: newZoomFactor,
+      canvasSize: {
+        height: newHeight,
+        width: newWidth,
+      },
+    }));
+  };
 
   const setCanvasSize = (canvasSize: Size) => {
     setCanvasViewSettings(canvasViewSettings => ({

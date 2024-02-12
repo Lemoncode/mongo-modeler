@@ -3,7 +3,7 @@ import {
   useCanvasViewSettingsContext,
   useModalDialogContext,
 } from '@/core/providers';
-import { GUID, Size } from '@/core/model';
+import { GUID } from '@/core/model';
 import classes from './canvas.pod.module.css';
 import {
   RelationVm,
