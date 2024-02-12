@@ -9,7 +9,7 @@ import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
 
 interface Props {
-  viewBoxSize: Size;
+  viewBoxSize: number;
   canvasSize: Size;
   canvasSchema: DatabaseSchemaVm;
   onUpdateTablePosition: UpdatePositionFn;
@@ -39,10 +39,12 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className={classes.containerSvg}
-      viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
+      viewBox={`0 0 ${canvasSize.width} ${canvasSize.height}`}
       width={canvasSize.width}
       height={canvasSize.height}
       onClick={clearSelection}
+      transform={`scale(${viewBoxSize})`}
+      style={{ transformOrigin: 'top left' }}
     >
       {canvasSchema.tables.map(table => (
         <DatabaseTable
