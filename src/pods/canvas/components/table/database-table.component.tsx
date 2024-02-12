@@ -87,14 +87,6 @@ export const DatabaseTable: React.FC<Props> = ({
         tableName={tableInfo.tableName}
       />
       <DatabaseTableBody renderedRows={renderedRows} />
-      {/* TODO: Check with the team, is this rect neccessary? */}
-      {/*<rect
-        x="0"
-        y="0"
-        width={TABLE_CONST.TABLE_WIDTH}
-        height={totalHeight + TABLE_CONST.HEADER_TITLE_GAP}
-        className={classes.table}
-      />*/}
     </g>
   );
 };

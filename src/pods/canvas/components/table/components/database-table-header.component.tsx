@@ -50,10 +50,6 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
         width={TABLE_CONST.TABLE_WIDTH}
         height={TABLE_CONST.HEADER_HEIGHT}
         className={classes.tableHeader}
-        onClick={e => {
-          e.stopPropagation();
-        }}
-        onDoubleClick={onEditTable}
       />
       <TruncatedText
         text={tableName}
