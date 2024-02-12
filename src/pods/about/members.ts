@@ -59,6 +59,13 @@ export const memberList: Member[] = [
   },
   {
     id: '8',
+    name: 'Miguel',
+    surname: 'Gálvez',
+    urlLinkedin: 'https://es.linkedin.com/in/miguelgalvezk',
+    image: './assets/miguel-galvez.jpg',
+  },
+  {
+    id: '9',
     name: 'Leticia',
     surname: 'de la Osa',
     urlLinkedin: 'https://www.linkedin.com/in/deletidev/',
