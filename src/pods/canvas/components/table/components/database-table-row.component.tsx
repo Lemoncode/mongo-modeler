@@ -1,9 +1,9 @@
 import { GUID } from '@/core/model';
 import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
-// import { calculateDBColumnsWidth } from '@/pods/edit-table/edit-table.business';
 import { TruncatedText } from './truncated-text.component';
 import classes from '../database-table.module.css';
+import { calculateColumNameWidth } from '../database-table.business';
 
 interface Props {
   tableInfo: TableVm;
@@ -13,13 +13,6 @@ interface Props {
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
 }
 
-const calculateColumNameWidth = (
-  widths: number[],
-  tableSize: number
-): number => {
-  const totalWidth = widths.reduce((prev, curr) => prev + curr, 0);
-  return tableSize - totalWidth;
-};
 const MARGIN_LEFT = 10;
 const MARGIN_RIGHT = 14;
 const TABLE_CLEAN_WIDTH =
@@ -46,10 +39,6 @@ export const DatabaseTableRow: React.FC<Props> = props => {
   const isExpandable =
     field.type === 'object' && (field.children?.length ?? 0) > 0;
   const isExpanded = !field.isCollapsed;
-  // const columnWidths = calculateDBColumnsWidth(
-  //   [FIELD_NAME_WIDTH_PERCENTAGE, FIELD_TYPE_WIDTH_PERCENTAGE],
-  //   TABLE_CLEAN_WIDTH
-  // );
 
   return (
     <g key={field.id} transform={`translate(${MARGIN_LEFT}, ${currentY})`}>
