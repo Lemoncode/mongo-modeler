@@ -30,7 +30,7 @@ const COLUMN_NAME_PIXEL_WIDTH = calculateColumNameWidth(
   ],
   TABLE_CLEAN_WIDTH
 );
-
+const SPACE_BELOW_TEXT = 3;
 const SPACE_ARROW_TEXT = TABLE_CONST.FONT_SIZE * 1.5;
 
 export const DatabaseTableRow: React.FC<Props> = props => {
@@ -46,7 +46,7 @@ export const DatabaseTableRow: React.FC<Props> = props => {
         {isExpandable && (
           <text
             x={0}
-            y={0}
+            y={TABLE_CONST.FONT_SIZE}
             style={{
               fill: exportStylesVariables.TEXT_COLOR,
               fontFamily: "'Arial', sans-serif",
@@ -57,21 +57,34 @@ export const DatabaseTableRow: React.FC<Props> = props => {
             {isExpanded ? '▼' : '►'}
           </text>
         )}
+        <clipPath id={`clip_${field.id}`}>
+          <rect
+            x={SPACE_ARROW_TEXT}
+            y={0}
+            width={
+              COLUMN_NAME_PIXEL_WIDTH -
+              SPACE_ARROW_TEXT -
+              level * TABLE_CONST.LEVEL_INDENTATION
+            }
+            height={TABLE_CONST.FONT_SIZE + SPACE_BELOW_TEXT}
+          ></rect>
+        </clipPath>
         <text
           x={SPACE_ARROW_TEXT}
-          y={0}
+          y={TABLE_CONST.FONT_SIZE}
           style={{
             fill: exportStylesVariables.TEXT_COLOR,
             fontFamily: 'Arial',
             fontSize: '14px',
           }}
+          clipPath={`url(#clip_${field.id})`}
         >
           {field.name}
         </text>
       </g>
       <text
         x={COLUMN_NAME_PIXEL_WIDTH + COLUMN_SPACE_PIXEL_WIDTH}
-        y={0}
+        y={TABLE_CONST.FONT_SIZE}
         style={{
           fill: exportStylesVariables.TEXT_COLOR,
           fontFamily: 'Arial',
@@ -89,7 +102,7 @@ export const DatabaseTableRow: React.FC<Props> = props => {
           COLUMN_TYPE_PIXEL_WIDTH +
           COLUMN_SPACE_PIXEL_WIDTH
         }
-        y={0}
+        y={TABLE_CONST.FONT_SIZE}
         width={COLUMN_NOTNULL_PIXEL_WIDTH}
         height={TABLE_CONST.FONT_SIZE}
         style={{
