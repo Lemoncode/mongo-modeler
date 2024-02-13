@@ -27,3 +27,7 @@ export const downloadImage = (svg: JSX.Element, viewBoxSize: Size) => {
     }
   };
 };
+
+export const downloadSchemaScript = (schemaScript: string) => {
+  downloadFile('schemaScript.js', schemaScript, 'text/javascript');
+};
