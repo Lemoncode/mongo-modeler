@@ -65,7 +65,7 @@ export const placeTableWithoutOverlap = (
     if (newTable.x < 0) {
       newTable = {
         ...newTable,
-        x: 0,
+        x: TABLE_CONST.TABLE_SHIFT_DISTANCE,
         y: newTable.y + TABLE_CONST.TABLE_SHIFT_DISTANCE,
       };
     }
