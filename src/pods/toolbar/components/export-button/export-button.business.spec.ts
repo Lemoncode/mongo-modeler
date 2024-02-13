@@ -1638,7 +1638,7 @@ describe('export-button.business', () => {
         id: '1',
         fields: [],
         tableName: 'table1',
-        x: 512,
+        x: 500,
         y: 100,
       };
       expect(result).toEqual(expectTable);
@@ -1673,7 +1673,7 @@ describe('export-button.business', () => {
         fields: [],
         tableName: 'table1',
         x: 0,
-        y: 172,
+        y: 160,
       };
       expect(result).toEqual(expectTable);
     });
