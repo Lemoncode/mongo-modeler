@@ -51,6 +51,14 @@ export const memberList: Member[] = [
   },
   {
     id: '7',
+    name: 'Cristina',
+    surname: 'González',
+    urlLinkedin:
+      'https://www.linkedin.com/in/cristina-gonzález-pacheco-802584185',
+    image: './assets/cristina-gonzalez.jpg',
+  },
+  {
+    id: '8',
     name: 'Leticia',
     surname: 'de la Osa',
     urlLinkedin: 'https://www.linkedin.com/in/deletidev/',

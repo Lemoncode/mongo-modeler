@@ -1,6 +1,20 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9X65LPXL9V"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-9X65LPXL9V');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -63,6 +77,7 @@
       .header {
         display: flex;
         justify-content: flex-end;
+        align-items: baseline;
         padding-top: 2rem;
       }
       .main {
@@ -79,9 +94,18 @@
         padding-top: 0;
         padding-bottom: 4rem;
       }
-
       .info__company {
-        font-size: clamp(70px, 9vw, 10rem);
+        display: flex;
+        align-items: center;
+        gap: 3%;
+      }
+      .info__company img {
+        width: 12%;
+        height: 100%;
+        margin-top: 4px;
+      }
+      .info__company h2 {
+        font-size: clamp(55px, 9vw, 10rem);
         color: var(--accent);
         background-image: linear-gradient(69deg, #96d9ab 30%, #ffffff 75%);
         background-clip: text;
@@ -89,14 +113,14 @@
         -webkit-background-clip: text;
       }
       .info__claim {
-        font-size: clamp(30px, 3.75vw, 5rem);
+        font-size: clamp(25px, 3.75vw, 5rem);
         font-weight: 600;
-        padding-left: 7px;
+        padding-left: 3px;
       }
       .info__detail {
         display: flex;
         justify-content: space-between;
-        padding: 4.5rem 5px 0 7px;
+        padding: 4.5rem 3px 0 3px;
       }
       .info__text {
         padding-top: 0.9rem;
@@ -153,6 +177,7 @@
         color: #73cc8f;
         font-weight: 600;
       }
+
       @media screen and (max-width: 600px) {
         body {
           text-align: center;
@@ -200,6 +225,20 @@
           padding: 1rem 0;
           font-size: 17px;
         }
+        .info__company {
+          display: flex;
+          flex-direction: column;
+          justify-items: center;
+          align-items: center;
+          gap: 8px;
+        }
+        .info__company img {
+          width: 70px;
+          margin-top: 0;
+        }
+        .info__company h2 {
+          line-height: 1.1;
+        }
       }
       @media screen and (max-width: 900px) {
         body {
@@ -223,6 +262,9 @@
         }
         .header {
           padding-bottom: 2rem;
+        }
+        .info__company {
+          justify-content: center;
         }
       }
 
@@ -257,7 +299,13 @@
     </header>
     <main class="main">
       <div class="info container">
-        <h2 class="info__company">Mongo Modeler</h2>
+        <div class="info__company">
+          <img
+            src="/assets/logo_mongo_modeler_dark_mode.svg"
+            alt="Mongo Modeler Logo"
+          />
+          <h2 class="info__company">Mongo Modeler</h2>
+        </div>
         <h1 class="info__claim">
           A free, online Data Modeling tool for MongoDB.
         </h1>

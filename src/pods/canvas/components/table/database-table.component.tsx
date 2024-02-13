@@ -132,7 +132,7 @@ export const DatabaseTable: React.FC<Props> = ({
             dx="3"
             dy="3"
             stdDeviation="4"
-            flood-color="var(--shadow-filter)"
+            floodColor="var(--shadow-filter)"
           />
         </filter>
       </defs>

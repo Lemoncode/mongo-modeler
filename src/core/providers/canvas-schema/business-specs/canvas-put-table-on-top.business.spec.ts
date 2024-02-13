@@ -1,5 +1,5 @@
 import { putTableOnTop } from '../canvas.business';
-import { TableVm } from '../canvas-schema.model';
+import { TableVm } from '../canvas-schema-vlatest.model';
 
 describe('putTabbleOnTop', () => {
   it('should return empty array, if I have a table and the array is empty', () => {

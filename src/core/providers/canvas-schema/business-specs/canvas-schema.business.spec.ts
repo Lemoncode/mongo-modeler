@@ -1,4 +1,4 @@
-import { TableVm, DatabaseSchemaVm } from '../canvas-schema.model';
+import { TableVm, DatabaseSchemaVm } from '../canvas-schema-vlatest.model';
 import { addNewTable, updateTable } from '../canvas-schema.business';
 
 describe('canvas-schema.business', () => {
@@ -21,6 +21,7 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [
           {
@@ -51,6 +52,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [
           {
@@ -110,8 +112,8 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
-
         relations: [
           {
             id: '20',
@@ -141,6 +143,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [
           {
@@ -193,6 +196,7 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [
           {
@@ -223,6 +227,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [],
         tables: [
@@ -266,6 +271,7 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [
           {
@@ -308,6 +314,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [
           {
@@ -373,6 +380,7 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [
           {
@@ -441,6 +449,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [
           {
@@ -526,6 +535,7 @@ describe('canvas-schema.business', () => {
       };
 
       const dbSchema: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [
           {
@@ -556,6 +566,7 @@ describe('canvas-schema.business', () => {
       };
 
       const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
         selectedElementId: null,
         relations: [
           {
@@ -603,6 +614,7 @@ describe('canvas-schema.business', () => {
         y: 15,
       };
       const databaseSchema: DatabaseSchemaVm = {
+        version: '0.1',
         tables: [
           {
             id: '1',
@@ -668,6 +680,7 @@ describe('canvas-schema.business', () => {
         selectedElementId: null,
       };
       const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
         tables: [
           {
             id: '1',
@@ -778,6 +791,7 @@ describe('canvas-schema.business', () => {
         y: 15,
       };
       const databaseSchema: DatabaseSchemaVm = {
+        version: '0.1',
         tables: [
           {
             id: '1',
@@ -843,6 +857,7 @@ describe('canvas-schema.business', () => {
         selectedElementId: null,
       };
       const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
         tables: [
           {
             id: '1',
@@ -975,6 +990,7 @@ describe('canvas-schema.business', () => {
         y: 15,
       };
       const databaseSchema: DatabaseSchemaVm = {
+        version: '0.1',
         tables: [],
         relations: [
           {
@@ -989,6 +1005,7 @@ describe('canvas-schema.business', () => {
         selectedElementId: null,
       };
       const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
         tables: [
           {
             id: '2',

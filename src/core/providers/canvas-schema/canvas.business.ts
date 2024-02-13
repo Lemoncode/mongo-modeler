@@ -4,7 +4,7 @@ import {
   FieldVm,
   TableVm,
   RelationVm,
-} from './canvas-schema.model';
+} from './canvas-schema-vlatest.model';
 import { TABLE_CONST } from './canvas.const';
 import { produce } from 'immer';
 

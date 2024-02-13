@@ -1,5 +1,5 @@
 import { GUID } from '@/core/model';
-import { DatabaseSchemaVm } from '../canvas-schema.model';
+import { DatabaseSchemaVm } from '../canvas-schema-vlatest.model';
 import { deleteItemFromCanvasSchema } from '../canvas.business';
 
 describe('deleteItemFromCanvasSchema', () => {
@@ -7,6 +7,7 @@ describe('deleteItemFromCanvasSchema', () => {
     //Arrange
     const selectedElementId: GUID = '1';
     const dbSchema: DatabaseSchemaVm = {
+      version: '0.1',
       selectedElementId: '1',
       relations: [
         {
@@ -75,6 +76,7 @@ describe('deleteItemFromCanvasSchema', () => {
 
     //Assert
     const expected = {
+      version: '0.1',
       selectedElementId: null,
       relations: [],
       tables: [
@@ -106,6 +108,7 @@ describe('deleteItemFromCanvasSchema', () => {
     //Arrange
     const selectedElementId: GUID = '20';
     const dbSchema: DatabaseSchemaVm = {
+      version: '0.1',
       selectedElementId: '20',
       relations: [
         {
@@ -174,6 +177,7 @@ describe('deleteItemFromCanvasSchema', () => {
 
     //Assert
     const expected = {
+      version: '0.1',
       selectedElementId: null,
       relations: [
         {
@@ -234,6 +238,7 @@ describe('deleteItemFromCanvasSchema', () => {
     //Arrange
     const selectedElementId: GUID = '30';
     const dbSchema: DatabaseSchemaVm = {
+      version: '0.1',
       selectedElementId: '30',
       relations: [
         {
@@ -294,6 +299,7 @@ describe('deleteItemFromCanvasSchema', () => {
 
     //Assert
     const expected = {
+      version: '0.1',
       selectedElementId: null,
       relations: [],
       tables: [
@@ -345,6 +351,7 @@ describe('deleteItemFromCanvasSchema', () => {
     //Arrange
     const selectedElementId: GUID = '1';
     const dbSchema: DatabaseSchemaVm = {
+      version: '0.1',
       selectedElementId: '1',
       relations: [],
       tables: [
@@ -376,6 +383,7 @@ describe('deleteItemFromCanvasSchema', () => {
 
     //Assert
     const expected = {
+      version: '0.1',
       selectedElementId: null,
       relations: [],
       tables: [],
@@ -386,6 +394,7 @@ describe('deleteItemFromCanvasSchema', () => {
     //Arrange
     const selectedElementId: GUID = '11';
     const dbSchema: DatabaseSchemaVm = {
+      version: '0.1',
       selectedElementId: '11',
       relations: [
         {
@@ -434,6 +443,7 @@ describe('deleteItemFromCanvasSchema', () => {
 
     //Assert
     const expected = {
+      version: '0.1',
       selectedElementId: null,
       relations: [
         {

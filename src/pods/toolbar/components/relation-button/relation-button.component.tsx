@@ -17,12 +17,16 @@ export const RelationButton = () => {
     addRelation(relation);
     closeModal();
   };
+  const handleCloseEditRelation = () => {
+    closeModal();
+  };
 
   const handleRelationClick = () => {
     openModal(
       <EditRelationPod
         onChangeRelation={handleChangeCanvasSchema}
         canvasSchema={canvasSchema}
+        onClose={handleCloseEditRelation}
       />,
       EDIT_RELATION_TITLE
     );

@@ -17,3 +17,8 @@ export * from './right-arrow.component';
 export * from './expand-down-icon.component';
 export * from './about-icon.component';
 export * from './linkedin-icon.component';
+export * from './drag-drop-icon.component';
+export * from './add-folder.component';
+export * from './down-icon';
+export * from './up-icon.component';
+export * from './remove-icon.component';
