@@ -2,7 +2,7 @@ import { FieldVm, TABLE_CONST, TableVm } from '@/core/providers';
 import {
   calculateTableEndYPosition,
   calculateTableHeight,
-  isTableOverlap,
+  doesTableOverlap,
   expandAllFieldsInTables,
   getFieldsCount,
   getMaxPositionXFromTables,
@@ -1272,7 +1272,7 @@ describe('export-button.business', () => {
       ];
 
       // Act
-      const result = isTableOverlap(tables[0], tables);
+      const result = doesTableOverlap(tables[0], tables);
 
       // Assert
       expect(result).toEqual(false);
@@ -1327,7 +1327,7 @@ describe('export-button.business', () => {
       ];
 
       // Act
-      const result = isTableOverlap(table, tables);
+      const result = doesTableOverlap(table, tables);
 
       // Assert
       expect(result).toEqual(true);
@@ -1382,7 +1382,7 @@ describe('export-button.business', () => {
       ];
 
       // Act
-      const result = isTableOverlap(table, tables);
+      const result = doesTableOverlap(table, tables);
 
       // Assert
       expect(result).toEqual(false);
@@ -1437,7 +1437,7 @@ describe('export-button.business', () => {
       ];
 
       // Act
-      const result = isTableOverlap(table, tables);
+      const result = doesTableOverlap(table, tables);
 
       // Assert
       expect(result).toEqual(true);
@@ -1510,7 +1510,7 @@ describe('export-button.business', () => {
       ];
 
       // Act
-      const result = isTableOverlap(table, tables);
+      const result = doesTableOverlap(table, tables);
 
       // Assert
       expect(result).toEqual(true);
@@ -1583,7 +1583,7 @@ describe('export-button.business', () => {
       ];
 
       // Act
-      const result = isTableOverlap(table, tables);
+      const result = doesTableOverlap(table, tables);
 
       // Assert
       expect(result).toEqual(false);

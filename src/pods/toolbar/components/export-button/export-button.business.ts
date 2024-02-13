@@ -1,4 +1,5 @@
 import { FieldVm, TableVm, TABLE_CONST } from '@/core/providers';
+import { doTablesOverlap } from './export-coordinate.helpers';
 
 export const getMaxPositionXFromTables = (tables: TableVm[]): number =>
   tables.length === 0 ? 0 : Math.max(...tables.map(table => table.x));
@@ -28,35 +29,21 @@ export const calculateTableEndYPosition = (table: TableVm): number => {
   return table.y + tableHeight;
 };
 
-export const isTableOverlap = (table: TableVm, tables: TableVm[]): boolean => {
+export const doesTableOverlap = (
+  tableA: TableVm,
+  tables: TableVm[]
+): boolean => {
   if (tables.length === 0) {
     return false;
   }
 
-  const expandedFields = expandTableFields(table.fields);
-  const tableEndXPosition = table.x + TABLE_CONST.TABLE_WIDTH;
-  const tableEndYPosition = calculateTableEndYPosition({
-    ...table,
-    fields: expandedFields,
-  });
+  const tablesMinusOriginTableCollection = tables.filter(
+    t => t.id !== tableA.id
+  );
 
-  return tables.some(t => {
-    if (t.id === table.id) {
-      return false;
-    }
-
-    const tExpandedFields = expandTableFields(t.fields);
-    const tEndXPosition = t.x + TABLE_CONST.TABLE_WIDTH;
-    const tEndYPosition = calculateTableEndYPosition({
-      ...t,
-      fields: tExpandedFields,
-    });
-
-    const overlapInX = table.x <= tEndXPosition && tableEndXPosition >= t.x;
-    const overlapInY = table.y <= tEndYPosition && tableEndYPosition >= t.y;
-
-    return overlapInX && overlapInY;
-  });
+  return tablesMinusOriginTableCollection.some(tableB =>
+    doTablesOverlap(tableA, tableB)
+  );
 };
 
 export const placeTableWithoutOverlap = (
@@ -67,19 +54,19 @@ export const placeTableWithoutOverlap = (
   let attempts = 0;
 
   while (
-    isTableOverlap(newTable, tables) &&
+    doesTableOverlap(newTable, tables) &&
     attempts < TABLE_CONST.MAX_PLACEMENT_ATTEMPTS
   ) {
     newTable = {
       ...newTable,
-      x: newTable.x - TABLE_CONST.ROW_HEIGHT,
+      x: newTable.x - TABLE_CONST.TABLE_SHIFT_DISTANCE,
     };
 
     if (newTable.x < 0) {
       newTable = {
         ...newTable,
         x: 0,
-        y: newTable.y + TABLE_CONST.ROW_HEIGHT,
+        y: newTable.y + TABLE_CONST.TABLE_SHIFT_DISTANCE,
       };
     }
 
@@ -103,7 +90,7 @@ export const placeAllTablesWithoutOverlap = (tables: TableVm[]): TableVm[] => {
 export const getMaxPositionYFromTables = (tables: TableVm[]): number =>
   tables.length === 0 ? 0 : Math.max(...tables.map(calculateTableEndYPosition));
 
-const expandTableFields = (fields: FieldVm[]): FieldVm[] =>
+export const expandTableFields = (fields: FieldVm[]): FieldVm[] =>
   fields.map(field => ({
     ...field,
     children: field.children ? expandTableFields(field.children) : [],
