@@ -188,7 +188,7 @@ export const Field: React.FC<Props> = props => {
               checked={field.isNN}
               onChange={() => updateFieldValue(field, 'isNN', !field.isNN)}
             />
-            <label htmlFor="check3">
+            <label htmlFor="check4">
               <svg viewBox="0,0,50,50">
                 <path d="M5 30 L 20 45 L 45 5"></path>
               </svg>
