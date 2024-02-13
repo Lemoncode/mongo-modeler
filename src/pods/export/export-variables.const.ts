@@ -4,4 +4,5 @@ export const exportStylesVariables = {
   ACCENT_COLOR: '#e367f4',
   HIGHLIGHT_COLOR: '#e6eaf2',
   TEXT_COLOR: '#202020',
+  RELATION_COLOR: '#ecad5a',
 };

@@ -1,9 +1,9 @@
 import { GUID } from '@/core/model';
 import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
-import classes from './database-table.module.css';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 // import { calculateDBColumnsWidth } from '@/pods/edit-table/edit-table.business';
 import { TruncatedText } from './truncated-text.component';
+import classes from '../database-table.module.css';
 
 interface Props {
   tableInfo: TableVm;
