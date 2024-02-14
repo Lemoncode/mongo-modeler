@@ -30,6 +30,15 @@ export const ExportButton = () => {
     () => expandAllFieldsInTables(canvasSchema.tables),
     [canvasSchema.tables]
   );
+
+  const getExportSchema = (showAllFieldsExpanded: boolean) =>
+    showAllFieldsExpanded
+      ? canvasSchema
+      : {
+          ...canvasSchema,
+          tables: tablesWithExpandedFields,
+        };
+
   const downloadCanvasSize: Size = React.useMemo<Size>(
     () => ({
       width:
@@ -47,7 +56,7 @@ export const ExportButton = () => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
+        canvasSchema={getExportSchema(canvasSchema.isExpandAllFields || false)}
         onUpdateTablePosition={() => {}}
         onToggleCollapse={() => {}}
         onEditTable={() => {}}
@@ -61,7 +70,7 @@ export const ExportButton = () => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
+        canvasSchema={getExportSchema(canvasSchema.isExpandAllFields || false)}
         onUpdateTablePosition={() => {}}
         onToggleCollapse={() => {}}
         onEditTable={() => {}}

@@ -36,6 +36,7 @@ export interface DatabaseSchemaVm {
   tables: TableVm[];
   relations: RelationVm[];
   selectedElementId: GUID | null;
+  isExpandAllFields?: boolean;
 }
 
 export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
@@ -73,4 +74,5 @@ export interface CanvasSchemaContextVm {
   doRedo: () => void;
   updateFullRelation: (relation: RelationVm) => void;
   deleteSelectedItem: (selectedElementId: GUID) => void;
+  updateExpandFields: (isExpanded: boolean) => void;
 }

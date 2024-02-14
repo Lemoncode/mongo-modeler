@@ -1,5 +1,8 @@
 import React from 'react';
-import { useModalDialogContext } from '@/core/providers';
+import {
+  useCanvasSchemaContext,
+  useModalDialogContext,
+} from '@/core/providers';
 import classes from './export-table.module.css';
 import { ExportType } from '@/core/model';
 
@@ -10,9 +13,10 @@ interface Props {
 export const ExportTablePod: React.FC<Props> = props => {
   const { onExport } = props;
   const { closeModal } = useModalDialogContext();
+  const { canvasSchema, updateExpandFields } = useCanvasSchemaContext();
   const [selectedExportType, setSelectedExportType] =
     React.useState<ExportType | null>(null);
-
+  const [checkboxChecked, setCheckboxChecked] = React.useState<boolean>(true);
   const handleExportType = (exportType: ExportType) => {
     setSelectedExportType(exportType ?? 'svg');
   };
@@ -21,6 +25,7 @@ export const ExportTablePod: React.FC<Props> = props => {
     onExport(selectedExportType ?? 'svg');
     closeModal();
   };
+
   return (
     <>
       <div className={classes.inputContent}>
@@ -63,6 +68,20 @@ export const ExportTablePod: React.FC<Props> = props => {
             <span className={classes.radioButtonCustom}></span>Mongo Schema
           </label>
         </div>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          name="expand type"
+          id="radio4"
+          aria-label="Expand Table Field"
+          onChange={() => {
+            setCheckboxChecked(!checkboxChecked);
+            updateExpandFields(!checkboxChecked);
+          }}
+          checked={checkboxChecked}
+        />
+        <label htmlFor="checkbox1">Expand Table Field</label>
       </div>
       <button className="button-secondary" onClick={handleExportClick}>
         Export
