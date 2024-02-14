@@ -160,6 +160,11 @@
   --color-team: var(--secondary-600);
 }
 
+.light ::selection {
+  background: var(--background-300);
+  color: #ffffff;
+}
+
 .dark {
   /* Modal */
   --background-dialog: var(--background-700);
@@ -189,6 +194,11 @@
   --bg-checkbox: var(--background-500);
   --border-checkbox: var(--background-400);
   --hover-checkbox: var(--background-200);
+}
+
+.dark ::selection {
+  background: var(--background-100);
+  color: var(--text-dark);
 }
 
 /* Buttons */

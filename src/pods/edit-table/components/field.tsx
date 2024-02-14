@@ -112,6 +112,8 @@ export const Field: React.FC<Props> = props => {
             <div className={classes.inputName}>
               <input
                 value={field.name}
+                autoFocus={field.isNewAdd}
+                onFocus={e => e.target.select()}
                 onChange={e => {
                   updateFieldValue(field, 'name', e.target.value);
                 }}

@@ -96,7 +96,9 @@ const mapEditTableFieldsToTableVmFields = (
   let result: canvasModel.FieldVm[] = [];
 
   fields.forEach(field => {
-    const { FK, ...editFieldVm } = field;
+    // 'FK' and 'isNewAdd' were ignored because they have a rest property sibling.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { FK, isNewAdd, ...editFieldVm } = field;
     result.push({
       ...editFieldVm,
       children: !field.children

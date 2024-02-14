@@ -98,6 +98,79 @@ describe('pods/edit-table/edit-table.mappers', () => {
       // Assert
       expect(result).toEqual(expectedResult);
     });
+
+    it('should return a "canvasVm" by removing isNewAdd in "fields" and "children"', () => {
+      // Arrange
+      const table: editTableModel.TableVm = {
+        id: '01',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            FK: false,
+            name: '_id',
+            type: 'objectId',
+            isNewAdd: true,
+            children: [
+              {
+                id: '3',
+                FK: false,
+                PK: false,
+                name: '_childrenFields',
+                type: 'string',
+                isNewAdd: true,
+                children: [],
+              },
+            ],
+          },
+          {
+            id: '2',
+            PK: false,
+            FK: true,
+            name: '_name',
+            type: 'string',
+            isNewAdd: true,
+          },
+        ],
+        tableName: 'ProductA',
+        x: 2,
+        y: 3,
+      };
+      const expectedResult: canvasModel.TableVm = {
+        id: '01',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            name: '_id',
+            type: 'objectId',
+            children: [
+              {
+                id: '3',
+                PK: false,
+                name: '_childrenFields',
+                type: 'string',
+                children: [],
+              },
+            ],
+          },
+          {
+            id: '2',
+            PK: false,
+            name: '_name',
+            type: 'string',
+            children: [],
+          },
+        ],
+        tableName: 'ProductA',
+        x: 2,
+        y: 3,
+      };
+      // Act
+      const result = mapEditTableVmToTableVm(table);
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
   });
 
   describe('mapTableVmToEditTableVm', () => {

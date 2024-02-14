@@ -13,6 +13,7 @@ export interface FieldVm {
   isCollapsed?: boolean;
   isArray?: boolean;
   isNN?: boolean;
+  isNewAdd?: boolean;
 }
 
 export const createDefaultField = (): FieldVm => ({
@@ -21,6 +22,7 @@ export const createDefaultField = (): FieldVm => ({
   FK: false,
   name: 'newField',
   type: 'string',
+  isNewAdd: true,
 });
 
 export interface TableVm {
