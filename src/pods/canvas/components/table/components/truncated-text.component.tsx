@@ -1,6 +1,6 @@
 import React from 'react';
 import { GenerateGUID } from '@/core/model';
-import classes from './database-table.module.css';
+import classes from '../database-table.module.css';
 
 interface Props {
   text: string;

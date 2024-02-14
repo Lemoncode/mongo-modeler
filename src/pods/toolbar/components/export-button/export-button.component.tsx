@@ -1,6 +1,10 @@
 import React from 'react';
 import { EDIT_COLLECTION_TITLE, ExportIcon } from '@/common/components';
-import { downloadImage, downloadSvg } from '@/common/export';
+import {
+  downloadImage,
+  downloadSchemaScript,
+  downloadSvg,
+} from '@/common/export';
 import { ExportType, Size } from '@/core/model';
 import {
   useModalDialogContext,
@@ -11,9 +15,10 @@ import {
 } from '@/core/providers';
 import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
 import {
+  expandAllFieldsInTables,
   getMaxPositionYFromTables,
   getMaxPositionXFromTables,
-  expandAllFieldsInTables,
+  getSchemaScriptFromTableVmArray,
 } from './export-button.business';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
@@ -72,13 +77,24 @@ export const ExportButton = () => {
     downloadImage(svg, downloadCanvasSize);
   };
 
+  const exportSchema = () => {
+    const schemaScript = getSchemaScriptFromTableVmArray(
+      tablesWithExpandedFields
+    );
+
+    downloadSchemaScript(schemaScript);
+  };
+
   const handleExportToFormat = (exportType: ExportType) => {
     switch (exportType) {
-      case 'svg':
+      case ExportType.SVG:
         exportSvg();
         break;
-      case 'png':
+      case ExportType.PNG:
         exportImage();
+        break;
+      case ExportType.SCHEMA:
+        exportSchema();
         break;
       default:
         break;
