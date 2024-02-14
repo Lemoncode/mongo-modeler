@@ -17,6 +17,7 @@ import {
 } from './export-button.business';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const ExportButton = () => {
   const { openModal } = useModalDialogContext();
@@ -97,6 +98,7 @@ export const ExportButton = () => {
       label="Export"
       onClick={handleExportClick}
       className={classes.button}
+      shortcutOptions={SHORTCUTS.export}
     />
   );
 };

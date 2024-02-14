@@ -6,6 +6,7 @@ import { ToolbarButton } from '../toolbar-button';
 import { CanvasSetting } from '@/common/components/icons';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
 import { CANVAS_SETTINGS_TITLE } from '@/common/components/modal-dialog';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const CanvasSettingButton = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -33,6 +34,7 @@ export const CanvasSettingButton = () => {
       label="Settings"
       onClick={handleCanvasSettings}
       className={classes.button}
+      shortcutOptions={SHORTCUTS.settings}
     />
   );
 };
