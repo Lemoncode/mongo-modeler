@@ -56,7 +56,7 @@ export const ExportButton = () => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={getExportSchema(canvasSchema.isExpandAllFields || false)}
+        canvasSchema={getExportSchema(false)}
         onUpdateTablePosition={() => {}}
         onToggleCollapse={() => {}}
         onEditTable={() => {}}
@@ -70,7 +70,7 @@ export const ExportButton = () => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={getExportSchema(canvasSchema.isExpandAllFields || false)}
+        canvasSchema={getExportSchema(false)}
         onUpdateTablePosition={() => {}}
         onToggleCollapse={() => {}}
         onEditTable={() => {}}

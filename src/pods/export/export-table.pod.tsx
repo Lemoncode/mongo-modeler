@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  useCanvasSchemaContext,
-  useModalDialogContext,
-} from '@/core/providers';
+import { useModalDialogContext } from '@/core/providers';
 import classes from './export-table.module.css';
 import { ExportType } from '@/core/model';
 
@@ -13,7 +10,6 @@ interface Props {
 export const ExportTablePod: React.FC<Props> = props => {
   const { onExport } = props;
   const { closeModal } = useModalDialogContext();
-  const { canvasSchema, updateExpandFields } = useCanvasSchemaContext();
   const [selectedExportType, setSelectedExportType] =
     React.useState<ExportType | null>(null);
   const [checkboxChecked, setCheckboxChecked] = React.useState<boolean>(true);
@@ -75,10 +71,7 @@ export const ExportTablePod: React.FC<Props> = props => {
           name="expand type"
           id="radio4"
           aria-label="Expand Table Field"
-          onChange={() => {
-            setCheckboxChecked(!checkboxChecked);
-            updateExpandFields(!checkboxChecked);
-          }}
+          onChange={() => setCheckboxChecked(!checkboxChecked)}
           checked={checkboxChecked}
         />
         <label htmlFor="checkbox1">Expand Table Field</label>

@@ -84,13 +84,6 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     setSchema(prevSchema => updateTable(table, prevSchema));
   };
 
-  const updateExpandFields = (isExpanded: boolean) => {
-    setSchema(canvasSchema => ({
-      ...canvasSchema,
-      isExpanded,
-    }));
-  };
-
   // TODO: #56 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/56
   const addTable = (table: TableVm) => {
@@ -187,7 +180,6 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         doRedo,
         updateFullRelation,
         deleteSelectedItem,
-        updateExpandFields,
       }}
     >
       {children}
