@@ -10,7 +10,7 @@ export interface CanvasViewSettingsModel {
 
 export const createInitialSettings = () => ({
   canvasSize: { width: 2400, height: 2400 },
-  zoomFactor: 1,
+  zoomFactor: 8.5,
   scrollPosition: { x: 0, y: 0 },
   filename: '',
   loadSample: true,

@@ -3,7 +3,7 @@ import {
   useCanvasViewSettingsContext,
   useModalDialogContext,
 } from '@/core/providers';
-import { GUID } from '@/core/model';
+import { GUID, Size } from '@/core/model';
 import classes from './canvas.pod.module.css';
 import {
   RelationVm,
@@ -45,13 +45,13 @@ export const CanvasPod: React.FC = () => {
     loadSchema(mockSchema);
   }, []);
   */
-  // const viewBoxSize: Size = React.useMemo<Size>(
-  //   () => ({
-  //     width: canvasSize.width * zoomFactor,
-  //     height: canvasSize.height * zoomFactor,
-  //   }),
-  //   [zoomFactor, canvasSize]
-  // );
+  const viewBoxSize: Size = React.useMemo<Size>(
+    () => ({
+      width: canvasSize.width * zoomFactor,
+      height: canvasSize.height * zoomFactor,
+    }),
+    [zoomFactor, canvasSize]
+  );
 
   const handleToggleCollapse = (tableId: GUID, fieldId: GUID) => {
     doFieldToggleCollapse(tableId, fieldId);
@@ -161,7 +161,7 @@ export const CanvasPod: React.FC = () => {
         </div>
       )}
       <CanvasSvgComponent
-        viewBoxSize={zoomFactor}
+        viewBoxSize={viewBoxSize}
         canvasSize={canvasSize}
         canvasSchema={canvasSchema}
         onUpdateTablePosition={updateTablePosition}

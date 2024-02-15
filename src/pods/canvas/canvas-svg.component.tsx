@@ -10,7 +10,7 @@ import { DatabaseRelationCollectionComponent } from './components/relation';
 import { SelectedTableFilterHighlightComponent } from './components/table/components/selected-table-filter-highlight.component';
 
 interface Props {
-  viewBoxSize: number;
+  viewBoxSize: Size;
   canvasSize: Size;
   canvasSchema: DatabaseSchemaVm;
   onUpdateTablePosition: UpdatePositionFn;
@@ -40,12 +40,10 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className={classes.containerSvg}
-      viewBox={`0 0 ${canvasSize.width} ${canvasSize.height}`}
-      width={canvasSize.width}
-      height={canvasSize.height}
+      viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
+      width={20000}
+      height={20000}
       onClick={clearSelection}
-      transform={`scale(${viewBoxSize})`}
-      style={{ transformOrigin: 'top left' }}
     >
       <SelectedTableFilterHighlightComponent />
       {canvasSchema.tables.map(table => (
