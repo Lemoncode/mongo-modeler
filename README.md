@@ -14,7 +14,7 @@ Now you can take a look at the desktop community preview at [mongomodeler.com](h
 
 Click to watch the video tutorial:
 
-[![Mongo Modeler video tutorial](https://img.youtube.com/vi/wZDKG6qLJMA/0.jpg)](https://www.youtube.com/watch?v=wZDKG6qLJMA)
+[![Mongo Modeler video tutorial](https://img.youtube.com/vi/87ZZbDZLido/0.jpg)](https://www.youtube.com/watch?v=87ZZbDZLido)
 
 Main features:
 
