@@ -49,6 +49,7 @@ export const SaveButton = () => {
       label={'Save'}
       onClick={() => saveFile(openedFilename)}
       className={classes.button}
+      disabled={canvasSchema.tables.length < 1}
     />
   );
 };

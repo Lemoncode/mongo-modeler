@@ -1,23 +1,54 @@
 # Mongo modeler
 
-## Project
+![Contributors](https://img.shields.io/github/contributors/Lemoncode/mongo-modeler)
+![Forks](https://img.shields.io/github/forks/Lemoncode/mongo-modeler)
+![Stars](https://img.shields.io/github/stars/Lemoncode/mongo-modeler)
+![Licence](https://img.shields.io/github/license/Lemoncode/mongo-modeler)
+![Issues](https://img.shields.io/github/issues/Lemoncode/mongo-modeler)
 
-👷‍♀️ Under construction
+## Project
 
 Mongo Modeler is a free, open source online web application that allows you to design and model MongoDB databases.
 
-![Mongo Modeler snapshot example, diagram view](./media/mongo-modeler.jpg)
+Now you can take a look at the desktop community preview at [mongomodeler.com](https://mongomodeler.com/).
+
+Click to watch the video tutorial:
+
+[![Mongo Modeler video tutorial](https://img.youtube.com/vi/87ZZbDZLido/0.jpg)](https://www.youtube.com/watch?v=87ZZbDZLido)
 
 Main features:
 
 - Allows the creation of nested fields.
 - Includes MongoDB types.
 - Enables setting relationships between tables.
-- Allows exporting to SVG, PNG, and Mongo Schema formats.
+- Allows exporting to SVG, PNG formats and Mongo Schema format coming soon in the next version.
 - It is a 100% online application, no installation required.
 - It is a free and open source application.
 
-We are working on releasing a first Beta in the coming months.
+We are working to release a 0.9 version in the coming months.
+
+## Installation
+
+Clone this repository:
+
+```sh
+git clone https://github.com/Lemoncode/mongo-modeler
+```
+
+Then install dependencies with:
+
+```sh
+cd mongo-modeler
+npm install
+```
+
+And run with:
+
+```sh
+npm run dev
+```
+
+Sample models can be found [HERE](https://github.com/Lemoncode/mongo-modeler/tree/main/db-examples).
 
 ## Contributing
 
@@ -35,17 +66,18 @@ Do you have an idea to improve the project? Great! Share your thoughts with us b
 
 The application is being developed using the following technologies:
 
-- React
-- TypeScript
-- HTML / CSS / SVG
-- Vite
-- Vitest
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) / [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) / [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG)
+- [Vite](https://vitejs.dev/)
+- [Vitest](https://vitest.dev/)
 
 ## Sponsor Mongo Modeler
 
-Are you or your company interested in supporting [Your Project Name]? Sponsorship is a powerful way to contribute to the development and maintenance of our project, and we're always looking for partners who share our vision.
+Are you or your company interested in supporting Mongo Modeler? Sponsorship is a powerful way to contribute to the development and maintenance of our project, and we're always looking for partners who share our vision.
 
 Why Sponsor Mongo Modeler?
+
 - **Support Open Source:** Your sponsorship directly contributes to the open-source community, enabling us to maintain and improve our project.
 
 - **Visibility for Your Brand:** Sponsoring Mongo Modeler can provide visibility for your brand in the tech community. It's an excellent way to demonstrate your commitment to supporting innovative software development.
