@@ -1,6 +1,6 @@
 .tableEditor {
   display: grid;
-  grid-template-columns: auto 60px 60px 150px 80px 250px;
+  grid-template-columns: auto 60px 60px 150px 80px 60px 250px;
   margin: var(--space-md);
   margin-top: 0;
   min-width: 800px;
@@ -13,7 +13,7 @@
 .fieldRow,
 .header-row {
   display: grid;
-  grid-template-columns: auto 60px 60px 150px 80px 250px;
+  grid-template-columns: auto 60px 60px 150px 80px 60px 250px;
   grid-column: 1 / -1;
   border: 1px solid var(--secondary-border-color);
   border-top-width: 0.5px;
@@ -37,13 +37,13 @@
 
 .nestedGrid {
   display: grid;
-  grid-template-columns: auto 60px 60px 150px 80px 250px;
+  grid-template-columns: auto 60px 60px 150px 80px 60px 250px;
   grid-column: 1 / -1;
 }
 .content {
   display: grid;
   grid-column: 1 / -1;
-  grid-template-columns: auto 60px 60px 150px 80px 250px;
+  grid-template-columns: auto 60px 60px 150px 80px 60px 250px;
   transform-origin: top center;
 }
 .fieldCell,
@@ -84,7 +84,7 @@
 
 @supports (grid-template-columns: subgrid) {
   .tableEditor {
-    grid-template-columns: repeat(6, auto);
+    grid-template-columns: repeat(7, auto);
   }
   .fieldRow,
   .header-row,

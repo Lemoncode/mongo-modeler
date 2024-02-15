@@ -22,7 +22,12 @@ export type FieldType =
   | 'timestamp'
   | 'undefined';
 
-export type ExportType = 'svg' | 'png' | 'mongo';
+export enum ExportType {
+  SVG = 'svg',
+  PNG = 'png',
+  MONGO = 'mongo',
+  SCHEMA = 'schema',
+}
 
 export interface Size {
   width: number;
