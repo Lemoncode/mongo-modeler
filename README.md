@@ -1,4 +1,9 @@
 # Mongo modeler
+![Contributors](https://img.shields.io/github/contributors/Lemoncode/mongo-modeler)
+![Forks](https://img.shields.io/github/forks/Lemoncode/mongo-modeler)
+![Stars](https://img.shields.io/github/stars/Lemoncode/mongo-modeler)
+![Licence](https://img.shields.io/github/license/Lemoncode/mongo-modeler)
+![Issues](https://img.shields.io/github/issues/Lemoncode/mongo-modeler)
 
 ## Project
 
@@ -21,6 +26,22 @@ Main features:
 
 We are working to release a 0.9 version in the coming months.
 
+## Installation
+Clone this repository:
+```sh
+git clone https://github.com/Lemoncode/mongo-modeler
+```
+Then install dependencies with:
+```sh
+cd mongo-modeler
+npm install
+```
+And run with:
+```sh
+npm run dev
+```
+Sample models can be found [HERE](https://github.com/Lemoncode/mongo-modeler/tree/main/db-examples).
+
 ## Contributing
 
 Your feedback and contributions are welcome! If you have ideas for new features or have found a bug, we would love to hear about it. Here's how you can contribute:
@@ -37,11 +58,11 @@ Do you have an idea to improve the project? Great! Share your thoughts with us b
 
 The application is being developed using the following technologies:
 
-- React
-- TypeScript
-- HTML / CSS / SVG
-- Vite
-- Vitest
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) / [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) / [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG)
+- [Vite](https://vitejs.dev/)
+- [Vitest](https://vitest.dev/)
 
 ## Sponsor Mongo Modeler
 
