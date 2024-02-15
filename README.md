@@ -1,4 +1,5 @@
 # Mongo modeler
+
 ![Contributors](https://img.shields.io/github/contributors/Lemoncode/mongo-modeler)
 ![Forks](https://img.shields.io/github/forks/Lemoncode/mongo-modeler)
 ![Stars](https://img.shields.io/github/stars/Lemoncode/mongo-modeler)
@@ -11,9 +12,9 @@ Mongo Modeler is a free, open source online web application that allows you to d
 
 Now you can take a look at the desktop community preview at [mongomodeler.com](https://mongomodeler.com/).
 
+Click to watch the video tutorial:
 
 [![Mongo Modeler video tutorial](https://img.youtube.com/vi/wZDKG6qLJMA/0.jpg)](https://www.youtube.com/watch?v=wZDKG6qLJMA)
-![Mongo Modeler snapshot example, diagram view](/public/mongo-modeler-app.jpg)
 
 Main features:
 
@@ -27,19 +28,26 @@ Main features:
 We are working to release a 0.9 version in the coming months.
 
 ## Installation
+
 Clone this repository:
+
 ```sh
 git clone https://github.com/Lemoncode/mongo-modeler
 ```
+
 Then install dependencies with:
+
 ```sh
 cd mongo-modeler
 npm install
 ```
+
 And run with:
+
 ```sh
 npm run dev
 ```
+
 Sample models can be found [HERE](https://github.com/Lemoncode/mongo-modeler/tree/main/db-examples).
 
 ## Contributing
