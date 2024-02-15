@@ -51,6 +51,7 @@ export const SaveButton = () => {
       onClick={() => saveFile(openedFilename)}
       className={classes.button}
       shortcutOptions={SHORTCUTS.save}
+      disabled={canvasSchema.tables.length < 1}
     />
   );
 };

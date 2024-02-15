@@ -43,3 +43,50 @@ export const expandAllFieldsInTables = (table: TableVm[]) =>
     ...table,
     fields: expandTableFields(table.fields),
   }));
+
+// Export Schema functions
+const getPropertyJsonSchema = (field: FieldVm): string => {
+  if (field.isArray) {
+    return `"${field.name}": { bsonType: "array", items: { bsonType: "${field.type}" } }`;
+  }
+
+  if (field.children && field.children.length > 0) {
+    const properties = getPropertiesJsonSchema(field.children, false);
+    return `"${field.name}": { bsonType: "object", title: "${field.name}", properties: { ${properties}, }, }`;
+  }
+  return `"${field.name}": { bsonType: "${field.type}" }`;
+};
+
+const getPropertiesJsonSchema = (fields: FieldVm[], useTab = true): string => {
+  const separator = useTab ? ',\n        ' : ', ';
+  return fields.map(getPropertyJsonSchema).join(separator);
+};
+
+const getRequiredFields = (fields: FieldVm[]): string => {
+  return fields
+    .filter(field => field.isNN)
+    .map(field => `"${field.name}"`)
+    .join(', ');
+};
+
+const getSchemaScriptFromTableVm = (table: TableVm): string => {
+  const properties = getPropertiesJsonSchema(table.fields);
+  const schemaScript = `db.createCollection("${table.tableName}", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "${table.tableName}",
+      required: [${getRequiredFields(table.fields)}],
+      properties: {
+        ${properties},
+      },
+    },
+  },
+});`;
+
+  return schemaScript;
+};
+
+export const getSchemaScriptFromTableVmArray = (tables: TableVm[]): string => {
+  return tables.map(getSchemaScriptFromTableVm).join('\n\n');
+};

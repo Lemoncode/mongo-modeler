@@ -78,6 +78,7 @@ export const EditTableComponent: React.FC<Props> = props => {
           <div className={classes.headerCell}>FK</div>
           <div className={classes.headerCell}>Type</div>
           <div className={classes.headerCell}>isArray</div>
+          <div className={classes.headerCell}>NN</div>
           <div className={classes.headerCell}>Actions</div>
         </div>
 

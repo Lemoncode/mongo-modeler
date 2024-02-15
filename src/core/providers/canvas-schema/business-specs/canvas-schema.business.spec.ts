@@ -1057,4 +1057,605 @@ describe('canvas-schema.business', () => {
       expect(result).toEqual(expectedResult);
     });
   });
+
+  describe('pruneOrphanRelations', () => {
+    it('Should remove orphan relations when origin field has been removed', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'ProductA',
+        x: 15,
+        y: 15,
+      };
+
+      const databaseSchema: DatabaseSchemaVm = {
+        version: '0.1',
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '2',
+                PK: true,
+                name: 'director_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+          {
+            id: '10',
+            fields: [
+              {
+                id: '20',
+                PK: true,
+                name: 'movie_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductB',
+            x: 35,
+            y: 35,
+          },
+        ],
+
+        relations: [
+          {
+            id: '1',
+            fromFieldId: '2',
+            fromTableId: '1',
+            toFieldId: '20',
+            toTableId: '10',
+            type: '1:1',
+          },
+        ],
+        selectedElementId: null,
+      };
+
+      const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
+        tables: [
+          {
+            id: '1',
+            fields: [],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+
+          {
+            id: '10',
+            fields: [
+              {
+                id: '20',
+                PK: true,
+                name: 'movie_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductB',
+            x: 35,
+            y: 35,
+          },
+        ],
+
+        relations: [],
+        selectedElementId: null,
+      };
+
+      // Act
+      const result = updateTable(table, databaseSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+    it('Should remove orphan relations when destination field has been removed', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '10',
+        fields: [],
+        tableName: 'ProductB',
+        x: 35,
+        y: 35,
+      };
+
+      const databaseSchema: DatabaseSchemaVm = {
+        version: '0.1',
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '2',
+                PK: true,
+                name: 'director_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+          {
+            id: '10',
+            fields: [
+              {
+                id: '20',
+                PK: true,
+                name: 'movie_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductB',
+            x: 35,
+            y: 35,
+          },
+        ],
+
+        relations: [
+          {
+            id: '1',
+            fromFieldId: '2',
+            fromTableId: '1',
+            toFieldId: '20',
+            toTableId: '10',
+            type: '1:1',
+          },
+        ],
+        selectedElementId: null,
+      };
+
+      const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '2',
+                PK: true,
+                name: 'director_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+
+          {
+            id: '10',
+            fields: [],
+            tableName: 'ProductB',
+            x: 35,
+            y: 35,
+          },
+        ],
+
+        relations: [],
+        selectedElementId: null,
+      };
+
+      // Act
+      const result = updateTable(table, databaseSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+
+    it('Should remove orphan relations in 1:M when one destination field has been removed', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '10',
+        fields: [
+          {
+            id: '20',
+            PK: true,
+            name: 'movie01_id',
+            type: 'objectId',
+          },
+          {
+            id: '30',
+            PK: true,
+            name: 'movie02_id',
+            type: 'objectId',
+          },
+        ],
+        tableName: 'ProductB',
+        x: 35,
+        y: 35,
+      };
+
+      const databaseSchema: DatabaseSchemaVm = {
+        version: '0.1',
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '2',
+                PK: true,
+                name: 'director_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+
+          {
+            id: '10',
+            fields: [
+              {
+                id: '20',
+                PK: true,
+                name: 'movie01_id',
+                type: 'objectId',
+              },
+              {
+                id: '30',
+                PK: true,
+                name: 'movie02_id',
+                type: 'objectId',
+              },
+              {
+                id: '40',
+                PK: true,
+                name: 'movie03_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductB',
+            x: 35,
+            y: 35,
+          },
+        ],
+
+        relations: [
+          {
+            id: '1',
+            fromFieldId: '2',
+            fromTableId: '1',
+            toFieldId: '20',
+            toTableId: '10',
+            type: '1:M',
+          },
+          {
+            id: '2',
+            fromFieldId: '2',
+            fromTableId: '1',
+            toFieldId: '30',
+            toTableId: '10',
+            type: '1:M',
+          },
+          {
+            id: '3',
+            fromFieldId: '2',
+            fromTableId: '1',
+            toFieldId: '40',
+            toTableId: '10',
+            type: '1:M',
+          },
+        ],
+        selectedElementId: null,
+      };
+
+      const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '2',
+                PK: true,
+                name: 'director_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+
+          {
+            id: '10',
+            fields: [
+              {
+                id: '20',
+                PK: true,
+                name: 'movie01_id',
+                type: 'objectId',
+              },
+              {
+                id: '30',
+                PK: true,
+                name: 'movie02_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductB',
+            x: 35,
+            y: 35,
+          },
+        ],
+
+        relations: [
+          {
+            id: '1',
+            fromFieldId: '2',
+            fromTableId: '1',
+            toFieldId: '20',
+            toTableId: '10',
+            type: '1:M',
+          },
+          {
+            id: '2',
+            fromFieldId: '2',
+            fromTableId: '1',
+            toFieldId: '30',
+            toTableId: '10',
+            type: '1:M',
+          },
+        ],
+        selectedElementId: null,
+      };
+
+      // Act
+      const result = updateTable(table, databaseSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+    it('Should remove orphan relations in M:1 when one origin field has been removed', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [
+          {
+            id: '2',
+            PK: true,
+            name: 'director_id',
+            type: 'objectId',
+          },
+          {
+            id: '3',
+            PK: true,
+            name: 'star_id',
+            type: 'objectId',
+          },
+        ],
+        tableName: 'ProductA',
+        x: 15,
+        y: 15,
+      };
+
+      const databaseSchema: DatabaseSchemaVm = {
+        version: '0.1',
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '2',
+                PK: true,
+                name: 'director_id',
+                type: 'objectId',
+              },
+              {
+                id: '3',
+                PK: true,
+                name: 'star_id',
+                type: 'objectId',
+              },
+              {
+                id: '4',
+                PK: true,
+                name: 'costart_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+          {
+            id: '10',
+            fields: [
+              {
+                id: '20',
+                PK: true,
+                name: 'movie_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductB',
+            x: 35,
+            y: 35,
+          },
+        ],
+
+        relations: [
+          {
+            id: '1',
+            fromFieldId: '2',
+            fromTableId: '1',
+            toFieldId: '20',
+            toTableId: '10',
+            type: 'M:1',
+          },
+          {
+            id: '2',
+            fromFieldId: '3',
+            fromTableId: '1',
+            toFieldId: '20',
+            toTableId: '10',
+            type: 'M:1',
+          },
+          {
+            id: '3',
+            fromFieldId: '4',
+            fromTableId: '1',
+            toFieldId: '20',
+            toTableId: '10',
+            type: 'M:1',
+          },
+        ],
+        selectedElementId: null,
+      };
+
+      const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '2',
+                PK: true,
+                name: 'director_id',
+                type: 'objectId',
+              },
+              {
+                id: '3',
+                PK: true,
+                name: 'star_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+          {
+            id: '10',
+            fields: [
+              {
+                id: '20',
+                PK: true,
+                name: 'movie_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductB',
+            x: 35,
+            y: 35,
+          },
+        ],
+        relations: [
+          {
+            id: '1',
+            fromFieldId: '2',
+            fromTableId: '1',
+            toFieldId: '20',
+            toTableId: '10',
+            type: 'M:1',
+          },
+          {
+            id: '2',
+            fromFieldId: '3',
+            fromTableId: '1',
+            toFieldId: '20',
+            toTableId: '10',
+            type: 'M:1',
+          },
+        ],
+        selectedElementId: null,
+      };
+
+      // Act
+      const result = updateTable(table, databaseSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+    });
+
+    it('Should not remove any relation if no relation exists', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'ProductA',
+        x: 15,
+        y: 15,
+      };
+
+      const databaseSchema: DatabaseSchemaVm = {
+        version: '0.1',
+        tables: [
+          {
+            id: '1',
+            fields: [
+              {
+                id: '2',
+                PK: true,
+                name: 'director_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+          {
+            id: '10',
+            fields: [
+              {
+                id: '20',
+                PK: true,
+                name: 'movie_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductB',
+            x: 35,
+            y: 35,
+          },
+        ],
+
+        relations: [],
+        selectedElementId: null,
+      };
+
+      const expectedResult: DatabaseSchemaVm = {
+        version: '0.1',
+        tables: [
+          {
+            id: '1',
+            fields: [],
+            tableName: 'ProductA',
+            x: 15,
+            y: 15,
+          },
+          {
+            id: '10',
+            fields: [
+              {
+                id: '20',
+                PK: true,
+                name: 'movie_id',
+                type: 'objectId',
+              },
+            ],
+            tableName: 'ProductB',
+            x: 35,
+            y: 35,
+          },
+        ],
+        relations: [],
+        selectedElementId: null,
+      };
+
+      // Act
+      const result = updateTable(table, databaseSchema);
+
+      // Assert
+      expect(result).toEqual(expectedResult);
+      expect(expectedResult.relations.length).toBe(0);
+    });
+  });
 });
