@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { ShortcutOptions, ToolbarButton } from './toolbarButton.component';
+import { ToolbarButton } from './toolbarButton.component';
 import { vi } from 'vitest';
+import { ShortcutOptions } from '../../shortcut/shortcut.model';
 
 describe('ToolbarButton', () => {
   let onClick: () => void;
