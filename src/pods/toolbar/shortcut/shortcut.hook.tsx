@@ -19,13 +19,12 @@ const useShortcut = ({ targetKey, callback }: ShortcutHookProps) => {
   const handleKeyPress = (event: KeyboardEvent) => {
     const isAltKeyPressed = event.getModifierState('Alt');
     const isCtrlKeyPressed = event.getModifierState('Control');
-    console.log('===event.key==>', event.key);
+
     if (
       (isWindowsOrLinux() && isAltKeyPressed) ||
       (isMacOS() && isCtrlKeyPressed)
     ) {
       if (targetKey.includes(event.key)) {
-        console.log('===event.key==>', event.key);
         event.preventDefault();
         callback();
       }

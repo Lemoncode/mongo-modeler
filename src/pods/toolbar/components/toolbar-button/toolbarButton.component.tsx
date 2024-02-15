@@ -1,13 +1,7 @@
 import React from 'react';
 import useShortcut from '../../shortcut/shortcut.hook';
 import { isMacOS } from '@/common/helpers/platform.helpers';
-
-export interface ShortcutOptions {
-  id: string;
-  targetKey: string[];
-  targetKeyLabel: string;
-  description: string;
-}
+import { ShortcutOptions } from '../../shortcut/shortcut.model';
 
 interface Props {
   icon?: React.ReactNode;

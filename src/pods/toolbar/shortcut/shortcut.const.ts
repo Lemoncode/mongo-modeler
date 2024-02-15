@@ -1,4 +1,10 @@
-export const SHORTCUTS = {
+import { ShortcutOptions } from './shortcut.model';
+
+interface ShortcutList {
+  [key: string]: ShortcutOptions;
+}
+
+export const SHORTCUTS: ShortcutList = {
   addCollection: {
     description: 'Add Collection',
     id: 'add-collection-button-shortcut',
