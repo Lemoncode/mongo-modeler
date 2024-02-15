@@ -101,6 +101,10 @@
   /*About*/
   --color-project: var(--primary-300);
   --color-team: var(--secondary-300);
+
+  /* Footer*/
+  --footer-background: var(--background-700);
+  --footer-text-color: var(--primary-300);
 }
 
 #root {
@@ -158,6 +162,10 @@
   /*About*/
   --color-project: var(--primary-500);
   --color-team: var(--secondary-600);
+
+  /* Footer*/
+  --footer-background: #f3f5f7;
+  --footer-text-color: var(--primary-700);
 }
 
 .dark {
