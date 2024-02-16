@@ -18,7 +18,7 @@
   width: 90%;
   max-width: 1280px;
   height: 80%;
-  overflow: scroll;
+  overflow: auto;
   border-radius: var(--border-radius-m);
 }
 
