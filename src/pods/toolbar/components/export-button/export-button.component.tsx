@@ -35,6 +35,15 @@ export const ExportButton = () => {
     () => expandAllFieldsInTables(canvasSchema.tables),
     [canvasSchema.tables]
   );
+
+  const getExportSchema = (showAllFieldsExpanded: boolean) =>
+    showAllFieldsExpanded
+      ? {
+          ...canvasSchema,
+          tables: tablesWithExpandedFields,
+        }
+      : canvasSchema;
+
   const downloadCanvasSize: Size = React.useMemo<Size>(
     () => ({
       width:
@@ -48,11 +57,11 @@ export const ExportButton = () => {
     [zoomFactor, canvasSize, tablesWithExpandedFields]
   );
 
-  const exportSvg = () => {
+  const exportSvg = (areAllFieldsExpanded: boolean) => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
+        canvasSchema={getExportSchema(areAllFieldsExpanded)}
         onUpdateTablePosition={() => {}}
         onToggleCollapse={() => {}}
         onEditTable={() => {}}
@@ -62,11 +71,11 @@ export const ExportButton = () => {
     downloadSvg(svg);
   };
 
-  const exportImage = () => {
+  const exportImage = (areAllFieldsExpanded: boolean) => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
+        canvasSchema={getExportSchema(areAllFieldsExpanded)}
         onUpdateTablePosition={() => {}}
         onToggleCollapse={() => {}}
         onEditTable={() => {}}
@@ -84,13 +93,16 @@ export const ExportButton = () => {
     downloadSchemaScript(schemaScript);
   };
 
-  const handleExportToFormat = (exportType: ExportType) => {
+  const handleExportToFormat = (
+    exportType: ExportType,
+    areAllFieldsExpanded: boolean
+  ) => {
     switch (exportType) {
       case ExportType.SVG:
-        exportSvg();
+        exportSvg(areAllFieldsExpanded);
         break;
       case ExportType.PNG:
-        exportImage();
+        exportImage(areAllFieldsExpanded);
         break;
       case ExportType.SCHEMA:
         exportSchema();
