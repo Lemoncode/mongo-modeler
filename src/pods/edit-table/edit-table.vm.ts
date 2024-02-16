@@ -33,7 +33,7 @@ export interface TableVm {
 
 export const createDefaultTable = (): TableVm => ({
   id: GenerateGUID(),
-  tableName: 'New Table',
+  tableName: 'New Collection',
   fields: [
     {
       id: GenerateGUID(),
