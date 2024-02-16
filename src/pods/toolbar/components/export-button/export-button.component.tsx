@@ -1,5 +1,5 @@
 import React from 'react';
-import { EDIT_COLLECTION_TITLE, ExportIcon } from '@/common/components';
+import { EXPORT_MODEL_TITLE, ExportIcon } from '@/common/components';
 import {
   downloadImage,
   downloadSchemaScript,
@@ -110,7 +110,7 @@ export const ExportButton = () => {
   const handleExportClick = () => {
     openModal(
       <ExportTablePod onExport={handleExportToFormat} />,
-      EDIT_COLLECTION_TITLE
+      EXPORT_MODEL_TITLE
     );
   };
 
@@ -121,6 +121,7 @@ export const ExportButton = () => {
       onClick={handleExportClick}
       className={classes.button}
       shortcutOptions={SHORTCUTS.export}
+      disabled={canvasSchema.tables.length < 1}
     />
   );
 };
