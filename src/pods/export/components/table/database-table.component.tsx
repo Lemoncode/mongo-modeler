@@ -1,4 +1,4 @@
-// Importaciones necesarias
+// Necessary imports
 import React from 'react';
 import { FieldVm, TableVm } from '@/core/providers/canvas-schema';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
@@ -60,7 +60,7 @@ export const DatabaseTable: React.FC<Props> = ({ tableInfo }) => {
       0,
       TABLE_CONST.HEADER_HEIGHT
     );
-    return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Ajuste para el padding final
+    return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Padding-bottom adjustment
   }, [tableInfo.fields]);
 
   return (

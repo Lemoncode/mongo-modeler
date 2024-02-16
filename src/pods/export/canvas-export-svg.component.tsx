@@ -10,6 +10,7 @@ interface Props {
 
 export const CanvasExportSvgComponent: React.FC<Props> = props => {
   const { canvasSize, canvasSchema } = props;
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
