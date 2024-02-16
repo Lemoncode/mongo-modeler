@@ -12,6 +12,7 @@ export interface FieldVm {
   children?: FieldVm[];
   isCollapsed?: boolean;
   isArray?: boolean;
+  isNN?: boolean;
 }
 
 export const createDefaultField = (): FieldVm => ({

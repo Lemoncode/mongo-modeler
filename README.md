@@ -1,14 +1,20 @@
 # Mongo modeler
 
-## Project
+![Contributors](https://img.shields.io/github/contributors/Lemoncode/mongo-modeler)
+![Forks](https://img.shields.io/github/forks/Lemoncode/mongo-modeler)
+![Stars](https://img.shields.io/github/stars/Lemoncode/mongo-modeler)
+![Licence](https://img.shields.io/github/license/Lemoncode/mongo-modeler)
+![Issues](https://img.shields.io/github/issues/Lemoncode/mongo-modeler)
 
-👷‍♀️ Under construction
+## Project
 
 Mongo Modeler is a free, open source online web application that allows you to design and model MongoDB databases.
 
 Now you can take a look at the desktop community preview at [mongomodeler.com](https://mongomodeler.com/).
 
-![Mongo Modeler snapshot example, diagram view](/public/mongo-modeler-app.jpg)
+Click to watch the video tutorial:
+
+[![Mongo Modeler video tutorial](https://img.youtube.com/vi/87ZZbDZLido/0.jpg)](https://www.youtube.com/watch?v=87ZZbDZLido)
 
 Main features:
 
@@ -20,6 +26,29 @@ Main features:
 - It is a free and open source application.
 
 We are working to release a 0.9 version in the coming months.
+
+## Installation
+
+Clone this repository:
+
+```sh
+git clone https://github.com/Lemoncode/mongo-modeler
+```
+
+Then install dependencies with:
+
+```sh
+cd mongo-modeler
+npm install
+```
+
+And run with:
+
+```sh
+npm run dev
+```
+
+Sample models can be found [HERE](https://github.com/Lemoncode/mongo-modeler/tree/main/db-examples).
 
 ## Contributing
 
@@ -37,11 +66,11 @@ Do you have an idea to improve the project? Great! Share your thoughts with us b
 
 The application is being developed using the following technologies:
 
-- React
-- TypeScript
-- HTML / CSS / SVG
-- Vite
-- Vitest
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) / [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) / [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG)
+- [Vite](https://vitejs.dev/)
+- [Vitest](https://vitest.dev/)
 
 ## Sponsor Mongo Modeler
 
