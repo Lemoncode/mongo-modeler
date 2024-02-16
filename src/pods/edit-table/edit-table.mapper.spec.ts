@@ -2,7 +2,7 @@ import {
   mapEditTableVmToTableVm,
   mapTableVmToEditTableVm,
 } from './edit-table.mapper';
-import * as canvasModel from '@/core/providers/canvas-schema/canvas-schema.model';
+import * as canvasModel from '@/core/providers/canvas-schema/canvas-schema-vlatest.model';
 import * as editTableModel from './edit-table.vm';
 
 describe('pods/edit-table/edit-table.mappers', () => {

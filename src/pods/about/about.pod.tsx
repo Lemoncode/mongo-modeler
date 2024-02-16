@@ -2,13 +2,18 @@ import React from 'react';
 import classes from './about.pod.module.css';
 import { memberList } from './members';
 import { MemberListComponent } from './components/members.component';
+import { useThemeContext } from '@/core/providers';
+import logoDark from '/assets/logo_mongo_modeler_dark_mode.svg?url';
+import logoLight from '/assets/logo_mongo_modeler_dark_mode.svg?url';
 
 export const AboutPod: React.FC = () => {
+  const { theme } = useThemeContext();
+
   return (
     <div>
       <img
         className={classes.projectLogo}
-        src="/assets/logo_mongo_modeler_dark_mode.svg"
+        src={theme.themeMode === 'dark' ? logoDark : logoLight}
         alt="Mongo Modeler Logo"
       />
       <h2 className={classes.projectName}>Mongo Modeler</h2>

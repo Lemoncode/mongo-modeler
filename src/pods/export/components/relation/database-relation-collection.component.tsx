@@ -1,11 +1,17 @@
 import React from 'react';
 import { Coords } from '@/core/model';
 import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
-import DatabaseRelationshipComponent from './database-relation.component';
 import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
 } from '@/core/providers/canvas-schema/canvas.business';
+import { isOverLapping } from '@/pods/canvas/components/relation/database-relation-collection.business';
+import { LayoutType } from '@/pods/canvas/components/relation/relation.vm';
+import {
+  DatabaseRelationSelfExportComponent,
+  DatabaseRelationshipTwoTablesStraightExportComponent,
+  DatabaseRelationshipTwoTablePathExportComponent,
+} from './components';
 
 interface DatabaseRelationCollectionProps {
   schema: DatabaseSchemaVm;
@@ -44,13 +50,49 @@ export const DatabaseRelationCollectionComponent: React.FC<
       y: YCoords.yDestination,
     };
 
+    const getLayoutType = (): LayoutType => {
+      if (relation.fromTableId === relation.toTableId) return 'self';
+      if (isOverLapping(fromTable.x, toTable.x)) return 'overlapping';
+      return 'straight';
+    };
+
+    const renderRelation = () => {
+      const layoutType = getLayoutType();
+
+      switch (layoutType) {
+        case 'self':
+          return (
+            <DatabaseRelationSelfExportComponent
+              relationType={relation.type}
+              startCoords={startCoords}
+              endCoords={endCoords}
+            />
+          );
+        case 'overlapping':
+          return (
+            <DatabaseRelationshipTwoTablePathExportComponent
+              relationType={relation.type}
+              startCoords={startCoords}
+              endCoords={endCoords}
+            />
+          );
+        case 'straight':
+          return (
+            <DatabaseRelationshipTwoTablesStraightExportComponent
+              relationType={relation.type}
+              startCoords={startCoords}
+              endCoords={endCoords}
+            />
+          );
+      }
+    };
+
     return (
-      <DatabaseRelationshipComponent
+      <React.Fragment
         key={`${relation.fromTableId}-${relation.fromFieldId}-${relation.toTableId}-${relation.toFieldId}`}
-        relationType={relation.type}
-        startCoords={startCoords}
-        endCoords={endCoords}
-      />
+      >
+        {renderRelation()}
+      </React.Fragment>
     );
   };
 

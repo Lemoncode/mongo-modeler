@@ -12,6 +12,7 @@ export interface FieldVm {
   children?: FieldVm[];
   isCollapsed?: boolean;
   isArray?: boolean;
+  isNN?: boolean;
 }
 
 export const createDefaultField = (): FieldVm => ({
@@ -32,7 +33,7 @@ export interface TableVm {
 
 export const createDefaultTable = (): TableVm => ({
   id: GenerateGUID(),
-  tableName: 'New Table',
+  tableName: 'New Collection',
   fields: [
     {
       id: GenerateGUID(),

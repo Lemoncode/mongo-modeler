@@ -93,6 +93,9 @@ export const CanvasPod: React.FC = () => {
     updateFullRelation(relation);
     closeModal();
   };
+  const handleCloseEditRelation = () => {
+    closeModal();
+  };
 
   const handleEditRelation = (relationId: GUID) => {
     openModal(
@@ -100,6 +103,7 @@ export const CanvasPod: React.FC = () => {
         onChangeRelation={handleChangeRelation}
         canvasSchema={canvasSchema}
         relationId={relationId}
+        onClose={handleCloseEditRelation}
       />,
       EDIT_RELATION_TITLE
     );

@@ -43,11 +43,18 @@
 
 .radioButtonInput:checked + .radioButtonLabel .radioButtonCustom {
   transform: translateY(-50%) scale(0.9);
-  border: 5px solid var(--border-checkbox);
+  border: 5px solid var(--input-radio-border-color);
 }
 
 .radioButtonLabel:hover .radioButtonCustom {
   transform: translateY(-50%) scale(1.2);
-  border-color: var(--border-checkbox);
-  box-shadow: 0 0 10px var(--border-checkbox);
+  border-color: var(--input-radio-border-color);
+  box-shadow: 0 0 10px var(--input-radio-border-color);
+}
+
+.checkboxExport {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-xl);
 }

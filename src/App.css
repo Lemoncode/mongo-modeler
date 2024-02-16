@@ -96,6 +96,7 @@
   --input-border-color: var(--background-400);
   --edit-table-header: var(--background-900);
   --input-border-color-active: var(--primary-300);
+  --input-radio-border-color: var(--primary-300);
 
   /*About*/
   --color-project: var(--primary-300);
@@ -133,6 +134,7 @@
   --hover-input: #f3f5f7;
   --input-border-color: #b5b9bc;
   --input-border-color-active: var(--primary-500);
+  --input-radio-border-color: var(--primary-500);
 
   /*Edit-table*/
   --edit-table-header: #e0e6eb;

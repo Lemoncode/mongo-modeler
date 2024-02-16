@@ -1,6 +1,6 @@
 import { GUID } from '@/core/model';
 
-import { TableVm } from '../canvas-schema.model';
+import { TableVm } from '../canvas-schema-vlatest.model';
 import { TABLE_CONST } from '../canvas.const';
 import {
   YRelationCoords,

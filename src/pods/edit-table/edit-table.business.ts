@@ -98,16 +98,6 @@ export const addFieldLogic = (
   });
 };
 
-export const calculateDBColumnsWidth = (
-  percentages: number[],
-  totalPixelWidth: number
-): number[] => {
-  const columnWidths = percentages.map(
-    percentages => (percentages * totalPixelWidth) / 100
-  );
-  return columnWidths;
-};
-
 export const moveDownField = (table: TableVm, fieldId: GUID): TableVm => {
   return produce(table, draftTable => {
     const moveDownFieldRecursive = (fields: FieldVm[]): void => {

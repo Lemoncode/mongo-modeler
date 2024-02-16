@@ -1,6 +1,7 @@
 import { DatabaseSchemaVm } from '@/core/providers';
 
 export const mFlix: DatabaseSchemaVm = {
+  version: '0.1',
   tables: [
     {
       id: 'dca791c6-e664-4e38-94c2-0f7bdd5c544f',

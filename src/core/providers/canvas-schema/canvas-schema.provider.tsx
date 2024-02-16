@@ -7,7 +7,7 @@ import {
   TableVm,
   UpdatePositionItemInfo,
   createDefaultDatabaseSchemaVm,
-} from './canvas-schema.model';
+} from './canvas-schema-vlatest.model';
 import { GUID } from '@/core/model';
 import {
   moveTableToTop,
@@ -21,6 +21,7 @@ import {
   updateTable,
 } from './canvas-schema.business';
 import { useHistoryManager } from '@/common/undo-redo';
+import { mapSchemaToLatestVersion } from './canvas-schema.mapper';
 
 function useStateWithInterceptor<S>(
   initialState: S | (() => S),
@@ -71,7 +72,8 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     useStateWithInterceptor(createDefaultDatabaseSchemaVm(), addSnapshot);
 
   const loadSchema = (newSchema: DatabaseSchemaVm) => {
-    setSchema(newSchema);
+    const latestVersionSchema = mapSchemaToLatestVersion(newSchema);
+    setSchema(latestVersionSchema);
   };
 
   const createEmptySchema = () => {

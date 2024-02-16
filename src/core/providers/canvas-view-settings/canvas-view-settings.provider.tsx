@@ -20,36 +20,36 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   });
 
   const zoomIn = () =>
-    setCanvasViewSettings({
+    setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
       zoomFactor: canvasViewSettings.zoomFactor * 0.9,
-    });
+    }));
 
   const zoomOut = () =>
-    setCanvasViewSettings({
+    setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
       zoomFactor: canvasViewSettings.zoomFactor * 1.1,
-    });
+    }));
 
   const setCanvasSize = (canvasSize: Size) => {
-    setCanvasViewSettings({
+    setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
       canvasSize,
-    });
+    }));
   };
 
   const setFilename = (filename: string) => {
-    setCanvasViewSettings({
+    setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
       filename,
-    });
+    }));
   };
 
   const setLoadSample = (loadSample: boolean) => {
-    setCanvasViewSettings({
+    setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
       loadSample,
-    });
+    }));
   };
 
   return (

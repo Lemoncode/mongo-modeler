@@ -1,7 +1,7 @@
 import React from 'react';
 import { Coords, GUID } from '@/core/model';
 import { RelationType, TABLE_CONST } from '@/core/providers';
-import { ClickableLineComponent, ForkComponent } from './components';
+import { ForkComponent, ClickableSelfComponent } from './components';
 import { isDrawLeftToRightLogic } from './relation.business';
 import { selfRelationcalculateOriginMinusFork } from './database-relation-self.business';
 import classes from './database-relation.component.module.css';
@@ -42,7 +42,7 @@ export const DatabaseRelationSelfComponent: React.FC<
   M ${startCoords.x} ${startCoords.y} 
   H ${startCoords.x - TABLE_CONST.HORIZONTAL_LEFT_EXTENSION} 
   V ${endCoords.y} 
-  H ${endCoords.x}
+  H ${endCoords.x - TABLE_CONST.TABLE_WIDTH}
   `;
 
   const oneToManyRelationSelfPath = `
@@ -56,7 +56,7 @@ export const DatabaseRelationSelfComponent: React.FC<
   M ${originXMinusFork} ${startCoords.y} 
   H ${startCoords.x - TABLE_CONST.HORIZONTAL_LEFT_EXTENSION} 
   V ${endCoords.y}
-  H ${endCoords.x}
+  H ${endCoords.x - TABLE_CONST.TABLE_WIDTH}
   `;
 
   const getRelationPathBasedOnType = (relationType: RelationType) => {
@@ -95,7 +95,7 @@ export const DatabaseRelationSelfComponent: React.FC<
         <ForkComponent
           isSelected={isSelected}
           forkCoords={{ x: originXMinusFork, y: endCoords.y }}
-          drawLeftToRight={!isDrawLeftToRight}
+          drawLeftToRight={isDrawLeftToRight}
         />
       )}
       {relationType === 'M:1' && (
@@ -106,7 +106,7 @@ export const DatabaseRelationSelfComponent: React.FC<
         />
       )}
 
-      <ClickableLineComponent
+      <ClickableSelfComponent
         id={id}
         startCoords={startCoords}
         endCoords={endCoords}

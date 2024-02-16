@@ -1,6 +1,10 @@
 import React from 'react';
 import { EDIT_COLLECTION_TITLE, ExportIcon } from '@/common/components';
-import { downloadImage, downloadSvg } from '@/common/export';
+import {
+  downloadImage,
+  downloadSchemaScript,
+  downloadSvg,
+} from '@/common/export';
 import { ExportType, Size } from '@/core/model';
 import {
   useModalDialogContext,
@@ -11,9 +15,10 @@ import {
 } from '@/core/providers';
 import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
 import {
+  expandAllFieldsInTables,
   getMaxPositionYFromTables,
   getMaxPositionXFromTables,
-  expandAllFieldsInTables,
+  getSchemaScriptFromTableVmArray,
 } from './export-button.business';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
@@ -30,6 +35,15 @@ export const ExportButton = () => {
     () => expandAllFieldsInTables(canvasSchema.tables),
     [canvasSchema.tables]
   );
+
+  const getExportSchema = (showAllFieldsExpanded: boolean) =>
+    showAllFieldsExpanded
+      ? {
+          ...canvasSchema,
+          tables: tablesWithExpandedFields,
+        }
+      : canvasSchema;
+
   const downloadCanvasSize: Size = React.useMemo<Size>(
     () => ({
       width:
@@ -43,35 +57,49 @@ export const ExportButton = () => {
     [zoomFactor, canvasSize, tablesWithExpandedFields]
   );
 
-  const exportSvg = () => {
+  const exportSvg = (areAllFieldsExpanded: boolean) => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
+        canvasSchema={getExportSchema(areAllFieldsExpanded)}
       />
     );
 
     downloadSvg(svg);
   };
 
-  const exportImage = () => {
+  const exportImage = (areAllFieldsExpanded: boolean) => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
+        canvasSchema={getExportSchema(areAllFieldsExpanded)}
       />
     );
 
     downloadImage(svg, downloadCanvasSize);
   };
 
-  const handleExportToFormat = (exportType: ExportType) => {
+  const exportSchema = () => {
+    const schemaScript = getSchemaScriptFromTableVmArray(
+      tablesWithExpandedFields
+    );
+
+    downloadSchemaScript(schemaScript);
+  };
+
+  const handleExportToFormat = (
+    exportType: ExportType,
+    areAllFieldsExpanded: boolean
+  ) => {
     switch (exportType) {
-      case 'svg':
-        exportSvg();
+      case ExportType.SVG:
+        exportSvg(areAllFieldsExpanded);
         break;
-      case 'png':
-        exportImage();
+      case ExportType.PNG:
+        exportImage(areAllFieldsExpanded);
+        break;
+      case ExportType.SCHEMA:
+        exportSchema();
         break;
       default:
         break;
