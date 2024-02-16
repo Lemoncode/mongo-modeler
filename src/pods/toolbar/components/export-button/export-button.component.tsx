@@ -97,6 +97,7 @@ export const ExportButton = () => {
       label="Export"
       onClick={handleExportClick}
       className={classes.button}
+      disabled={!canvasSchema.selectedElementId}
     />
   );
 };

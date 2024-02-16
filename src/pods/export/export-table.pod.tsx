@@ -64,7 +64,11 @@ export const ExportTablePod: React.FC<Props> = props => {
           </label>
         </div>
       </div>
-      <button className="button-secondary" onClick={handleExportClick}>
+      <button
+        className="button-secondary"
+        onClick={handleExportClick}
+        disabled={!selectedExportType}
+      >
         Export
       </button>
     </>
