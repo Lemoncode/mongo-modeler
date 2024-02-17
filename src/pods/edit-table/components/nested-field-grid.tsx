@@ -23,6 +23,7 @@ interface NestedFieldGridProps {
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
   onDragField: (fields: FieldVm[], id?: GUID) => void;
+  DeleteIsVisible: boolean;
 }
 
 export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
@@ -38,6 +39,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   onMoveDownField,
   onMoveUpField,
   onDragField,
+  DeleteIsVisible,
 }) => {
   const handleAddField = (fieldId: GUID, isChildren: boolean) => {
     if (isChildren) {
@@ -176,6 +178,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             onAddField={handleAddField}
             onMoveDownField={onMoveDownField}
             onMoveUpField={onMoveUpField}
+            DeleteIsVisible={DeleteIsVisible}
           />
         </div>
       </Reorder.Item>
@@ -193,6 +196,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
           onMoveDownField={onMoveDownField}
           onMoveUpField={onMoveUpField}
           onDragField={onDragField}
+          DeleteIsVisible={DeleteIsVisible}
         />
       )}
     </React.Fragment>
