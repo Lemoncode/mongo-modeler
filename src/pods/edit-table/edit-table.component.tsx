@@ -3,6 +3,7 @@ import classes from './edit-table.module.css';
 import { FieldVm, TableVm } from './edit-table.vm';
 import { NestedFieldGrid } from './components/nested-field-grid';
 import { GUID } from '@/core/model';
+import { useInputRefFocus } from './use-input-focus.hook';
 
 interface Props {
   table: TableVm;
@@ -30,6 +31,9 @@ export const EditTableComponent: React.FC<Props> = props => {
     onMoveUpField,
     onDragField,
   } = props;
+
+  const { handleAddField, nameInputRefRecord } = useInputRefFocus(onAddField);
+
   const [expandedFields, setExpandedFields] = useState<Set<string>>(new Set());
 
   const expandField = (fieldId: string) => {
@@ -90,10 +94,11 @@ export const EditTableComponent: React.FC<Props> = props => {
           expandField={expandField}
           updateFieldValue={updateFieldValue}
           onDeleteField={onDeleteField}
-          onAddField={onAddField}
+          onAddField={handleAddField}
           onMoveDownField={onMoveDownField}
           onMoveUpField={onMoveUpField}
           onDragField={onDragField}
+          nameInputRefRecord={nameInputRefRecord}
         />
       </div>
     </>

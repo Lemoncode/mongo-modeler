@@ -1,11 +1,10 @@
 import React from 'react';
 import classes from '../edit-table.module.css';
-import { GUID, GenerateGUID } from '@/core/model';
+import { GUID } from '@/core/model';
 import { FieldVm } from '../edit-table.vm';
 
 import { AnimatePresence, Reorder } from 'framer-motion';
 import { Field } from './field';
-import { useInputRefFocus } from './use-input-focus.hook';
 
 interface NestedFieldGridProps {
   id?: GUID;
@@ -21,6 +20,7 @@ interface NestedFieldGridProps {
   ) => void;
   onDeleteField: (fieldId: GUID) => void;
   onAddField: (fieldId: GUID, isChildren: boolean, newFieldId: GUID) => void;
+  nameInputRefRecord: React.RefObject<Record<string, HTMLInputElement | null>>;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
   onDragField: (fields: FieldVm[], id?: GUID) => void;
@@ -36,6 +36,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   updateFieldValue,
   onDeleteField,
   onAddField,
+  nameInputRefRecord,
   onMoveDownField,
   onMoveUpField,
   onDragField,
@@ -44,8 +45,6 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
     open: { opacity: 1, height: 'auto' },
     collapsed: { opacity: 0, height: 0 },
   };
-
-  const { handleAddField, nameInputRefRecord } = useInputRefFocus(onAddField);
 
   return (
     <Reorder.Group
@@ -68,7 +67,7 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             expandField={expandField}
             expandedFields={expandedFields}
             level={level}
-            onAddField={handleAddField}
+            onAddField={onAddField}
             onDeleteField={onDeleteField}
             onDragField={onDragField}
             onMoveDownField={onMoveDownField}
