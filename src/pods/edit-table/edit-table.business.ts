@@ -78,7 +78,7 @@ export const addFieldLogic = (
         if (isChildren) {
           fields[fieldIndex].children = fields[fieldIndex].children || [];
           fields[fieldIndex]?.children?.unshift(
-            editTableVm.createDefaultField()
+            editTableVm.createDefaultField(newFieldId)
           );
         } else {
           fields.splice(
