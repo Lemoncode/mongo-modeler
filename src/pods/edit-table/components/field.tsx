@@ -3,7 +3,12 @@ import classes from '../edit-table.module.css';
 
 import { Reorder, motion, useDragControls } from 'framer-motion';
 import { Commands } from './commands/commands.component';
-import { RightArrowIcon, ExpandDown, DragDropIcon } from '@/common/components';
+import {
+  RightArrowIcon,
+  ExpandDown,
+  DragDropIcon,
+  Checkbox,
+} from '@/common/components';
 import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
 import { NestedFieldGrid } from './nested-field-grid';
 import { FieldType, GUID } from '@/core/model';
@@ -133,34 +138,20 @@ export const Field: React.FC<Props> = props => {
           </div>
         </div>
         <div className={classes.fieldCell}>
-          <div className="checkbox">
-            <input
-              type="checkbox"
-              id="check1"
-              checked={field.PK}
-              onChange={() => updateFieldValue(field, 'PK', !field.PK)}
-            />
-            <label htmlFor="check1">
-              <svg viewBox="0,0,50,50">
-                <path d="M5 30 L 20 45 L 45 5"></path>
-              </svg>
-            </label>
-          </div>
+          <Checkbox
+            id="check1"
+            checked={field.PK}
+            onChange={() => updateFieldValue(field, 'PK', !field.PK)}
+            ariaLabelledby="Is PK"
+          ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
-          <div className="checkbox">
-            <input
-              type="checkbox"
-              id="check2"
-              checked={field.FK}
-              onChange={() => updateFieldValue(field, 'FK', !field.FK)}
-            />
-            <label htmlFor="check2">
-              <svg viewBox="0,0,50,50">
-                <path d="M5 30 L 20 45 L 45 5"></path>
-              </svg>
-            </label>
-          </div>
+          <Checkbox
+            id="check2"
+            checked={field.FK}
+            onChange={() => updateFieldValue(field, 'FK', !field.FK)}
+            ariaLabelledby="Is FK"
+          ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
           <select
@@ -177,36 +168,20 @@ export const Field: React.FC<Props> = props => {
           </select>
         </div>
         <div className={classes.fieldCell}>
-          <div className="checkbox">
-            <input
-              id="check3"
-              type="checkbox"
-              checked={field.isArray}
-              onChange={() =>
-                updateFieldValue(field, 'isArray', !field.isArray)
-              }
-            />
-            <label htmlFor="check3">
-              <svg viewBox="0,0,50,50">
-                <path d="M5 30 L 20 45 L 45 5"></path>
-              </svg>
-            </label>
-          </div>
+          <Checkbox
+            id="check3"
+            checked={field.isArray || false}
+            onChange={() => updateFieldValue(field, 'isArray', !field.isArray)}
+            ariaLabelledby="Is an Array"
+          ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
-          <div className="checkbox">
-            <input
-              id="check4"
-              type="checkbox"
-              checked={field.isNN}
-              onChange={() => updateFieldValue(field, 'isNN', !field.isNN)}
-            />
-            <label htmlFor="check4">
-              <svg viewBox="0,0,50,50">
-                <path d="M5 30 L 20 45 L 45 5"></path>
-              </svg>
-            </label>
-          </div>
+          <Checkbox
+            id="check4"
+            checked={field.isNN || false}
+            onChange={() => updateFieldValue(field, 'isNN', !field.isNN)}
+            ariaLabelledby="Is a NN"
+          ></Checkbox>
         </div>
         <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
           <Commands
