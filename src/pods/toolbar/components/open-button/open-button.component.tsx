@@ -7,6 +7,7 @@ import {
 } from '@/core/providers';
 import { FileInput, OnFileSelectedCallback } from '@/common/file-input';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const OpenButton: React.FC = () => {
   const { loadSchema } = useCanvasSchemaContext();
@@ -38,6 +39,7 @@ export const OpenButton: React.FC = () => {
       label={'Open'}
       onClick={() => FileInput(handleOpenButtonClick)}
       className={classes.button}
+      shortcutOptions={SHORTCUTS.open}
     />
   );
 };

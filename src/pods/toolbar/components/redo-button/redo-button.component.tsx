@@ -3,6 +3,7 @@ import { RedoIcon } from '@/common/components/icons';
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import { useCanvasSchemaContext } from '@/core/providers';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const RedoButton: React.FC = () => {
   const { canRedo, doRedo } = useCanvasSchemaContext();
@@ -14,6 +15,7 @@ export const RedoButton: React.FC = () => {
       onClick={() => doRedo()}
       className={classes.button}
       disabled={!canRedo()}
+      shortcutOptions={SHORTCUTS.redo}
     />
   );
 };
