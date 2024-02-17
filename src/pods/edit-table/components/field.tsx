@@ -20,8 +20,9 @@ interface Props {
     id: K,
     value: FieldVm[K]
   ) => void;
+  nameInputRefRecord: React.RefObject<Record<string, HTMLInputElement | null>>;
   onDeleteField: (fieldId: GUID) => void;
-  onAddField: (fieldId: GUID, isChildren: boolean) => void;
+  onAddField: (fieldId: GUID, isChildren: boolean, newFieldId: GUID) => void;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
   onDragField: (fields: FieldVm[], id?: GUID) => void;
@@ -41,6 +42,7 @@ export const Field: React.FC<Props> = props => {
     onMoveUpField,
     toggleExpand,
     updateFieldValue,
+    nameInputRefRecord,
   } = props;
   const variantsItem = {
     left: {
@@ -56,11 +58,15 @@ export const Field: React.FC<Props> = props => {
     },
   };
   const dragControls = useDragControls();
-  const handleAddField = (fieldId: GUID, isChildren: boolean) => {
+  const handleAddField = (
+    fieldId: GUID,
+    isChildren: boolean,
+    newFieldId: GUID
+  ) => {
     if (isChildren) {
       expandField(fieldId);
     }
-    onAddField(fieldId, isChildren);
+    onAddField(fieldId, isChildren, newFieldId);
   };
 
   const handlerPointerDown = (
@@ -72,6 +78,12 @@ export const Field: React.FC<Props> = props => {
       toggleExpand(field.id);
     }
     e.currentTarget.style.cursor = 'grabbing';
+  };
+
+  const assignRef = (el: HTMLInputElement | null, id: string) => {
+    if (el && nameInputRefRecord?.current) {
+      nameInputRefRecord.current[id] = el;
+    }
   };
 
   return (
@@ -115,6 +127,7 @@ export const Field: React.FC<Props> = props => {
                 onChange={e => {
                   updateFieldValue(field, 'name', e.target.value);
                 }}
+                ref={el => assignRef(el, field.id)}
               />
             </div>
           </div>
@@ -220,6 +233,7 @@ export const Field: React.FC<Props> = props => {
           onMoveDownField={onMoveDownField}
           onMoveUpField={onMoveUpField}
           onDragField={onDragField}
+          nameInputRefRecord={nameInputRefRecord}
         />
       )}
     </React.Fragment>
