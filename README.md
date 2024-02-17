@@ -6,18 +6,20 @@
 
 Mongo Modeler is a free, open source online web application that allows you to design and model MongoDB databases.
 
-![Mongo Modeler snapshot example, diagram view](./media/mongo-modeler.jpg)
+Now you can take a look at the desktop community preview at [mongomodeler.com](https://mongomodeler.com/).
+
+![Mongo Modeler snapshot example, diagram view](/public/mongo-modeler-app.jpg)
 
 Main features:
 
 - Allows the creation of nested fields.
 - Includes MongoDB types.
 - Enables setting relationships between tables.
-- Allows exporting to SVG, PNG, and Mongo Schema formats.
+- Allows exporting to SVG, PNG formats and Mongo Schema format coming soon in the next version.
 - It is a 100% online application, no installation required.
 - It is a free and open source application.
 
-We are working on releasing a first Beta in the coming months.
+We are working to release a 0.9 version in the coming months.
 
 ## Contributing
 
@@ -43,9 +45,10 @@ The application is being developed using the following technologies:
 
 ## Sponsor Mongo Modeler
 
-Are you or your company interested in supporting [Your Project Name]? Sponsorship is a powerful way to contribute to the development and maintenance of our project, and we're always looking for partners who share our vision.
+Are you or your company interested in supporting Mongo Modeler? Sponsorship is a powerful way to contribute to the development and maintenance of our project, and we're always looking for partners who share our vision.
 
 Why Sponsor Mongo Modeler?
+
 - **Support Open Source:** Your sponsorship directly contributes to the open-source community, enabling us to maintain and improve our project.
 
 - **Visibility for Your Brand:** Sponsoring Mongo Modeler can provide visibility for your brand in the tech community. It's an excellent way to demonstrate your commitment to supporting innovative software development.

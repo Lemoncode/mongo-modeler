@@ -1,10 +1,10 @@
 import React from 'react';
 import classes from '../edit-table.module.css';
-import { FieldType, GUID } from '@/core/model';
-import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
-import { Commands } from './commands/commands.component';
-import { RightArrowIcon, ExpandDown } from '@/common/components';
+import { GUID } from '@/core/model';
+import { FieldVm } from '../edit-table.vm';
+
 import { AnimatePresence, Reorder } from 'framer-motion';
+import { Field } from './field';
 
 interface NestedFieldGridProps {
   id?: GUID;
@@ -41,166 +41,10 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   onDragField,
   DeleteIsVisible,
 }) => {
-  const handleAddField = (fieldId: GUID, isChildren: boolean) => {
-    if (isChildren) {
-      expandField(fieldId);
-    }
-    onAddField(fieldId, isChildren);
-  };
   const variantsGroup = {
     open: { opacity: 1, height: 'auto' },
     collapsed: { opacity: 0, height: 0 },
   };
-  const variantsItem = {
-    left: {
-      opacity: 0,
-      x: -200,
-      scale: 0.8,
-    },
-    stay: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: { duration: 0.3 },
-    },
-  };
-  const handleDrag = (field: FieldVm) => {
-    if (expandedFields.has(field.id)) {
-      toggleExpand(field.id);
-    }
-  };
-  const renderField = (field: FieldVm): JSX.Element => (
-    <React.Fragment key={field.id}>
-      <Reorder.Item
-        value={field}
-        key={field.id}
-        style={{ y: 0 }}
-        className={`${classes.fieldRow} `}
-        initial="left"
-        animate="stay"
-        exit="left"
-        variants={variantsItem}
-        transition={{ duration: 0.3 }}
-        onDragStart={() => handleDrag(field)}
-        whileDrag={{
-          cursor: 'grabbing',
-        }}
-      >
-        <div
-          className={`${classes.fieldCell} ${classes.expandCell} ${classes[`indent${level}`]}`}
-        >
-          {field.type === 'object' ? (
-            <button onClick={() => toggleExpand(field.id)}>
-              {expandedFields.has(field.id) ? (
-                <ExpandDown />
-              ) : (
-                <RightArrowIcon />
-              )}
-            </button>
-          ) : (
-            <div className={classes.buttonSpace} /> // Empty div just to keep constant width
-          )}
-          <div className={classes.inputName}>
-            <input
-              value={field.name}
-              onChange={e => {
-                updateFieldValue(field, 'name', e.target.value);
-              }}
-            />
-          </div>
-        </div>
-        <div className={classes.fieldCell}>
-          <div className="checkbox">
-            <input
-              type="checkbox"
-              id="check1"
-              checked={field.PK}
-              onChange={() => updateFieldValue(field, 'PK', !field.PK)}
-            />
-            <label htmlFor="check1">
-              <svg viewBox="0,0,50,50">
-                <path d="M5 30 L 20 45 L 45 5"></path>
-              </svg>
-            </label>
-          </div>
-        </div>
-        <div className={classes.fieldCell}>
-          <div className="checkbox">
-            <input
-              type="checkbox"
-              id="check2"
-              checked={field.FK}
-              onChange={() => updateFieldValue(field, 'FK', !field.FK)}
-            />
-            <label htmlFor="check2">
-              <svg viewBox="0,0,50,50">
-                <path d="M5 30 L 20 45 L 45 5"></path>
-              </svg>
-            </label>
-          </div>
-        </div>
-        <div className={classes.fieldCell}>
-          <select
-            value={field.type}
-            onChange={e =>
-              updateFieldValue(field, 'type', e.target.value as FieldType)
-            }
-          >
-            {fieldTypeOptions.map(entry => (
-              <option key={entry.value} value={entry.value}>
-                {entry.label}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className={classes.fieldCell}>
-          <div className="checkbox">
-            <input
-              id="check3"
-              type="checkbox"
-              checked={field.isArray}
-              onChange={() =>
-                updateFieldValue(field, 'isArray', !field.isArray)
-              }
-            />
-            <label htmlFor="check3">
-              <svg viewBox="0,0,50,50">
-                <path d="M5 30 L 20 45 L 45 5"></path>
-              </svg>
-            </label>
-          </div>
-        </div>
-        <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
-          <Commands
-            field={field}
-            fields={fields}
-            onDeleteField={onDeleteField}
-            onAddField={handleAddField}
-            onMoveDownField={onMoveDownField}
-            onMoveUpField={onMoveUpField}
-            DeleteIsVisible={DeleteIsVisible}
-          />
-        </div>
-      </Reorder.Item>
-      {field.children && expandedFields.has(field.id) && (
-        <NestedFieldGrid
-          id={field.id}
-          fields={field.children}
-          level={level + 1}
-          expandedFields={expandedFields}
-          toggleExpand={toggleExpand}
-          expandField={expandField}
-          updateFieldValue={updateFieldValue}
-          onDeleteField={onDeleteField}
-          onAddField={onAddField}
-          onMoveDownField={onMoveDownField}
-          onMoveUpField={onMoveUpField}
-          onDragField={onDragField}
-          DeleteIsVisible={DeleteIsVisible}
-        />
-      )}
-    </React.Fragment>
-  );
 
   return (
     <Reorder.Group
@@ -215,7 +59,24 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
       transition={{ duration: 0.8 }}
     >
       <AnimatePresence initial={false}>
-        {fields.map(field => renderField(field))}
+        {fields.map(item => (
+          <Field
+            key={item.id}
+            field={item}
+            fields={fields}
+            expandField={expandField}
+            expandedFields={expandedFields}
+            level={level}
+            onAddField={onAddField}
+            onDeleteField={onDeleteField}
+            onDragField={onDragField}
+            onMoveDownField={onMoveDownField}
+            onMoveUpField={onMoveUpField}
+            toggleExpand={toggleExpand}
+            updateFieldValue={updateFieldValue}
+            DeleteIsVisible={DeleteIsVisible}
+          />
+        ))}
       </AnimatePresence>
     </Reorder.Group>
   );

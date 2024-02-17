@@ -1,9 +1,10 @@
 import { doesRelationAlreadyExists } from './canvas.business';
-import { RelationVm, DatabaseSchemaVm } from './canvas-schema.model';
+import { RelationVm, DatabaseSchemaVm } from './canvas-schema-vlatest.model';
 
 describe('doesRelationAlreadyExists', () => {
   it('should return true if relation already exists', () => {
     const alreadyExists: DatabaseSchemaVm = {
+      version: '0.1',
       selectedElementId: null,
       tables: [
         {
@@ -75,6 +76,7 @@ describe('doesRelationAlreadyExists', () => {
 
   it('should return false if relation does not exist', () => {
     const alreadyExists: DatabaseSchemaVm = {
+      version: '0.1',
       selectedElementId: null,
       tables: [
         {

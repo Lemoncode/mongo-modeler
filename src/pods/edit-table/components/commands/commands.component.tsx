@@ -1,12 +1,9 @@
 import { Add } from '@/common/components/icons/add-icon.component';
 import { CommandIconButton } from './command-icon-button';
-import { AddFolder } from '@/common/components/icons/add-folder.component';
-import { RemoveIcon } from '@/common/components/icons/remove-icon.component';
 import { FieldVm } from '../../edit-table.vm';
 import { GUID } from '@/core/model';
-import { DownIcon } from '@/common/components/icons/down-icon';
-import { UpIcon } from '@/common/components/icons/up-icon.component';
 import { isFirstItemInArray, isLastItemInArray } from './commands.business';
+import { AddFolder, UpIcon, DownIcon, RemoveIcon } from '@/common/components';
 
 interface Props {
   onDeleteField: (fieldId: GUID) => void;

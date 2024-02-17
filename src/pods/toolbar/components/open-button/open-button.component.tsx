@@ -10,7 +10,7 @@ import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
 export const OpenButton: React.FC = () => {
   const { loadSchema } = useCanvasSchemaContext();
-  const { setFilename } = useCanvasViewSettingsContext();
+  const { setFilename, setLoadSample } = useCanvasViewSettingsContext();
 
   const handleFileRead = (fileContent: string) => {
     try {
@@ -25,6 +25,7 @@ export const OpenButton: React.FC = () => {
     setFilename(file.name);
     const reader = new FileReader();
     reader.onload = e => {
+      setLoadSample(false);
       const fileContent = e.target?.result as string;
       if (fileContent) handleFileRead(fileContent);
     };

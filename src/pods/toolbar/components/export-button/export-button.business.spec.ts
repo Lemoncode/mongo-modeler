@@ -2,10 +2,13 @@ import { FieldVm, TABLE_CONST, TableVm } from '@/core/providers';
 import {
   calculateTableEndYPosition,
   calculateTableHeight,
+  doesTableOverlap,
   expandAllFieldsInTables,
   getFieldsCount,
   getMaxPositionXFromTables,
   getMaxPositionYFromTables,
+  placeTableWithoutOverlap,
+  placeAllTablesWithoutOverlap,
 } from './export-button.business';
 
 describe('export-button.business', () => {
@@ -1245,6 +1248,703 @@ describe('export-button.business', () => {
         },
       ];
       expect(result).toEqual(expected);
+    });
+  });
+
+  describe('doesTableOverlap', () => {
+    it('should return false when only there is one table', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+      ];
+
+      // Act
+      const result = doesTableOverlap(tables[0], tables);
+
+      // Assert
+      expect(result).toEqual(false);
+    });
+
+    it('should return true when there are two tables and they are overlapped', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            name: 'field1',
+            type: 'string',
+          },
+        ],
+        tableName: 'table1',
+        x: 0,
+        y: 0,
+      };
+
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+        {
+          id: '2',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table2',
+          x: 0,
+          y: 0,
+        },
+      ];
+
+      // Act
+      const result = doesTableOverlap(table, tables);
+
+      // Assert
+      expect(result).toEqual(true);
+    });
+
+    it('should return false when there are two tables and they are not overlapped', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            name: 'field1',
+            type: 'string',
+          },
+        ],
+        tableName: 'table1',
+        x: 0,
+        y: 0,
+      };
+
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+        {
+          id: '2',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table2',
+          x: 0,
+          y: 100,
+        },
+      ];
+
+      // Act
+      const result = doesTableOverlap(table, tables);
+
+      // Assert
+      expect(result).toEqual(false);
+    });
+
+    it('should return true when there are two tables and they are overlapped with the second table, table A {x: 0, y: 100} and table B {x: 0, y: 100} ', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            name: 'field1',
+            type: 'string',
+          },
+        ],
+        tableName: 'table1',
+        x: 0,
+        y: 20,
+      };
+
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 20,
+        },
+        {
+          id: '2',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table2',
+          x: 0,
+          y: 50,
+        },
+      ];
+
+      // Act
+      const result = doesTableOverlap(table, tables);
+
+      // Assert
+      expect(result).toEqual(true);
+    });
+
+    it('should return true when we have 2 tables, table B is overlapped with table A has 1 children expanded, table A {x: 200, y: 0} and table B {x: 350, y: 50}', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            name: 'field1',
+            type: 'string',
+            children: [
+              {
+                id: '2',
+                PK: false,
+                name: 'field2',
+                type: 'string',
+              },
+            ],
+            isCollapsed: false,
+          },
+        ],
+        tableName: 'table1',
+        x: 200,
+        y: 0,
+      };
+
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                },
+              ],
+              isCollapsed: false,
+            },
+          ],
+          tableName: 'table1',
+          x: 200,
+          y: 0,
+        },
+        {
+          id: '2',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table2',
+          x: 350,
+          y: 50,
+        },
+      ];
+
+      // Act
+      const result = doesTableOverlap(table, tables);
+
+      // Assert
+      expect(result).toEqual(true);
+    });
+
+    it('should return false when we have 2 tables, table B is overlapped with table A has 1 children expanded, table A {x: 0, y:0} table B {x:325, y: 50}', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [
+          {
+            id: '1',
+            PK: true,
+            name: 'field1',
+            type: 'string',
+            children: [
+              {
+                id: '2',
+                PK: false,
+                name: 'field2',
+                type: 'string',
+              },
+            ],
+            isCollapsed: false,
+          },
+        ],
+        tableName: 'table1',
+        x: 0,
+        y: 0,
+      };
+
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+              children: [
+                {
+                  id: '2',
+                  PK: false,
+                  name: 'field2',
+                  type: 'string',
+                },
+              ],
+              isCollapsed: false,
+            },
+          ],
+          tableName: 'table1',
+          x: 0,
+          y: 0,
+        },
+        {
+          id: '2',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table2',
+          x: 325,
+          y: 50,
+        },
+      ];
+
+      // Act
+      const result = doesTableOverlap(table, tables);
+
+      // Assert
+      expect(result).toEqual(false);
+    });
+  });
+
+  describe('placeTableWithoutOverlap', () => {
+    it('should places a table without moving if no other tables exist', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'table1',
+        x: 0,
+        y: 0,
+      };
+
+      const tables: TableVm[] = [];
+
+      // Act
+      const result = placeTableWithoutOverlap(table, tables);
+
+      // Assert
+      expect(result).toEqual(table);
+    });
+
+    it('should moves a table left to avoid overlap with a single existing table', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'table1',
+        x: 800,
+        y: 100,
+      };
+
+      const tables: TableVm[] = [
+        {
+          id: '2',
+          fields: [],
+          tableName: 'table2',
+          x: 850,
+          y: 100,
+        },
+      ];
+
+      // Act
+      const result = placeTableWithoutOverlap(table, tables);
+
+      // Assert
+      const expectTable: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'table1',
+        x: 500,
+        y: 100,
+      };
+      expect(result).toEqual(expectTable);
+    });
+
+    it('should moves a table down if moving left is not sufficient', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'table1',
+        x: 100,
+        y: 100,
+      };
+
+      const tables: TableVm[] = [
+        {
+          id: '2',
+          fields: [],
+          tableName: 'table2',
+          x: 85,
+          y: 100,
+        },
+      ];
+
+      // Act
+      const result = placeTableWithoutOverlap(table, tables);
+
+      // Assert
+      const expectTable: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'table1',
+        x: 30,
+        y: 160,
+      };
+      expect(result).toEqual(expectTable);
+    });
+
+    it('should keeps a table within boundaries if moving would cause out-of-bounds position', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'table1',
+        x: 100,
+        y: 100,
+      };
+
+      const tables: TableVm[] = Array.from(
+        { length: TABLE_CONST.MAX_PLACEMENT_ATTEMPTS },
+        (_, i) => ({
+          id: `t${i + 1}`,
+          x: 100 + i * 50,
+          y: 100,
+          tableName: `table${i + 1}`,
+          fields: [],
+        })
+      );
+
+      // Act
+      const result = placeTableWithoutOverlap(table, tables);
+
+      // Assert
+      expect(result.x).toBeGreaterThanOrEqual(0);
+    });
+
+    it('should stops trying to avoid overlap after max attempts', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'table1',
+        x: 100,
+        y: 100,
+      };
+
+      const tables: TableVm[] = Array.from(
+        { length: TABLE_CONST.MAX_PLACEMENT_ATTEMPTS },
+        (_, i) => ({
+          id: `t${i + 1}`,
+          x: 100,
+          y: 100,
+          tableName: `table${i + 1}`,
+          fields: [],
+        })
+      );
+
+      // Act
+      const result = placeTableWithoutOverlap(table, tables);
+
+      // Assert
+      expect(result.x).toBeLessThanOrEqual(100);
+    });
+
+    it('should places multiple tables without overlap', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'table1',
+        x: 100,
+        y: 100,
+      };
+
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [],
+          tableName: 'table1',
+          x: 100,
+          y: 100,
+        },
+        {
+          id: '2',
+          fields: [],
+          tableName: 'table2',
+          x: 200,
+          y: 100,
+        },
+        {
+          id: '3',
+          fields: [],
+          tableName: 'table3',
+          x: 300,
+          y: 100,
+        },
+      ];
+
+      // Act
+      const result = placeTableWithoutOverlap(table, tables);
+
+      // Assert
+      expect(result.y).toBeGreaterThan(100);
+    });
+
+    it('should adjusts tables position to avoid overlap with multiple existing tables', () => {
+      // Arrange
+      const table: TableVm = {
+        id: '1',
+        fields: [],
+        tableName: 'table1',
+        x: 100,
+        y: 100,
+      };
+
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [],
+          tableName: 'table1',
+          x: 100,
+          y: 100,
+        },
+        {
+          id: '2',
+          fields: [],
+          tableName: 'table2',
+          x: 100,
+          y: 100,
+        },
+        {
+          id: '3',
+          fields: [],
+          tableName: 'table3',
+          x: 100,
+          y: 100,
+        },
+      ];
+
+      // Act
+      const result = placeTableWithoutOverlap(table, tables);
+
+      // Assert
+      expect(result.y).toBeGreaterThan(100);
+    });
+  });
+
+  describe('placeAllTablesWithoutOverlap', () => {
+    it('should returns an empty array when there are no tables to place', () => {
+      // Arrange
+      const tables: TableVm[] = [];
+
+      // Act
+      const result = placeAllTablesWithoutOverlap(tables);
+
+      // Assert
+      expect(result).toEqual([]);
+    });
+
+    it('should places all tables without overlap when given an initial set of tables', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [],
+          tableName: 'table1',
+          x: 100,
+          y: 100,
+        },
+        {
+          id: '2',
+          fields: [],
+          tableName: 'table2',
+          x: 150,
+          y: 100,
+        },
+        {
+          id: '3',
+          fields: [],
+          tableName: 'table3',
+          x: 200,
+          y: 100,
+        },
+      ];
+
+      // Act
+      const result = placeAllTablesWithoutOverlap(tables);
+
+      // Assert
+      result.forEach((table, index) => {
+        for (let i = 0; i < result.length; i++) {
+          if (i !== index) {
+            const isOverlapping = !(
+              table.x >= result[i].x + TABLE_CONST.TABLE_WIDTH ||
+              table.x + TABLE_CONST.TABLE_WIDTH <= result[i].x ||
+              table.y >= result[i].y + TABLE_CONST.ROW_HEIGHT ||
+              table.y + TABLE_CONST.ROW_HEIGHT <= result[i].y
+            );
+            expect(isOverlapping).toBe(false);
+          }
+        }
+      });
+    });
+
+    it('should properly adjusts tables to avoid overlap in complex scenarios', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [],
+          tableName: 'table1',
+          x: 100,
+          y: 100,
+        },
+        {
+          id: '2',
+          fields: [],
+          tableName: 'table2',
+          x: 150,
+          y: 100,
+        },
+        {
+          id: '3',
+          fields: [],
+          tableName: 'table3',
+          x: 200,
+          y: 100,
+        },
+        {
+          id: '4',
+          fields: [],
+          tableName: 'table4',
+          x: 250,
+          y: 100,
+        },
+        {
+          id: '5',
+          fields: [],
+          tableName: 'table5',
+          x: 300,
+          y: 100,
+        },
+        {
+          id: '6',
+          fields: [],
+          tableName: 'table6',
+          x: 100,
+          y: 150,
+        },
+        {
+          id: '7',
+          fields: [],
+          tableName: 'table7',
+          x: 150,
+          y: 150,
+        },
+      ];
+
+      // Act
+      const result = placeAllTablesWithoutOverlap(tables);
+
+      // Assert
+      result.forEach((table, index) => {
+        for (let i = 0; i < result.length; i++) {
+          if (i !== index) {
+            const isOverlapping = !(
+              table.x >= result[i].x + TABLE_CONST.TABLE_WIDTH ||
+              table.x + TABLE_CONST.TABLE_WIDTH <= result[i].x ||
+              table.y >= result[i].y + TABLE_CONST.ROW_HEIGHT ||
+              table.y + TABLE_CONST.ROW_HEIGHT <= result[i].y
+            );
+            expect(isOverlapping).toBe(false);
+          }
+        }
+      });
     });
   });
 });

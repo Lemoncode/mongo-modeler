@@ -8,11 +8,12 @@ import classes from '@/pods/toolbar/toolbar.pod.module.css';
 
 export const NewButton = () => {
   const { createEmptySchema } = useCanvasSchemaContext();
-  const { setFilename } = useCanvasViewSettingsContext();
+  const { setFilename, setLoadSample } = useCanvasViewSettingsContext();
 
   const handleNewButtonClick = () => {
     setFilename('');
     createEmptySchema();
+    setLoadSample(false);
   };
 
   return (

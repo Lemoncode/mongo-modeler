@@ -132,7 +132,7 @@ export const DatabaseTable: React.FC<Props> = ({
             dx="3"
             dy="3"
             stdDeviation="4"
-            flood-color="var(--shadow-filter)"
+            floodColor="var(--shadow-filter)"
           />
         </filter>
       </defs>
@@ -145,6 +145,13 @@ export const DatabaseTable: React.FC<Props> = ({
         className={classes.tableBackground}
         style={rectStyle}
         stroke="1.2"
+      />
+      <rect
+        x="0"
+        y={TABLE_CONST.HEADER_HEIGHT - 5}
+        width={TABLE_CONST.TABLE_WIDTH}
+        height="5"
+        className={classes.tableHeader}
       />
       <rect
         rx={TABLE_BORDER_RADIUS}
