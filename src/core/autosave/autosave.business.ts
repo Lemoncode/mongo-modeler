@@ -4,7 +4,7 @@ import {
 } from '@/core/providers';
 
 interface CanvasSchema {
-  filename: string;
+  filename: string | undefined;
   canvasSchema: DatabaseSchemaVm;
 }
 
@@ -21,16 +21,21 @@ export const saveToLocal = (key: string, value: CanvasSchema) => {
   }
 };
 
-export const useRetrieveFromLocal = (): DatabaseSchemaVm => {
-  // const { canvasSchema } = useCanvasSchemaContext();
+export const retrieveFromLocal = (
+  setLoadSample: (T: boolean) => void
+): DatabaseSchemaVm => {
   try {
     const value = localStorage.getItem('autoSaveFile');
 
     if (value) {
       const parsedValue = JSON.parse(value);
-      return parsedValue.canvasSchema;
+      if (parsedValue.canvasSchema.tables.length !== 0) {
+        console.log('parsedValue', parsedValue);
+        setLoadSample(false);
+        return parsedValue.canvasSchema;
+      }
     }
-
+    setLoadSample(true);
     return createDefaultDatabaseSchemaVm();
   } catch (error) {
     console.error('File retrieve error', error);

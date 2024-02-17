@@ -5,11 +5,11 @@ import {
   useCanvasViewSettingsContext,
 } from '@/core/providers';
 
-import { saveToLocal } from './autosave.business';
+import { saveToLocal, retrieveFromLocal } from './autosave.business';
 
 const useAutosave = () => {
-  const { canvasSchema } = useCanvasSchemaContext();
-  const { filename } = useCanvasViewSettingsContext();
+  const { canvasSchema, setCanvasSchema } = useCanvasSchemaContext();
+  const { filename, setLoadSample } = useCanvasViewSettingsContext();
 
   const INTERVAL = 6000;
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -17,12 +17,16 @@ const useAutosave = () => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
   useEffect(() => {
+    setCanvasSchema(retrieveFromLocal(setLoadSample));
+  }, []);
+
+  useEffect(() => {
     const autosaveHandler = () => {
       if (!isSaving) {
         setIsSaving(true);
 
         saveToLocal('autoSaveFile', {
-          filename: filename ? filename : 'undefined',
+          filename: filename ? filename : undefined,
           canvasSchema: canvasSchema,
         });
 
@@ -39,6 +43,12 @@ const useAutosave = () => {
       }
     };
   }, [canvasSchema, filename, isSaving]);
+
+  // const loadLocalSchema = () => {
+  //   const getLocalSchema = retrieveFromLocal(setLoadSample);
+  //   console.log('getLocalSchema', getLocalSchema);
+  //   setCanvasSchema(getLocalSchema);
+  // };
 
   const stopAutosave = () => {
     if (timerRef.current) {
