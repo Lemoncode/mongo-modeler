@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from '../edit-table.module.css';
-import { GUID } from '@/core/model';
+import { GUID, GenerateGUID } from '@/core/model';
 import { FieldVm } from '../edit-table.vm';
 
 import { AnimatePresence, Reorder } from 'framer-motion';
@@ -19,7 +19,7 @@ interface NestedFieldGridProps {
     value: FieldVm[K]
   ) => void;
   onDeleteField: (fieldId: GUID) => void;
-  onAddField: (fieldId: GUID, isChildren: boolean) => void;
+  onAddField: (fieldId: GUID, isChildren: boolean, newFieldId: GUID) => void;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
   onDragField: (fields: FieldVm[], id?: GUID) => void;
@@ -44,6 +44,26 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
     collapsed: { opacity: 0, height: 0 },
   };
 
+  const nameInputRefRecord = React.useRef<Record<string, HTMLInputElement>>({});
+
+  const [newFielId, setNewFieldId] = React.useState<GUID>('');
+
+  const handleAddField = (fieldId: GUID, isChildren: boolean) => {
+    const newFieldId = GenerateGUID();
+    setNewFieldId(newFieldId);
+    onAddField(fieldId, isChildren, newFieldId);
+  };
+
+  React.useEffect(() => {
+    const input = nameInputRefRecord.current[newFielId];
+
+    if (input) {
+      input.focus();
+      input.select();
+      setNewFieldId('');
+    }
+  }, [newFielId, nameInputRefRecord.current]);
+
   return (
     <Reorder.Group
       values={fields}
@@ -65,13 +85,14 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             expandField={expandField}
             expandedFields={expandedFields}
             level={level}
-            onAddField={onAddField}
+            onAddField={handleAddField}
             onDeleteField={onDeleteField}
             onDragField={onDragField}
             onMoveDownField={onMoveDownField}
             onMoveUpField={onMoveUpField}
             toggleExpand={toggleExpand}
             updateFieldValue={updateFieldValue}
+            nameInputRefRecord={nameInputRefRecord}
           />
         ))}
       </AnimatePresence>
