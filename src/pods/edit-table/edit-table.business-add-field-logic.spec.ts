@@ -1,3 +1,4 @@
+import { GenerateGUID } from '@/core/model';
 import { addFieldLogic } from './edit-table.business';
 import { TableVm } from './edit-table.vm';
 
@@ -14,7 +15,7 @@ describe('addFieldLogic', () => {
       y: 0,
     };
 
-    const updateTable = addFieldLogic(table, '1', false);
+    const updateTable = addFieldLogic(table, '1', false, GenerateGUID());
 
     expect(updateTable.fields).toHaveLength(3);
     expect(updateTable.fields[1].name).toBe('newField');
@@ -40,7 +41,7 @@ describe('addFieldLogic', () => {
       x: 0,
       y: 0,
     };
-    const updateTable = addFieldLogic(table, '1', true);
+    const updateTable = addFieldLogic(table, '1', true, GenerateGUID());
 
     expect(updateTable.fields[0].children).toHaveLength(2);
     expect(updateTable.fields[0].children?.[0]?.name).toBe('newField');
@@ -57,7 +58,12 @@ describe('addFieldLogic', () => {
       x: 0,
       y: 0,
     };
-    const updateTable = addFieldLogic(table, 'nonexistentFieldId', false);
+    const updateTable = addFieldLogic(
+      table,
+      'nonexistentFieldId',
+      false,
+      GenerateGUID()
+    );
     expect(updateTable).toEqual(table);
   });
 
@@ -72,7 +78,12 @@ describe('addFieldLogic', () => {
       x: 0,
       y: 0,
     };
-    const updateTable = addFieldLogic(table, 'nonexistentFieldId', true);
+    const updateTable = addFieldLogic(
+      table,
+      'nonexistentFieldId',
+      true,
+      GenerateGUID()
+    );
     expect(updateTable).toEqual(table);
   });
 });

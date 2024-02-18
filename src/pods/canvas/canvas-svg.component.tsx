@@ -7,6 +7,7 @@ import {
 } from '@/core/providers/canvas-schema';
 import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
+import { SelectedTableFilterHighlightComponent } from './components/table/components/selected-table-filter-highlight.component';
 
 interface Props {
   viewBoxSize: Size;
@@ -44,6 +45,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
       height={canvasSize.height}
       onClick={clearSelection}
     >
+      <SelectedTableFilterHighlightComponent />
       {canvasSchema.tables.map(table => (
         <DatabaseTable
           key={table.id}

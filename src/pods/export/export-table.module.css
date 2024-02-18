@@ -51,3 +51,10 @@
   border-color: var(--input-radio-border-color);
   box-shadow: 0 0 10px var(--input-radio-border-color);
 }
+
+.checkboxExport {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-xl);
+}

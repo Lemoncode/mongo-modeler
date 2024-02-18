@@ -3,6 +3,7 @@ import classes from './edit-table.module.css';
 import { FieldVm, TableVm } from './edit-table.vm';
 import { NestedFieldGrid } from './components/nested-field-grid';
 import { GUID } from '@/core/model';
+import { useInputRefFocus } from './use-input-focus.hook';
 
 interface Props {
   table: TableVm;
@@ -12,7 +13,7 @@ interface Props {
     value: FieldVm[K]
   ) => void;
   onDeleteField: (fieldId: GUID) => void;
-  onAddField: (fieldId: GUID, isChildren: boolean) => void;
+  onAddField: (fieldId: GUID, isChildren: boolean, newFieldId: GUID) => void;
   updateTableName: (value: string) => void;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
@@ -30,6 +31,9 @@ export const EditTableComponent: React.FC<Props> = props => {
     onMoveUpField,
     onDragField,
   } = props;
+
+  const { handleAddField, nameInputRefRecord } = useInputRefFocus(onAddField);
+
   const [expandedFields, setExpandedFields] = useState<Set<string>>(new Set());
 
   const expandField = (fieldId: string) => {
@@ -78,6 +82,7 @@ export const EditTableComponent: React.FC<Props> = props => {
           <div className={classes.headerCell}>FK</div>
           <div className={classes.headerCell}>Type</div>
           <div className={classes.headerCell}>isArray</div>
+          <div className={classes.headerCell}>NN</div>
           <div className={classes.headerCell}>Actions</div>
         </div>
 
@@ -89,11 +94,12 @@ export const EditTableComponent: React.FC<Props> = props => {
           expandField={expandField}
           updateFieldValue={updateFieldValue}
           onDeleteField={onDeleteField}
-          onAddField={onAddField}
+          onAddField={handleAddField}
           onMoveDownField={onMoveDownField}
           onMoveUpField={onMoveUpField}
           onDragField={onDragField}
           DeleteIsVisible={table.fields?.length !== 1}
+          nameInputRefRecord={nameInputRefRecord}
         />
       </div>
     </>

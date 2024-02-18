@@ -6,6 +6,7 @@ import {
 } from '@/core/providers';
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 const DEFAULT_FILE_NAME = 'diagram';
 const DEFAULT_EXTENSION_DESCRIPTION = 'Mongo Modeler';
@@ -49,6 +50,8 @@ export const SaveButton = () => {
       label={'Save'}
       onClick={() => saveFile(openedFilename)}
       className={classes.button}
+      shortcutOptions={SHORTCUTS.save}
+      disabled={canvasSchema.tables.length < 1}
     />
   );
 };

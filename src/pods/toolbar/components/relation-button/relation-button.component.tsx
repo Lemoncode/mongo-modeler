@@ -8,6 +8,7 @@ import {
   RelationVm,
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const RelationButton = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -38,6 +39,7 @@ export const RelationButton = () => {
       label="Add Relation"
       onClick={handleRelationClick}
       className={classes.button}
+      shortcutOptions={SHORTCUTS.addRelation}
     />
   );
 };

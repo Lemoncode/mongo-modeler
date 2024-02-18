@@ -62,9 +62,9 @@ export const EditTablePod: React.FC<Props> = props => {
     setEditTable(currentTable => removeField(currentTable, fieldId));
   };
 
-  const onAddField = (fieldId: GUID, isChildren: boolean) => {
+  const onAddField = (fieldId: GUID, isChildren: boolean, newFieldId: GUID) => {
     setEditTable(currentTable =>
-      addFieldLogic(currentTable, fieldId, isChildren)
+      addFieldLogic(currentTable, fieldId, isChildren, newFieldId)
     );
   };
 

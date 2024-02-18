@@ -1,6 +1,10 @@
 import React from 'react';
 import { EDIT_COLLECTION_TITLE, ExportIcon } from '@/common/components';
-import { downloadImage, downloadSvg } from '@/common/export';
+import {
+  downloadImage,
+  downloadSchemaScript,
+  downloadSvg,
+} from '@/common/export';
 import { ExportType, Size } from '@/core/model';
 import {
   useModalDialogContext,
@@ -11,13 +15,14 @@ import {
 } from '@/core/providers';
 import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
 import {
+  expandAllFieldsInTables,
   getMaxPositionYFromTables,
   getMaxPositionXFromTables,
-  expandAllFieldsInTables,
-  placeAllTablesWithoutOverlap,
+  getSchemaScriptFromTableVmArray,
 } from './export-button.business';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const ExportButton = () => {
   const { openModal } = useModalDialogContext();
@@ -27,15 +32,18 @@ export const ExportButton = () => {
   const { canvasSize, zoomFactor } = canvasViewSettings;
   canvasSchema.tables;
 
-  const tablesWithoutOverlap = React.useMemo<TableVm[]>(
-    () => placeAllTablesWithoutOverlap(canvasSchema.tables),
+  const tablesWithExpandedFields = React.useMemo<TableVm[]>(
+    () => expandAllFieldsInTables(canvasSchema.tables),
     [canvasSchema.tables]
   );
 
-  const tablesWithExpandedFields = React.useMemo<TableVm[]>(
-    () => expandAllFieldsInTables(tablesWithoutOverlap),
-    [canvasSchema.tables]
-  );
+  const getExportSchema = (showAllFieldsExpanded: boolean) =>
+    showAllFieldsExpanded
+      ? {
+          ...canvasSchema,
+          tables: tablesWithExpandedFields,
+        }
+      : canvasSchema;
 
   const downloadCanvasSize: Size = React.useMemo<Size>(
     () => ({
@@ -50,41 +58,49 @@ export const ExportButton = () => {
     [zoomFactor, canvasSize, tablesWithExpandedFields]
   );
 
-  const exportSvg = () => {
+  const exportSvg = (areAllFieldsExpanded: boolean) => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
-        onUpdateTablePosition={() => {}}
-        onToggleCollapse={() => {}}
-        onEditTable={() => {}}
+        canvasSchema={getExportSchema(areAllFieldsExpanded)}
       />
     );
 
     downloadSvg(svg);
   };
 
-  const exportImage = () => {
+  const exportImage = (areAllFieldsExpanded: boolean) => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
-        onUpdateTablePosition={() => {}}
-        onToggleCollapse={() => {}}
-        onEditTable={() => {}}
+        canvasSchema={getExportSchema(areAllFieldsExpanded)}
       />
     );
 
     downloadImage(svg, downloadCanvasSize);
   };
 
-  const handleExportToFormat = (exportType: ExportType) => {
+  const exportSchema = () => {
+    const schemaScript = getSchemaScriptFromTableVmArray(
+      tablesWithExpandedFields
+    );
+
+    downloadSchemaScript(schemaScript);
+  };
+
+  const handleExportToFormat = (
+    exportType: ExportType,
+    areAllFieldsExpanded: boolean
+  ) => {
     switch (exportType) {
-      case 'svg':
-        exportSvg();
+      case ExportType.SVG:
+        exportSvg(areAllFieldsExpanded);
         break;
-      case 'png':
-        exportImage();
+      case ExportType.PNG:
+        exportImage(areAllFieldsExpanded);
+        break;
+      case ExportType.SCHEMA:
+        exportSchema();
         break;
       default:
         break;
@@ -104,6 +120,7 @@ export const ExportButton = () => {
       label="Export"
       onClick={handleExportClick}
       className={classes.button}
+      shortcutOptions={SHORTCUTS.export}
     />
   );
 };
