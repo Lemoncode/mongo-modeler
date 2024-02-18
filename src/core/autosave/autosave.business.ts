@@ -30,7 +30,6 @@ export const retrieveFromLocal = (
     if (value) {
       const parsedValue = JSON.parse(value);
       if (parsedValue.canvasSchema.tables.length !== 0) {
-        console.log('parsedValue', parsedValue);
         setLoadSample(false);
         return parsedValue.canvasSchema;
       }
