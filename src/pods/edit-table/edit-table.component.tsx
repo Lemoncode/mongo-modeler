@@ -99,6 +99,7 @@ export const EditTableComponent: React.FC<Props> = props => {
           onMoveUpField={onMoveUpField}
           onDragField={onDragField}
           nameInputRefRecord={nameInputRefRecord}
+          DeleteIsVisible={table.fields?.length !== 1}
         />
       </div>
     </>
