@@ -18,10 +18,14 @@ import {
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
-import useAutosave from '@/core/autosave/autosave.Hook';
+import useAutosave from '@/core/autosave/autosave.hook';
 
 export const CanvasPod: React.FC = () => {
-  useAutosave();
+  const { stopAutosave } = useAutosave();
+
+  React.useEffect(() => {
+    return stopAutosave;
+  }, []);
 
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {

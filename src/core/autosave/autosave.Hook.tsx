@@ -22,16 +22,17 @@ const useAutosave = () => {
 
   useEffect(() => {
     const autosaveHandler = () => {
-      if (!isSaving) {
+      if (!isSaving && canvasSchema.tables.length !== 0) {
         setIsSaving(true);
-
         saveToLocal('autoSaveFile', {
-          filename: filename ? filename : undefined,
-          canvasSchema: canvasSchema,
+          filename: filename ?? undefined,
+          canvasSchema,
         });
-
         setIsSaving(false);
-        console.log(`saveToLocal`);
+      }
+      if (!isSaving && canvasSchema.tables.length === 0) {
+        localStorage.removeItem('autoSaveFile');
+        setLoadSample(true);
       }
     };
     timerRef.current = setInterval(autosaveHandler, INTERVAL);
@@ -44,12 +45,6 @@ const useAutosave = () => {
     };
   }, [canvasSchema, filename, isSaving]);
 
-  // const loadLocalSchema = () => {
-  //   const getLocalSchema = retrieveFromLocal(setLoadSample);
-  //   console.log('getLocalSchema', getLocalSchema);
-  //   setCanvasSchema(getLocalSchema);
-  // };
-
   const stopAutosave = () => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -57,7 +52,7 @@ const useAutosave = () => {
     }
   };
 
-  return stopAutosave;
+  return { stopAutosave };
 };
 
 export default useAutosave;

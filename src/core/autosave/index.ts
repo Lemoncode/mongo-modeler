@@ -1,2 +1,2 @@
-export * from './autosave.Hook';
+export * from './autosave.hook';
 export * from './autosave.business';

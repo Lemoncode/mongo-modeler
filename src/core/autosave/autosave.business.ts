@@ -3,7 +3,7 @@ import {
   createDefaultDatabaseSchemaVm,
 } from '@/core/providers';
 
-interface CanvasSchema {
+export interface CanvasSchema {
   filename: string | undefined;
   canvasSchema: DatabaseSchemaVm;
 }
@@ -47,7 +47,7 @@ export const retrieveFromLocal = (
         canvasSchema: createDefaultDatabaseSchemaVm(),
       })
     );
-
+    setLoadSample(true);
     return createDefaultDatabaseSchemaVm();
   }
 };
