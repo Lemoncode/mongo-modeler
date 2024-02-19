@@ -83,7 +83,11 @@ export const ExportTablePod: React.FC<Props> = props => {
         </div>
         <p>Expand all fields (svg & png export)</p>
       </div>
-      <button className="button-secondary" onClick={handleExportClick}>
+      <button
+        className="button-secondary"
+        onClick={handleExportClick}
+        disabled={!selectedExportType}
+      >
         Export
       </button>
     </>
