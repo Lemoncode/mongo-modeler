@@ -7,6 +7,7 @@ import {
 } from '@/core/providers/canvas-schema';
 import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
+import { SelectedTableFilterHighlightComponent } from './components/table/components/selected-table-filter-highlight.component';
 
 interface Props {
   viewBoxSize: Size;
@@ -18,6 +19,9 @@ interface Props {
   onEditRelation: (relationId: GUID) => void;
   onSelectElement: (relationId: GUID | null) => void;
 }
+
+const CANVAS_MAX_WIDTH = 20000;
+const CANVAS_MAX_HEIGHT = 20000;
 
 export const CanvasSvgComponent: React.FC<Props> = props => {
   const {
@@ -40,10 +44,11 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
       xmlns="http://www.w3.org/2000/svg"
       className={classes.containerSvg}
       viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
-      width={canvasSize.width}
-      height={canvasSize.height}
+      width={CANVAS_MAX_WIDTH}
+      height={CANVAS_MAX_HEIGHT}
       onClick={clearSelection}
     >
+      <SelectedTableFilterHighlightComponent />
       {canvasSchema.tables.map(table => (
         <DatabaseTable
           key={table.id}
