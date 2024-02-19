@@ -1,0 +1,7 @@
+.footer-text {
+  background-color: var(--footer-background);
+  color: var(--footer-text-color);
+  text-align: left;
+  padding: var(--space-unit) var(--space-md);
+  font-size: var(--fs-xs);
+}
