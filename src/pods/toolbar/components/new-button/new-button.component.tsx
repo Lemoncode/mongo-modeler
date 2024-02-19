@@ -5,6 +5,7 @@ import {
 } from '@/core/providers';
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const NewButton = () => {
   const { createEmptySchema } = useCanvasSchemaContext();
@@ -22,6 +23,7 @@ export const NewButton = () => {
       label="New"
       onClick={handleNewButtonClick}
       className={classes.button}
+      shortcutOptions={SHORTCUTS.new}
     />
   );
 };

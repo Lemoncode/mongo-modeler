@@ -15,8 +15,8 @@ export interface FieldVm {
   isNN?: boolean;
 }
 
-export const createDefaultField = (): FieldVm => ({
-  id: GenerateGUID(),
+export const createDefaultField = (guid?: GUID): FieldVm => ({
+  id: guid ? guid : GenerateGUID(),
   PK: false,
   FK: false,
   name: 'newField',
@@ -33,7 +33,7 @@ export interface TableVm {
 
 export const createDefaultTable = (): TableVm => ({
   id: GenerateGUID(),
-  tableName: 'New Table',
+  tableName: 'New Collection',
   fields: [
     {
       id: GenerateGUID(),

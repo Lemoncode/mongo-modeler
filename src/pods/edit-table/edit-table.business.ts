@@ -68,7 +68,8 @@ export const removeField = (table: TableVm, fieldId: GUID): TableVm => {
 export const addFieldLogic = (
   currentTable: TableVm,
   fieldId: GUID,
-  isChildren: boolean
+  isChildren: boolean,
+  newFieldId: GUID
 ) => {
   return produce(currentTable, draftTable => {
     const findAndAddField = (fields: editTableVm.FieldVm[]): boolean => {
@@ -77,10 +78,14 @@ export const addFieldLogic = (
         if (isChildren) {
           fields[fieldIndex].children = fields[fieldIndex].children || [];
           fields[fieldIndex]?.children?.unshift(
-            editTableVm.createDefaultField()
+            editTableVm.createDefaultField(newFieldId)
           );
         } else {
-          fields.splice(fieldIndex + 1, 0, editTableVm.createDefaultField());
+          fields.splice(
+            fieldIndex + 1,
+            0,
+            editTableVm.createDefaultField(newFieldId)
+          );
         }
         return true; // Field found and updated
       }

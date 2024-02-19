@@ -1,5 +1,5 @@
 import React from 'react';
-import { EDIT_COLLECTION_TITLE, ExportIcon } from '@/common/components';
+import { EXPORT_MODEL_TITLE, ExportIcon } from '@/common/components';
 import {
   downloadImage,
   downloadSchemaScript,
@@ -22,6 +22,7 @@ import {
 } from './export-button.business';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const ExportButton = () => {
   const { openModal } = useModalDialogContext();
@@ -35,6 +36,15 @@ export const ExportButton = () => {
     () => expandAllFieldsInTables(canvasSchema.tables),
     [canvasSchema.tables]
   );
+
+  const getExportSchema = (showAllFieldsExpanded: boolean) =>
+    showAllFieldsExpanded
+      ? {
+          ...canvasSchema,
+          tables: tablesWithExpandedFields,
+        }
+      : canvasSchema;
+
   const downloadCanvasSize: Size = React.useMemo<Size>(
     () => ({
       width:
@@ -48,28 +58,22 @@ export const ExportButton = () => {
     [zoomFactor, canvasSize, tablesWithExpandedFields]
   );
 
-  const exportSvg = () => {
+  const exportSvg = (areAllFieldsExpanded: boolean) => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
-        onUpdateTablePosition={() => {}}
-        onToggleCollapse={() => {}}
-        onEditTable={() => {}}
+        canvasSchema={getExportSchema(areAllFieldsExpanded)}
       />
     );
 
     downloadSvg(svg);
   };
 
-  const exportImage = () => {
+  const exportImage = (areAllFieldsExpanded: boolean) => {
     const svg = (
       <CanvasExportSvgComponent
         canvasSize={downloadCanvasSize}
-        canvasSchema={{ ...canvasSchema, tables: tablesWithExpandedFields }}
-        onUpdateTablePosition={() => {}}
-        onToggleCollapse={() => {}}
-        onEditTable={() => {}}
+        canvasSchema={getExportSchema(areAllFieldsExpanded)}
       />
     );
 
@@ -84,13 +88,16 @@ export const ExportButton = () => {
     downloadSchemaScript(schemaScript);
   };
 
-  const handleExportToFormat = (exportType: ExportType) => {
+  const handleExportToFormat = (
+    exportType: ExportType,
+    areAllFieldsExpanded: boolean
+  ) => {
     switch (exportType) {
       case ExportType.SVG:
-        exportSvg();
+        exportSvg(areAllFieldsExpanded);
         break;
       case ExportType.PNG:
-        exportImage();
+        exportImage(areAllFieldsExpanded);
         break;
       case ExportType.SCHEMA:
         exportSchema();
@@ -103,7 +110,7 @@ export const ExportButton = () => {
   const handleExportClick = () => {
     openModal(
       <ExportTablePod onExport={handleExportToFormat} />,
-      EDIT_COLLECTION_TITLE
+      EXPORT_MODEL_TITLE
     );
   };
 
@@ -113,6 +120,8 @@ export const ExportButton = () => {
       label="Export"
       onClick={handleExportClick}
       className={classes.button}
+      shortcutOptions={SHORTCUTS.export}
+      disabled={canvasSchema.tables.length < 1}
     />
   );
 };

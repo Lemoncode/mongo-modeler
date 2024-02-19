@@ -101,6 +101,10 @@
   /*About*/
   --color-project: var(--primary-300);
   --color-team: var(--secondary-300);
+
+  /* Footer*/
+  --footer-background: var(--background-700);
+  --footer-text-color: var(--primary-300);
 }
 
 #root {
@@ -158,6 +162,10 @@
   /*About*/
   --color-project: var(--primary-500);
   --color-team: var(--secondary-600);
+
+  /* Footer*/
+  --footer-background: #f3f5f7;
+  --footer-text-color: var(--primary-700);
 }
 
 .dark {
@@ -301,59 +309,6 @@ input[type='checkbox'] {
 
 .dark input[type='checkbox'] {
   color-scheme: dark;
-}
-
-.checkbox {
-  position: relative;
-}
-.checkbox input {
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  left: 0;
-}
-
-.checkbox input:checked + label svg path {
-  stroke-dashoffset: 0;
-}
-
-.checkbox input + label {
-  display: block;
-  border: 1px solid var(--input-border-color);
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  border-radius: 6px;
-  cursor: pointer;
-  background-color: var(--bg-input);
-  transition: all 0.2s ease;
-}
-.checkbox input:focus + label {
-  border: 1px solid var(--input-border-color-active);
-}
-
-.checkbox input:hover + label {
-  border: 1px solid var(--hover-checkbox);
-  box-shadow: 0 0 4px var(--hover-checkbox);
-}
-.checkbox input + label:active {
-  border: 1px solid var(--border-checkbox);
-}
-
-.checkbox input + label svg {
-  pointer-events: none;
-  padding: 10%;
-}
-
-.checkbox input + label svg path {
-  fill: none;
-  stroke: var(--primary-500);
-  stroke-width: 5px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 101;
-  transition: all 250ms cubic-bezier(1, 0, 0.37, 0.91);
-  pointer-events: none;
 }
 
 .dialog-component {
