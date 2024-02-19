@@ -166,6 +166,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     <CanvasSchemaContext.Provider
       value={{
         canvasSchema,
+        setCanvasSchema: setSchema,
         createEmptySchema,
         loadSchema,
         updateTablePosition,
