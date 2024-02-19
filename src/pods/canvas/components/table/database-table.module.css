@@ -30,3 +30,8 @@
 .tableTextRow {
   fill: var(--text-color);
 }
+
+.tableTextArrow {
+  fill: var(--text-color);
+  font-size: 11px;
+}

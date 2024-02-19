@@ -31,7 +31,8 @@ const COLUMN_NAME_PIXEL_WIDTH = calculateColumNameWidth(
   TABLE_CLEAN_WIDTH
 );
 
-const SPACE_ARROW_TEXT = TABLE_CONST.FONT_SIZE * 1.5;
+const SPACE_ARROW_TEXT = TABLE_CONST.FONT_SIZE * 1.35;
+const PIXELS_CENTER_ARROW = 1.5;
 
 export const DatabaseTableRow: React.FC<Props> = props => {
   const { field, tableInfo, level, currentY, onToggleCollapse } = props;
@@ -46,8 +47,8 @@ export const DatabaseTableRow: React.FC<Props> = props => {
         {isExpandable && (
           <text
             x={0}
-            y={TABLE_CONST.FONT_SIZE}
-            className={classes.tableTextRow}
+            y={TABLE_CONST.FONT_SIZE - PIXELS_CENTER_ARROW}
+            className={classes.tableTextArrow}
             onClick={() => onToggleCollapse(tableInfo.id, field.id)}
           >
             {isExpanded ? '▼' : '►'}
