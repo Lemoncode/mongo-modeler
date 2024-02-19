@@ -1,4 +1,8 @@
 import {
+  retrieveValueFromLocalStorage,
+  saveValueToLocalStorage,
+} from '@/common/local-storage';
+import {
   DatabaseSchemaVm,
   createDefaultDatabaseSchemaVm,
 } from '@/core/providers';
@@ -10,35 +14,29 @@ export interface CanvasSchema {
 
 export const saveToLocal = (key: string, value: CanvasSchema) => {
   try {
-    const deepCopyValue = JSON.parse(JSON.stringify(value));
-    const stringifiedDeepCopyValue = JSON.stringify(deepCopyValue);
-    localStorage.setItem(key, stringifiedDeepCopyValue);
+    saveValueToLocalStorage(key, value);
   } catch (error) {
     console.error('Autosave error', error);
-    setTimeout(() => {
-      saveToLocal(key, value);
-    }, 30000);
   }
 };
 
 export const retrieveFromLocal = (
+  key: string,
   setLoadSample: (T: boolean) => void
 ): DatabaseSchemaVm => {
   try {
-    const value = localStorage.getItem('autoSaveFile');
+    const retrievedValue = retrieveValueFromLocalStorage(key);
 
-    if (value) {
-      const parsedValue = JSON.parse(value);
-      if (parsedValue.canvasSchema.tables.length !== 0) {
-        setLoadSample(false);
-        return parsedValue.canvasSchema;
-      }
+    if (retrievedValue && retrievedValue.canvasSchema.tables.length !== 0) {
+      setLoadSample(false);
+      return retrievedValue.canvasSchema;
     }
+
     setLoadSample(true);
     return createDefaultDatabaseSchemaVm();
   } catch (error) {
     console.error('File retrieve error', error);
-    localStorage.removeItem('autoSaveFile');
+    localStorage.removeItem(key);
     localStorage.setItem(
       'autoSaveFile',
       JSON.stringify({

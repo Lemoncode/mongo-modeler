@@ -54,45 +54,6 @@ describe('saveToLocal', () => {
     expect(localStorage.getItem(key)).toBeDefined();
     expect(JSON.parse(localStorage.getItem(key)!)).toEqual(value);
   });
-
-  it('should setTimeout and retry saving after an error', () => {
-    vi.useFakeTimers();
-
-    // Arrange
-    const key = 'autoSaveFile';
-    const value: CanvasSchema = {
-      filename: 'schemaFilename',
-      canvasSchema: {
-        version: '0.1',
-        tables: [{ id: '1', fields: [], tableName: 'tableName', x: 0, y: 0 }],
-        relations: [],
-        selectedElementId: null,
-      },
-    };
-
-    vi.spyOn(localStorage, 'setItem').mockImplementationOnce(() => {
-      throw new Error('Mock error');
-    });
-    vi.spyOn(console, 'error').mockImplementationOnce(() => {});
-    vi.spyOn(window, 'setTimeout');
-
-    // Act
-    saveToLocal(key, value);
-
-    // Assert
-    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 30000);
-    expect(console.error).toHaveBeenCalled();
-    expect(localStorage.getItem(key)).toBeNull();
-
-    // Act
-    vi.advanceTimersByTime(30000);
-
-    // Assert
-    expect(localStorage.getItem(key)).toBeDefined();
-    expect(JSON.parse(localStorage.getItem(key)!)).toEqual(value);
-
-    vi.useRealTimers();
-  });
 });
 
 describe('retrieveFromLocal', () => {
@@ -111,7 +72,7 @@ describe('retrieveFromLocal', () => {
     vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(null);
 
     // Act
-    const result = retrieveFromLocal(setLoadSampleMock);
+    const result = retrieveFromLocal('autoSaveFile', setLoadSampleMock);
 
     // Assert
     expect(setLoadSampleMock).toHaveBeenCalledWith(true);
@@ -145,7 +106,7 @@ describe('retrieveFromLocal', () => {
     );
 
     // Act
-    const result = retrieveFromLocal(setLoadSampleMock);
+    const result = retrieveFromLocal('autoSaveFile', setLoadSampleMock);
 
     // Assert
     expect(setLoadSampleMock).toHaveBeenCalledWith(false);
@@ -165,7 +126,7 @@ describe('retrieveFromLocal', () => {
     const expectedSchema = createDefaultDatabaseSchemaVm();
 
     // Act
-    const result = retrieveFromLocal(setLoadSampleMock);
+    const result = retrieveFromLocal('autoSaveFile', setLoadSampleMock);
 
     // Assert
     expect(localStorage.removeItem).toHaveBeenCalled();
