@@ -12,6 +12,7 @@ interface Props {
   fields: FieldVm[];
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
+  isDeleteVisible: boolean;
 }
 
 export const Commands: React.FC<Props> = (props: Props) => {
@@ -22,6 +23,7 @@ export const Commands: React.FC<Props> = (props: Props) => {
     onAddField,
     onMoveDownField,
     onMoveUpField,
+    isDeleteVisible,
   } = props;
 
   return (
@@ -36,10 +38,12 @@ export const Commands: React.FC<Props> = (props: Props) => {
           onClick={() => onAddField(field.id, true, GenerateGUID())}
         />
       )}
-      <CommandIconButton
-        icon={<RemoveIcon />}
-        onClick={() => onDeleteField(field.id)}
-      />
+      {isDeleteVisible && (
+        <CommandIconButton
+          icon={<RemoveIcon />}
+          onClick={() => onDeleteField(field.id)}
+        />
+      )}
       <CommandIconButton
         icon={<UpIcon />}
         onClick={() => onMoveUpField(field.id)}
