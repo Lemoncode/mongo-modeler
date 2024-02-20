@@ -2,6 +2,7 @@ import React from 'react';
 import { useModalDialogContext } from '@/core/providers';
 import classes from './export-table.module.css';
 import { ExportType } from '@/core/model';
+import { Checkbox } from '@/common/components';
 
 interface Props {
   onExport: (exportType: ExportType, areAllFieldsExpanded: boolean) => void;
@@ -66,22 +67,15 @@ export const ExportTablePod: React.FC<Props> = props => {
           </label>
         </div>
       </div>
-
       <div className={classes.checkboxExport}>
-        <div className="checkbox">
-          <input
-            type="checkbox"
-            id="checkbox1"
-            onChange={() => setAreAllFieldsExpanded(!areAllFieldsExpanded)}
-            checked={areAllFieldsExpanded}
-          />
-          <label htmlFor="checkbox1">
-            <svg viewBox="0,0,50,50">
-              <path d="M5 30 L 20 45 L 45 5"></path>
-            </svg>
-          </label>
-        </div>
-        <p>Expand all fields (svg & png export)</p>
+        <Checkbox
+          id="checkbox1"
+          onChange={() => setAreAllFieldsExpanded(!areAllFieldsExpanded)}
+          checked={areAllFieldsExpanded}
+        />
+        <label htmlFor="checkbox1">
+          <span>Expand all fields (svg & png export)</span>
+        </label>
       </div>
       <button
         className="button-secondary"
