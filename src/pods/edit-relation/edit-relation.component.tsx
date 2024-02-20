@@ -6,6 +6,8 @@ import { PkOptionVm } from '@/common/components';
 import { RelationFormVm } from './edit-relation.vm';
 import { DropdownFormik, TablePkPickerFormik } from '@/common/components/forms';
 
+const DROPDOWN_ORIGIN_TABLE_TITLE = 'Select origin collection';
+
 interface Props {
   relationsTypeOptions: DropdownOptionVm[];
   tablesNameOptions: DropdownOptionVm[];
@@ -38,7 +40,7 @@ export const EditRelationComponent: React.FC<Props> = props => {
         name="fromTableId"
         label="Origin Collection"
         options={tablesNameOptions}
-        selectTitle="Select origin table"
+        selectTitle={DROPDOWN_ORIGIN_TABLE_TITLE}
       ></DropdownFormik>
       <TablePkPickerFormik
         name="fromFieldId"
@@ -51,7 +53,7 @@ export const EditRelationComponent: React.FC<Props> = props => {
         name="toTableId"
         label="Destination Collection"
         options={tablesNameOptions}
-        selectTitle="Select destination table"
+        selectTitle={DROPDOWN_ORIGIN_TABLE_TITLE}
       ></DropdownFormik>
       <TablePkPickerFormik
         name="toFieldId"
