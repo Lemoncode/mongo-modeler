@@ -21,11 +21,7 @@ import { mFlix } from './m-flix.mock.data';
 import useAutosave from '@/core/autosave/autosave.hook';
 
 export const CanvasPod: React.FC = () => {
-  const { stopAutosave } = useAutosave();
-
-  React.useEffect(() => {
-    return stopAutosave;
-  }, []);
+  const { startAutosave, stopAutosave } = useAutosave();
 
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
@@ -52,6 +48,12 @@ export const CanvasPod: React.FC = () => {
     loadSchema(mockSchema);
   }, []);
   */
+
+  React.useEffect(() => {
+    startAutosave();
+    return stopAutosave;
+  }, [canvasSchema]);
+
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
