@@ -31,7 +31,7 @@ interface Props {
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
   onDragField: (fields: FieldVm[], id?: GUID) => void;
-  DeleteIsVisible: boolean;
+  isDeleteVisible: boolean;
 }
 
 export const Field: React.FC<Props> = props => {
@@ -49,7 +49,7 @@ export const Field: React.FC<Props> = props => {
     toggleExpand,
     updateFieldValue,
     nameInputRefRecord,
-    DeleteIsVisible,
+    isDeleteVisible,
   } = props;
   const variantsItem = {
     left: {
@@ -193,7 +193,7 @@ export const Field: React.FC<Props> = props => {
             onAddField={handleAddField}
             onMoveDownField={onMoveDownField}
             onMoveUpField={onMoveUpField}
-            DeleteIsVisible={DeleteIsVisible}
+            isDeleteVisible={isDeleteVisible}
           />
         </div>
       </Reorder.Item>
@@ -212,7 +212,7 @@ export const Field: React.FC<Props> = props => {
           onMoveUpField={onMoveUpField}
           onDragField={onDragField}
           nameInputRefRecord={nameInputRefRecord}
-          DeleteIsVisible={DeleteIsVisible}
+          isDeleteVisible={isDeleteVisible}
         />
       )}
     </React.Fragment>
