@@ -359,3 +359,16 @@ input[type='checkbox'] {
 .light .load-button:hover.load-button::before {
   background-color: var(--primary-600);
 }
+
+.mobile-only {
+  display: none;
+}
+
+@media screen and (max-device-width: 1090px) {
+  .hide-mobile {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+  }
+}

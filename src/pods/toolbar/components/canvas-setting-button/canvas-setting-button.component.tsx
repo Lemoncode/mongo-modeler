@@ -25,7 +25,7 @@ export const CanvasSettingButton = () => {
       icon={<CanvasSetting />}
       label="Settings"
       onClick={handleCanvasSettings}
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
       shortcutOptions={SHORTCUTS.settings}
     />
   );

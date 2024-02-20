@@ -1,10 +1,27 @@
 .container {
+  grid-area: toolbar;
   display: flex;
   justify-content: space-evenly;
   padding: 10px;
   background-color: var(--bg-toolbar);
+  border: none;
   border-bottom: var(--border-toolbar);
-  height: 100px;
+}
+
+@media screen and (max-device-width: 1090px) {
+  .container {
+    border-top: var(--border-toolbar);
+    border-bottom: none;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-device-width: 1090px) and (orientation: landscape) {
+  .container {
+    flex-direction: column;
+    border: none;
+    border-right: var(--border-toolbar);
+  }
 }
 
 .button {
@@ -16,9 +33,18 @@
   fill: var(--text-color);
 }
 
-.button:hover [role='tooltip'] {
-  animation: fade-in 1s linear;
-  animation-fill-mode: forwards;
+@media screen and (max-device-width: 1090px) {
+  .button {
+    padding: 6px;
+    font-size: var(--fs-s);
+  }
+}
+
+@media (hover: hover) {
+  .button:hover [role='tooltip'] {
+    animation: fade-in 1s linear;
+    animation-fill-mode: forwards;
+  }
 }
 
 [role='tooltip'] {
@@ -34,6 +60,12 @@
   transform: translate(0%, 90px);
   visibility: hidden;
   z-index: 2;
+}
+
+@media screen and (max-device-width: 1090px) {
+  [role='tooltip'] {
+    display: none;
+  }
 }
 
 @keyframes fade-in {

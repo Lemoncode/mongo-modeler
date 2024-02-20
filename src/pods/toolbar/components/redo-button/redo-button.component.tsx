@@ -13,7 +13,7 @@ export const RedoButton: React.FC = () => {
       icon={<RedoIcon />}
       label={'Redo'}
       onClick={() => doRedo()}
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
       disabled={!canRedo()}
       shortcutOptions={SHORTCUTS.redo}
     />
