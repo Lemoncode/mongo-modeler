@@ -54,7 +54,7 @@ export const DatabaseTable: React.FC<Props> = ({
     return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Adjust for the last padding
   }, [tableInfo.fields]);
 
-  const { onMouseDown } = useDraggable(
+  const { onMouseDown, onTouchStart } = useDraggable(
     tableInfo.id,
     tableInfo.x,
     tableInfo.y,
@@ -77,6 +77,7 @@ export const DatabaseTable: React.FC<Props> = ({
     <g
       transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
       onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
       className={classes.tableContainer}
     >
       <DatabaseTableBorder totalHeight={totalHeight} isSelected={isSelected} />

@@ -15,58 +15,88 @@ export const useDraggable = (
   const [finalInfoAfterDrag, setFinalInfoAfterDrag] =
     useState<UpdatePositionItemInfo | null>(null);
 
+  const startDrag = (x: number, y: number) => {
+    setStartDragPosition({
+      x: x - initialX,
+      y: y - initialY,
+    });
+    setIsDragging(true);
+  };
+
   const onMouseDown = useCallback(
     (event: React.MouseEvent) => {
-      setStartDragPosition({
-        x: event.clientX - initialX,
-        y: event.clientY - initialY,
-      });
-      setIsDragging(true);
+      startDrag(event.clientX, event.clientY);
     },
     [initialX, initialY]
   );
 
+  const onTouchStart = useCallback(
+    (event: React.TouchEvent) => {
+      const touch = event.touches[0];
+      startDrag(touch.clientX, touch.clientY);
+    },
+    [initialX, initialY]
+  );
+
+  const updateDrag = (x: number, y: number) => {
+    if (isDragging) {
+      const newX = x - startDragPosition.x;
+      const newY = y - startDragPosition.y;
+
+      const currentItemInfo = {
+        id,
+        position: { x: newX, y: newY },
+        totalHeight,
+        canvasSize,
+      };
+
+      updatePosition(currentItemInfo, false);
+      setFinalInfoAfterDrag(currentItemInfo);
+    }
+  };
+
   const onMouseMove = useCallback(
     (event: MouseEvent) => {
-      if (isDragging) {
-        const newX = event.clientX - startDragPosition.x;
-        const newY = event.clientY - startDragPosition.y;
-
-        const currentItemInfo = {
-          id,
-          position: { x: newX, y: newY },
-          totalHeight,
-          canvasSize,
-        };
-
-        updatePosition(currentItemInfo, false);
-        setFinalInfoAfterDrag(currentItemInfo);
-      }
+      updateDrag(event.clientX, event.clientY);
     },
     [id, isDragging, startDragPosition, updatePosition, totalHeight, canvasSize]
   );
 
-  const onMouseUp = useCallback(() => {
+  const onTouchMove = useCallback(
+    (event: TouchEvent) => {
+      const touch = event.touches[0];
+      updateDrag(touch.clientX, touch.clientY);
+    },
+    [id, isDragging, startDragPosition, updatePosition, totalHeight, canvasSize]
+  );
+
+  const endDrag = useCallback(() => {
     setIsDragging(false);
     if (finalInfoAfterDrag) {
       updatePosition(finalInfoAfterDrag, true);
     }
-  }, [finalInfoAfterDrag]);
+  }, [finalInfoAfterDrag, updatePosition]);
 
   React.useEffect(() => {
     if (isDragging) {
       window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
+      window.addEventListener('mouseup', endDrag);
+      window.addEventListener('touchmove', onTouchMove);
+      window.addEventListener('touchend', endDrag);
     } else {
       window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('mouseup', endDrag);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', endDrag);
     }
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('mouseup', endDrag);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', endDrag);
     };
-  }, [isDragging, onMouseMove, onMouseUp]);
+  }, [isDragging, onMouseMove, onTouchMove, endDrag]);
 
-  return { onMouseDown };
+  return { onMouseDown, onTouchStart };
 };
