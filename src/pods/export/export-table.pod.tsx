@@ -69,11 +69,11 @@ export const ExportTablePod: React.FC<Props> = props => {
       </div>
       <div className={classes.checkboxExport}>
         <Checkbox
-          id="checkbox1"
+          id="checkboxExportFile"
           onChange={() => setAreAllFieldsExpanded(!areAllFieldsExpanded)}
           checked={areAllFieldsExpanded}
         />
-        <label htmlFor="checkbox1">
+        <label htmlFor="checkboxExportFile">
           <span>Expand all fields (svg & png export)</span>
         </label>
       </div>
