@@ -1,7 +1,6 @@
 import React from 'react';
 import { MainScene, MobileTabletScene } from '@/scenes';
 import { useThemeContext } from './core/providers';
-import './App.css';
 
 function App() {
   const { theme } = useThemeContext();
