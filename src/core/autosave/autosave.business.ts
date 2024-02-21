@@ -37,13 +37,7 @@ export const retrieveFromLocal = (
   } catch (error) {
     console.error('File retrieve error', error);
     localStorage.removeItem(key);
-    localStorage.setItem(
-      'autoSaveFile',
-      JSON.stringify({
-        filename: '',
-        canvasSchema: createDefaultDatabaseSchemaVm(),
-      })
-    );
+
     setLoadSample(true);
     return createDefaultDatabaseSchemaVm();
   }

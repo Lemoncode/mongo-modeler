@@ -1,9 +1,20 @@
 import React from 'react';
-import { MainScene, MobileTabletScene } from '@/scenes';
-import { useThemeContext } from './core/providers';
+
 import './App.css';
 
+import { MainScene, MobileTabletScene } from '@/scenes';
+import { useCanvasSchemaContext, useThemeContext } from '@/core/providers';
+import useAutosave from '@/core/autosave/autosave.hook';
+
 function App() {
+  const { startAutosave, stopAutosave } = useAutosave();
+  const { canvasSchema } = useCanvasSchemaContext();
+
+  React.useEffect(() => {
+    startAutosave();
+    return stopAutosave;
+  }, [canvasSchema]);
+
   const { theme } = useThemeContext();
   const [isSupportedScreenResolution, setSupportedScreenResolution] =
     React.useState(true);

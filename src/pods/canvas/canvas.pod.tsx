@@ -18,11 +18,8 @@ import {
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
-import useAutosave from '@/core/autosave/autosave.hook';
 
 export const CanvasPod: React.FC = () => {
-  const { startAutosave, stopAutosave } = useAutosave();
-
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
     canvasSchema,
@@ -48,11 +45,6 @@ export const CanvasPod: React.FC = () => {
     loadSchema(mockSchema);
   }, []);
   */
-
-  React.useEffect(() => {
-    startAutosave();
-    return stopAutosave;
-  }, [canvasSchema]);
 
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({

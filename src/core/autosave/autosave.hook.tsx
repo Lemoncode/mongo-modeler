@@ -13,7 +13,7 @@ const useAutosave = () => {
   const { filename, setFilename, setLoadSample } =
     useCanvasViewSettingsContext();
 
-  const INTERVAL = 60000;
+  const AUTOSAVE_INTERVAL = 6000;
   const AUTOSAVE_KEY = 'autoSaveFile';
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -42,7 +42,7 @@ const useAutosave = () => {
 
   const startAutosave = () => {
     if (!timerRef.current) {
-      timerRef.current = setInterval(autosaveHandler, INTERVAL);
+      timerRef.current = setInterval(autosaveHandler, AUTOSAVE_INTERVAL);
     }
   };
 
