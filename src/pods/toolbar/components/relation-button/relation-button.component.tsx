@@ -40,6 +40,7 @@ export const RelationButton = () => {
       onClick={handleRelationClick}
       className={classes.button}
       shortcutOptions={SHORTCUTS.addRelation}
+      disabled={canvasSchema.tables.length < 1}
     />
   );
 };
