@@ -39,6 +39,7 @@ export const Commands: React.FC<Props> = (props: Props) => {
       <CommandIconButton
         icon={<RemoveIcon />}
         onClick={() => onDeleteField(field.id)}
+        disabled={field.name === '_id'}
       />
       <CommandIconButton
         icon={<UpIcon />}

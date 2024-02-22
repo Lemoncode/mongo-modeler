@@ -91,6 +91,13 @@ export const Field: React.FC<Props> = props => {
     }
   };
 
+  // const handlerIDAndObjectId = (field: FieldVm) => {
+  //   if (field.name === '_id' && field.type === 'objectId') {
+  //     return true;
+  //   }
+  //   return false;
+  // };
+
   return (
     <React.Fragment key={field.id}>
       <Reorder.Item
@@ -159,6 +166,7 @@ export const Field: React.FC<Props> = props => {
             onChange={e =>
               updateFieldValue(field, 'type', e.target.value as FieldType)
             }
+            disabled={field.name === '_id'}
           >
             {fieldTypeOptions.map(entry => (
               <option key={entry.value} value={entry.value}>
@@ -180,6 +188,7 @@ export const Field: React.FC<Props> = props => {
             id="check4"
             checked={field.isNN || false}
             onChange={() => updateFieldValue(field, 'isNN', !field.isNN)}
+            disabled={field.name === '_id'}
             ariaLabelledby="Is a NN"
           ></Checkbox>
         </div>

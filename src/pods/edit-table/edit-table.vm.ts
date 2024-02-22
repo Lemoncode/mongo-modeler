@@ -39,6 +39,7 @@ export const createDefaultTable = (): TableVm => ({
       id: GenerateGUID(),
       PK: true,
       FK: false,
+      isNN: true,
       name: '_id',
       type: 'objectId',
     },
