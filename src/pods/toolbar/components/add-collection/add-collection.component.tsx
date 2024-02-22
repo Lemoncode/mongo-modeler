@@ -46,7 +46,7 @@ export const AddCollection = () => {
       icon={<TableIcon />}
       label="Add Collection"
       onClick={handleEditTableClick}
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
       shortcutOptions={SHORTCUTS.addCollection}
     />
   );
