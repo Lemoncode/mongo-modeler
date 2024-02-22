@@ -125,7 +125,7 @@ export const ExportButton = () => {
       icon={<ExportIcon />}
       label="Export"
       onClick={handleExportClick}
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
       shortcutOptions={SHORTCUTS.export}
       disabled={canvasSchema.tables.length < 1}
     />

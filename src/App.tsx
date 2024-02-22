@@ -4,7 +4,12 @@ import './App.css';
 
 function App() {
   const { theme } = useThemeContext();
-  return <div className={theme.themeMode}>{<MainScene />}</div>;
+
+  return (
+    <div className={theme.themeMode}>
+      <MainScene />
+    </div>
+  );
 }
 
 export default App;

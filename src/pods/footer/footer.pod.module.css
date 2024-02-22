@@ -1,7 +1,24 @@
 .footer-text {
+  grid-area: document;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: var(--footer-background);
   color: var(--footer-text-color);
   text-align: left;
   padding: var(--space-unit) var(--space-md);
+  padding-right: var(--space-xs);
   font-size: var(--fs-xs);
+}
+
+@media (max-width: 1090px) {
+  .footer-text {
+    font-size: var(--fs-s);
+  }
+}
+.footer-text button {
+  padding: var(--space-xs);
+}
+.footer-text button svg {
+  display: block;
 }
