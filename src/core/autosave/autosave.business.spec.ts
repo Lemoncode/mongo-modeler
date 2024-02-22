@@ -46,9 +46,11 @@ describe('saveToLocal', () => {
         selectedElementId: null,
       },
     };
+    const autosaveError = 0;
+    const setAutosaveError = vi.fn();
 
     // Act
-    saveToLocal(key, value);
+    saveToLocal(key, value, autosaveError, setAutosaveError);
 
     // Assert
     expect(localStorage.getItem(key)).toBeDefined();

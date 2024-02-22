@@ -12,11 +12,17 @@ export interface CanvasSchema {
   canvasSchema: DatabaseSchemaVm;
 }
 
-export const saveToLocal = (key: string, value: CanvasSchema) => {
+export const saveToLocal = (
+  key: string,
+  value: CanvasSchema,
+  autosaveError: number,
+  setAutosaveError: React.Dispatch<React.SetStateAction<number>>
+) => {
   try {
     saveValueToLocalStorage(key, value);
   } catch (error) {
-    console.error('Autosave error', error);
+    if (autosaveError <= 1) setAutosaveError(prev => ++prev);
+    console.error(`${autosaveError} Autosave error`, error);
   }
 };
 
@@ -35,7 +41,6 @@ export const retrieveFromLocal = (
     setLoadSample(true);
     return createDefaultDatabaseSchemaVm();
   } catch (error) {
-    console.error('File retrieve error', error);
     localStorage.removeItem(key);
 
     setLoadSample(true);
