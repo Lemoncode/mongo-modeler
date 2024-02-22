@@ -7,6 +7,17 @@
   border: none;
   border-bottom: var(--border-toolbar);
 }
+@media screen and (min-device-width: 780px) and (max-device-width: 1090px) {
+  .container {
+    padding: var(--space-md) var(--space-xl);
+  }
+}
+
+@media screen and (min-device-width: 780px) and (max-device-width: 1090px) and (orientation: landscape) {
+  .container {
+    padding: var(--space-xl) var(--space-sm);
+  }
+}
 
 @media screen and (max-device-width: 1090px) {
   .container {

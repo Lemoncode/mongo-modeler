@@ -4,7 +4,7 @@
   grid-template-rows: auto 1fr auto;
   grid-template-areas: 'toolbar toolbar' 'canvas canvas' 'document document';
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
 }
 
 @media screen and (max-width: 1090px) {
