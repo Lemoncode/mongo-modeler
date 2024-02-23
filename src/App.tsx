@@ -1,6 +1,5 @@
 import { MainScene } from '@/scenes';
 import { useThemeContext } from './core/providers';
-import './App.css';
 
 function App() {
   const { theme } = useThemeContext();

@@ -150,7 +150,7 @@ export const CanvasPod: React.FC = () => {
       {loadSample && (
         <div className={classes.load}>
           <button
-            className="load-button"
+            className={classes.loadButton}
             onClick={() => {
               loadSchema(mFlix);
               setLoadSample(false);
