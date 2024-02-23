@@ -13,6 +13,7 @@ export const mFlix: DatabaseSchemaVm = {
           name: '_id',
           type: 'objectId',
           children: [],
+          isNN: true,
         },
         {
           id: '5ba8bd88-645e-4010-9cfd-909f348a8f8b',
@@ -189,6 +190,7 @@ export const mFlix: DatabaseSchemaVm = {
           name: '_id',
           type: 'objectId',
           children: [],
+          isNN: true,
         },
         {
           id: '59ce3408-3816-4ad1-badb-15f633d93fd4',
@@ -210,6 +212,7 @@ export const mFlix: DatabaseSchemaVm = {
           name: 'movie_id',
           type: 'objectId',
           children: [],
+          isNN: true,
         },
         {
           id: '4b3bf278-661c-4e7b-99c2-c798b0c08847',
@@ -239,6 +242,7 @@ export const mFlix: DatabaseSchemaVm = {
           name: '_id',
           type: 'objectId',
           children: [],
+          isNN: true,
         },
         {
           id: '19ce3446-75a0-467a-96d5-d1c379341b78',
@@ -313,6 +317,7 @@ export const mFlix: DatabaseSchemaVm = {
           name: '_id',
           type: 'objectId',
           children: [],
+          isNN: true,
         },
         {
           id: 'ed2b1a46-ffb2-4a4e-9c93-20fd77767686',
@@ -320,6 +325,7 @@ export const mFlix: DatabaseSchemaVm = {
           name: 'user_id',
           type: 'objectId',
           children: [],
+          isNN: true,
         },
         {
           id: '87e66ac3-f053-4ee9-aef5-d9bedad3bf5d',
@@ -342,6 +348,7 @@ export const mFlix: DatabaseSchemaVm = {
           name: '_id',
           type: 'objectId',
           children: [],
+          isNN: true,
         },
         {
           id: '29a88f0a-e452-43ee-81d0-7617f12f999a',
@@ -378,6 +385,7 @@ export const mFlix: DatabaseSchemaVm = {
           name: '_id',
           type: 'objectId',
           children: [],
+          isNN: true,
         },
         {
           id: 'c9cc1f4b-fcab-414b-ad97-a6e48b79b785',

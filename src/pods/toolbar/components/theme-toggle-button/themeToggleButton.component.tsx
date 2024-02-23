@@ -15,7 +15,7 @@ export const ThemeToggleButton: React.FC<Props> = ({
   const label = theme.themeMode === 'dark' ? lightLabel : darkLabel;
   return (
     <ToolbarButton
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
       icon={theme.themeMode === 'dark' ? <LightIcon /> : <DarkIcon />}
       label={label}
       onClick={toggleTheme}

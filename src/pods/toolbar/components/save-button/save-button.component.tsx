@@ -49,7 +49,7 @@ export const SaveButton = () => {
       icon={<SaveIcon />}
       label={'Save'}
       onClick={() => saveFile(openedFilename)}
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
       shortcutOptions={SHORTCUTS.save}
       disabled={canvasSchema.tables.length < 1}
     />

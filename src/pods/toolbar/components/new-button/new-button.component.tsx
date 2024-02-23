@@ -22,7 +22,7 @@ export const NewButton = () => {
       icon={<NewIcon />}
       label="New"
       onClick={handleNewButtonClick}
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
       shortcutOptions={SHORTCUTS.new}
     />
   );

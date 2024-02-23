@@ -319,3 +319,16 @@ input[type='checkbox'] {
 .dark input[type='checkbox'] {
   color-scheme: dark;
 }
+
+.mobile-only {
+  display: none;
+}
+
+@media screen and (max-device-width: 1090px) {
+  .hide-mobile {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+  }
+}
