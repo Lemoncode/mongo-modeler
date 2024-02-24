@@ -26,24 +26,34 @@ export const saveToLocal = (
   }
 };
 
-export const retrieveFromLocal = (
-  key: string,
-  setLoadSample: (T: boolean) => void
+export const retrieveLocalSchema = (
+  retrievedKey: string,
+  setLoadSample: (sample: boolean) => void,
+  setFilename: (filename: string) => void
 ): DatabaseSchemaVm => {
   try {
-    const retrievedValue = retrieveValueFromLocalStorage(key);
+    const retrievedValue = retrieveValueFromLocalStorage(retrievedKey); //// nothing to retrieve after DeleteAll
 
     if (retrievedValue && retrievedValue.canvasSchema.tables.length !== 0) {
       setLoadSample(false);
+      setFilename(retrievedValue.filename);
       return retrievedValue.canvasSchema;
+    } else {
+      setLoadSample(true);
+      setFilename('');
+      return createDefaultDatabaseSchemaVm();
     }
-
-    setLoadSample(true);
-    return createDefaultDatabaseSchemaVm();
   } catch (error) {
-    localStorage.removeItem(key);
-
+    console.error('Fail trying to retrieve schema from localStorage', error);
     setLoadSample(true);
+    setFilename('');
     return createDefaultDatabaseSchemaVm();
   }
+};
+
+export const getSavedKeys = (AUTOSAVE_KEY: string): string[] => {
+  const savedKeys = Object.keys(localStorage).filter(key =>
+    key.startsWith(AUTOSAVE_KEY)
+  );
+  return savedKeys;
 };

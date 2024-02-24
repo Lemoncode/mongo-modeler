@@ -1,6 +1,10 @@
 import { vi } from 'vitest';
 
-import { saveToLocal, retrieveFromLocal, CanvasSchema } from '@/core/autosave';
+import {
+  saveToLocal,
+  retrieveLocalSchema,
+  CanvasSchema,
+} from '@/core/autosave';
 import { createDefaultDatabaseSchemaVm } from '@/core/providers';
 
 // Mock localStorage implementation
@@ -58,7 +62,7 @@ describe('saveToLocal', () => {
   });
 });
 
-describe('retrieveFromLocal', () => {
+describe('retrieveLocalSchema', () => {
   beforeEach(() => {
     localStorage.clear();
   });
@@ -72,12 +76,18 @@ describe('retrieveFromLocal', () => {
     const expected = createDefaultDatabaseSchemaVm();
 
     vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(null);
+    const setFilename = vi.fn();
 
     // Act
-    const result = retrieveFromLocal('autoSaveFile', setLoadSampleMock);
+    const result = retrieveLocalSchema(
+      'autoSaveFile',
+      setLoadSampleMock,
+      setFilename
+    );
 
     // Assert
     expect(setLoadSampleMock).toHaveBeenCalledWith(true);
+    expect(setFilename).toHaveBeenCalled();
     expect(result).toEqual(expected);
   });
 
@@ -106,12 +116,18 @@ describe('retrieveFromLocal', () => {
         canvasSchema: savedSchema,
       })
     );
+    const setFilename = vi.fn();
 
     // Act
-    const result = retrieveFromLocal('autoSaveFile', setLoadSampleMock);
+    const result = retrieveLocalSchema(
+      'autoSaveFile',
+      setLoadSampleMock,
+      setFilename
+    );
 
     // Assert
     expect(setLoadSampleMock).toHaveBeenCalledWith(false);
+    expect(setFilename).toHaveBeenCalled();
     expect(result).toEqual(savedSchema);
   });
 
@@ -126,9 +142,14 @@ describe('retrieveFromLocal', () => {
     });
 
     const expectedSchema = createDefaultDatabaseSchemaVm();
+    const setFilename = vi.fn();
 
     // Act
-    const result = retrieveFromLocal('autoSaveFile', setLoadSampleMock);
+    const result = retrieveLocalSchema(
+      'autoSaveFile',
+      setLoadSampleMock,
+      setFilename
+    );
 
     // Assert
     expect(localStorage.removeItem).toHaveBeenCalled();
