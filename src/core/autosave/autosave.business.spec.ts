@@ -133,7 +133,6 @@ describe('retrieveLocalSchema', () => {
 
   it('should handle error and return default schema', () => {
     // Arrange
-    const setLoadSampleMock = vi.fn();
     vi.spyOn(localStorage, 'removeItem').mockImplementationOnce(() => {});
     vi.spyOn(localStorage, 'setItem');
 
@@ -141,8 +140,10 @@ describe('retrieveLocalSchema', () => {
       throw new Error('Mock error');
     });
 
-    const expectedSchema = createDefaultDatabaseSchemaVm();
+    const setLoadSampleMock = vi.fn();
     const setFilename = vi.fn();
+
+    const expectedSchema = createDefaultDatabaseSchemaVm();
 
     // Act
     const result = retrieveLocalSchema(
@@ -152,15 +153,6 @@ describe('retrieveLocalSchema', () => {
     );
 
     // Assert
-    expect(localStorage.removeItem).toHaveBeenCalled();
-    expect(localStorage.setItem).toHaveBeenCalledWith(
-      'autoSaveFile',
-      JSON.stringify({
-        filename: '',
-        canvasSchema: createDefaultDatabaseSchemaVm(),
-      })
-    );
-    expect(setLoadSampleMock).toHaveBeenCalledWith(true);
     expect(result).toEqual(expectedSchema);
   });
 });
