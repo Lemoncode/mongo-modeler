@@ -13,7 +13,7 @@ export const UndoButton: React.FC = () => {
       icon={<UndoIcon />}
       label={'Undo'}
       onClick={() => doUndo()}
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
       disabled={false}
       shortcutOptions={SHORTCUTS.undo}
     />

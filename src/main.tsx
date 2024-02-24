@@ -1,15 +1,15 @@
-import App from './App.tsx';
-import './index.css';
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { ThemeProvider } from '@/core/providers/theme-provider/theme-provider.tsx';
-import { CanvasSchemaProvider } from '@/core/providers/canvas-schema/canvas-schema.provider.tsx';
+import './app.css';
+import App from './App.tsx';
+
 import {
+  ThemeProvider,
   CanvasViewSettingsProvider,
+  CanvasSchemaProvider,
   ModalDialogProvider,
-} from './core/providers/index.ts';
+} from '@/core/providers';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

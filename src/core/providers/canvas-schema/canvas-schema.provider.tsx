@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
@@ -22,33 +22,7 @@ import {
 } from './canvas-schema.business';
 import { useHistoryManager } from '@/common/undo-redo';
 import { mapSchemaToLatestVersion } from './canvas-schema.mapper';
-
-function useStateWithInterceptor<S>(
-  initialState: S | (() => S),
-  schemaInterceptorFn: (schema: S) => void
-): [S, Dispatch<SetStateAction<S>>, Dispatch<SetStateAction<S>>] {
-  const [canvasSchema, setInternalCanvasSchema] =
-    React.useState<S>(initialState);
-
-  const setSchema = (newSchema: React.SetStateAction<S>): void => {
-    // If newSchema is a function, use it to calculate the new state based on the current state
-    // Otherwise, use newSchema directly
-    const updatedSchema =
-      newSchema instanceof Function ? newSchema(canvasSchema) : newSchema;
-
-    schemaInterceptorFn(updatedSchema);
-
-    return setInternalCanvasSchema(newSchema);
-  };
-
-  const setSchemaSkipInterceptor = (
-    newSchema: React.SetStateAction<S>
-  ): void => {
-    return setInternalCanvasSchema(newSchema);
-  };
-
-  return [canvasSchema, setSchema, setSchemaSkipInterceptor];
-}
+import { useStateWithInterceptor } from './canvas-schema.hook';
 
 interface Props {
   children: React.ReactNode;

@@ -19,6 +19,7 @@ import {
   getMaxPositionYFromTables,
   getMaxPositionXFromTables,
   getSchemaScriptFromTableVmArray,
+  placeAllTablesWithoutOverlap,
 } from './export-button.business';
 import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
@@ -32,8 +33,13 @@ export const ExportButton = () => {
   const { canvasSize, zoomFactor } = canvasViewSettings;
   canvasSchema.tables;
 
+  const tablesWithoutOverlap = React.useMemo<TableVm[]>(
+    () => placeAllTablesWithoutOverlap(canvasSchema.tables),
+    [canvasSchema.tables]
+  );
+
   const tablesWithExpandedFields = React.useMemo<TableVm[]>(
-    () => expandAllFieldsInTables(canvasSchema.tables),
+    () => expandAllFieldsInTables(tablesWithoutOverlap),
     [canvasSchema.tables]
   );
 
@@ -119,7 +125,7 @@ export const ExportButton = () => {
       icon={<ExportIcon />}
       label="Export"
       onClick={handleExportClick}
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
       shortcutOptions={SHORTCUTS.export}
       disabled={canvasSchema.tables.length < 1}
     />

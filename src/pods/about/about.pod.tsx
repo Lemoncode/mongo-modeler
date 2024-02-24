@@ -17,7 +17,6 @@ export const AboutPod: React.FC = () => {
         alt="Mongo Modeler Logo"
       />
       <h2 className={classes.projectName}>Mongo Modeler</h2>
-
       <p className={classes.projectVersion}>Version 0.1</p>
       <p className={classes.projectCommunity}>Community preview</p>
 
