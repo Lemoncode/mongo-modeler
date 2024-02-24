@@ -13,7 +13,7 @@ import {
 } from '@/core/autosave';
 
 const useAutosave = () => {
-  const AUTOSAVE_INTERVAL = 6000;
+  const AUTOSAVE_INTERVAL = 60000;
   const AUTOSAVE_KEY = 'autoSaveFile';
   const AUTOSAVE_KEY_SELECTION_TABLE = 'Select the auto-saved schema';
 
