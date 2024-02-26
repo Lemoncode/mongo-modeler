@@ -9,7 +9,7 @@ export const useDraggable = (
   table: TableVm,
   id: string
 ): [(nodeEle: SVGGElement) => void] => {
-  const [node, setNode] = React.useState<SVGGElement>(null);
+  const [node, setNode] = React.useState<SVGGElement | null>(null);
   const [{ dx, dy }, setOffset] = React.useState({
     dx: table.x,
     dy: table.y,
@@ -88,12 +88,6 @@ export const useDraggable = (
     },
     [dx, dy]
   );
-
-  React.useEffect(() => {
-    if (node) {
-      node.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
-    }
-  }, [node, dx, dy]);
 
   React.useEffect(() => {
     if (node) {
