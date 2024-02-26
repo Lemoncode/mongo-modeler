@@ -1,8 +1,7 @@
 // Importaciones necesarias
 import React from 'react';
-import { GUID, Size } from '@/core/model';
-import { TableVm, UpdatePositionFn } from '@/core/providers/canvas-schema';
-import { useDraggable } from './table-drag.hook';
+import { GUID } from '@/core/model';
+import { TableVm } from '@/core/providers/canvas-schema';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import {
   DatabaseTableHeader,
@@ -10,16 +9,13 @@ import {
   DatabaseTableBody,
 } from './components';
 import { renderRows } from './database-table-render-rows.helper';
-import classes from './database-table.module.css';
 
 // TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
 interface Props {
   tableInfo: TableVm;
-  updatePosition: UpdatePositionFn;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
   onEditTable: (tableInfo: TableVm) => void;
-  canvasSize: Size;
   isSelected: boolean;
   selectTable: (tableId: GUID) => void;
 }
@@ -27,9 +23,7 @@ interface Props {
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
   onEditTable,
-  updatePosition,
   onToggleCollapse,
-  canvasSize,
   isSelected,
   selectTable,
 }) => {
@@ -54,15 +48,6 @@ export const DatabaseTable: React.FC<Props> = ({
     return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Adjust for the last padding
   }, [tableInfo.fields]);
 
-  const { onMouseDown } = useDraggable(
-    tableInfo.id,
-    tableInfo.x,
-    tableInfo.y,
-    updatePosition,
-    totalHeight,
-    canvasSize
-  );
-
   const handleSelectTable = () => {
     if (!isSelected) {
       selectTable(tableInfo.id);
@@ -74,11 +59,14 @@ export const DatabaseTable: React.FC<Props> = ({
   };
 
   return (
-    <g
-      transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
-      onMouseDown={onMouseDown}
-      className={classes.tableContainer}
-    >
+    // <g
+    //   transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
+    //   // onMouseDown={onMouseDown}
+    //   // onTouchStart={onTouchStart}
+    //   className={classes.tableContainer}
+    //   ref={ref}
+    // >
+    <>
       <DatabaseTableBorder totalHeight={totalHeight} isSelected={isSelected} />
       <DatabaseTableHeader
         onEditTable={handleDoubleClick}
@@ -87,6 +75,7 @@ export const DatabaseTable: React.FC<Props> = ({
         tableName={tableInfo.tableName}
       />
       <DatabaseTableBody renderedRows={renderedRows} />
-    </g>
+    </>
+    // </g>
   );
 };

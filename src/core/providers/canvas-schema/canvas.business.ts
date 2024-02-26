@@ -69,6 +69,7 @@ export const putTableOnTop = (tableId: GUID, tables: TableVm[]): TableVm[] => {
   return result;
 };
 
+//The change here is made to prevent errors from occurring when moving elements.
 export const moveTableToTop = (
   schema: DatabaseSchemaVm,
   updateInfo: UpdateInfo,
@@ -77,7 +78,7 @@ export const moveTableToTop = (
   const updateSchema = calculateTablePosition(schema, updateInfo, canvasSize);
   return {
     ...updateSchema,
-    tables: putTableOnTop(updateInfo.id, updateSchema.tables),
+    tables: updateSchema.tables,
   };
 };
 export const calculateRelationXCoordinateOrigin = (
