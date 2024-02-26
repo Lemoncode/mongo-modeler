@@ -1,7 +1,7 @@
 // Importaciones necesarias
 import React from 'react';
-import { GUID } from '@/core/model';
-import { TableVm } from '@/core/providers/canvas-schema';
+import { GUID, Size } from '@/core/model';
+import { TableVm, UpdatePositionFn } from '@/core/providers/canvas-schema';
 import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import {
   DatabaseTableHeader,
@@ -9,6 +9,7 @@ import {
   DatabaseTableBody,
 } from './components';
 import { renderRows } from './database-table-render-rows.helper';
+import { useDraggable } from './table-drag.hook';
 
 // TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
@@ -18,6 +19,8 @@ interface Props {
   onEditTable: (tableInfo: TableVm) => void;
   isSelected: boolean;
   selectTable: (tableId: GUID) => void;
+  updateTablePosition: UpdatePositionFn;
+  canvasSize: Size;
 }
 
 export const DatabaseTable: React.FC<Props> = ({
@@ -26,6 +29,8 @@ export const DatabaseTable: React.FC<Props> = ({
   onToggleCollapse,
   isSelected,
   selectTable,
+  updateTablePosition,
+  canvasSize,
 }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
 
@@ -58,24 +63,35 @@ export const DatabaseTable: React.FC<Props> = ({
     onEditTable(tableInfo);
   };
 
+  const [ref] = useDraggable(
+    updateTablePosition,
+    canvasSize,
+    totalHeight,
+    tableInfo,
+    tableInfo.id
+  );
+
   return (
-    // <g
-    //   transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
-    //   // onMouseDown={onMouseDown}
-    //   // onTouchStart={onTouchStart}
-    //   className={classes.tableContainer}
-    //   ref={ref}
-    // >
-    <>
-      <DatabaseTableBorder totalHeight={totalHeight} isSelected={isSelected} />
-      <DatabaseTableHeader
-        onEditTable={handleDoubleClick}
-        onSelectTable={handleSelectTable}
-        isSelected={isSelected}
-        tableName={tableInfo.tableName}
-      />
-      <DatabaseTableBody renderedRows={renderedRows} />
-    </>
-    // </g>
+    <g
+      transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
+      // onMouseDown={onMouseDown}
+      // onTouchStart={onTouchStart}
+      // className={classes.tableContainer}
+      ref={ref}
+    >
+      <>
+        <DatabaseTableBorder
+          totalHeight={totalHeight}
+          isSelected={isSelected}
+        />
+        <DatabaseTableHeader
+          onEditTable={handleDoubleClick}
+          onSelectTable={handleSelectTable}
+          isSelected={isSelected}
+          tableName={tableInfo.tableName}
+        />
+        <DatabaseTableBody renderedRows={renderedRows} />
+      </>
+    </g>
   );
 };

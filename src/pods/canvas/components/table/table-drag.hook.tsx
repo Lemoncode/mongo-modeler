@@ -1,21 +1,21 @@
 import { Size } from '@/core/model';
-import { TableVm } from '@/core/providers';
+import { TableVm, UpdatePositionFn } from '@/core/providers';
 import React from 'react';
 
 export const useDraggable = (
-  updateTablePosition: (tableInfo: any, isDragging: boolean) => void,
+  updateTablePosition: UpdatePositionFn,
   canvasSize: Size,
   totalHeight: number,
   table: TableVm,
   id: string
-): [(nodeEle: SVGGElement) => void] => {
-  const [node, setNode] = React.useState<SVGGElement | null>(null);
+) => {
+  const [node, setNode] = React.useState<SVGElement | null>(null);
   const [{ dx, dy }, setOffset] = React.useState({
     dx: table.x,
     dy: table.y,
   });
 
-  const ref = React.useCallback((nodeEle: SVGGElement): void => {
+  const ref = React.useCallback((nodeEle: SVGElement): void => {
     setNode(nodeEle);
   }, []);
 
@@ -101,6 +101,5 @@ export const useDraggable = (
       }
     };
   }, [node, dx, dy]);
-
   return [ref];
 };
