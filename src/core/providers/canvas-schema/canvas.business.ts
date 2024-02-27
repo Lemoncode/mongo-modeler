@@ -78,7 +78,7 @@ export const moveTableToTop = (
   const updateSchema = calculateTablePosition(schema, updateInfo, canvasSize);
   return {
     ...updateSchema,
-    tables: updateSchema.tables,
+    tables: putTableOnTop(updateInfo.id, updateSchema.tables),
   };
 };
 export const calculateRelationXCoordinateOrigin = (
