@@ -14,6 +14,11 @@ export const useDraggable = (
   const [startDragPosition, setStartDragPosition] = useState({ x: 0, y: 0 });
   const [finalInfoAfterDrag, setFinalInfoAfterDrag] =
     useState<UpdatePositionItemInfo | null>(null);
+  const [node, setNode] = React.useState<SVGElement | null>(null);
+
+  const ref = React.useCallback((nodeEle: SVGElement): void => {
+    setNode(nodeEle);
+  }, []);
 
   const startDrag = (x: number, y: number) => {
     setStartDragPosition({
@@ -32,6 +37,7 @@ export const useDraggable = (
 
   const onTouchStart = useCallback(
     (event: React.TouchEvent) => {
+      event.preventDefault();
       const touch = event.touches[0];
       startDrag(touch.clientX, touch.clientY);
     },
@@ -64,6 +70,7 @@ export const useDraggable = (
 
   const onTouchMove = useCallback(
     (event: TouchEvent) => {
+      event.preventDefault();
       const touch = event.touches[0];
       updateDrag(touch.clientX, touch.clientY);
     },
@@ -78,25 +85,26 @@ export const useDraggable = (
   }, [finalInfoAfterDrag, updatePosition]);
 
   React.useEffect(() => {
+    if (!node) return;
     if (isDragging) {
       window.addEventListener('mousemove', onMouseMove);
       window.addEventListener('mouseup', endDrag);
-      window.addEventListener('touchmove', onTouchMove);
-      window.addEventListener('touchend', endDrag);
+      node.addEventListener('touchmove', onTouchMove);
+      node.addEventListener('touchend', endDrag);
     } else {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseup', endDrag);
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', endDrag);
+      node.removeEventListener('touchmove', onTouchMove);
+      node.removeEventListener('touchend', endDrag);
     }
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseup', endDrag);
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', endDrag);
+      node.removeEventListener('touchmove', onTouchMove);
+      node.removeEventListener('touchend', endDrag);
     };
   }, [isDragging, onMouseMove, onTouchMove, endDrag]);
 
-  return { onMouseDown, onTouchStart };
+  return { onMouseDown, onTouchStart, ref };
 };

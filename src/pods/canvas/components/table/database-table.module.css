@@ -1,5 +1,6 @@
 .table-container {
   user-select: none;
+  touch-action: none;
 }
 .table-container svg path {
   fill: var(--text-dark);
