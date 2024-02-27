@@ -48,6 +48,11 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
       height={CANVAS_MAX_HEIGHT}
       onClick={clearSelection}
     >
+      <DatabaseRelationCollectionComponent
+        schema={canvasSchema}
+        onEditRelation={onEditRelation}
+        onSelectRelation={onSelectElement}
+      />
       <SelectedTableFilterHighlightComponent />
       {canvasSchema.tables.map(table => (
         <DatabaseTable
@@ -61,11 +66,6 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           selectTable={onSelectElement}
         />
       ))}
-      <DatabaseRelationCollectionComponent
-        schema={canvasSchema}
-        onEditRelation={onEditRelation}
-        onSelectRelation={onSelectElement}
-      />
     </svg>
   );
 };
