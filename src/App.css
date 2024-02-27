@@ -257,6 +257,18 @@ button:disabled:hover {
   color: var(--text-dark);
 }
 
+.button-secondary:disabled,
+.button-tertiary:disabled {
+  color: var(--text-disabled);
+  cursor: default;
+  background-color: var(--background-500);
+}
+
+.button-secondary:disabled:hover,
+.button-tertiary:disabled:hover {
+  background-color: var(--background-500);
+}
+
 .light .button-tertiary {
   background-color: var(--background-200);
 }
@@ -264,7 +276,16 @@ button:disabled:hover {
 .light .button-tertiary:hover {
   background-color: var(--background-300);
 }
+.light .button-secondary:disabled,
+.light .button-tertiary:disabled {
+  background-color: #efefef;
+  color: #929292;
+}
 
+.light .button-secondary:disabled:hover,
+.light .button-tertiary:disabled:hover {
+  background-color: #efefef;
+}
 .two-buttons {
   display: flex;
   align-items: baseline;
