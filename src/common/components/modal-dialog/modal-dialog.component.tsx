@@ -28,6 +28,7 @@ export const ModalDialog: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
+          tabIndex={0}
         >
           <motion.div
             className={styles.dialog}
@@ -36,6 +37,7 @@ export const ModalDialog: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.4 }}
+            tabIndex={-1}
           >
             <div className={styles.dialogHeader}>
               <h2 className={styles.dialogTitle}>{modalDialog.title}</h2>

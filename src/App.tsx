@@ -1,13 +1,24 @@
 import { MainScene } from '@/scenes';
-import { useThemeContext } from './core/providers';
+import {
+  CanvasSchemaProvider,
+  CanvasViewSettingsProvider,
+  ModalDialogProvider,
+  useThemeContext,
+} from './core/providers';
 
 function App() {
   const { theme } = useThemeContext();
 
   return (
-    <div className={theme.themeMode}>
-      <MainScene />
-    </div>
+    <CanvasViewSettingsProvider>
+      <CanvasSchemaProvider>
+        <ModalDialogProvider>
+          <div className={theme.themeMode}>
+            <MainScene />
+          </div>
+        </ModalDialogProvider>
+      </CanvasSchemaProvider>
+    </CanvasViewSettingsProvider>
   );
 }
 
