@@ -17,8 +17,8 @@ export const MainScene: React.FC = () => {
           <ModalDialogProvider>
             <ToolbarPod />
             <CanvasPod />
-            <ModalDialog />
             <FooterPod />
+            <ModalDialog />
           </ModalDialogProvider>
         </CanvasSchemaProvider>
       </CanvasViewSettingsProvider>

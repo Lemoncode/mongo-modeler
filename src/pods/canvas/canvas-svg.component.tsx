@@ -47,6 +47,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
       width={CANVAS_MAX_WIDTH}
       height={CANVAS_MAX_HEIGHT}
       onClick={clearSelection}
+      aria-hidden={true}
     >
       <SelectedTableFilterHighlightComponent />
       {canvasSchema.tables.map(table => (

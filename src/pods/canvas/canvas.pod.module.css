@@ -4,6 +4,9 @@
   height: 100%;
   overflow: scroll;
   position: relative;
+
+  /* TODO: remove this color when canvas-accessible is ready */
+  color: var(--text-color);
 }
 
 .container {
