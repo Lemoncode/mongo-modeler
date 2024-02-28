@@ -33,7 +33,8 @@ export const CanvasPod: React.FC = () => {
     deleteSelectedItem,
     loadSchema,
   } = useCanvasSchemaContext();
-  const { canvasViewSettings, setLoadSample } = useCanvasViewSettingsContext();
+  const { canvasViewSettings, setScrollPosition, setLoadSample } =
+    useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
@@ -79,15 +80,14 @@ export const CanvasPod: React.FC = () => {
 
   const containerRef = React.useRef<HTMLDivElement>(null);
 
-  // const handleScroll = () => {
-  //   if (containerRef.current) {
-  // setPosition comes from the useCanvasViewSettingsContext
-  //     setScrollPosition({
-  //       x: containerRef.current.scrollLeft,
-  //       y: containerRef.current.scrollTop,
-  //     });
-  //   }
-  // };
+  const handleScroll = () => {
+    if (containerRef.current) {
+      setScrollPosition({
+        x: containerRef.current.scrollLeft,
+        y: containerRef.current.scrollTop,
+      });
+    }
+  };
 
   const handleChangeRelation = (relation: RelationVm) => {
     updateFullRelation(relation);
@@ -145,7 +145,7 @@ export const CanvasPod: React.FC = () => {
     <div
       className={classes.container}
       ref={containerRef}
-      // onScroll={handleScroll}
+      onScroll={handleScroll}
     >
       {loadSample && (
         <div className={classes.load}>
