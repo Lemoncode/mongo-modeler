@@ -2,9 +2,18 @@ import React from 'react';
 import styles from './modal-dialog.styles.module.css';
 import { useModalDialogContext } from '@/core/providers/modal-dialog-provider';
 import { AnimatePresence, motion } from 'framer-motion';
+import {
+  handleEscapeKeyDown,
+  handleFocus,
+  handleNextFocus,
+  handleTabsInsideDialog,
+} from './modal.dialog.bussines';
 
 export const ModalDialog: React.FC = () => {
   const { closeModal, modalDialog } = useModalDialogContext();
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const previousFocusedElement = React.useRef<Element | null>(null);
+
   const handleClick = () => {
     closeModal();
   };
@@ -12,9 +21,25 @@ export const ModalDialog: React.FC = () => {
   React.useEffect(() => {
     if (modalDialog.isOpen) {
       document.body.classList.add('overflow-hidden');
+      document.addEventListener('keydown', e =>
+        handleEscapeKeyDown(e, closeModal)
+      );
+      document.addEventListener('keydown', e =>
+        handleTabsInsideDialog(e, containerRef)
+      );
+      handleFocus(previousFocusedElement, containerRef);
+    } else {
+      handleNextFocus(previousFocusedElement);
     }
+
     return () => {
       document.body.classList.remove('overflow-hidden');
+      document.removeEventListener('keydown', e =>
+        handleEscapeKeyDown(e, closeModal)
+      );
+      document.removeEventListener('keydown', e =>
+        handleTabsInsideDialog(e, containerRef)
+      );
     };
   }, [modalDialog.isOpen]);
 
@@ -28,7 +53,6 @@ export const ModalDialog: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          tabIndex={0}
         >
           <motion.div
             className={styles.dialog}
@@ -37,11 +61,19 @@ export const ModalDialog: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.4 }}
+            ref={containerRef}
             tabIndex={-1}
+            aria-labelledby="modal-modal-title"
           >
             <div className={styles.dialogHeader}>
-              <h2 className={styles.dialogTitle}>{modalDialog.title}</h2>
-              <button className={styles.dialogButton} onClick={handleClick}>
+              <h2 className={styles.dialogTitle} id="modal-modal-title">
+                {modalDialog.title}
+              </h2>
+              <button
+                className={styles.dialogButton}
+                onClick={handleClick}
+                aria-label="close modal dialog"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1em"
