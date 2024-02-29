@@ -4,6 +4,7 @@
   height: 100%;
   overflow: scroll;
   position: relative;
+  overscroll-behavior: contain;
 }
 
 .container {
