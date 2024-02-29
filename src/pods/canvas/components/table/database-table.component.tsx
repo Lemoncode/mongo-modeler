@@ -22,6 +22,7 @@ interface Props {
   canvasSize: Size;
   isSelected: boolean;
   selectTable: (tableId: GUID) => void;
+  isDevice: boolean;
 }
 
 export const DatabaseTable: React.FC<Props> = ({
@@ -32,6 +33,7 @@ export const DatabaseTable: React.FC<Props> = ({
   canvasSize,
   isSelected,
   selectTable,
+  isDevice,
 }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
 
@@ -85,6 +87,7 @@ export const DatabaseTable: React.FC<Props> = ({
         onSelectTable={handleSelectTable}
         isSelected={isSelected}
         tableName={tableInfo.tableName}
+        isDevice={isDevice}
       />
       <DatabaseTableBody renderedRows={renderedRows} />
     </g>
