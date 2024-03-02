@@ -8,16 +8,16 @@ interface Props {
 
 export const DeviceProvider: React.FC<Props> = props => {
   const { children } = props;
-  const [device, setDevice] = React.useState<DeviceModel>(
+  const [deviceInfo, setDeviceInfo] = React.useState<DeviceModel>(
     createInitialDevice()
   );
 
   React.useEffect(() => {
     const mediaQuery = window.matchMedia('(max-device-width: 1090px)');
-    setDevice({ isDevice: mediaQuery.matches });
+    setDeviceInfo({ isTabletOrMobileDevice: mediaQuery.matches });
 
     const handleResize = () => {
-      setDevice({ isDevice: mediaQuery.matches });
+      setDeviceInfo({ isTabletOrMobileDevice: mediaQuery.matches });
     };
 
     mediaQuery.addEventListener('change', handleResize);
@@ -28,7 +28,9 @@ export const DeviceProvider: React.FC<Props> = props => {
   }, []);
 
   return (
-    <DeviceContext.Provider value={device}>{children}</DeviceContext.Provider>
+    <DeviceContext.Provider value={deviceInfo}>
+      {children}
+    </DeviceContext.Provider>
   );
 };
 

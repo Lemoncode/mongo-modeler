@@ -1,9 +1,11 @@
 export interface DeviceModel {
-  isDevice: boolean;
+  isTabletOrMobileDevice: boolean;
 }
 
-export const createInitialDevice = (): DeviceModel => ({ isDevice: false });
+export const createInitialDevice = (): DeviceModel => ({
+  isTabletOrMobileDevice: false,
+});
 
 export interface DeviceContextModel {
-  isDevice: boolean;
+  isTabletOrMobileDevice: boolean;
 }

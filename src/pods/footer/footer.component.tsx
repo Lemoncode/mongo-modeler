@@ -12,7 +12,7 @@ const NEW_DOCUMENT_NAME = 'New Document';
 export const FooterComponent: React.FC = () => {
   const { filename } = useCanvasViewSettingsContext();
   const { theme, toggleTheme } = useThemeContext();
-  const { isDevice } = useDeviceContext();
+  const { isTabletOrMobileDevice: isDevice } = useDeviceContext();
 
   const documentNameMobile = () =>
     filename ? `${filename} - Read Only` : `Read Only`;

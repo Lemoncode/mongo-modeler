@@ -38,7 +38,7 @@ export const CanvasPod: React.FC = () => {
     useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
 
-  const { isDevice } = useDeviceContext();
+  const { isTabletOrMobileDevice: isDevice } = useDeviceContext();
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
   // From now onwards use the examples under db-examples folder
