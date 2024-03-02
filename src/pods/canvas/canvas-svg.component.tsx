@@ -18,7 +18,7 @@ interface Props {
   onEditTable: (tableInfo: TableVm) => void;
   onEditRelation: (relationId: GUID) => void;
   onSelectElement: (relationId: GUID | null) => void;
-  isDevice: boolean;
+  isTabletOrMobileDevice: boolean;
 }
 
 const CANVAS_MAX_WIDTH = 20000;
@@ -34,7 +34,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     onEditTable,
     onEditRelation,
     onSelectElement,
-    isDevice,
+    isTabletOrMobileDevice,
   } = props;
 
   const clearSelection = () => {
@@ -61,7 +61,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           canvasSize={canvasSize}
           isSelected={canvasSchema.selectedElementId === table.id}
           selectTable={onSelectElement}
-          isDevice={isDevice}
+          isTabletOrMobileDevice={isTabletOrMobileDevice}
         />
       ))}
       <DatabaseRelationCollectionComponent

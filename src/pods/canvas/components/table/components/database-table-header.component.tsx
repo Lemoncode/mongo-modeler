@@ -15,11 +15,17 @@ interface Props {
   isSelected: boolean;
   tableName: string;
   onSelectTable: () => void;
-  isDevice: boolean;
+  isTabletOrMobileDevice: boolean;
 }
 
 export const DatabaseTableHeader: React.FC<Props> = props => {
-  const { onEditTable, isSelected, tableName, onSelectTable, isDevice } = props;
+  const {
+    onEditTable,
+    isSelected,
+    tableName,
+    onSelectTable,
+    isTabletOrMobileDevice,
+  } = props;
 
   const handlePencilIconClick = (
     e: React.MouseEvent<SVGGElement, MouseEvent>
@@ -65,7 +71,7 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
         height={TABLE_CONST.FONT_SIZE}
         textClass={classes.tableText}
       />
-      {isSelected && !isDevice && (
+      {isSelected && !isTabletOrMobileDevice && (
         <g
           transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
           onClick={handlePencilIconClick}

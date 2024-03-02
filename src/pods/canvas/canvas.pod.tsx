@@ -38,7 +38,7 @@ export const CanvasPod: React.FC = () => {
     useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
 
-  const { isTabletOrMobileDevice: isDevice } = useDeviceContext();
+  const { isTabletOrMobileDevice } = useDeviceContext();
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
   // From now onwards use the examples under db-examples folder
@@ -70,7 +70,7 @@ export const CanvasPod: React.FC = () => {
   };
 
   const handleEditTable = (tableInfo: TableVm) => {
-    if (isDevice) return;
+    if (isTabletOrMobileDevice) return;
     openModal(
       <EditTablePod
         table={tableInfo}
@@ -102,7 +102,7 @@ export const CanvasPod: React.FC = () => {
   };
 
   const handleEditRelation = (relationId: GUID) => {
-    if (isDevice) return;
+    if (isTabletOrMobileDevice) return;
     openModal(
       <EditRelationPod
         onChangeRelation={handleChangeRelation}
@@ -174,7 +174,7 @@ export const CanvasPod: React.FC = () => {
         onEditTable={handleEditTable}
         onEditRelation={handleEditRelation}
         onSelectElement={onSelectElement}
-        isDevice={isDevice}
+        isTabletOrMobileDevice={isTabletOrMobileDevice}
       />
     </div>
   );
