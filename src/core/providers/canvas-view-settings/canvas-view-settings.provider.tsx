@@ -9,27 +9,39 @@ import { Coords, Size } from '@/core/model';
 interface Props {
   children: React.ReactNode;
 }
+const DEFAULT_ZOOM_FACTOR_DESKTOP = 8.5;
+const DEFAULT_ZOOM_FACTOR_MOBILE = 14;
 
 export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   const { children } = props;
   const [canvasViewSettings, setCanvasViewSettings] =
-    React.useState<CanvasViewSettingsModel>(createInitialSettings());
+    React.useState<CanvasViewSettingsModel>(
+      createInitialSettings(DEFAULT_ZOOM_FACTOR_DESKTOP)
+    );
   const [scrollPosition, setScrollPosition] = React.useState<Coords>({
     x: 0,
     y: 0,
   });
 
-  const zoomIn = () =>
+  React.useEffect(() => {
+    if (window.innerWidth < 600) {
+      setCanvasViewSettings(createInitialSettings(DEFAULT_ZOOM_FACTOR_MOBILE));
+    }
+  }, []);
+
+  const zoomIn = () => {
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
       zoomFactor: canvasViewSettings.zoomFactor * 0.9,
     }));
+  };
 
-  const zoomOut = () =>
+  const zoomOut = () => {
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
       zoomFactor: canvasViewSettings.zoomFactor * 1.1,
     }));
+  };
 
   const setCanvasSize = (canvasSize: Size) => {
     setCanvasViewSettings(canvasViewSettings => ({
