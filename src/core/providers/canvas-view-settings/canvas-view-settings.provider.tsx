@@ -29,19 +29,17 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     }
   }, []);
 
-  const zoomIn = () => {
+  const zoomIn = () =>
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
       zoomFactor: canvasViewSettings.zoomFactor * 0.9,
     }));
-  };
 
-  const zoomOut = () => {
+  const zoomOut = () =>
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
       zoomFactor: canvasViewSettings.zoomFactor * 1.1,
     }));
-  };
 
   const setCanvasSize = (canvasSize: Size) => {
     setCanvasViewSettings(canvasViewSettings => ({
