@@ -41,6 +41,7 @@ export const createDefaultTable = (): TableVm => ({
       FK: false,
       name: '_id',
       type: 'objectId',
+      isNN: true,
     },
   ],
   x: 0,
