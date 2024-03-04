@@ -13,10 +13,11 @@
   font-weight: var(--fw-extrabold);
   line-height: 1.3;
 }
+
 .project-version {
   margin: 0;
   font-size: var(--fs-l);
-  font-weight: var(--fw-semibold);
+  font-weight: var(--fw-medium);
 }
 
 .project-community {
@@ -27,16 +28,31 @@
 
 .team {
   font-size: var(--fs-l);
-  font-weight: var(--fw-semibold);
+  font-weight: var(--fw-medium);
   color: var(--color-team);
   text-align: left;
   margin: 0;
   margin-bottom: var(--space-lg);
 }
+
 .team-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   align-items: start;
   justify-items: center;
   gap: var(--space-lg);
+}
+
+@media screen and (max-device-width: 780px) {
+  .project-name {
+    font-size: 32px;
+  }
+
+  .project-community {
+    font-weight: var(--fw-medium);
+  }
+
+  .team-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
 }
