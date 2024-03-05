@@ -40,7 +40,7 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     x: 0,
     y: 0,
   });
-  console.log(canvasViewSettings.zoomFactor);
+
   const zoomIn = () =>
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
