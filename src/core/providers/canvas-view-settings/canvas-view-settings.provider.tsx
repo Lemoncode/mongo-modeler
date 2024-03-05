@@ -9,26 +9,38 @@ import { Coords, Size } from '@/core/model';
 interface Props {
   children: React.ReactNode;
 }
-const DEFAULT_ZOOM_FACTOR_DESKTOP = 8.5;
-const DEFAULT_ZOOM_FACTOR_MOBILE = 14;
+
+const DEFAULT_MOBILE_ZOOM_FACTOR = 14;
+const DEFAULT_TABLET_ZOOM_FACTOR = 12;
+const DEFAULT_DESKTOP_ZOOM_FACTOR = 8.5;
+
+const mediaQueries: { [key: string]: MediaQueryList } = {
+  mobileMq: window.matchMedia('(max-device-width: 767px)'),
+  tabletMq: window.matchMedia(
+    '(min-device-width: 768px) and (max-width:1023px)'
+  ),
+  desktopMq: window.matchMedia('(min-device-width: 1024px)'),
+};
+const isMobile = mediaQueries.mobileMq.matches;
+const isTablet = mediaQueries.tabletMq.matches;
+
+const DEFAULT_ZOOM_FACTOR = isMobile
+  ? DEFAULT_MOBILE_ZOOM_FACTOR
+  : isTablet
+    ? DEFAULT_TABLET_ZOOM_FACTOR
+    : DEFAULT_DESKTOP_ZOOM_FACTOR;
 
 export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   const { children } = props;
   const [canvasViewSettings, setCanvasViewSettings] =
     React.useState<CanvasViewSettingsModel>(
-      createInitialSettings(DEFAULT_ZOOM_FACTOR_DESKTOP)
+      createInitialSettings(DEFAULT_ZOOM_FACTOR)
     );
   const [scrollPosition, setScrollPosition] = React.useState<Coords>({
     x: 0,
     y: 0,
   });
-
-  React.useEffect(() => {
-    if (window.innerWidth < 600) {
-      setCanvasViewSettings(createInitialSettings(DEFAULT_ZOOM_FACTOR_MOBILE));
-    }
-  }, []);
-
+  console.log(canvasViewSettings.zoomFactor);
   const zoomIn = () =>
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
