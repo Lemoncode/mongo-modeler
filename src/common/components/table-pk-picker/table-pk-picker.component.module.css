@@ -41,6 +41,7 @@
 /* Active */
 .select-select:hover {
   --border-select-color: var(--input-border-color-active);
+  transform: translateY(-50%) scale(1.2);
   box-shadow: 0 0 4px var(--hover-checkbox);
   background-color: var(--hover-input);
 }
