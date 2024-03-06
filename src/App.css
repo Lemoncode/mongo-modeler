@@ -3,6 +3,7 @@
 *:before {
   box-sizing: border-box;
 }
+
 :root {
   --padding-table: 38px;
   --relation-color: #ecad5a;
@@ -11,11 +12,8 @@
   --space-cells: 9px;
   --color-error: rgb(247, 44, 44);
   --border-toolbar: 1.5px solid var(--primary-700);
-  /* todo */
-  --veil-modal: #0d0d1185;
 
   /* spacing */
-
   --space-unit: 4px;
   --space-xxs: calc(var(--space-unit) / 2);
   --space-xs: calc(var(--space-unit) * 2);
@@ -98,13 +96,58 @@
   --input-border-color-active: var(--primary-300);
   --input-radio-border-color: var(--primary-300);
 
+  /* Modal */
+  --background-dialog: var(--background-700);
+  --veil-modal: #0d0d1185;
+
+  /* Canvas */
+  --bg-canvas: var(--background-800);
+  --bg-toolbar: var(--background-400);
+  --bg-table: var(--background-700);
+  --header-table: var(--primary-300);
+
+  /* Input */
+  --bg-input: var(--background-500);
+  --bg-input-disabled: var(--background-600);
+  --hover-input: var(--background-500);
+
+  /* buttons */
+  --button-secondary: var(--secondary-400);
+  --hover-button-secondary: var(--secondary-600);
+  --hover-button: var(--primary-300);
+
+  /* border */
+  --primary-border-color: var(--primary-300);
+  --secondary-border-color: var(--background-300);
+  --shadow-filter: var(--primary-600);
+
+  /* checkbox */
+  --bg-checkbox: var(--background-500);
+  --border-checkbox: var(--background-400);
+  --hover-checkbox: var(--background-200);
+
   /*About*/
   --color-project: var(--primary-300);
   --color-team: var(--secondary-300);
+
+  /* Footer*/
+  --footer-background: var(--background-700);
+  --footer-text-color: var(--primary-300);
+
+  /*Main styles*/
+  font-family: Inter, system-ui, Helvetica, Arial, sans-serif;
+  font-size: var(--fs-m);
+  line-height: 1.5;
+  font-weight: var(--fw-regular);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
-#root {
-  margin: 0 auto;
+body {
+  margin: 0;
   text-align: center;
 }
 
@@ -113,11 +156,9 @@
   --text-color: #202020;
   --text-disabled: #aeaeae;
 
-  /* todo */
-  --veil-modal: #50505085;
-
   /* Modal */
   --background-dialog: #f6f7f9;
+  --veil-modal: #23232385;
 
   /* Canvas */
   --bg-canvas: #f9fafb;
@@ -158,37 +199,10 @@
   /*About*/
   --color-project: var(--primary-500);
   --color-team: var(--secondary-600);
-}
 
-.dark {
-  /* Modal */
-  --background-dialog: var(--background-700);
-
-  /* Canvas */
-  --bg-canvas: var(--background-800);
-  --bg-toolbar: var(--background-400);
-  --bg-table: var(--background-700);
-  --header-table: var(--primary-300);
-
-  /* Input */
-  --bg-input: var(--background-500);
-  --bg-input-disabled: var(--background-600);
-  --hover-input: var(--background-500);
-
-  /* buttons */
-  --button-secondary: var(--secondary-400);
-  --hover-button-secondary: var(--secondary-600);
-  --hover-button: var(--primary-300);
-
-  /* border */
-  --primary-border-color: var(--primary-300);
-  --secondary-border-color: var(--background-300);
-  --shadow-filter: var(--primary-600);
-
-  /* checkbox */
-  --bg-checkbox: var(--background-500);
-  --border-checkbox: var(--background-400);
-  --hover-checkbox: var(--background-200);
+  /* Footer*/
+  --footer-background: #f3f5f7;
+  --footer-text-color: var(--primary-700);
 }
 
 /* Buttons */
@@ -243,11 +257,35 @@ button:disabled:hover {
   background-color: var(--background-300);
   color: var(--text-dark);
 }
+
+.button-secondary:disabled,
+.button-tertiary:disabled {
+  color: var(--text-disabled);
+  cursor: default;
+  background-color: var(--background-500);
+}
+
+.button-secondary:disabled:hover,
+.button-tertiary:disabled:hover {
+  background-color: var(--background-500);
+}
+
 .light .button-tertiary {
   background-color: var(--background-200);
 }
+
 .light .button-tertiary:hover {
   background-color: var(--background-300);
+}
+.light .button-secondary:disabled,
+.light .button-tertiary:disabled {
+  background-color: #efefef;
+  color: #929292;
+}
+
+.light .button-secondary:disabled:hover,
+.light .button-tertiary:disabled:hover {
+  background-color: #efefef;
 }
 .two-buttons {
   display: flex;
@@ -295,6 +333,7 @@ input[type='checkbox'] {
   height: var(--checkbox-size);
   cursor: pointer;
 }
+
 .light input[type='checkbox'] {
   color-scheme: light;
 }
@@ -303,104 +342,15 @@ input[type='checkbox'] {
   color-scheme: dark;
 }
 
-.checkbox {
-  position: relative;
-}
-.checkbox input {
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  left: 0;
+.mobile-only {
+  display: none;
 }
 
-.checkbox input:checked + label svg path {
-  stroke-dashoffset: 0;
-}
-
-.checkbox input + label {
-  display: block;
-  border: 1px solid var(--input-border-color);
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  border-radius: 6px;
-  cursor: pointer;
-  background-color: var(--bg-input);
-  transition: all 0.2s ease;
-}
-.checkbox input:focus + label {
-  border: 1px solid var(--input-border-color-active);
-}
-
-.checkbox input:hover + label {
-  border: 1px solid var(--hover-checkbox);
-  box-shadow: 0 0 4px var(--hover-checkbox);
-}
-.checkbox input + label:active {
-  border: 1px solid var(--border-checkbox);
-}
-
-.checkbox input + label svg {
-  pointer-events: none;
-  padding: 10%;
-}
-
-.checkbox input + label svg path {
-  fill: none;
-  stroke: var(--primary-500);
-  stroke-width: 5px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 101;
-  transition: all 250ms cubic-bezier(1, 0, 0.37, 0.91);
-  pointer-events: none;
-}
-
-.dialog-component {
-  padding: var(--space-xxl);
-  --text-disabled: #828282;
-}
-
-.light .dialog-component {
-  --text-disabled: #f3eded;
-}
-
-/*load-button*/
-.load-button {
-  background-color: transparent;
-  font-size: var(--fs-xl);
-  position: relative;
-  padding: 0;
-  color: var(--background-400);
-}
-
-.load-button::before {
-  content: '';
-  position: absolute;
-  bottom: -2.7px;
-  left: 0;
-  width: 100%;
-  background-color: var(--background-400);
-  height: 1.5px;
-}
-.load-button:hover {
-  background-color: transparent;
-  color: var(--primary-300);
-}
-
-.load-button:hover.load-button::before {
-  background-color: var(--primary-300);
-}
-
-.light .load-button {
-  color: var(--background-200);
-}
-.light .load-button::before {
-  background-color: var(--background-200);
-}
-.light .load-button:hover {
-  color: var(--primary-600);
-}
-.light .load-button:hover.load-button::before {
-  background-color: var(--primary-600);
+@media screen and (max-device-width: 1090px) {
+  .hide-mobile {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+  }
 }

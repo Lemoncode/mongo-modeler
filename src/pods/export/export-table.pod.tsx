@@ -2,9 +2,10 @@ import React from 'react';
 import { useModalDialogContext } from '@/core/providers';
 import classes from './export-table.module.css';
 import { ExportType } from '@/core/model';
+import { Checkbox } from '@/common/components';
 
 interface Props {
-  onExport: (exportType: ExportType) => void;
+  onExport: (exportType: ExportType, areAllFieldsExpanded: boolean) => void;
 }
 
 export const ExportTablePod: React.FC<Props> = props => {
@@ -12,15 +13,17 @@ export const ExportTablePod: React.FC<Props> = props => {
   const { closeModal } = useModalDialogContext();
   const [selectedExportType, setSelectedExportType] =
     React.useState<ExportType | null>(null);
-
+  const [areAllFieldsExpanded, setAreAllFieldsExpanded] =
+    React.useState<boolean>(true);
   const handleExportType = (exportType: ExportType) => {
-    setSelectedExportType(exportType ?? 'svg');
+    setSelectedExportType(exportType ?? ExportType.SVG);
   };
 
   const handleExportClick = () => {
-    onExport(selectedExportType ?? 'svg');
+    onExport(selectedExportType ?? ExportType.SVG, areAllFieldsExpanded);
     closeModal();
   };
+
   return (
     <>
       <div className={classes.inputContent}>
@@ -31,7 +34,7 @@ export const ExportTablePod: React.FC<Props> = props => {
             name="export type"
             id="radio2"
             aria-label="SVG"
-            onChange={() => handleExportType('svg')}
+            onChange={() => handleExportType(ExportType.SVG)}
           />
           <label htmlFor="radio2" className={classes.radioButtonLabel}>
             <span className={classes.radioButtonCustom}></span>SVG
@@ -44,7 +47,7 @@ export const ExportTablePod: React.FC<Props> = props => {
             name="export type"
             id="radio1"
             aria-label="PNG"
-            onChange={() => handleExportType('png')}
+            onChange={() => handleExportType(ExportType.PNG)}
           />
           <label htmlFor="radio1" className={classes.radioButtonLabel}>
             <span className={classes.radioButtonCustom}></span>PNG
@@ -57,14 +60,28 @@ export const ExportTablePod: React.FC<Props> = props => {
             name="export type"
             id="radio3"
             aria-label="Mongo Schema"
-            onChange={() => handleExportType('mongo')}
+            onChange={() => handleExportType(ExportType.SCHEMA)}
           />
           <label htmlFor="radio3" className={classes.radioButtonLabel}>
             <span className={classes.radioButtonCustom}></span>Mongo Schema
           </label>
         </div>
       </div>
-      <button className="button-secondary" onClick={handleExportClick}>
+      <div className={classes.checkboxExport}>
+        <Checkbox
+          id="checkboxExportFile"
+          onChange={() => setAreAllFieldsExpanded(!areAllFieldsExpanded)}
+          checked={areAllFieldsExpanded}
+        />
+        <label htmlFor="checkboxExportFile">
+          <span>Expand all fields (svg & png export)</span>
+        </label>
+      </div>
+      <button
+        className="button-secondary"
+        onClick={handleExportClick}
+        disabled={!selectedExportType}
+      >
         Export
       </button>
     </>

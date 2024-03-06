@@ -1,6 +1,31 @@
 .container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 'toolbar toolbar' 'canvas canvas' 'document document';
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
+}
+
+@media screen and (max-width: 1090px) {
+  .container {
+    width: 1090px;
+  }
+}
+
+@media screen and (max-device-width: 1090px) {
+  .container {
+    width: 100vw;
+    grid-template-areas: 'document' 'canvas' 'toolbar';
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+}
+
+@media screen and (max-device-width: 1090px) and (orientation: landscape) {
+  .container {
+    grid-template-areas: 'toolbar document' 'toolbar canvas';
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+  }
 }

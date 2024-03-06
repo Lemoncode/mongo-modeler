@@ -3,7 +3,12 @@ import classes from '../edit-table.module.css';
 
 import { Reorder, motion, useDragControls } from 'framer-motion';
 import { Commands } from './commands/commands.component';
-import { RightArrowIcon, ExpandDown, DragDropIcon } from '@/common/components';
+import {
+  RightArrowIcon,
+  ExpandDown,
+  DragDropIcon,
+  Checkbox,
+} from '@/common/components';
 import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
 import { NestedFieldGrid } from './nested-field-grid';
 import { FieldType, GUID } from '@/core/model';
@@ -20,11 +25,13 @@ interface Props {
     id: K,
     value: FieldVm[K]
   ) => void;
+  nameInputRefRecord: React.RefObject<Record<string, HTMLInputElement | null>>;
   onDeleteField: (fieldId: GUID) => void;
-  onAddField: (fieldId: GUID, isChildren: boolean) => void;
+  onAddField: (fieldId: GUID, isChildren: boolean, newFieldId: GUID) => void;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
   onDragField: (fields: FieldVm[], id?: GUID) => void;
+  isDeleteVisible: boolean;
 }
 
 export const Field: React.FC<Props> = props => {
@@ -41,6 +48,8 @@ export const Field: React.FC<Props> = props => {
     onMoveUpField,
     toggleExpand,
     updateFieldValue,
+    nameInputRefRecord,
+    isDeleteVisible,
   } = props;
   const variantsItem = {
     left: {
@@ -56,11 +65,15 @@ export const Field: React.FC<Props> = props => {
     },
   };
   const dragControls = useDragControls();
-  const handleAddField = (fieldId: GUID, isChildren: boolean) => {
+  const handleAddField = (
+    fieldId: GUID,
+    isChildren: boolean,
+    newFieldId: GUID
+  ) => {
     if (isChildren) {
       expandField(fieldId);
     }
-    onAddField(fieldId, isChildren);
+    onAddField(fieldId, isChildren, newFieldId);
   };
 
   const handlerPointerDown = (
@@ -72,6 +85,12 @@ export const Field: React.FC<Props> = props => {
       toggleExpand(field.id);
     }
     e.currentTarget.style.cursor = 'grabbing';
+  };
+
+  const assignRef = (el: HTMLInputElement | null, id: string) => {
+    if (el && nameInputRefRecord?.current) {
+      nameInputRefRecord.current[id] = el;
+    }
   };
 
   return (
@@ -115,39 +134,26 @@ export const Field: React.FC<Props> = props => {
                 onChange={e => {
                   updateFieldValue(field, 'name', e.target.value);
                 }}
+                ref={el => assignRef(el, field.id)}
               />
             </div>
           </div>
         </div>
         <div className={classes.fieldCell}>
-          <div className="checkbox">
-            <input
-              type="checkbox"
-              id="check1"
-              checked={field.PK}
-              onChange={() => updateFieldValue(field, 'PK', !field.PK)}
-            />
-            <label htmlFor="check1">
-              <svg viewBox="0,0,50,50">
-                <path d="M5 30 L 20 45 L 45 5"></path>
-              </svg>
-            </label>
-          </div>
+          <Checkbox
+            id="check1"
+            checked={field.PK}
+            onChange={() => updateFieldValue(field, 'PK', !field.PK)}
+            ariaLabelledby="Is PK"
+          ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
-          <div className="checkbox">
-            <input
-              type="checkbox"
-              id="check2"
-              checked={field.FK}
-              onChange={() => updateFieldValue(field, 'FK', !field.FK)}
-            />
-            <label htmlFor="check2">
-              <svg viewBox="0,0,50,50">
-                <path d="M5 30 L 20 45 L 45 5"></path>
-              </svg>
-            </label>
-          </div>
+          <Checkbox
+            id="check2"
+            checked={field.FK}
+            onChange={() => updateFieldValue(field, 'FK', !field.FK)}
+            ariaLabelledby="Is FK"
+          ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
           <select
@@ -164,21 +170,20 @@ export const Field: React.FC<Props> = props => {
           </select>
         </div>
         <div className={classes.fieldCell}>
-          <div className="checkbox">
-            <input
-              id="check3"
-              type="checkbox"
-              checked={field.isArray}
-              onChange={() =>
-                updateFieldValue(field, 'isArray', !field.isArray)
-              }
-            />
-            <label htmlFor="check3">
-              <svg viewBox="0,0,50,50">
-                <path d="M5 30 L 20 45 L 45 5"></path>
-              </svg>
-            </label>
-          </div>
+          <Checkbox
+            id="check3"
+            checked={field.isArray || false}
+            onChange={() => updateFieldValue(field, 'isArray', !field.isArray)}
+            ariaLabelledby="Is an Array"
+          ></Checkbox>
+        </div>
+        <div className={classes.fieldCell}>
+          <Checkbox
+            id="check4"
+            checked={field.isNN || false}
+            onChange={() => updateFieldValue(field, 'isNN', !field.isNN)}
+            ariaLabelledby="Is a NN"
+          ></Checkbox>
         </div>
         <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
           <Commands
@@ -188,6 +193,7 @@ export const Field: React.FC<Props> = props => {
             onAddField={handleAddField}
             onMoveDownField={onMoveDownField}
             onMoveUpField={onMoveUpField}
+            isDeleteVisible={isDeleteVisible}
           />
         </div>
       </Reorder.Item>
@@ -205,6 +211,8 @@ export const Field: React.FC<Props> = props => {
           onMoveDownField={onMoveDownField}
           onMoveUpField={onMoveUpField}
           onDragField={onDragField}
+          nameInputRefRecord={nameInputRefRecord}
+          isDeleteVisible={isDeleteVisible}
         />
       )}
     </React.Fragment>

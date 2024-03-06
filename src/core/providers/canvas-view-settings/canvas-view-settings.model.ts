@@ -8,9 +8,13 @@ export interface CanvasViewSettingsModel {
   loadSample: boolean;
 }
 
-export const createInitialSettings = () => ({
-  canvasSize: { width: 2400, height: 2400 },
-  zoomFactor: 1,
+// This canvas size is used to calc table sizes, etc...
+// on the Canvas itself we will use a huge canvas in order to avoid having issues when zooming (Canvas_Max_Width and height...)
+const CANVAS_SIZE = { width: 2400, height: 2400 };
+
+export const createInitialSettings = (DEFAULT_ZOOM_FACTOR: number) => ({
+  canvasSize: CANVAS_SIZE,
+  zoomFactor: DEFAULT_ZOOM_FACTOR,
   scrollPosition: { x: 0, y: 0 },
   filename: '',
   loadSample: true,

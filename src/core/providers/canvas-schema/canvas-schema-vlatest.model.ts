@@ -16,6 +16,7 @@ export interface FieldVm {
   children?: FieldVm[];
   isCollapsed?: boolean;
   isArray?: boolean;
+  isNN?: boolean;
 }
 
 export type RelationType = '1:1' | '1:M' | 'M:1';

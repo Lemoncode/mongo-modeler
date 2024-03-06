@@ -9,6 +9,7 @@ import {
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
 import { ADD_COLLECTION_TITLE } from '@/common/components/modal-dialog';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -45,7 +46,8 @@ export const AddCollection = () => {
       icon={<TableIcon />}
       label="Add Collection"
       onClick={handleEditTableClick}
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
+      shortcutOptions={SHORTCUTS.addCollection}
     />
   );
 };

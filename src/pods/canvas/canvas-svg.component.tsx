@@ -7,6 +7,7 @@ import {
 } from '@/core/providers/canvas-schema';
 import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
+import { SelectedTableFilterHighlightComponent } from './components/table/components/selected-table-filter-highlight.component';
 
 interface Props {
   viewBoxSize: Size;
@@ -17,7 +18,11 @@ interface Props {
   onEditTable: (tableInfo: TableVm) => void;
   onEditRelation: (relationId: GUID) => void;
   onSelectElement: (relationId: GUID | null) => void;
+  isTabletOrMobileDevice: boolean;
 }
+
+const CANVAS_MAX_WIDTH = 20000;
+const CANVAS_MAX_HEIGHT = 20000;
 
 export const CanvasSvgComponent: React.FC<Props> = props => {
   const {
@@ -29,6 +34,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     onEditTable,
     onEditRelation,
     onSelectElement,
+    isTabletOrMobileDevice,
   } = props;
 
   const clearSelection = () => {
@@ -40,10 +46,16 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
       xmlns="http://www.w3.org/2000/svg"
       className={classes.containerSvg}
       viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
-      width={canvasSize.width}
-      height={canvasSize.height}
+      width={CANVAS_MAX_WIDTH}
+      height={CANVAS_MAX_HEIGHT}
       onClick={clearSelection}
     >
+      <DatabaseRelationCollectionComponent
+        schema={canvasSchema}
+        onEditRelation={onEditRelation}
+        onSelectRelation={onSelectElement}
+      />
+      <SelectedTableFilterHighlightComponent />
       {canvasSchema.tables.map(table => (
         <DatabaseTable
           key={table.id}
@@ -54,13 +66,9 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           canvasSize={canvasSize}
           isSelected={canvasSchema.selectedElementId === table.id}
           selectTable={onSelectElement}
+          isTabletOrMobileDevice={isTabletOrMobileDevice}
         />
       ))}
-      <DatabaseRelationCollectionComponent
-        schema={canvasSchema}
-        onEditRelation={onEditRelation}
-        onSelectRelation={onSelectElement}
-      />
     </svg>
   );
 };

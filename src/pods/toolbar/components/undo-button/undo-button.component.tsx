@@ -3,6 +3,7 @@ import { UndoIcon } from '@/common/components/icons';
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import { useCanvasSchemaContext } from '@/core/providers';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
+import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const UndoButton: React.FC = () => {
   const { doUndo } = useCanvasSchemaContext();
@@ -12,8 +13,9 @@ export const UndoButton: React.FC = () => {
       icon={<UndoIcon />}
       label={'Undo'}
       onClick={() => doUndo()}
-      className={classes.button}
+      className={`${classes.button} hide-mobile`}
       disabled={false}
+      shortcutOptions={SHORTCUTS.undo}
     />
   );
 };

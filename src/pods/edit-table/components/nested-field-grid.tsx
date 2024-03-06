@@ -19,10 +19,12 @@ interface NestedFieldGridProps {
     value: FieldVm[K]
   ) => void;
   onDeleteField: (fieldId: GUID) => void;
-  onAddField: (fieldId: GUID, isChildren: boolean) => void;
+  onAddField: (fieldId: GUID, isChildren: boolean, newFieldId: GUID) => void;
+  nameInputRefRecord: React.RefObject<Record<string, HTMLInputElement | null>>;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
   onDragField: (fields: FieldVm[], id?: GUID) => void;
+  isDeleteVisible: boolean;
 }
 
 export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
@@ -35,9 +37,11 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
   updateFieldValue,
   onDeleteField,
   onAddField,
+  nameInputRefRecord,
   onMoveDownField,
   onMoveUpField,
   onDragField,
+  isDeleteVisible,
 }) => {
   const variantsGroup = {
     open: { opacity: 1, height: 'auto' },
@@ -72,6 +76,8 @@ export const NestedFieldGrid: React.FC<NestedFieldGridProps> = ({
             onMoveUpField={onMoveUpField}
             toggleExpand={toggleExpand}
             updateFieldValue={updateFieldValue}
+            nameInputRefRecord={nameInputRefRecord}
+            isDeleteVisible={isDeleteVisible}
           />
         ))}
       </AnimatePresence>

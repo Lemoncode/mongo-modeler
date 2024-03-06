@@ -12,10 +12,11 @@ export interface FieldVm {
   children?: FieldVm[];
   isCollapsed?: boolean;
   isArray?: boolean;
+  isNN?: boolean;
 }
 
-export const createDefaultField = (): FieldVm => ({
-  id: GenerateGUID(),
+export const createDefaultField = (guid?: GUID): FieldVm => ({
+  id: guid ? guid : GenerateGUID(),
   PK: false,
   FK: false,
   name: 'newField',
@@ -32,7 +33,7 @@ export interface TableVm {
 
 export const createDefaultTable = (): TableVm => ({
   id: GenerateGUID(),
-  tableName: 'New Table',
+  tableName: 'New Collection',
   fields: [
     {
       id: GenerateGUID(),
@@ -40,6 +41,7 @@ export const createDefaultTable = (): TableVm => ({
       FK: false,
       name: '_id',
       type: 'objectId',
+      isNN: true,
     },
   ],
   x: 0,

@@ -7,6 +7,7 @@ import {
 import { ModalDialog } from '@/common/components';
 import { CanvasSchemaProvider } from '@/core/providers/canvas-schema';
 import classes from './main.scene.module.css';
+import { FooterPod } from '@/pods/footer';
 
 export const MainScene: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ export const MainScene: React.FC = () => {
             <ToolbarPod />
             <CanvasPod />
             <ModalDialog />
+            <FooterPod />
           </ModalDialogProvider>
         </CanvasSchemaProvider>
       </CanvasViewSettingsProvider>
