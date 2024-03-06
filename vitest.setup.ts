@@ -12,5 +12,5 @@ function createMatchMedia(width: number) {
   });
 }
 
-// Definir el mock en el objeto window global
+// Define the mock in the global Window object
 global.window.matchMedia = createMatchMedia(window.innerWidth);
