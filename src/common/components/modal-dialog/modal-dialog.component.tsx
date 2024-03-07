@@ -18,15 +18,17 @@ export const ModalDialog: React.FC = () => {
     closeModal();
   };
 
+  const handleEscapeKeyDownEvent = (e: KeyboardEvent) =>
+    handleEscapeKeyDown(e, closeModal);
+
+  const handleTabsInsideDialogEvent = (e: KeyboardEvent) =>
+    handleTabsInsideDialog(e, containerRef);
+
   React.useEffect(() => {
     if (modalDialog.isOpen) {
       document.body.classList.add('overflow-hidden');
-      document.addEventListener('keydown', e =>
-        handleEscapeKeyDown(e, closeModal)
-      );
-      document.addEventListener('keydown', e =>
-        handleTabsInsideDialog(e, containerRef)
-      );
+      document.addEventListener('keydown', handleEscapeKeyDownEvent);
+      document.addEventListener('keydown', handleTabsInsideDialogEvent);
       handleFocus(previousFocusedElement, containerRef);
     } else {
       handleNextFocus(previousFocusedElement);
@@ -34,12 +36,8 @@ export const ModalDialog: React.FC = () => {
 
     return () => {
       document.body.classList.remove('overflow-hidden');
-      document.removeEventListener('keydown', e =>
-        handleEscapeKeyDown(e, closeModal)
-      );
-      document.removeEventListener('keydown', e =>
-        handleTabsInsideDialog(e, containerRef)
-      );
+      document.removeEventListener('keydown', handleEscapeKeyDownEvent);
+      document.removeEventListener('keydown', handleTabsInsideDialogEvent);
     };
   }, [modalDialog.isOpen]);
 
