@@ -19,6 +19,7 @@ import {
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
+import { CanvasAccessible } from './components/canvas-accessible';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
@@ -176,6 +177,7 @@ export const CanvasPod: React.FC = () => {
         onSelectElement={onSelectElement}
         isTabletOrMobileDevice={isTabletOrMobileDevice}
       />
+      {!loadSample && <CanvasAccessible canvasSchema={canvasSchema} />}
     </div>
   );
 };
