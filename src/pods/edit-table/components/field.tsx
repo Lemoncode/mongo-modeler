@@ -152,6 +152,7 @@ export const Field: React.FC<Props> = props => {
             id="check2"
             checked={field.FK}
             onChange={() => updateFieldValue(field, 'FK', !field.FK)}
+            disabled={true}
             ariaLabelledby="Is FK"
           ></Checkbox>
         </div>
