@@ -1,8 +1,13 @@
 import React from 'react';
+import { TableVm } from '@/core/providers';
 
-export const CollectionAccessible: React.FC = () => {
+interface Props {
+  table: TableVm;
+}
+export const CollectionAccessible: React.FC<Props> = props => {
   //Todo: #388 Canvas Accessible-collection(https://github.com/Lemoncode/mongo-modeler/issues/388)
   //Todo: #389 Canvas Accessible-iterate over fields(https://github.com/Lemoncode/mongo-modeler/issues/389)
+  console.log(props.table);
 
   return (
     <>
