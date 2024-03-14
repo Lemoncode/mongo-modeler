@@ -5,16 +5,17 @@ import { TableVm } from '@/core/providers';
 interface Props {
   collectionList: TableVm[];
 }
+
 export const CollectionListAccessible: React.FC<Props> = props => {
   const { collectionList } = props;
-  // Todo: #379Canvas Accessible-Iterate over collections (https://github.com/Lemoncode/mongo-modeler/issues/379)
 
   return (
     <>
       <h2>Collections</h2>
-      {/* Delete the collectionList[0].id, this is just to avoid typescript errors */}
-      {collectionList[0].id}
-      <CollectionAccessible />
+
+      {collectionList.map(table => (
+        <CollectionAccessible table={table} />
+      ))}
 
       {/* Code bellow only is just an example. We need do it mapping the real data
       and with TableAccessible component. IMPORTANT: we don't need divs!*/}
