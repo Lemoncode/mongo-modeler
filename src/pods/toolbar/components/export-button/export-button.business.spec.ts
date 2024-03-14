@@ -9,6 +9,11 @@ import {
   getMaxPositionYFromTables,
   placeTableWithoutOverlap,
   placeAllTablesWithoutOverlap,
+  getPropertyJsonSchema,
+  getPropertiesJsonSchema,
+  getRequiredFields,
+  getSchemaScriptFromTableVm,
+  getSchemaScriptFromTableVmArray,
 } from './export-button.business';
 
 describe('export-button.business', () => {
@@ -1946,5 +1951,218 @@ describe('export-button.business', () => {
         }
       });
     });
+  });
+});
+
+describe('getPropertyJsonSchema', () => {
+  it('should generate json schema for non-array field', () => {
+    //Arrange
+    const field: FieldVm = {
+      id: '1',
+      PK: false,
+      name: 'fieldName',
+      type: 'string',
+    };
+
+    //Act
+    const result = getPropertyJsonSchema(field);
+
+    //Assert
+    expect(result).toBe('"fieldName": { bsonType: "string" }');
+  });
+
+  it('should generate json schema for array field', () => {
+    //Arrange
+    const field: FieldVm = {
+      id: 'some-id',
+      PK: false,
+      name: 'fieldName',
+      type: 'string',
+      isArray: true,
+    };
+
+    //Act
+    const result = getPropertyJsonSchema(field);
+
+    //Assert
+    expect(result).toBe(
+      '"fieldName": { bsonType: "array", items: { bsonType: "string" } }'
+    );
+  });
+
+  it('should generate JSON schema for a subdocument property', () => {
+    // Arrange
+    const field: FieldVm = {
+      id: 'subdocumentId',
+      PK: false,
+      name: 'subdocumentField',
+      type: 'object',
+      children: [
+        { id: 'childId1', PK: false, name: 'childField1', type: 'string' },
+        { id: 'childId2', PK: false, name: 'childField2', type: 'decimal' },
+      ],
+    };
+
+    // Act
+    const result = getPropertyJsonSchema(field);
+
+    // Assert
+    const expectedSchema = `"subdocumentField": { bsonType: "object", title: "subdocumentField", properties: { "childField1": { bsonType: "string" }, "childField2": { bsonType: "decimal" }, }, }`;
+    expect(result).toEqual(expectedSchema);
+  });
+});
+
+describe('getPropertiesJsonSchema', () => {
+  it('should generate json schema for multiple fields', () => {
+    //Arrange
+    const fields: FieldVm[] = [
+      {
+        id: 'id1',
+        PK: false,
+        name: 'field1',
+        type: 'string',
+      },
+      {
+        id: 'id2',
+        PK: false,
+        name: 'field2',
+        type: 'string',
+      },
+    ];
+
+    //Act
+    const result = getPropertiesJsonSchema(fields);
+
+    //Assert
+    expect(result).toEqual(
+      '"field1": { bsonType: "string" },\n        "field2": { bsonType: "string" }'
+    );
+  });
+});
+
+describe('getRequiredFields', () => {
+  it('should return an empty string when no fields have isNN set to true', () => {
+    //Arrange
+    const fields: FieldVm[] = [
+      { id: 'id1', PK: false, name: 'field1', type: 'string', isNN: true },
+      { id: 'id2', PK: false, name: 'field2', type: 'enum', isNN: false },
+    ];
+
+    //Act
+    const result = getRequiredFields(fields);
+
+    //Assert
+    expect(result).toBe('"field1"');
+  });
+});
+
+describe('getSchemaScriptFromTableVm', () => {
+  it('should generate schema script for a table with fields', () => {
+    //Arrange
+    const table: TableVm = {
+      id: 'tableId',
+      x: 10,
+      y: 20,
+      tableName: 'Table',
+      fields: [
+        { id: 'id1', PK: false, name: 'field1', type: 'string', isNN: true },
+        { id: 'id2', PK: false, name: 'field2', type: 'decimal', isNN: false },
+        { id: 'id3', PK: false, name: 'field3', type: 'bool', isNN: true },
+      ],
+    };
+    //Act
+    const result = getSchemaScriptFromTableVm(table);
+
+    //Assert
+    const expectedScript = `db.createCollection("Table", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "Table",
+      required: ["field1", "field3"],
+      properties: {
+        "field1": { bsonType: "string" },
+        "field2": { bsonType: "decimal" },
+        "field3": { bsonType: "bool" },
+      },
+    },
+  },
+});`;
+
+    expect(result).toEqual(expectedScript);
+  });
+});
+
+describe('getSchemaScriptFromTableVmArray', () => {
+  it('should generate schema scripts for an array of tables', () => {
+    //Arrange
+    const tables: TableVm[] = [
+      {
+        id: 'tableId2',
+        x: 30,
+        y: 40,
+        tableName: 'Table',
+        fields: [
+          { id: 'id3', PK: false, name: 'field3', type: 'bool', isNN: true },
+          {
+            id: 'id4',
+            PK: false,
+            name: 'field4',
+            type: 'decimal',
+            isNN: false,
+          },
+        ],
+      },
+      {
+        id: 'tableId3',
+        x: 10,
+        y: 20,
+        tableName: 'Table1',
+        fields: [
+          { id: 'id1', PK: false, name: 'field1', type: 'bool', isNN: true },
+          {
+            id: 'id2',
+            PK: false,
+            name: 'field2',
+            type: 'decimal',
+            isNN: false,
+          },
+        ],
+      },
+    ];
+
+    //Act
+    const result = getSchemaScriptFromTableVmArray(tables);
+
+    //Assert
+    const expectedScript = `db.createCollection("Table", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "Table",
+      required: ["field3"],
+      properties: {
+        "field3": { bsonType: "bool" },
+        "field4": { bsonType: "decimal" },
+      },
+    },
+  },
+});
+
+db.createCollection("Table1", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "Table1",
+      required: ["field1"],
+      properties: {
+        "field1": { bsonType: "bool" },
+        "field2": { bsonType: "decimal" },
+      },
+    },
+  },
+});`;
+
+    expect(result).toEqual(expectedScript);
   });
 });

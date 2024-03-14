@@ -104,7 +104,7 @@ export const expandAllFieldsInTables = (table: TableVm[]) =>
   }));
 
 // Export Schema functions
-const getPropertyJsonSchema = (field: FieldVm): string => {
+export const getPropertyJsonSchema = (field: FieldVm): string => {
   if (field.isArray) {
     return `"${field.name}": { bsonType: "array", items: { bsonType: "${field.type}" } }`;
   }
@@ -116,19 +116,19 @@ const getPropertyJsonSchema = (field: FieldVm): string => {
   return `"${field.name}": { bsonType: "${field.type}" }`;
 };
 
-const getPropertiesJsonSchema = (fields: FieldVm[], useTab = true): string => {
+export const getPropertiesJsonSchema = (fields: FieldVm[], useTab = true): string => {
   const separator = useTab ? ',\n        ' : ', ';
   return fields.map(getPropertyJsonSchema).join(separator);
 };
 
-const getRequiredFields = (fields: FieldVm[]): string => {
+export const getRequiredFields = (fields: FieldVm[]): string => {
   return fields
     .filter(field => field.isNN)
     .map(field => `"${field.name}"`)
     .join(', ');
 };
 
-const getSchemaScriptFromTableVm = (table: TableVm): string => {
+export const getSchemaScriptFromTableVm = (table: TableVm): string => {
   const properties = getPropertiesJsonSchema(table.fields);
   const schemaScript = `db.createCollection("${table.tableName}", {
   validator: {
