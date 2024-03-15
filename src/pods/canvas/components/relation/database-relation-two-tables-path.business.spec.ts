@@ -17,8 +17,8 @@ describe('database-relation-two-tables-path.business', () => {
 
       // Assert
       expect(result).toEqual(`
-M -220 50 
-H -240 
+M -280 50 
+H -300 
 V 100 
 H 50
 `);
@@ -39,8 +39,8 @@ H 50
 
       // Assert
       expect(result).toEqual(`
-M 370 50
-H 390
+M 430 50
+H 450
 V 100
 H 100
 `);
@@ -61,8 +61,8 @@ H 100
 
       // Assert
       expect(result).toEqual(`
-M -270 50 
-H -290 
+M -330 50 
+H -350 
 V 100 
 H 50
 `);
@@ -83,8 +83,8 @@ H 50
 
       // Assert
       expect(result).toEqual(`
-M -220 50 
-H -240 
+M -280 50 
+H -300 
 V 100 
 H 40
 `);
@@ -105,8 +105,8 @@ H 40
 
       // Assert
       expect(result).toEqual(`
-M 370 50
-H 390
+M 430 50
+H 450
 V 100
 H 110
 `);
@@ -127,8 +127,8 @@ H 110
 
       // Assert
       expect(result).toEqual(`
-M -270 50 
-H -290 
+M -330 50 
+H -350 
 V 100 
 H 40
 `);
@@ -149,8 +149,8 @@ H 40
 
       // Assert
       expect(result).toEqual(`
-M -230 50
-H -240
+M -290 50
+H -300
 V 100
 H 50
 `);
@@ -171,8 +171,8 @@ H 50
 
       // Assert
       expect(result).toEqual(`
-M 380 50
-H 390
+M 440 50
+H 450
 V 100
 H 100
 `);
@@ -245,7 +245,7 @@ H 100
       );
 
       // Assert
-      expect(result).toEqual({ x: -230, y: 50 });
+      expect(result).toEqual({ x: -290, y: 50 });
     });
 
     it('should return rightForkCoordsManyToOnePath when relationType is M:1 and startCoords.x < endCoords.x', () => {
@@ -262,7 +262,7 @@ H 100
       );
 
       // Assert
-      expect(result).toEqual({ x: 380, y: 50 });
+      expect(result).toEqual({ x: 440, y: 50 });
     });
 
     it('should return leftForkCoordsManyToOnePath when relationType is M:1 and startCoords.x equals endCoords.x', () => {
@@ -279,7 +279,7 @@ H 100
       );
 
       // Assert
-      expect(result).toEqual({ x: -280, y: 50 });
+      expect(result).toEqual({ x: -340, y: 50 });
     });
   });
 });

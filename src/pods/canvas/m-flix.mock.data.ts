@@ -176,7 +176,7 @@ export const mFlix: DatabaseSchemaVm = {
           children: [],
         },
       ],
-      x: 878,
+      x: 998,
       y: 58,
     },
     {
@@ -226,7 +226,7 @@ export const mFlix: DatabaseSchemaVm = {
           children: [],
         },
       ],
-      x: 1288,
+      x: 1468,
       y: 51,
     },
     {
@@ -300,7 +300,7 @@ export const mFlix: DatabaseSchemaVm = {
           ],
         },
       ],
-      x: 1297,
+      x: 1477,
       y: 369,
     },
     {
@@ -329,7 +329,7 @@ export const mFlix: DatabaseSchemaVm = {
           children: [],
         },
       ],
-      x: 472,
+      x: 532,
       y: 60,
     },
     {
@@ -644,7 +644,7 @@ export const mFlix: DatabaseSchemaVm = {
           children: [],
         },
       ],
-      x: 468,
+      x: 528,
       y: 243,
     },
   ],
