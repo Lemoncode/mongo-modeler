@@ -118,14 +118,15 @@ export const CanvasPod: React.FC = () => {
   const onSelectElement = (relationId: GUID | null) => {
     doSelectElement(relationId);
   };
-  const [size, setsize] = React.useState<Size>({
+  const [sizeFrame, setSizeFrame] = React.useState<Size>({
     width: canvasSize.width,
     height: canvasSize.height,
   });
 
   React.useEffect(() => {
     const newSize = (CANVAS_MAX_WIDTH - viewBoxSize.width) / zoomFactor;
-    setsize({
+
+    setSizeFrame({
       width: canvasSize.width + newSize,
       height: canvasSize.width + newSize + HEIGHT_OFFSET / zoomFactor,
     });
@@ -180,7 +181,11 @@ export const CanvasPod: React.FC = () => {
       )}
 
       <div
-        style={{ width: size.width, height: size.height, overflow: 'hidden' }}
+        style={{
+          width: sizeFrame.width,
+          height: sizeFrame.height,
+          overflow: 'hidden',
+        }}
       >
         <CanvasSvgComponent
           viewBoxSize={viewBoxSize}
