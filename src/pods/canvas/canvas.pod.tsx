@@ -16,10 +16,11 @@ import {
   EDIT_RELATION_TITLE,
   EDIT_COLLECTION_TITLE,
 } from '@/common/components/modal-dialog';
-import { CanvasSvgComponent } from './canvas-svg.component';
+import { CANVAS_MAX_WIDTH, CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
 
+const HEIGHT_OFFSET = 200;
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
@@ -117,6 +118,18 @@ export const CanvasPod: React.FC = () => {
   const onSelectElement = (relationId: GUID | null) => {
     doSelectElement(relationId);
   };
+  const [size, setsize] = React.useState<Size>({
+    width: canvasSize.width,
+    height: canvasSize.height,
+  });
+
+  React.useEffect(() => {
+    const newSize = (CANVAS_MAX_WIDTH - viewBoxSize.width) / zoomFactor;
+    setsize({
+      width: canvasSize.width + newSize,
+      height: canvasSize.width + newSize + HEIGHT_OFFSET / zoomFactor,
+    });
+  }, [viewBoxSize]);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -165,17 +178,22 @@ export const CanvasPod: React.FC = () => {
           </button>
         </div>
       )}
-      <CanvasSvgComponent
-        viewBoxSize={viewBoxSize}
-        canvasSize={canvasSize}
-        canvasSchema={canvasSchema}
-        onUpdateTablePosition={updateTablePosition}
-        onToggleCollapse={handleToggleCollapse}
-        onEditTable={handleEditTable}
-        onEditRelation={handleEditRelation}
-        onSelectElement={onSelectElement}
-        isTabletOrMobileDevice={isTabletOrMobileDevice}
-      />
+
+      <div
+        style={{ width: size.width, height: size.height, overflow: 'hidden' }}
+      >
+        <CanvasSvgComponent
+          viewBoxSize={viewBoxSize}
+          canvasSize={canvasSize}
+          canvasSchema={canvasSchema}
+          onUpdateTablePosition={updateTablePosition}
+          onToggleCollapse={handleToggleCollapse}
+          onEditTable={handleEditTable}
+          onEditRelation={handleEditRelation}
+          onSelectElement={onSelectElement}
+          isTabletOrMobileDevice={isTabletOrMobileDevice}
+        />
+      </div>
     </div>
   );
 };

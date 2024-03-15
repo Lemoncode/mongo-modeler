@@ -21,8 +21,8 @@ interface Props {
   isTabletOrMobileDevice: boolean;
 }
 
-const CANVAS_MAX_WIDTH = 20000;
-const CANVAS_MAX_HEIGHT = 20000;
+export const CANVAS_MAX_WIDTH = 20000;
+export const CANVAS_MAX_HEIGHT = 20000;
 
 export const CanvasSvgComponent: React.FC<Props> = props => {
   const {
