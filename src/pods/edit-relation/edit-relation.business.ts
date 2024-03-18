@@ -44,10 +44,15 @@ const mapTableToDropdownVm = (table: TableVm): DropdownOptionVm => ({
 
 export const mapTableListToDropdownVm = (
   canvasSchema: DatabaseSchemaVm
-): DropdownOptionVm[] =>
-  canvasSchema.tables.map(
+): DropdownOptionVm[] => {
+  orderTableListToDropdownVm(canvasSchema);
+  return canvasSchema.tables.map(
     (table): DropdownOptionVm => mapTableToDropdownVm(table)
   );
+};
+
+const orderTableListToDropdownVm = (canvasSchema: DatabaseSchemaVm) =>
+  canvasSchema.tables.sort((a, b) => a.tableName.localeCompare(b.tableName));
 
 const returnTableFromCanvasSchema = (
   id: GUID,
