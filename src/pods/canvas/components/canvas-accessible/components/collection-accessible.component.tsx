@@ -5,18 +5,17 @@ interface Props {
   table: TableVm;
 }
 export const CollectionAccessible: React.FC<Props> = props => {
-  //Todo: #388 Canvas Accessible-collection(https://github.com/Lemoncode/mongo-modeler/issues/388)
+  const { table } = props;
   //Todo: #389 Canvas Accessible-iterate over fields(https://github.com/Lemoncode/mongo-modeler/issues/389)
-  console.log(props.table);
 
   return (
     <>
       <h3>
-        Authors collection
-        <button type="button">Edit authors collection</button>
-        <button type="button">Delete authors collection</button>
+        {table.tableName} collection
+        <button type="button">Edit {table.tableName} collection</button>
+        <button type="button">Delete {table.tableName} collection</button>
       </h3>
-      <h4>Fields for Authors collection</h4>
+      <h4>Fields for {table.tableName} collection</h4>
       <ul>
         <li aria-label="structure for fields">
           <span>Name</span>
@@ -40,7 +39,7 @@ export const CollectionAccessible: React.FC<Props> = props => {
           <span>String</span>
         </li>
       </ul>
-      <h4>Relations for author collection:</h4>
+      <h4>Relations for {table.tableName} collection:</h4>
       <ul>
         <li>
           The "_id" field has a "1:M" relation with the "_id" field nested in
