@@ -1,19 +1,19 @@
 import React from 'react';
 import { RelationAccessible } from './relation-accessible.component';
-import { RelationVm } from '@/core/providers';
+import { DatabaseSchemaVm } from '@/core/providers';
 
 interface Props {
-  relationList: RelationVm[];
+  canvasSchema: DatabaseSchemaVm;
 }
 
 export const RelationListAccessible: React.FC<Props> = props => {
-  const { relationList } = props;
+  const { canvasSchema } = props;
   // Todo: #386Canvas Accessible-Iterate over relations(https://github.com/Lemoncode/mongo-modeler/issues/386)
   return (
     <>
       <h2>Relations</h2>
-      {relationList.map(relation => (
-        <RelationAccessible data={relation} />
+      {canvasSchema.relations.map(relation => (
+        <RelationAccessible relation={relation} />
       ))}
 
       <h3>
