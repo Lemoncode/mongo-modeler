@@ -12,9 +12,10 @@ export const RelationListAccessible: React.FC<Props> = props => {
   return (
     <>
       <h2>Relations</h2>
-      {/* Delete the relationList[0].id, this is just to avoid typescript errors */}
-      {relationList[0].id}
-      <RelationAccessible />
+      {relationList.map(relation => (
+        <RelationAccessible data={relation} />
+      ))}
+
       <h3>
         Relation 2: Review-books with Books-_id
         <button>Edit relation 2</button>

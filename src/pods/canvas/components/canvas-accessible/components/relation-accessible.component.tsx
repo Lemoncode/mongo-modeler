@@ -1,6 +1,12 @@
 import React from 'react';
+import { RelationVm } from '@/core/providers';
 
-export const RelationAccessible: React.FC = () => {
+interface Props {
+  data: RelationVm;
+}
+
+export const RelationAccessible: React.FC<Props> = props => {
+  const { data } = props;
   //Todo: #387 Canvas Accessible-relation (https://github.com/Lemoncode/mongo-modeler/issues/387)
   return (
     <>
