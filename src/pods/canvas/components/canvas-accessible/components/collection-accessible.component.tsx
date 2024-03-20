@@ -1,12 +1,13 @@
 import React from 'react';
 import { TableVm } from '@/core/providers';
+import { FieldList } from './field-list-accessible.component';
 
 interface Props {
   table: TableVm;
 }
+
 export const CollectionAccessible: React.FC<Props> = props => {
   const { table } = props;
-  //Todo: #389 Canvas Accessible-iterate over fields(https://github.com/Lemoncode/mongo-modeler/issues/389)
 
   return (
     <>
@@ -17,27 +18,7 @@ export const CollectionAccessible: React.FC<Props> = props => {
       </h3>
       <h4>Fields for {table.tableName} collection</h4>
       <ul>
-        <li aria-label="structure for fields">
-          <span>Name</span>
-          <span>Type</span>
-          <span>NN</span>
-        </li>
-
-        <li aria-label="authors field">
-          <span>_id</span>
-          <span>ObjectID</span>
-          <span>NN</span>
-        </li>
-
-        <li aria-label="authors field">
-          <span>name</span>
-          <span>String</span>
-        </li>
-
-        <li aria-label="authors field">
-          <span>bio</span>
-          <span>String</span>
-        </li>
+        <FieldList fieldList={table.fields} listName={table.tableName} />
       </ul>
       <h4>Relations for {table.tableName} collection:</h4>
       <ul>
