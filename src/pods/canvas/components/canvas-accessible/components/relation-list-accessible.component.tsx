@@ -8,7 +8,6 @@ interface Props {
 
 export const RelationListAccessible: React.FC<Props> = props => {
   const { canvasSchema } = props;
-  // Todo: #386Canvas Accessible-Iterate over relations(https://github.com/Lemoncode/mongo-modeler/issues/386)
   return (
     <>
       <h2>Relations</h2>
