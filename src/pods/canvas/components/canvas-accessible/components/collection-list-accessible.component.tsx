@@ -1,13 +1,87 @@
 import React from 'react';
 import { CollectionAccessible } from './collection-accessible.component';
-import { TableVm } from '@/core/providers';
+import { FieldVm, RelationVm, TableVm } from '@/core/providers';
+import { GUID } from '@/core/model';
 
 interface Props {
   collectionList: TableVm[];
+  relationList: RelationVm[];
 }
 
 export const CollectionListAccessible: React.FC<Props> = props => {
-  const { collectionList } = props;
+  const { collectionList, relationList } = props;
+
+  // Recursive function to look up the full name of the field and its parent
+  const findFieldNameAndParent = (
+    fields: FieldVm[],
+    id: GUID
+  ): { fieldName: string; parentName?: string } | undefined => {
+    for (const field of fields) {
+      if (field.id === id) {
+        return { fieldName: field.name };
+      }
+      if (field.children) {
+        const nestedField = findFieldNameAndParent(field.children, id);
+        if (nestedField) {
+          return {
+            fieldName: nestedField.fieldName,
+            parentName: field.name,
+          };
+        }
+      }
+    }
+    return undefined;
+  };
+
+  // Function to find table name by ID
+  const findTableNameById = (
+    tables: TableVm[],
+    id: GUID
+  ): string | undefined => {
+    const table = tables.find(table => table.id === id);
+    return table ? table.tableName : undefined;
+  };
+
+  // Function for constructing relation elements li
+  const buildRelationElements = (
+    relations: RelationVm[],
+    tables: TableVm[]
+  ): JSX.Element[] => {
+    const relationElements: JSX.Element[] = [];
+
+    relations.forEach(relation => {
+      const fromTable = tables.find(table => table.id === relation.fromTableId);
+
+      const toTable = tables.find(table => table.id === relation.toTableId);
+
+      if (fromTable && toTable) {
+        const fromField = findFieldNameAndParent(
+          fromTable.fields,
+          relation.fromFieldId
+        );
+
+        const toField = findFieldNameAndParent(
+          toTable.fields,
+          relation.toFieldId
+        );
+
+        const toTableName = findTableNameById(tables, relation.toTableId);
+
+        if (fromField && toField && toTableName) {
+          const relationElement = (
+            <li key={relation.id}>
+              {toField.parentName
+                ? `${toField.fieldName} nested field of the ${toField.parentName} has a relation type ${relation.type} with the field ${fromField.fieldName} in the ${toTableName} collection`
+                : `${toField.fieldName} field has a relation type ${relation.type} with the field ${fromField.fieldName} in the ${toTableName} collection`}
+            </li>
+          );
+          relationElements.push(relationElement);
+        }
+      }
+    });
+
+    return relationElements;
+  };
 
   return (
     <>
@@ -135,18 +209,7 @@ export const CollectionListAccessible: React.FC<Props> = props => {
         </li>
       </ul>
       <h4>Relations for books collection:</h4>
-      <ul>
-        <li>
-          Field "_id" has a relation type "1:M" with field book in Reviews
-          collection <a href="#reviews">Go to reviews collection</a>
-        </li>
-
-        <li>
-          id nested field of the author field has a relation type "M:1" with
-          field _id in Authors collection
-          <a href="#authors">Go to Authors collection</a>
-        </li>
-      </ul>
+      <ul>{buildRelationElements(relationList, collectionList)}</ul>
     </>
   );
 };
