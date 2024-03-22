@@ -3,7 +3,7 @@ import { vi } from 'vitest';
 import {
   saveToLocal,
   retrieveLocalSchema,
-  CanvasSchema,
+  AutosaveCanvasSchema,
 } from '@/core/autosave';
 import { createDefaultDatabaseSchemaVm } from '@/core/providers';
 
@@ -41,7 +41,7 @@ describe('saveToLocal', () => {
   it('should save canvas schema to local storage', () => {
     // Arrange
     const key = 'autoSaveFile';
-    const value: CanvasSchema = {
+    const value: AutosaveCanvasSchema = {
       filename: 'schemaFilename',
       canvasSchema: {
         version: '0.1',

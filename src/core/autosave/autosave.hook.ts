@@ -5,17 +5,11 @@ import {
   useCanvasViewSettingsContext,
 } from '@/core/providers';
 
-import {
-  saveToLocal,
-  retrieveLocalSchema,
-  useRetrieveSchemaKey,
-  getSavedKeys,
-} from '@/core/autosave';
+import { saveToLocal, retrieveLocalSchema } from '@/core/autosave';
 
 const useAutosave = () => {
   const AUTOSAVE_INTERVAL = 60000;
   const AUTOSAVE_KEY = 'autoSaveFile';
-  const AUTOSAVE_KEY_SELECTION_TABLE = 'Select the auto-saved schema';
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -23,25 +17,14 @@ const useAutosave = () => {
   const { filename, setFilename, setLoadSample } =
     useCanvasViewSettingsContext();
 
-  const { retrieveSchemaKey, retrievedKey } = useRetrieveSchemaKey();
-
-  const [autoSaveKeyTimestamp, setAutosaveKeyTimestamp] =
-    useState(AUTOSAVE_KEY);
-
   const [autosaveError, setAutosaveError] = useState(0);
-  const [isDeletingAll, setIsDeletingAll] = useState(false);
-
-  useEffect(() => {
-    const timestamp = Date.now();
-    setAutosaveKeyTimestamp(`${AUTOSAVE_KEY}_${timestamp}`);
-  }, []);
 
   const autosaveHandler = () => {
     if (autosaveError > 1) stopAutosave();
 
     if (canvasSchema.tables.length !== 0) {
       saveToLocal(
-        autoSaveKeyTimestamp,
+        AUTOSAVE_KEY,
         {
           filename: filename ?? undefined,
           canvasSchema,
@@ -50,27 +33,18 @@ const useAutosave = () => {
         setAutosaveError
       );
     } else {
-      localStorage.removeItem(autoSaveKeyTimestamp);
+      localStorage.removeItem(AUTOSAVE_KEY);
     }
   };
 
   const retrieveAutosave = () => {
-    retrieveSchemaKey(
-      AUTOSAVE_KEY,
-      AUTOSAVE_KEY_SELECTION_TABLE,
-      setIsDeletingAll
-    );
     const getLocalSchema = retrieveLocalSchema(
-      retrievedKey,
+      AUTOSAVE_KEY,
       setLoadSample,
       setFilename
     );
     setCanvasSchema(getLocalSchema);
   };
-
-  useEffect(() => {
-    retrieveAutosave();
-  }, [retrievedKey]);
 
   const startAutosave = () => {
     if (!timerRef.current) {
@@ -86,13 +60,8 @@ const useAutosave = () => {
   };
 
   useEffect(() => {
-    if (isDeletingAll) {
-      const savedKeys = getSavedKeys(AUTOSAVE_KEY);
-      savedKeys.forEach(key => {
-        localStorage.removeItem(key);
-      });
-    }
-  }, [isDeletingAll]);
+    retrieveAutosave();
+  }, [AUTOSAVE_KEY]);
 
   return { retrieveAutosave, startAutosave, stopAutosave };
 };
