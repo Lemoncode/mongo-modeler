@@ -1,59 +1,46 @@
 import React from 'react';
-import { RelationVm, TableVm } from '@/core/providers';
+import { TableVm, DatabaseSchemaVm } from '@/core/providers';
 import { TableRelationsAccessible } from './table-relations-accessible.component';
 
 interface Props {
-  tables: TableVm[];
-  relations: RelationVm[];
+  table: TableVm;
+  canvasSchema: DatabaseSchemaVm;
 }
 export const CollectionAccessible: React.FC<Props> = props => {
-  const { tables, relations } = props;
-  //Todo: #389 Canvas Accessible-iterate over fields(https://github.com/Lemoncode/mongo-modeler/issues/389)
+  const { table, canvasSchema } = props;
 
   return (
     <>
-      {tables.map(table => (
-        <>
-          <h3>
-            {table.tableName} collection
-            <button type="button">Edit {table.tableName} collection</button>
-            <button type="button">Delete {table.tableName} collection</button>
-          </h3>
-          <h4>Fields for {table.tableName} collection</h4>
-          <ul>
-            <li aria-label="structure for fields">
-              <span>Name</span>
-              <span>Type</span>
-              <span>NN</span>
-            </li>
+      <h3>
+        {table.tableName} collection ({table.id})
+        <button type="button">Edit {table.tableName} collection</button>
+        <button type="button">Delete {table.tableName} collection</button>
+      </h3>
+      <h4>Fields for {table.tableName} collection</h4>
+      <ul>
+        <li aria-label="structure for fields">
+          <span>Name</span>
+          <span>Type</span>
+          <span>NN</span>
+        </li>
 
-            <li aria-label="authors field">
-              <span>_id</span>
-              <span>ObjectID</span>
-              <span>NN</span>
-            </li>
+        <li aria-label="authors field">
+          <span>_id</span>
+          <span>ObjectID</span>
+          <span>NN</span>
+        </li>
 
-            <li aria-label="authors field">
-              <span>name</span>
-              <span>String</span>
-            </li>
+        <li aria-label="authors field">
+          <span>name</span>
+          <span>String</span>
+        </li>
 
-            <li aria-label="authors field">
-              <span>bio</span>
-              <span>String</span>
-            </li>
-          </ul>
-          <h4>Relations for {table.tableName} collection:</h4>
-          <ul>
-            <li>
-              The "_id" field has a "1:M" relation with the "_id" field nested
-              in the author field of the book collection
-              <a href="#books">Go to books collection</a>
-            </li>
-          </ul>
-        </>
-      ))}
-      <TableRelationsAccessible tables={tables} relations={relations} />
+        <li aria-label="authors field">
+          <span>bio</span>
+          <span>String</span>
+        </li>
+      </ul>
+      <TableRelationsAccessible table={table} canvasSchema={canvasSchema} />
     </>
   );
 };
