@@ -4,17 +4,17 @@ import { RelationVm, TableVm } from '@/core/providers';
 
 interface Props {
   collectionList: TableVm[];
-  relationsList: RelationVm[];
+  relationList: RelationVm[];
 }
 
 export const CollectionListAccessible: React.FC<Props> = props => {
-  const { collectionList, relationsList } = props;
+  const { collectionList, relationList } = props;
 
   return (
     <>
       <h2>Collections</h2>
 
-      <CollectionAccessible tables={collectionList} relations={relationsList} />
+      <CollectionAccessible tables={collectionList} relations={relationList} />
 
       {/* Code bellow only is just an example. We need do it mapping the real data
       and with TableAccessible component. IMPORTANT: we don't need divs!*/}
