@@ -10,9 +10,9 @@ interface Props {
   children: React.ReactNode;
 }
 
-const DEFAULT_MOBILE_ZOOM_FACTOR = 14;
-const DEFAULT_TABLET_ZOOM_FACTOR = 12;
-const DEFAULT_DESKTOP_ZOOM_FACTOR = 8.5;
+const DEFAULT_MOBILE_ZOOM_FACTOR = 7;
+const DEFAULT_TABLET_ZOOM_FACTOR = 5.8;
+const DEFAULT_DESKTOP_ZOOM_FACTOR = 4.2;
 
 const mediaQueries: { [key: string]: MediaQueryList } = {
   mobileMq: window.matchMedia('(max-device-width: 767px)'),
