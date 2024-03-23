@@ -16,11 +16,12 @@ import {
   EDIT_RELATION_TITLE,
   EDIT_COLLECTION_TITLE,
 } from '@/common/components/modal-dialog';
-import { CanvasSvgComponent } from './canvas-svg.component';
+import { CANVAS_MAX_WIDTH, CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
 import { CanvasAccessible } from './components/canvas-accessible';
 
+const HEIGHT_OFFSET = 200;
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
@@ -118,6 +119,19 @@ export const CanvasPod: React.FC = () => {
   const onSelectElement = (relationId: GUID | null) => {
     doSelectElement(relationId);
   };
+  const [sizeFrame, setSizeFrame] = React.useState<Size>({
+    width: canvasSize.width,
+    height: canvasSize.height,
+  });
+
+  React.useEffect(() => {
+    const newSize = (CANVAS_MAX_WIDTH - viewBoxSize.width) / zoomFactor;
+
+    setSizeFrame({
+      width: canvasSize.width + newSize,
+      height: canvasSize.width + newSize + HEIGHT_OFFSET / zoomFactor,
+    });
+  }, [viewBoxSize]);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -166,18 +180,26 @@ export const CanvasPod: React.FC = () => {
           </button>
         </div>
       )}
-      <CanvasSvgComponent
-        viewBoxSize={viewBoxSize}
-        canvasSize={canvasSize}
-        canvasSchema={canvasSchema}
-        onUpdateTablePosition={updateTablePosition}
-        onToggleCollapse={handleToggleCollapse}
-        onEditTable={handleEditTable}
-        onEditRelation={handleEditRelation}
-        onSelectElement={onSelectElement}
-        isTabletOrMobileDevice={isTabletOrMobileDevice}
-      />
-      {!loadSample && <CanvasAccessible canvasSchema={canvasSchema} />}
+      <div
+        style={{
+          width: sizeFrame.width,
+          height: sizeFrame.height,
+          overflow: 'hidden',
+        }}
+      >
+        <CanvasSvgComponent
+          viewBoxSize={viewBoxSize}
+          canvasSize={canvasSize}
+          canvasSchema={canvasSchema}
+          onUpdateTablePosition={updateTablePosition}
+          onToggleCollapse={handleToggleCollapse}
+          onEditTable={handleEditTable}
+          onEditRelation={handleEditRelation}
+          onSelectElement={onSelectElement}
+          isTabletOrMobileDevice={isTabletOrMobileDevice}
+        />
+        {!loadSample && <CanvasAccessible canvasSchema={canvasSchema} />}
+      </div>
     </div>
   );
 };
