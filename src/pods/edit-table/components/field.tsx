@@ -34,6 +34,13 @@ interface Props {
   isDeleteVisible: boolean;
 }
 
+const INPUT_NAME = 'Field for field ';
+const CHECKBOX_PK = 'Checkbox pk for field ';
+const CHECKBOX_FK = 'Checkbox fk for field ';
+const CHECKBOX_ARRAY = 'Checkbox isArray for field ';
+const CHECKBOX_ISNN = 'Checkbox isNN for field ';
+const SELECT = 'Select field type for';
+
 export const Field: React.FC<Props> = props => {
   const {
     field,
@@ -113,6 +120,8 @@ export const Field: React.FC<Props> = props => {
             className={classes.dragButton}
             onPointerDown={e => handlerPointerDown(e, field)}
             onPointerUp={e => (e.currentTarget.style.cursor = 'grab')}
+            aria-hidden="true"
+            tabIndex={-1}
           >
             <DragDropIcon />
           </motion.button>
@@ -135,6 +144,7 @@ export const Field: React.FC<Props> = props => {
                   updateFieldValue(field, 'name', e.target.value);
                 }}
                 ref={el => assignRef(el, field.id)}
+                aria-label={INPUT_NAME + field.name}
               />
             </div>
           </div>
@@ -144,7 +154,7 @@ export const Field: React.FC<Props> = props => {
             id="check1"
             checked={field.PK}
             onChange={() => updateFieldValue(field, 'PK', !field.PK)}
-            ariaLabelledby="Is PK"
+            ariaLabel={CHECKBOX_PK}
           ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
@@ -153,7 +163,7 @@ export const Field: React.FC<Props> = props => {
             checked={field.FK}
             onChange={() => updateFieldValue(field, 'FK', !field.FK)}
             disabled={true}
-            ariaLabelledby="Is FK"
+            ariaLabel={CHECKBOX_FK}
           ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
@@ -162,6 +172,7 @@ export const Field: React.FC<Props> = props => {
             onChange={e =>
               updateFieldValue(field, 'type', e.target.value as FieldType)
             }
+            aria-labelledby={SELECT + field.id}
           >
             {fieldTypeOptions.map(entry => (
               <option key={entry.value} value={entry.value}>
@@ -175,7 +186,7 @@ export const Field: React.FC<Props> = props => {
             id="check3"
             checked={field.isArray || false}
             onChange={() => updateFieldValue(field, 'isArray', !field.isArray)}
-            ariaLabelledby="Is an Array"
+            ariaLabel={CHECKBOX_ARRAY}
           ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
@@ -183,7 +194,7 @@ export const Field: React.FC<Props> = props => {
             id="check4"
             checked={field.isNN || false}
             onChange={() => updateFieldValue(field, 'isNN', !field.isNN)}
-            ariaLabelledby="Is a NN"
+            ariaLabel={CHECKBOX_ISNN}
           ></Checkbox>
         </div>
         <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>

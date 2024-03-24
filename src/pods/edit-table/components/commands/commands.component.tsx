@@ -15,6 +15,12 @@ interface Props {
   isDeleteVisible: boolean;
 }
 
+const ADD_FOLDER = 'Add nested field';
+const REMOVE_ICON = 'Remove';
+const ADD = 'Add field';
+const UP_ICON = 'Up field';
+const DOWN_ICON = 'Down field';
+
 export const Commands: React.FC<Props> = (props: Props) => {
   const {
     field,
@@ -31,28 +37,33 @@ export const Commands: React.FC<Props> = (props: Props) => {
       <CommandIconButton
         icon={<Add />}
         onClick={() => onAddField(field.id, false, GenerateGUID())}
+        ariaLabel={ADD}
       />
       {field.type === 'object' && (
         <CommandIconButton
           icon={<AddFolder />}
           onClick={() => onAddField(field.id, true, GenerateGUID())}
+          ariaLabel={ADD_FOLDER}
         />
       )}
       {isDeleteVisible && (
         <CommandIconButton
           icon={<RemoveIcon />}
           onClick={() => onDeleteField(field.id)}
+          ariaLabel={REMOVE_ICON + field.id}
         />
       )}
       <CommandIconButton
         icon={<UpIcon />}
         onClick={() => onMoveUpField(field.id)}
         disabled={isFirstItemInArray(fields, field.id)}
+        ariaLabel={UP_ICON + field.id}
       />
       <CommandIconButton
         icon={<DownIcon />}
         onClick={() => onMoveDownField(field.id)}
         disabled={isLastItemInArray(fields, field.id)}
+        ariaLabel={DOWN_ICON + field.id}
       />
     </>
   );

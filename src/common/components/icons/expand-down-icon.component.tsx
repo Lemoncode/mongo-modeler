@@ -6,6 +6,7 @@ export const ExpandDown = () => {
       height="1.2em"
       viewBox="0 0 256 256"
       aria-labelledby="expand-down"
+      aria-label="expand field"
     >
       <title id="expand-down">Desplegar opciones</title>
       <path
