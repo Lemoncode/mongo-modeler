@@ -1,5 +1,5 @@
 import { Edit } from '@/common/components';
-import { TABLE_CONST } from '@/core/providers';
+import { TABLE_CONST, TableVm } from '@/core/providers';
 import { TruncatedText } from './truncated-text.component';
 import {
   PENCIL_ICON_HEIGHT,
@@ -9,23 +9,27 @@ import {
   TITLE_MARGIN_LEFT,
 } from '../database-table.const';
 import classes from '../database-table.module.css';
+import { useTableContext } from '@/core/providers/table-provider';
+import { useEffect } from 'react';
 
 interface Props {
   onEditTable: () => void;
   isSelected: boolean;
+  table: TableVm;
   tableName: string;
   onSelectTable: () => void;
-  isTabletOrMobileDevice: boolean;
+  isEditingTitle?: boolean;
 }
 
 export const DatabaseTableHeader: React.FC<Props> = props => {
-  const {
-    onEditTable,
-    isSelected,
-    tableName,
-    onSelectTable,
-    isTabletOrMobileDevice,
-  } = props;
+  const { isTitleInEditMode, setIsTitleInEditMode } = useTableContext();
+  const { onEditTable, isSelected, tableName, onSelectTable, table } = props;
+
+  useEffect(() => {
+    if (!isSelected) {
+      setIsTitleInEditMode(false);
+    }
+  }, [isSelected, setIsTitleInEditMode]);
 
   const handlePencilIconClick = (
     e: React.MouseEvent<SVGGElement, MouseEvent>
@@ -39,9 +43,8 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
     e.stopPropagation();
   };
 
-  const handleDoubleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
-    onEditTable();
-    e.stopPropagation();
+  const handleDoubleClick = () => {
+    setIsTitleInEditMode(true);
   };
 
   return (
@@ -65,13 +68,18 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
       />
       <TruncatedText
         text={tableName}
+        table={table}
         x={TITLE_MARGIN_LEFT}
         y={4}
-        width={TABLE_CONST.TABLE_WIDTH - TITLE_MARGIN_LEFT}
+        width={
+          TABLE_CONST.TABLE_WIDTH -
+          (PENCIL_ICON_WIDTH + PENCIL_MARGIN_RIGHT + TITLE_MARGIN_LEFT)
+        }
         height={TABLE_CONST.FONT_SIZE}
         textClass={classes.tableText}
+        isTextInEditMode={isTitleInEditMode}
       />
-      {isSelected && !isTabletOrMobileDevice && (
+      {isSelected && (
         <g
           transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
           onClick={handlePencilIconClick}

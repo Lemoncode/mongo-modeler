@@ -19,6 +19,7 @@ import {
   addNewTable,
   updateRelation,
   updateTable,
+  updateTableField,
 } from './canvas-schema.business';
 import { useHistoryManager } from '@/common/undo-redo';
 import { mapSchemaToLatestVersion } from './canvas-schema.mapper';
@@ -56,6 +57,16 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
 
   const updateFullTable = (table: TableVm) => {
     setSchema(prevSchema => updateTable(table, prevSchema));
+  };
+
+  const updateTableSingleField = (
+    table: TableVm,
+    fieldName: string,
+    fieldValue: string
+  ) => {
+    setSchema(prevSchema =>
+      updateTableField(table, fieldName, fieldValue, prevSchema)
+    );
   };
 
   // TODO: #56 created to track this
@@ -145,6 +156,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         updateTablePosition,
         doFieldToggleCollapse,
         updateFullTable,
+        updateTableSingleField,
         addTable,
         addRelation,
         doSelectElement,

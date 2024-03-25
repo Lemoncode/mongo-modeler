@@ -86,6 +86,24 @@ export const updateTable = (
     }
   });
 
+export const updateTableField = (
+  table: TableVm,
+  fieldName: string,
+  fieldValue: string,
+  dbSchema: DatabaseSchemaVm
+): DatabaseSchemaVm =>
+  produce(dbSchema, draft => {
+    const tableIndex = draft.tables.findIndex(t => t.id === table.id);
+
+    if (tableIndex !== -1) {
+      if (fieldName === 'tableName') {
+        draft.tables[tableIndex].tableName = fieldValue;
+      }
+
+      //TODO: Implement update for other fields
+    }
+  });
+
 export const addNewTable = (
   table: TableVm,
   databaseSchema: DatabaseSchemaVm
