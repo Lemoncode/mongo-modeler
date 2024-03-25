@@ -18,6 +18,7 @@ import {
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
+import useAutosave from '@/core/autosave/autosave.hook';
 
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
@@ -113,6 +114,20 @@ export const CanvasPod: React.FC = () => {
   const onSelectElement = (relationId: GUID | null) => {
     doSelectElement(relationId);
   };
+
+  const { retrieveAutosave, startAutosave, stopAutosave } = useAutosave();
+  const [retrieveAutosaveHasInitialized, setRetrieveAutosaveHasInitialized] =
+    React.useState(false);
+
+  React.useEffect(() => {
+    if (!retrieveAutosaveHasInitialized) {
+      retrieveAutosave();
+      setRetrieveAutosaveHasInitialized(true);
+    }
+
+    startAutosave();
+    return stopAutosave;
+  }, [canvasSchema]);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
