@@ -94,7 +94,7 @@
   --input-border-color: var(--background-400);
   --edit-table-header: var(--background-900);
   --input-border-color-active: var(--primary-300);
-  --input-radio-border-color: var(--primary-300);
+  --input-radio-border-color: var(--background-400);
 
   /* Modal */
   --background-dialog: var(--background-700);
@@ -148,6 +148,7 @@
 
 body {
   margin: 0;
+  text-align: center;
 }
 
 .light {
@@ -172,9 +173,9 @@ body {
   --bg-input: #f3f5f7;
   --bg-input-disabled: #f0f2f5;
   --hover-input: #f3f5f7;
-  --input-border-color: #b5b9bc;
+  --input-border-color: var(--background-200);
   --input-border-color-active: var(--primary-500);
-  --input-radio-border-color: var(--primary-500);
+  --input-radio-border-color: var(--background-200);
 
   /*Edit-table*/
   --edit-table-header: #e0e6eb;
@@ -193,7 +194,7 @@ body {
   --bg-checkbox: #e2e7eb;
 
   /* Not working*/
-  --hover-checkbox: var(--background-200);
+  --hover-checkbox: var(--background-300);
 
   /*About*/
   --color-project: var(--primary-500);
@@ -257,6 +258,18 @@ button:disabled:hover {
   color: var(--text-dark);
 }
 
+.button-secondary:disabled,
+.button-tertiary:disabled {
+  color: var(--text-disabled);
+  cursor: default;
+  background-color: var(--background-500);
+}
+
+.button-secondary:disabled:hover,
+.button-tertiary:disabled:hover {
+  background-color: var(--background-500);
+}
+
 .light .button-tertiary {
   background-color: var(--background-200);
 }
@@ -264,7 +277,16 @@ button:disabled:hover {
 .light .button-tertiary:hover {
   background-color: var(--background-300);
 }
+.light .button-secondary:disabled,
+.light .button-tertiary:disabled {
+  background-color: #efefef;
+  color: #929292;
+}
 
+.light .button-secondary:disabled:hover,
+.light .button-tertiary:disabled:hover {
+  background-color: #efefef;
+}
 .two-buttons {
   display: flex;
   align-items: baseline;

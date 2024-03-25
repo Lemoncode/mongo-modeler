@@ -37,7 +37,7 @@ export const ToolbarButton: React.FC<Props> = ({
       disabled={disabled === true}
       aria-describedby={shortcutOptions?.id}
     >
-      {icon}
+      <span aria-hidden={true}>{icon}</span>
       <span>{label}</span>
       {showTooltip && (
         <span role="tooltip" id={shortcutOptions?.id}>

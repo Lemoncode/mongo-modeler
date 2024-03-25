@@ -10,10 +10,32 @@ interface Props {
   children: React.ReactNode;
 }
 
+const DEFAULT_MOBILE_ZOOM_FACTOR = 7;
+const DEFAULT_TABLET_ZOOM_FACTOR = 5.8;
+const DEFAULT_DESKTOP_ZOOM_FACTOR = 4.2;
+
+const mediaQueries: { [key: string]: MediaQueryList } = {
+  mobileMq: window.matchMedia('(max-device-width: 767px)'),
+  tabletMq: window.matchMedia(
+    '(min-device-width: 768px) and (max-width:1023px)'
+  ),
+  desktopMq: window.matchMedia('(min-device-width: 1024px)'),
+};
+const isMobile = mediaQueries.mobileMq.matches;
+const isTablet = mediaQueries.tabletMq.matches;
+
+const DEFAULT_ZOOM_FACTOR = isMobile
+  ? DEFAULT_MOBILE_ZOOM_FACTOR
+  : isTablet
+    ? DEFAULT_TABLET_ZOOM_FACTOR
+    : DEFAULT_DESKTOP_ZOOM_FACTOR;
+
 export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   const { children } = props;
   const [canvasViewSettings, setCanvasViewSettings] =
-    React.useState<CanvasViewSettingsModel>(createInitialSettings());
+    React.useState<CanvasViewSettingsModel>(
+      createInitialSettings(DEFAULT_ZOOM_FACTOR)
+    );
   const [scrollPosition, setScrollPosition] = React.useState<Coords>({
     x: 0,
     y: 0,

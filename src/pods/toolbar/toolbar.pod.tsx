@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  CanvasSettingButton,
+  // CanvasSettingButton,
   ZoomInButton,
   ZoomOutButton,
   RelationButton,
@@ -31,7 +31,8 @@ export const ToolbarPod: React.FC = () => {
       <RedoButton />
       <ExportButton />
       <DeleteButton />
-      <CanvasSettingButton />
+      {/* At the moment there are no settings to display. When autosave is implemented, uncomment CanvasSettingButton */}
+      {/* <CanvasSettingButton /> */}
       <AboutButton />
       <ThemeToggleButton darkLabel="Dark Mode" lightLabel="Light Mode" />
     </div>

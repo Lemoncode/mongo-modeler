@@ -34,3 +34,26 @@
   line-height: 1.4;
   margin-bottom: 0;
 }
+
+@media screen and (max-device-width: 780px) {
+  .member {
+    width: 80px;
+  }
+
+  .member-link img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .member-icon {
+    width: 22px;
+    height: 22px;
+    font-size: var(--fs-xs);
+    margin-right: 10px;
+  }
+  .member p {
+    font-size: var(--fs-s);
+  }
+}

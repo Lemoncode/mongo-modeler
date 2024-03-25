@@ -47,11 +47,13 @@
   font-size: var(--fs-md);
   color: var(--text-dark);
 }
+
 .dialog-subtitle {
   margin: 0;
   font-weight: var(--fw-regular);
   font-size: var(--fs-m);
 }
+
 .dialog-button {
   width: fit-content;
   margin-left: auto;
@@ -72,4 +74,21 @@
 
 :global(.light) .dialog-component {
   --text-disabled: #f3eded;
+}
+
+@media screen and (max-device-width: 780px) {
+  .dialog {
+    width: 92%;
+    height: 82%;
+  }
+  .dialog-title {
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-l);
+  }
+  .dialog-button {
+    font-size: var(--fs-l);
+  }
+  .dialog-component {
+    padding: var(--space-xl);
+  }
 }

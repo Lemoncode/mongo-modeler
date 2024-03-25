@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   useCanvasViewSettingsContext,
+  useDeviceContext,
   useModalDialogContext,
 } from '@/core/providers';
 import { GUID, Size } from '@/core/model';
@@ -15,11 +16,13 @@ import {
   EDIT_RELATION_TITLE,
   EDIT_COLLECTION_TITLE,
 } from '@/common/components/modal-dialog';
-import { CanvasSvgComponent } from './canvas-svg.component';
+import { CANVAS_MAX_WIDTH, CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
+import { CanvasAccessible } from './components/canvas-accessible';
 import useAutosave from '@/core/autosave/autosave.hook';
 
+const HEIGHT_OFFSET = 200;
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
@@ -37,6 +40,8 @@ export const CanvasPod: React.FC = () => {
   const { canvasViewSettings, setScrollPosition, setLoadSample } =
     useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
+
+  const { isTabletOrMobileDevice } = useDeviceContext();
   // TODO: This is temporary code, once we get load and save
   // we won't need to load this mock data
   // From now onwards use the examples under db-examples folder
@@ -69,6 +74,7 @@ export const CanvasPod: React.FC = () => {
   };
 
   const handleEditTable = (tableInfo: TableVm) => {
+    if (isTabletOrMobileDevice) return;
     openModal(
       <EditTablePod
         table={tableInfo}
@@ -100,6 +106,7 @@ export const CanvasPod: React.FC = () => {
   };
 
   const handleEditRelation = (relationId: GUID) => {
+    if (isTabletOrMobileDevice) return;
     openModal(
       <EditRelationPod
         onChangeRelation={handleChangeRelation}
@@ -114,6 +121,19 @@ export const CanvasPod: React.FC = () => {
   const onSelectElement = (relationId: GUID | null) => {
     doSelectElement(relationId);
   };
+  const [sizeFrame, setSizeFrame] = React.useState<Size>({
+    width: canvasSize.width,
+    height: canvasSize.height,
+  });
+
+  React.useEffect(() => {
+    const newSize = (CANVAS_MAX_WIDTH - viewBoxSize.width) / zoomFactor;
+
+    setSizeFrame({
+      width: canvasSize.width + newSize,
+      height: canvasSize.width + newSize + HEIGHT_OFFSET / zoomFactor,
+    });
+  }, [viewBoxSize]);
 
   const { retrieveAutosave, startAutosave, stopAutosave } = useAutosave();
   const [retrieveAutosaveHasInitialized, setRetrieveAutosaveHasInitialized] =
@@ -176,16 +196,26 @@ export const CanvasPod: React.FC = () => {
           </button>
         </div>
       )}
-      <CanvasSvgComponent
-        viewBoxSize={viewBoxSize}
-        canvasSize={canvasSize}
-        canvasSchema={canvasSchema}
-        onUpdateTablePosition={updateTablePosition}
-        onToggleCollapse={handleToggleCollapse}
-        onEditTable={handleEditTable}
-        onEditRelation={handleEditRelation}
-        onSelectElement={onSelectElement}
-      />
+      <div
+        style={{
+          width: sizeFrame.width,
+          height: sizeFrame.height,
+          overflow: 'hidden',
+        }}
+      >
+        <CanvasSvgComponent
+          viewBoxSize={viewBoxSize}
+          canvasSize={canvasSize}
+          canvasSchema={canvasSchema}
+          onUpdateTablePosition={updateTablePosition}
+          onToggleCollapse={handleToggleCollapse}
+          onEditTable={handleEditTable}
+          onEditRelation={handleEditRelation}
+          onSelectElement={onSelectElement}
+          isTabletOrMobileDevice={isTabletOrMobileDevice}
+        />
+        {!loadSample && <CanvasAccessible canvasSchema={canvasSchema} />}
+      </div>
     </div>
   );
 };

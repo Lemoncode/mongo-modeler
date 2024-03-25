@@ -15,10 +15,17 @@ interface Props {
   isSelected: boolean;
   tableName: string;
   onSelectTable: () => void;
+  isTabletOrMobileDevice: boolean;
 }
 
 export const DatabaseTableHeader: React.FC<Props> = props => {
-  const { onEditTable, isSelected, tableName, onSelectTable } = props;
+  const {
+    onEditTable,
+    isSelected,
+    tableName,
+    onSelectTable,
+    isTabletOrMobileDevice,
+  } = props;
 
   const handlePencilIconClick = (
     e: React.MouseEvent<SVGGElement, MouseEvent>
@@ -29,6 +36,11 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
 
   const handleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
     onSelectTable();
+    e.stopPropagation();
+  };
+
+  const handleDoubleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
+    onEditTable();
     e.stopPropagation();
   };
 
@@ -59,7 +71,7 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
         height={TABLE_CONST.FONT_SIZE}
         textClass={classes.tableText}
       />
-      {isSelected && (
+      {isSelected && !isTabletOrMobileDevice && (
         <g
           transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
           onClick={handlePencilIconClick}
@@ -88,7 +100,7 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
         height={TABLE_CONST.HEADER_HEIGHT}
         fill="transparent"
         onClick={handleClick}
-        onDoubleClick={onEditTable}
+        onDoubleClick={handleDoubleClick}
         style={{ cursor: 'pointer' }}
       />
     </>

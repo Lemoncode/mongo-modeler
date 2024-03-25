@@ -18,10 +18,11 @@ interface Props {
   onEditTable: (tableInfo: TableVm) => void;
   onEditRelation: (relationId: GUID) => void;
   onSelectElement: (relationId: GUID | null) => void;
+  isTabletOrMobileDevice: boolean;
 }
 
-const CANVAS_MAX_WIDTH = 20000;
-const CANVAS_MAX_HEIGHT = 20000;
+export const CANVAS_MAX_WIDTH = 20000;
+export const CANVAS_MAX_HEIGHT = 20000;
 
 export const CanvasSvgComponent: React.FC<Props> = props => {
   const {
@@ -33,6 +34,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     onEditTable,
     onEditRelation,
     onSelectElement,
+    isTabletOrMobileDevice,
   } = props;
 
   const clearSelection = () => {
@@ -47,7 +49,13 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
       width={CANVAS_MAX_WIDTH}
       height={CANVAS_MAX_HEIGHT}
       onClick={clearSelection}
+      aria-hidden={true}
     >
+      <DatabaseRelationCollectionComponent
+        schema={canvasSchema}
+        onEditRelation={onEditRelation}
+        onSelectRelation={onSelectElement}
+      />
       <SelectedTableFilterHighlightComponent />
       {canvasSchema.tables.map(table => (
         <DatabaseTable
@@ -59,13 +67,9 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           canvasSize={canvasSize}
           isSelected={canvasSchema.selectedElementId === table.id}
           selectTable={onSelectElement}
+          isTabletOrMobileDevice={isTabletOrMobileDevice}
         />
       ))}
-      <DatabaseRelationCollectionComponent
-        schema={canvasSchema}
-        onEditRelation={onEditRelation}
-        onSelectRelation={onSelectElement}
-      />
     </svg>
   );
 };

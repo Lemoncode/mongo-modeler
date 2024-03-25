@@ -22,6 +22,7 @@ interface Props {
   canvasSize: Size;
   isSelected: boolean;
   selectTable: (tableId: GUID) => void;
+  isTabletOrMobileDevice: boolean;
 }
 
 export const DatabaseTable: React.FC<Props> = ({
@@ -32,6 +33,7 @@ export const DatabaseTable: React.FC<Props> = ({
   canvasSize,
   isSelected,
   selectTable,
+  isTabletOrMobileDevice,
 }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
 
@@ -54,7 +56,7 @@ export const DatabaseTable: React.FC<Props> = ({
     return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Adjust for the last padding
   }, [tableInfo.fields]);
 
-  const { onMouseDown } = useDraggable(
+  const { onMouseDown, onTouchStart, ref } = useDraggable(
     tableInfo.id,
     tableInfo.x,
     tableInfo.y,
@@ -77,7 +79,9 @@ export const DatabaseTable: React.FC<Props> = ({
     <g
       transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
       onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
       className={classes.tableContainer}
+      ref={ref as React.LegacyRef<SVGGElement> | undefined}
     >
       <DatabaseTableBorder totalHeight={totalHeight} isSelected={isSelected} />
       <DatabaseTableHeader
@@ -85,6 +89,7 @@ export const DatabaseTable: React.FC<Props> = ({
         onSelectTable={handleSelectTable}
         isSelected={isSelected}
         tableName={tableInfo.tableName}
+        isTabletOrMobileDevice={isTabletOrMobileDevice}
       />
       <DatabaseTableBody renderedRows={renderedRows} />
     </g>
