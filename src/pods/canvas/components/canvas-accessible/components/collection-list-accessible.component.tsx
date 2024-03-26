@@ -14,7 +14,7 @@ export const CollectionListAccessible: React.FC<Props> = props => {
       <h2>Collections</h2>
 
       {collectionList.map(table => (
-        <CollectionAccessible table={table} />
+        <CollectionAccessible table={table} key={table.id} />
       ))}
 
       {/* Code bellow only is just an example. We need do it mapping the real data
