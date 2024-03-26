@@ -1,21 +1,20 @@
 import React from 'react';
 import { CollectionAccessible } from './collection-accessible.component';
-import { TableVm } from '@/core/providers';
+import { RelationVm, TableVm } from '@/core/providers';
 
 interface Props {
   collectionList: TableVm[];
+  relationList: RelationVm[];
 }
 
 export const CollectionListAccessible: React.FC<Props> = props => {
-  const { collectionList } = props;
+  const { collectionList, relationList } = props;
 
   return (
     <>
       <h2>Collections</h2>
 
-      {collectionList.map(table => (
-        <CollectionAccessible table={table} />
-      ))}
+      <CollectionAccessible tables={collectionList} relations={relationList} />
 
       {/* Code bellow only is just an example. We need do it mapping the real data
       and with TableAccessible component. IMPORTANT: we don't need divs!*/}
@@ -132,19 +131,6 @@ export const CollectionListAccessible: React.FC<Props> = props => {
         <li aria-label="books field">
           <span>averageRating</span>
           <span>date</span>
-        </li>
-      </ul>
-      <h4>Relations for books collection:</h4>
-      <ul>
-        <li>
-          Field "_id" has a relation type "1:M" with field book in Reviews
-          collection <a href="#reviews">Go to reviews collection</a>
-        </li>
-
-        <li>
-          id nested field of the author field has a relation type "M:1" with
-          field _id in Authors collection
-          <a href="#authors">Go to Authors collection</a>
         </li>
       </ul>
     </>
