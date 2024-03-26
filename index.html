@@ -151,21 +151,29 @@
         font-size: 20px;
         margin-top: 3.5rem;
       }
-      .info__iframe {
-        width: 45%;
-        aspect-ratio: 16 / 9;
-        border-radius: 10px;
-        box-shadow:
-          -14px 14px 28px #0f1924,
-          14px -14px 28px #192b3e;
-      }
-      img,
-      iframe {
+
+      img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 10px;
       }
+
+      iframe {
+        width: 100%;
+        aspect-ratio: 14.35 / 9;
+        border-radius: 10px;
+        box-shadow:
+          -14px 14px 28px #0f1924,
+          14px -14px 28px #192b3e;
+      }
+
+      .info__iframe {
+        width: 45%;
+        display: flex;
+        align-items: center;
+      }
+
       .github {
         background-color: var(--accent);
         color: var(--background-300);
@@ -178,68 +186,12 @@
         font-weight: 600;
       }
 
-      @media screen and (max-width: 600px) {
-        body {
-          text-align: center;
-        }
-        .info {
-          padding: 0;
-          padding-bottom: 2rem;
-        }
-
-        .info__claim {
-          padding-top: 0.8rem;
-        }
-        .container {
-          width: 90%;
-        }
-        .info__company {
-          line-height: 1.13;
-        }
-        .info__detail {
-          flex-direction: column-reverse;
-          gap: 5rem;
-        }
+      @media screen and (max-width: 1280px) {
         .info__text {
           padding-top: 0;
-          width: 100%;
-        }
-        .info__iframe {
-          width: 100%;
-        }
-        .info__link {
-          margin-left: auto;
-          margin-right: auto;
-          font-size: 18px;
-        }
-        .header {
-          padding-bottom: 2rem;
-        }
-        .info__text h3 {
-          font-size: 22px;
-        }
-        .info__text p {
-          font-size: 19px;
-        }
-        .github p {
-          padding: 1rem 0;
-          font-size: 17px;
-        }
-        .info__company {
-          display: flex;
-          flex-direction: column;
-          justify-items: center;
-          align-items: center;
-          gap: 8px;
-        }
-        .info__company img {
-          width: 70px;
-          margin-top: 0;
-        }
-        .info__company h2 {
-          line-height: 1.1;
         }
       }
+
       @media screen and (max-width: 900px) {
         body {
           text-align: center;
@@ -250,7 +202,6 @@
           padding-bottom: 4rem;
         }
         .info__text {
-          padding-top: 0;
           width: 100%;
         }
         .info__iframe {
@@ -265,6 +216,51 @@
         }
         .info__company {
           justify-content: center;
+        }
+      }
+
+      @media screen and (max-width: 600px) {
+        .info {
+          padding: 0;
+          padding-bottom: 2rem;
+        }
+
+        .info__claim {
+          padding-top: 0.8rem;
+        }
+        .container {
+          width: 90%;
+        }
+        .info__company {
+          line-height: 1.13;
+        }
+
+        .info__link {
+          font-size: 18px;
+        }
+
+        .info__text h3 {
+          font-size: 22px;
+        }
+        .info__text p {
+          font-size: 19px;
+        }
+        .github p {
+          padding: 1rem 0;
+          font-size: 17px;
+        }
+        .info__company {
+          flex-direction: column;
+          justify-items: center;
+          gap: 8px;
+        }
+
+        .info__company img {
+          width: 70px;
+          margin-top: 0;
+        }
+        .info__company h2 {
+          line-height: 1.1;
         }
       }
 
@@ -329,7 +325,6 @@
               src="https://www.youtube.com/embed/87ZZbDZLido?si=fanae_ZvATEOIkHZ"
               frameborder="0"
               allowfullscreen
-              alt="Link to the video of the application displaying the navigation bar and organized collections with their relationships."
             ></iframe>
           </div>
         </div>
