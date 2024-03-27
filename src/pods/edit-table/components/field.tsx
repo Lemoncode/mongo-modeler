@@ -135,6 +135,7 @@ export const Field: React.FC<Props> = props => {
                   updateFieldValue(field, 'name', e.target.value);
                 }}
                 ref={el => assignRef(el, field.id)}
+                aria-labelledby={`nameLabel_${field.id}`}
               />
             </div>
           </div>
@@ -144,7 +145,7 @@ export const Field: React.FC<Props> = props => {
             id="check1"
             checked={field.PK}
             onChange={() => updateFieldValue(field, 'PK', !field.PK)}
-            ariaLabelledby="Is PK"
+            ariaLabelledby={`pkLabel_${field.id}`}
           ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
@@ -153,7 +154,7 @@ export const Field: React.FC<Props> = props => {
             checked={field.FK}
             onChange={() => updateFieldValue(field, 'FK', !field.FK)}
             disabled={true}
-            ariaLabelledby="Is FK"
+            ariaLabelledby={`fkLabel_${field.id}`}
           ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
@@ -162,6 +163,7 @@ export const Field: React.FC<Props> = props => {
             onChange={e =>
               updateFieldValue(field, 'type', e.target.value as FieldType)
             }
+            aria-labelledby={`typeLabel_${field.id}`}
           >
             {fieldTypeOptions.map(entry => (
               <option key={entry.value} value={entry.value}>
@@ -175,7 +177,7 @@ export const Field: React.FC<Props> = props => {
             id="check3"
             checked={field.isArray || false}
             onChange={() => updateFieldValue(field, 'isArray', !field.isArray)}
-            ariaLabelledby="Is an Array"
+            aria-labelledby={`isArrayLabel_${field.id}`}
           ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
@@ -183,7 +185,7 @@ export const Field: React.FC<Props> = props => {
             id="check4"
             checked={field.isNN || false}
             onChange={() => updateFieldValue(field, 'isNN', !field.isNN)}
-            ariaLabelledby="Is a NN"
+            aria-labelledby={`isNNLabel_${field.id}`}
           ></Checkbox>
         </div>
         <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
