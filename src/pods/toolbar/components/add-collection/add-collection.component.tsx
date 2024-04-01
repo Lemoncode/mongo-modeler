@@ -14,14 +14,51 @@ import { SHORTCUTS } from '../../shortcut/shortcut.const';
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
   const { canvasSchema, addTable } = useCanvasSchemaContext();
-  const { scrollPosition, setLoadSample } = useCanvasViewSettingsContext();
+  const { setLoadSample, canvasViewSettings, canvasContainerRef, viewBoxSize } =
+    useCanvasViewSettingsContext();
+  const { zoomFactor } = canvasViewSettings;
+
+  const getCanvasTopLeftCorner = (
+    containerRef: React.RefObject<HTMLDivElement>,
+    zoomFactor: number
+  ): { x: number; y: number } => {
+    let offsetX = 0;
+    let offsetY = 0;
+    const viewBoxWidth = 21000;
+    const viewBoxHeight = 21000;
+    const adjustedWidth = viewBoxWidth / viewBoxSize.width;
+    const adjustedHeight = viewBoxHeight / viewBoxSize.height;
+
+    if (containerRef.current) {
+      offsetX = Math.round(
+        containerRef.current.scrollLeft / (zoomFactor * adjustedWidth)
+      );
+      offsetY = Math.round(
+        containerRef.current.scrollTop / (zoomFactor * adjustedHeight)
+      );
+    }
+
+    return { x: offsetX, y: offsetY };
+  };
 
   const handleAddTable = (newTable: TableVm) => {
-    const ADD_TABLE_MARGIN = 15;
+    const ADD_TABLE_MARGIN = 4.45;
+
+    const { x, y } = getCanvasTopLeftCorner(canvasContainerRef, zoomFactor);
+    console.log('Top left corner coordinates:', x, y);
+
+    const viewBoxWidth = 21000;
+    const viewBoxHeight = 21000;
+    const adjustedWidth = viewBoxWidth / viewBoxSize.width;
+    const adjustedHeight = viewBoxHeight / viewBoxSize.height;
+
+    const adjustedX = (x * ADD_TABLE_MARGIN) / adjustedWidth;
+    const adjustedY = (y * ADD_TABLE_MARGIN) / adjustedHeight;
+
     const updatedTable = {
       ...newTable,
-      x: scrollPosition.x + ADD_TABLE_MARGIN,
-      y: scrollPosition.y + ADD_TABLE_MARGIN,
+      x: adjustedX,
+      y: adjustedY,
     };
 
     addTable(updatedTable);

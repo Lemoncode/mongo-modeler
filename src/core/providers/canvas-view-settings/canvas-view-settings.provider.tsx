@@ -41,6 +41,20 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     y: 0,
   });
 
+  const canvasContainerRef = React.useRef<HTMLDivElement | null>(null);
+
+  const [viewBoxSize, setViewBoxSize] = React.useState<Size>({
+    height: 0,
+    width: 0,
+  });
+
+  const setCanvasContainerRef = (
+    containerRef: React.RefObject<HTMLDivElement>
+  ): React.RefObject<HTMLDivElement> => {
+    canvasContainerRef.current = containerRef.current;
+    return canvasContainerRef;
+  };
+
   const zoomIn = () =>
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
@@ -86,6 +100,10 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
         setScrollPosition,
         setFilename,
         setLoadSample,
+        canvasContainerRef,
+        setCanvasContainerRef,
+        viewBoxSize,
+        setViewBoxSize,
       }}
     >
       {children}
