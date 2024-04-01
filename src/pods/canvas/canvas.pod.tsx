@@ -40,6 +40,8 @@ export const CanvasPod: React.FC = () => {
   const { canvasViewSettings, setScrollPosition, setLoadSample } =
     useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
+  const USERSAVE_KEY = 'userSettings';
+  const userSettings = JSON.parse(localStorage.getItem(USERSAVE_KEY) || '{}');
 
   const { isTabletOrMobileDevice } = useDeviceContext();
   // TODO: This is temporary code, once we get load and save
@@ -145,9 +147,12 @@ export const CanvasPod: React.FC = () => {
       setRetrieveAutosaveHasInitialized(true);
     }
 
-    startAutosave();
+    if (userSettings.autoSave) {
+      startAutosave();
+    }
+
     return stopAutosave;
-  }, [canvasSchema]);
+  }, [canvasSchema, userSettings.autoSave]);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

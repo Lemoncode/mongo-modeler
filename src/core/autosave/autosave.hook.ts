@@ -8,7 +8,7 @@ import {
 import { saveToLocal, retrieveLocalSchema } from '@/core/autosave';
 
 const useAutosave = () => {
-  const AUTOSAVE_INTERVAL = 60000;
+  const AUTOSAVE_INTERVAL = 3000;
   const AUTOSAVE_KEY = 'autoSaveFile';
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -59,11 +59,20 @@ const useAutosave = () => {
     }
   };
 
+  const deleteAutosaveStorage = () => {
+    localStorage.removeItem(AUTOSAVE_KEY);
+  };
+
   useEffect(() => {
     retrieveAutosave();
   }, [AUTOSAVE_KEY]);
 
-  return { retrieveAutosave, startAutosave, stopAutosave };
+  return {
+    retrieveAutosave,
+    startAutosave,
+    stopAutosave,
+    deleteAutosaveStorage,
+  };
 };
 
 export default useAutosave;
