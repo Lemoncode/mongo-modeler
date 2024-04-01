@@ -8,7 +8,7 @@ import {
 import { saveToLocal, retrieveLocalSchema } from '@/core/autosave';
 
 const useAutosave = () => {
-  const AUTOSAVE_INTERVAL = 3000;
+  const AUTOSAVE_INTERVAL = 60000;
   const AUTOSAVE_KEY = 'autoSaveFile';
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
