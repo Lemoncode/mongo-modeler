@@ -30,4 +30,10 @@ export interface CanvasViewSettingsContextModel {
   zoomIn: () => void;
   zoomOut: () => void;
   setLoadSample: (loadSample: boolean) => void;
+  viewBoxSize: Size;
+  setViewBoxSize: (viewBoxSize: Size) => void;
+  canvasContainerRef: React.RefObject<HTMLDivElement>;
+  setCanvasContainerRef: (
+    containerRef: React.RefObject<HTMLDivElement>
+  ) => React.RefObject<HTMLDivElement>;
 }

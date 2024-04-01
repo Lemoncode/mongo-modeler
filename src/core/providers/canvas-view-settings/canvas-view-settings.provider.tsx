@@ -41,6 +41,13 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     y: 0,
   });
 
+  const canvasContainerRef = React.useRef<HTMLDivElement | null>(null);
+
+  const [viewBoxSize, setViewBoxSize] = React.useState<Size>({
+    height: 0,
+    width: 0,
+  });
+
   const zoomIn = () =>
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
@@ -74,6 +81,13 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     }));
   };
 
+  const setCanvasContainerRef = (
+    containerRef: React.RefObject<HTMLDivElement>
+  ): React.RefObject<HTMLDivElement> => {
+    canvasContainerRef.current = containerRef.current;
+    return canvasContainerRef;
+  };
+
   return (
     <CanvasViewSettingsContext.Provider
       value={{
@@ -86,6 +100,10 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
         setScrollPosition,
         setFilename,
         setLoadSample,
+        canvasContainerRef,
+        setCanvasContainerRef,
+        viewBoxSize,
+        setViewBoxSize,
       }}
     >
       {children}
@@ -96,7 +114,9 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
 export const useCanvasViewSettingsContext = () => {
   const context = React.useContext(CanvasViewSettingsContext);
   if (context === null) {
-    throw 'useCanvasViewSettingsContext: looks like you have forgotten to add the provider on top of the app :)';
+    throw new Error(
+      'useCanvasViewSettingsContext: looks like you have forgotten to add the provider on top of the app :)'
+    );
   }
 
   return context;
