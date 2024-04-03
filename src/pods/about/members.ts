@@ -44,13 +44,27 @@ export const memberList: Member[] = [
   },
   {
     id: '6',
+    name: 'Miguel',
+    surname: 'Gálvez',
+    urlLinkedin: 'https://es.linkedin.com/in/miguelgalvezk',
+    image: './assets/miguel-galvez.jpg',
+  },
+  {
+    id: '7',
+    name: 'Aridane',
+    surname: 'Martín',
+    urlLinkedin: 'https://www.linkedin.com/in/aridanemartin/',
+    image: './assets/aridane-martin.jpg',
+  },
+  {
+    id: '8',
     name: 'Abel',
     surname: 'de Tena',
     urlLinkedin: 'https://www.linkedin.com/in/abeldetena/',
     image: './assets/abel-de-tena.jpeg',
   },
   {
-    id: '7',
+    id: '9',
     name: 'Cristina',
     surname: 'González',
     urlLinkedin:
@@ -58,14 +72,7 @@ export const memberList: Member[] = [
     image: './assets/cristina-gonzalez.jpg',
   },
   {
-    id: '8',
-    name: 'Miguel',
-    surname: 'Gálvez',
-    urlLinkedin: 'https://es.linkedin.com/in/miguelgalvezk',
-    image: './assets/miguel-galvez.jpg',
-  },
-  {
-    id: '9',
+    id: '10',
     name: 'Leticia',
     surname: 'de la Osa',
     urlLinkedin: 'https://www.linkedin.com/in/deletidev/',
