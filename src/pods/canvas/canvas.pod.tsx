@@ -134,10 +134,7 @@ export const CanvasPod: React.FC = () => {
 
   React.useEffect(() => {
     const newSize = (CANVAS_MAX_WIDTH - viewBoxSize.width) / zoomFactor;
-    console.log(
-      'MULTIPLIER_TO_SET_OFFSET_TO_CANVAS_DIMENSION (WIDTH)',
-      CANVAS_MAX_WIDTH / canvasSize.width
-    );
+
     setSizeFrame({
       width: canvasSize.width + newSize,
       height: canvasSize.width + newSize + HEIGHT_OFFSET / zoomFactor,
