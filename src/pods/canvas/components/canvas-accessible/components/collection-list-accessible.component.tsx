@@ -1,21 +1,25 @@
 import React from 'react';
 import { CollectionAccessible } from './collection-accessible.component';
-import { RelationVm, TableVm } from '@/core/providers';
+import { DatabaseSchemaVm } from '@/core/providers';
 
 interface Props {
-  collectionList: TableVm[];
-  relationList: RelationVm[];
+  canvasSchema: DatabaseSchemaVm;
 }
 
 export const CollectionListAccessible: React.FC<Props> = props => {
-  const { collectionList, relationList } = props;
+  const { canvasSchema } = props;
 
   return (
     <>
       <h2>Collections</h2>
 
-      <CollectionAccessible tables={collectionList} relations={relationList} />
-
+      {canvasSchema.tables.map(table => (
+        <CollectionAccessible
+          table={table}
+          canvasSchema={canvasSchema}
+          key={table.id}
+        />
+      ))}
       {/* Code bellow only is just an example. We need do it mapping the real data
       and with TableAccessible component. IMPORTANT: we don't need divs!*/}
       <h3>
