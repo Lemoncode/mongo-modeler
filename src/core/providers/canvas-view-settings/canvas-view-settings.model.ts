@@ -1,5 +1,4 @@
 import { Coords, Size } from '@/core/model';
-import React from 'react';
 
 export interface CanvasViewSettingsModel {
   canvasSize: Size;
@@ -33,8 +32,4 @@ export interface CanvasViewSettingsContextModel {
   setLoadSample: (loadSample: boolean) => void;
   viewBoxSize: Size;
   setViewBoxSize: (viewBoxSize: Size) => void;
-  canvasContainerRef: React.RefObject<HTMLDivElement>;
-  setCanvasContainerRef: (
-    containerRef: React.RefObject<HTMLDivElement>
-  ) => React.RefObject<HTMLDivElement>;
 }
