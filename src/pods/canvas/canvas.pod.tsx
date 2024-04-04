@@ -35,8 +35,12 @@ export const CanvasPod: React.FC = () => {
     deleteSelectedItem,
     loadSchema,
   } = useCanvasSchemaContext();
-  const { canvasViewSettings, setScrollPosition, setLoadSample } =
-    useCanvasViewSettingsContext();
+  const {
+    canvasViewSettings,
+    setScrollPosition,
+    setLoadSample,
+    setViewBoxSize,
+  } = useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
 
   const { isTabletOrMobileDevice } = useDeviceContext();
@@ -56,6 +60,8 @@ export const CanvasPod: React.FC = () => {
     }),
     [zoomFactor, canvasSize]
   );
+
+  if (viewBoxSize && setViewBoxSize) setViewBoxSize(viewBoxSize);
 
   const handleToggleCollapse = (tableId: GUID, fieldId: GUID) => {
     doFieldToggleCollapse(tableId, fieldId);

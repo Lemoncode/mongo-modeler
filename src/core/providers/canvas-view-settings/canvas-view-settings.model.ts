@@ -30,4 +30,6 @@ export interface CanvasViewSettingsContextModel {
   zoomIn: () => void;
   zoomOut: () => void;
   setLoadSample: (loadSample: boolean) => void;
+  viewBoxSize: Size;
+  setViewBoxSize: (viewBoxSize: Size) => void;
 }

@@ -41,6 +41,11 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     y: 0,
   });
 
+  const [viewBoxSize, setViewBoxSize] = React.useState<Size>({
+    height: 0,
+    width: 0,
+  });
+
   const zoomIn = () =>
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
@@ -86,6 +91,8 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
         setScrollPosition,
         setFilename,
         setLoadSample,
+        viewBoxSize,
+        setViewBoxSize,
       }}
     >
       {children}
