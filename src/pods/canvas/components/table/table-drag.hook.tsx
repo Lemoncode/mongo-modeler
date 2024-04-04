@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Size } from '@/core/model';
 import { UpdatePositionFn, UpdatePositionItemInfo } from '@/core/providers';
 import { useCanvasViewSettingsContext } from '@/core/providers/canvas-view-settings';
@@ -42,8 +42,6 @@ export const useDraggable = (
 
     return { x: newX, y: newY };
   };
-
-  console.log('ZOOM DONE', viewBoxSize.width, viewBoxSize.height);
 
   const startDrag = (x: number, y: number) => {
     setStartDragPosition({
