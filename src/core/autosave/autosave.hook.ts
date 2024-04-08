@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
+
 import {
   useCanvasSchemaContext,
   useCanvasViewSettingsContext,
 } from '@/core/providers';
+
 import { saveToLocal, retrieveLocalSchema } from '@/core/autosave';
 
 const useAutosave = () => {
