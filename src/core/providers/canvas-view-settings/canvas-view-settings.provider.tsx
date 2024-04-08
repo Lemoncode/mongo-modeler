@@ -30,6 +30,8 @@ const DEFAULT_ZOOM_FACTOR = isMobile
     ? DEFAULT_TABLET_ZOOM_FACTOR
     : DEFAULT_DESKTOP_ZOOM_FACTOR;
 
+const USERSAVE_KEY = 'userSettings';
+
 export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   const { children } = props;
   const [canvasViewSettings, setCanvasViewSettings] =
@@ -40,6 +42,26 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     x: 0,
     y: 0,
   });
+
+  const [autoSave, setAutoSave] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    const savedSettingsString = localStorage.getItem(USERSAVE_KEY);
+    const savedSettings = savedSettingsString
+      ? JSON.parse(savedSettingsString)
+      : { autoSave: true };
+    if (
+      savedSettings &&
+      typeof savedSettings === 'object' &&
+      'autoSave' in savedSettings
+    ) {
+      setAutoSave(savedSettings.autoSave);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem(USERSAVE_KEY, JSON.stringify({ autoSave }));
+  }, [autoSave]);
 
   const zoomIn = () =>
     setCanvasViewSettings(canvasViewSettings => ({
@@ -86,6 +108,8 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
         setScrollPosition,
         setFilename,
         setLoadSample,
+        autoSave,
+        setAutoSave,
       }}
     >
       {children}

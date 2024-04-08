@@ -30,4 +30,6 @@ export interface CanvasViewSettingsContextModel {
   zoomIn: () => void;
   zoomOut: () => void;
   setLoadSample: (loadSample: boolean) => void;
+  autoSave: boolean;
+  setAutoSave: (autoSave: boolean) => void;
 }

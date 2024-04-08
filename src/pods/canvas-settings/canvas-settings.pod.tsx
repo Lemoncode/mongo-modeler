@@ -3,58 +3,35 @@ import { Formik, Form } from 'formik';
 
 import { formValidation } from './canvas-settings.validation';
 import classes from './canvas-settings.pod.module.css';
-import useAutosave from '@/core/autosave/autosave.hook';
+
 import { Checkbox } from '@/common/components';
+import { useCanvasViewSettingsContext } from '@/core/providers';
 interface Props {
   onChangeSettings: () => void;
 }
 export const CanvasSettingsComponent: React.FC<Props> = props => {
   const { onChangeSettings } = props;
-  const { startAutosave, stopAutosave, deleteAutosaveStorage } = useAutosave();
-  const USERSAVE_KEY = 'userSettings';
+  const { autoSave, setAutoSave } = useCanvasViewSettingsContext();
+  const [changedValue, setChangedValue] = React.useState<boolean>(false);
 
-  const savedSettings = JSON.parse(localStorage.getItem(USERSAVE_KEY) || '{}');
-
-  const initialValues = {
-    autoSave:
-      savedSettings.autoSave !== undefined ? savedSettings.autoSave : true,
-  };
-
-  const [settingsValues, setSettingsValues] = React.useState(initialValues);
-  const [autoSaveToggled, setAutoSaveToggled] = React.useState(false);
-
-  const handleToggleAutoSave = () => {
-    const newAutoSave = !settingsValues.autoSave;
-    setSettingsValues({ ...settingsValues, autoSave: newAutoSave });
-    setAutoSaveToggled(true);
+  const handleCheckboxChange = () => {
+    setChangedValue(!changedValue);
   };
 
   const handleSubmitSize = () => {
-    if (autoSaveToggled) {
-      if (settingsValues.autoSave) {
-        startAutosave();
-      } else {
-        stopAutosave();
-        deleteAutosaveStorage();
-      }
-    }
-    localStorage.setItem(USERSAVE_KEY, JSON.stringify(settingsValues));
+    setAutoSave(changedValue);
     onChangeSettings();
   };
 
   React.useEffect(() => {
-    setSettingsValues(prevValues => ({
-      ...prevValues,
-      autoSave:
-        savedSettings.autoSave !== undefined ? savedSettings.autoSave : true,
-    }));
-  }, [savedSettings.autoSave]);
+    setChangedValue(autoSave);
+  }, [autoSave]);
 
   return (
     <div className={classes.center}>
       <Formik
         onSubmit={handleSubmitSize}
-        initialValues={settingsValues}
+        initialValues={autoSave}
         validate={formValidation.validateForm}
       >
         {() => (
@@ -63,11 +40,15 @@ export const CanvasSettingsComponent: React.FC<Props> = props => {
               <div className={classes.checkboxAutoSave}>
                 <Checkbox
                   id="checkboxAutoSave"
-                  onChange={handleToggleAutoSave}
-                  checked={settingsValues.autoSave}
+                  onChange={handleCheckboxChange}
+                  checked={changedValue}
                 />
                 <label htmlFor="checkboxAutoSave">
-                  <span>Toggle Auto Save</span>
+                  {changedValue ? (
+                    <span>Disable Auto Save</span>
+                  ) : (
+                    <span>Enable Auto Save</span>
+                  )}
                 </label>
               </div>
               <button type="submit" className="button-secondary">

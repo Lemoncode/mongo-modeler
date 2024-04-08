@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-
 import {
   useCanvasSchemaContext,
   useCanvasViewSettingsContext,
 } from '@/core/providers';
-
 import { saveToLocal, retrieveLocalSchema } from '@/core/autosave';
 
 const useAutosave = () => {
@@ -12,9 +10,10 @@ const useAutosave = () => {
   const AUTOSAVE_KEY = 'autoSaveFile';
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const autoSaveRef = useRef<boolean | null>(null);
 
   const { canvasSchema, setCanvasSchema } = useCanvasSchemaContext();
-  const { filename, setFilename, setLoadSample } =
+  const { filename, setFilename, setLoadSample, autoSave } =
     useCanvasViewSettingsContext();
 
   const [autosaveError, setAutosaveError] = useState(0);
@@ -66,6 +65,16 @@ const useAutosave = () => {
   useEffect(() => {
     retrieveAutosave();
   }, [AUTOSAVE_KEY]);
+
+  useEffect(() => {
+    autoSaveRef.current = autoSave;
+    if (autoSaveRef.current) {
+      startAutosave();
+    } else {
+      stopAutosave();
+      deleteAutosaveStorage();
+    }
+  }, [autoSave]);
 
   return {
     retrieveAutosave,
