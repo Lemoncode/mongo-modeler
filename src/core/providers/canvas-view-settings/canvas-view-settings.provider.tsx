@@ -5,6 +5,10 @@ import {
 } from './canvas-view-settings.model';
 import { CanvasViewSettingsContext } from './canvas-view-settings.context';
 import { Coords, Size } from '@/core/model';
+import {
+  retrieveValueFromLocalStorage,
+  saveValueToLocalStorage,
+} from '@/common/local-storage';
 
 interface Props {
   children: React.ReactNode;
@@ -43,13 +47,14 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     y: 0,
   });
 
-  const [autoSave, setAutoSave] = React.useState<boolean>(true);
+  const savedSettingsString = retrieveValueFromLocalStorage(USERSAVE_KEY);
+  const savedSettings = savedSettingsString
+    ? savedSettingsString
+    : { autoSave: true };
+
+  const [autoSave, setAutoSave] = React.useState<boolean>(savedSettings);
 
   React.useEffect(() => {
-    const savedSettingsString = localStorage.getItem(USERSAVE_KEY);
-    const savedSettings = savedSettingsString
-      ? JSON.parse(savedSettingsString)
-      : { autoSave: true };
     if (
       savedSettings &&
       typeof savedSettings === 'object' &&
@@ -60,7 +65,7 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   }, []);
 
   React.useEffect(() => {
-    localStorage.setItem(USERSAVE_KEY, JSON.stringify({ autoSave }));
+    saveValueToLocalStorage(USERSAVE_KEY, { autoSave });
   }, [autoSave]);
 
   const zoomIn = () =>
