@@ -7,7 +7,7 @@ export const fromTableToTableRelationMapper = (
 ): RelationVm => {
   return {
     id: relation.id,
-    type: relation.type === '1:M' ? 'M:1' : '1:M',
+    type: relation.type === '1:M' ? 'M:1' : relation.type,
     fromTableId: relation.toTableId,
     fromFieldId: relation.toFieldId,
     toTableId: relation.fromTableId,
