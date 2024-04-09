@@ -12,43 +12,29 @@ import { ADD_COLLECTION_TITLE } from '@/common/components/modal-dialog';
 import { SHORTCUTS } from '../../shortcut/shortcut.const';
 import { useOffsetZoomToCoords } from './set-off-set-zoom-to-coords.hook';
 
+const BORDER_MARGIN = 40;
+
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
   const { canvasSchema, addTable } = useCanvasSchemaContext();
   const { setLoadSample, scrollPosition } = useCanvasViewSettingsContext();
-  const BORDER_MARGIN = 40;
-
-  const { x: zoomOffsetX, y: zoomOffsetY } = useOffsetZoomToCoords({
-    x: BORDER_MARGIN,
-    y: BORDER_MARGIN,
-  });
 
   const { x: scrollOffsetX, y: scrollOffsetY } = useOffsetZoomToCoords({
-    x: scrollPosition.x,
-    y: scrollPosition.y,
+    x: scrollPosition.x + BORDER_MARGIN,
+    y: scrollPosition.y + BORDER_MARGIN,
   });
 
-  const getOffSetAccordingToScrollAndZoom = (): {
-    offsetX: number;
-    offsetY: number;
-  } => {
-    const offsetX = scrollOffsetX + zoomOffsetX;
-    const offsetY = scrollOffsetY + zoomOffsetY;
-
-    return { offsetX, offsetY };
-  };
   const handleAddTable = (newTable: TableVm) => {
-    const { offsetX, offsetY } = getOffSetAccordingToScrollAndZoom();
-
     const updatedTable = {
       ...newTable,
-      x: offsetX,
-      y: offsetY,
+      x: scrollOffsetX,
+      y: scrollOffsetY,
     };
 
     addTable(updatedTable);
     closeModal();
   };
+
   const handleEditTableClick = () => {
     setLoadSample(false);
     openModal(
