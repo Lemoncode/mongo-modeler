@@ -13,7 +13,7 @@ export const TableRelationsAccessible: React.FC<Props> = props => {
 
   const relationsOutComming = canvasSchema.relations;
   const relationsIncoming = canvasSchema.relations.map(relation => {
-    return fromTableToTableRelationMapper({ relation });
+    return fromTableToTableRelationMapper(relation);
   });
 
   const allRelations = [...relationsOutComming, ...relationsIncoming];
@@ -27,19 +27,19 @@ export const TableRelationsAccessible: React.FC<Props> = props => {
           table => table.id === relation.fromTableId
         );
 
-        if (fromTable && relation.toTableId == table.id) {
-          return (
-            <React.Fragment key={index}>
-              <ul>
-                <TableRelationElement
-                  table={table}
-                  relation={relation}
-                  fromTable={fromTable}
-                />
-              </ul>
-            </React.Fragment>
-          );
-        }
+        return fromTable && relation.toTableId === table.id ? (
+          <React.Fragment key={index}>
+            <ul>
+              <TableRelationElement
+                table={table}
+                relation={relation}
+                fromTable={fromTable}
+              />
+            </ul>
+          </React.Fragment>
+        ) : (
+          <></>
+        );
       })}
     </>
   );

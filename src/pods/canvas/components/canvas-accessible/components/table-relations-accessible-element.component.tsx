@@ -17,13 +17,11 @@ export const TableRelationElement: React.FC<Props> = props => {
   );
   const toField = findFieldNameAndParent(table.fields, relation.toFieldId);
 
-  if (fromField && toField) {
-    return (
-      <li>
-        {toField.parentName
-          ? `${toField.fieldName} nested field of the ${toField.parentName} has a relation type ${relation.type} with the field ${fromField.fieldName} in the ${fromTable.tableName} collection`
-          : `${toField.fieldName} field has a relation type ${relation.type} with the field ${fromField.fieldName} in the ${fromTable.tableName} collection`}
-      </li>
-    );
-  }
+  return fromField && toField ? (
+    <li>
+      {toField.parentName
+        ? `${toField.fieldName} nested field of the ${toField.parentName} has a relation type ${relation.type} with the field ${fromField.fieldName} in the ${fromTable.tableName} collection`
+        : `${toField.fieldName} field has a relation type ${relation.type} with the field ${fromField.fieldName} in the ${fromTable.tableName} collection`}
+    </li>
+  ) : null;
 };

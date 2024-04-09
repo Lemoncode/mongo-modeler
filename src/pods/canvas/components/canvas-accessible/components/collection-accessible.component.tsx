@@ -12,7 +12,7 @@ export const CollectionAccessible: React.FC<Props> = props => {
   return (
     <>
       <h3>
-        {table.tableName} collection ({table.id})
+        {table.tableName} collection
         <button type="button">Edit {table.tableName} collection</button>
         <button type="button">Delete {table.tableName} collection</button>
       </h3>

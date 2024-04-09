@@ -1,11 +1,10 @@
 import { RelationVm } from '@/core/providers';
 
-interface Props {
-  relation: RelationVm;
-}
+// TODO: Add testing
 
-export const fromTableToTableRelationMapper = (props: Props): RelationVm => {
-  const { relation } = props;
+export const fromTableToTableRelationMapper = (
+  relation: RelationVm
+): RelationVm => {
   return {
     id: relation.id,
     type: relation.type === '1:M' ? 'M:1' : '1:M',
