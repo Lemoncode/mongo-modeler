@@ -10,55 +10,40 @@ import {
 } from '@/core/providers/canvas-schema';
 import { ADD_COLLECTION_TITLE } from '@/common/components/modal-dialog';
 import { SHORTCUTS } from '../../shortcut/shortcut.const';
-import { CANVAS_MAX_WIDTH, CANVAS_MAX_HEIGHT } from '@/core/providers';
+import { useOffsetZoomToCoords } from './set-off-set-zoom-to-coords.hook';
 
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
   const { canvasSchema, addTable } = useCanvasSchemaContext();
-  const { setLoadSample, scrollPosition, canvasViewSettings, viewBoxSize } =
-    useCanvasViewSettingsContext();
+  const { setLoadSample, scrollPosition } = useCanvasViewSettingsContext();
+  const BORDER_MARGIN = 40;
 
-  const getZoomAdjustmentAccordingToScroll = (
-    zoomFactor: number
-  ): { zoomOffsetX: number; zoomOffsetY: number } => {
-    let offsetX = 0;
-    let offsetY = 0;
-    const MULTIPLIER_TO_SET_OFFSET_TO_CANVAS_DIMENSION_WIDTH =
-      CANVAS_MAX_WIDTH / canvasViewSettings.canvasSize.width;
-    const MULTIPLIER_TO_SET_OFFSET_TO_CANVAS_DIMENSION_HEIGHT =
-      CANVAS_MAX_WIDTH / canvasViewSettings.canvasSize.height;
-    const adjustedWidth = CANVAS_MAX_WIDTH / viewBoxSize.width;
-    const adjustedHeight = CANVAS_MAX_HEIGHT / viewBoxSize.height;
+  const { x: zoomOffsetX, y: zoomOffsetY } = useOffsetZoomToCoords({
+    x: BORDER_MARGIN,
+    y: BORDER_MARGIN,
+  });
 
-    const marginLeft =
-      (40 / (zoomFactor * adjustedWidth) / adjustedWidth) *
-      MULTIPLIER_TO_SET_OFFSET_TO_CANVAS_DIMENSION_WIDTH;
-    const marginTop =
-      (40 / (zoomFactor * adjustedWidth) / adjustedHeight) *
-      MULTIPLIER_TO_SET_OFFSET_TO_CANVAS_DIMENSION_WIDTH;
+  const { x: scrollOffsetX, y: scrollOffsetY } = useOffsetZoomToCoords({
+    x: scrollPosition.x,
+    y: scrollPosition.y,
+  });
 
-    if (scrollPosition) {
-      offsetX =
-        (scrollPosition.x / (zoomFactor * adjustedWidth) / adjustedWidth) *
-          MULTIPLIER_TO_SET_OFFSET_TO_CANVAS_DIMENSION_WIDTH +
-        marginLeft;
-      offsetY =
-        (scrollPosition.y / (zoomFactor * adjustedHeight) / adjustedHeight) *
-          MULTIPLIER_TO_SET_OFFSET_TO_CANVAS_DIMENSION_HEIGHT +
-        marginTop;
-    }
+  const getOffSetAccordingToScrollAndZoom = (): {
+    offsetX: number;
+    offsetY: number;
+  } => {
+    const offsetX = scrollOffsetX + zoomOffsetX;
+    const offsetY = scrollOffsetY + zoomOffsetY;
 
-    return { zoomOffsetX: offsetX, zoomOffsetY: offsetY };
+    return { offsetX, offsetY };
   };
   const handleAddTable = (newTable: TableVm) => {
-    const { zoomOffsetX, zoomOffsetY } = getZoomAdjustmentAccordingToScroll(
-      canvasViewSettings.zoomFactor
-    );
+    const { offsetX, offsetY } = getOffSetAccordingToScrollAndZoom();
 
     const updatedTable = {
       ...newTable,
-      x: zoomOffsetX,
-      y: zoomOffsetY,
+      x: offsetX,
+      y: offsetY,
     };
 
     addTable(updatedTable);
