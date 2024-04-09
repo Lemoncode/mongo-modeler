@@ -47,25 +47,17 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     y: 0,
   });
 
-  const savedSettingsString = retrieveValueFromLocalStorage(USERSAVE_KEY);
-  const savedSettings = savedSettingsString
-    ? savedSettingsString
-    : { autoSave: true };
+  const savedSettingsObject = retrieveValueFromLocalStorage(USERSAVE_KEY);
 
-  const [autoSave, setAutoSave] = React.useState<boolean>(savedSettings);
+  const initialValue =
+    savedSettingsObject && savedSettingsObject.autoSave !== undefined
+      ? savedSettingsObject.autoSave
+      : true;
 
-  React.useEffect(() => {
-    if (
-      savedSettings &&
-      typeof savedSettings === 'object' &&
-      'autoSave' in savedSettings
-    ) {
-      setAutoSave(savedSettings.autoSave);
-    }
-  }, []);
+  const [autoSave, setAutoSave] = React.useState<boolean>(initialValue);
 
   React.useEffect(() => {
-    saveValueToLocalStorage(USERSAVE_KEY, { autoSave });
+    saveValueToLocalStorage(USERSAVE_KEY, { autoSave: autoSave });
   }, [autoSave]);
 
   const zoomIn = () =>
