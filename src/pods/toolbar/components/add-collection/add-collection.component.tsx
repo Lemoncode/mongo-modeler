@@ -10,18 +10,13 @@ import {
 } from '@/core/providers/canvas-schema';
 import { ADD_COLLECTION_TITLE } from '@/common/components/modal-dialog';
 import { SHORTCUTS } from '../../shortcut/shortcut.const';
+import { CANVAS_MAX_WIDTH, CANVAS_MAX_HEIGHT } from '@/core/providers';
 
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
   const { canvasSchema, addTable } = useCanvasSchemaContext();
-  const {
-    setLoadSample,
-    scrollPosition,
-    canvasViewSettings,
-    viewBoxSize,
-    CANVAS_MAX_HEIGHT,
-    CANVAS_MAX_WIDTH,
-  } = useCanvasViewSettingsContext();
+  const { setLoadSample, scrollPosition, canvasViewSettings, viewBoxSize } =
+    useCanvasViewSettingsContext();
 
   const getZoomAdjustmentAccordingToScroll = (
     zoomFactor: number

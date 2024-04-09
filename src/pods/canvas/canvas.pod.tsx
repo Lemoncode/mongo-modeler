@@ -21,6 +21,7 @@ import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
 import { CanvasAccessible } from './components/canvas-accessible';
 import useAutosave from '@/core/autosave/autosave.hook';
+import { CANVAS_MAX_WIDTH } from '@/core/providers';
 
 const HEIGHT_OFFSET = 200;
 export const CanvasPod: React.FC = () => {
@@ -42,7 +43,6 @@ export const CanvasPod: React.FC = () => {
     setScrollPosition,
     setLoadSample,
     setViewBoxSize,
-    CANVAS_MAX_WIDTH,
   } = useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
 

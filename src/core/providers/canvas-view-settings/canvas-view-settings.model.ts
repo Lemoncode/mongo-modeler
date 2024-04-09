@@ -32,6 +32,4 @@ export interface CanvasViewSettingsContextModel {
   setLoadSample: (loadSample: boolean) => void;
   viewBoxSize: Size;
   setViewBoxSize: (viewBoxSize: Size) => void;
-  CANVAS_MAX_WIDTH: number;
-  CANVAS_MAX_HEIGHT: number;
 }
