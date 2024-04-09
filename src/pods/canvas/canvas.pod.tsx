@@ -16,7 +16,7 @@ import {
   EDIT_RELATION_TITLE,
   EDIT_COLLECTION_TITLE,
 } from '@/common/components/modal-dialog';
-import { CANVAS_MAX_WIDTH, CanvasSvgComponent } from './canvas-svg.component';
+import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
 import { CanvasAccessible } from './components/canvas-accessible';
@@ -42,6 +42,7 @@ export const CanvasPod: React.FC = () => {
     setScrollPosition,
     setLoadSample,
     setViewBoxSize,
+    CANVAS_MAX_WIDTH,
   } = useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
 

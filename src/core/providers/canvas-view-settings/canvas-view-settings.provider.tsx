@@ -5,6 +5,10 @@ import {
 } from './canvas-view-settings.model';
 import { CanvasViewSettingsContext } from './canvas-view-settings.context';
 import { Coords, Size } from '@/core/model';
+import {
+  CANVAS_MAX_WIDTH,
+  CANVAS_MAX_HEIGHT,
+} from './canvas-view-settings.consts';
 
 interface Props {
   children: React.ReactNode;
@@ -93,6 +97,8 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
         setLoadSample,
         viewBoxSize,
         setViewBoxSize,
+        CANVAS_MAX_WIDTH,
+        CANVAS_MAX_HEIGHT,
       }}
     >
       {children}

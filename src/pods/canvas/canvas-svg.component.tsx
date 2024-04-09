@@ -8,6 +8,7 @@ import {
 import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
 import { SelectedTableFilterHighlightComponent } from './components/table/components/selected-table-filter-highlight.component';
+import { useCanvasViewSettingsContext } from '@/core/providers';
 
 interface Props {
   viewBoxSize: Size;
@@ -21,9 +22,6 @@ interface Props {
   isTabletOrMobileDevice: boolean;
 }
 
-export const CANVAS_MAX_WIDTH = 20000;
-export const CANVAS_MAX_HEIGHT = 20000;
-
 export const CanvasSvgComponent: React.FC<Props> = props => {
   const {
     viewBoxSize,
@@ -36,6 +34,8 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     onSelectElement,
     isTabletOrMobileDevice,
   } = props;
+  const { CANVAS_MAX_HEIGHT, CANVAS_MAX_WIDTH } =
+    useCanvasViewSettingsContext();
 
   const clearSelection = () => {
     onSelectElement(null);
