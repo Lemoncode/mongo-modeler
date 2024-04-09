@@ -1,4 +1,5 @@
 import React from 'react';
+import { FieldList } from './field-list-accessible.component';
 import { TableVm, DatabaseSchemaVm } from '@/core/providers';
 import { TableRelationsAccessible } from './table-relations-accessible.component';
 
@@ -6,6 +7,7 @@ interface Props {
   table: TableVm;
   canvasSchema: DatabaseSchemaVm;
 }
+
 export const CollectionAccessible: React.FC<Props> = props => {
   const { table, canvasSchema } = props;
 
@@ -18,27 +20,7 @@ export const CollectionAccessible: React.FC<Props> = props => {
       </h3>
       <h4>Fields for {table.tableName} collection</h4>
       <ul>
-        <li aria-label="structure for fields">
-          <span>Name</span>
-          <span>Type</span>
-          <span>NN</span>
-        </li>
-
-        <li aria-label="authors field">
-          <span>_id</span>
-          <span>ObjectID</span>
-          <span>NN</span>
-        </li>
-
-        <li aria-label="authors field">
-          <span>name</span>
-          <span>String</span>
-        </li>
-
-        <li aria-label="authors field">
-          <span>bio</span>
-          <span>String</span>
-        </li>
+        <FieldList fieldList={table.fields} listName={table.tableName} />
       </ul>
       <TableRelationsAccessible table={table} canvasSchema={canvasSchema} />
     </>

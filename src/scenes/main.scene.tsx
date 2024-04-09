@@ -2,7 +2,6 @@ import { CanvasPod } from '@/pods/canvas/canvas.pod';
 import { ToolbarPod } from '@/pods/toolbar/toolbar.pod';
 import { useModalDialogContext } from '@/core/providers';
 import { ModalDialog } from '@/common/components';
-
 import classes from './main.scene.module.css';
 import { FooterPod } from '@/pods/footer';
 

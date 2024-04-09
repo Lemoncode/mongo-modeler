@@ -20,6 +20,7 @@ import { CANVAS_MAX_WIDTH, CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
 import { CanvasAccessible } from './components/canvas-accessible';
+import useAutosave from '@/core/autosave/autosave.hook';
 
 const HEIGHT_OFFSET = 200;
 export const CanvasPod: React.FC = () => {
@@ -50,6 +51,7 @@ export const CanvasPod: React.FC = () => {
     loadSchema(mockSchema);
   }, []);
   */
+
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
@@ -132,6 +134,20 @@ export const CanvasPod: React.FC = () => {
       height: canvasSize.width + newSize + HEIGHT_OFFSET / zoomFactor,
     });
   }, [viewBoxSize]);
+
+  const { retrieveAutosave, startAutosave, stopAutosave } = useAutosave();
+  const [retrieveAutosaveHasInitialized, setRetrieveAutosaveHasInitialized] =
+    React.useState(false);
+
+  React.useEffect(() => {
+    if (!retrieveAutosaveHasInitialized) {
+      retrieveAutosave();
+      setRetrieveAutosaveHasInitialized(true);
+    }
+
+    startAutosave();
+    return stopAutosave;
+  }, [canvasSchema]);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
