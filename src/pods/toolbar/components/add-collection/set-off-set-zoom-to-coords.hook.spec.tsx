@@ -31,6 +31,8 @@ describe('useOffsetZoomToCoords', () => {
       setFilename: () => {},
       setLoadSample: () => {},
       setViewBoxSize: () => {},
+      autoSave: false,
+      setAutoSave: () => {},
     };
 
     const wrapper = ({ children }: { children: React.ReactNode }) => (
