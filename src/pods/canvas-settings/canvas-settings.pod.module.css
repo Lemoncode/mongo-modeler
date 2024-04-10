@@ -9,3 +9,10 @@
   flex-direction: column;
   gap: 20px;
 }
+
+.checkboxAutoSave {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-xl);
+}

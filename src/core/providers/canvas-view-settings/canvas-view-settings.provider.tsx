@@ -5,6 +5,10 @@ import {
 } from './canvas-view-settings.model';
 import { CanvasViewSettingsContext } from './canvas-view-settings.context';
 import { Coords, Size } from '@/core/model';
+import {
+  retrieveValueFromLocalStorage,
+  saveValueToLocalStorage,
+} from '@/common/local-storage';
 
 interface Props {
   children: React.ReactNode;
@@ -30,6 +34,8 @@ const DEFAULT_ZOOM_FACTOR = isMobile
     ? DEFAULT_TABLET_ZOOM_FACTOR
     : DEFAULT_DESKTOP_ZOOM_FACTOR;
 
+const USERSAVE_KEY = 'userSettings';
+
 export const CanvasViewSettingsProvider: React.FC<Props> = props => {
   const { children } = props;
   const [canvasViewSettings, setCanvasViewSettings] =
@@ -45,6 +51,19 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     height: 0,
     width: 0,
   });
+
+  const savedSettingsObject = retrieveValueFromLocalStorage(USERSAVE_KEY);
+
+  const initialValue =
+    savedSettingsObject && savedSettingsObject.autoSave !== undefined
+      ? savedSettingsObject.autoSave
+      : true;
+
+  const [autoSave, setAutoSave] = React.useState<boolean>(initialValue);
+
+  React.useEffect(() => {
+    saveValueToLocalStorage(USERSAVE_KEY, { autoSave: autoSave });
+  }, [autoSave]);
 
   const zoomIn = () =>
     setCanvasViewSettings(canvasViewSettings => ({
@@ -93,6 +112,8 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
         setLoadSample,
         viewBoxSize,
         setViewBoxSize,
+        autoSave,
+        setAutoSave,
       }}
     >
       {children}

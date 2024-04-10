@@ -14,6 +14,7 @@ import {
   RedoButton,
   DeleteButton,
   AboutButton,
+  CanvasSettingButton,
 } from './components';
 import classes from './toolbar.pod.module.css';
 
@@ -31,8 +32,7 @@ export const ToolbarPod: React.FC = () => {
       <RedoButton />
       <ExportButton />
       <DeleteButton />
-      {/* At the moment there are no settings to display. When autosave is implemented, uncomment CanvasSettingButton */}
-      {/* <CanvasSettingButton /> */}
+      <CanvasSettingButton />
       <AboutButton />
       <ThemeToggleButton darkLabel="Dark Mode" lightLabel="Light Mode" />
     </div>
