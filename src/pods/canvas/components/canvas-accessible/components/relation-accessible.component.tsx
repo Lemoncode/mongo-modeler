@@ -2,7 +2,7 @@ import React from 'react';
 import { DatabaseSchemaVm, RelationVm } from '@/core/providers';
 import {
   findFields,
-  findNameFromTheTable,
+  getTableNameById,
   generateRouteField,
 } from './relation-accesible.bussines';
 
@@ -15,19 +15,16 @@ interface Props {
 export const RelationAccessible: React.FC<Props> = props => {
   const { relation, index, canvas } = props;
 
-  const originTableName = findNameFromTheTable(
-    canvas.tables,
-    relation.fromTableId
-  );
+  const originTableName = getTableNameById(canvas.tables, relation.fromTableId);
   const originFieldsFromTable = findFields(canvas.tables, relation.fromTableId);
 
   const originRouteOfFields = generateRouteField(
-    originFieldsFromTable!,
+    originFieldsFromTable,
     relation.fromFieldId,
     []
   );
 
-  const destinationTableName = findNameFromTheTable(
+  const destinationTableName = getTableNameById(
     canvas.tables,
     relation.toTableId
   );
@@ -38,7 +35,7 @@ export const RelationAccessible: React.FC<Props> = props => {
   );
 
   const destinationRouteOfFields = generateRouteField(
-    destinationFieldsFromTable!,
+    destinationFieldsFromTable,
     relation.toFieldId,
     []
   );

@@ -28,16 +28,10 @@ export const generateRouteField = (
 
 export const findFields = (tables: TableVm[], id: GUID) => {
   const table = tables.find(table => table.id === id);
-  if (table) {
-    return table.fields;
-  }
-  return undefined;
+  return table?.fields ?? [];
 };
 
-export const findNameFromTheTable = (tables: TableVm[], id: GUID) => {
-  const foundTableName = tables.find(table => table.id === id);
-  if (foundTableName) {
-    return foundTableName.tableName;
-  }
-  return undefined;
+export const getTableNameById = (tables: TableVm[], id: GUID) => {
+  const table = tables.find(table => table.id === id);
+  return table?.tableName ?? 'Not found';
 };
