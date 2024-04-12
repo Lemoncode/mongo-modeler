@@ -1,7 +1,6 @@
 import { GUID } from '@/core/model';
-import { FieldVm } from '@/core/providers';
+import { FieldVm, RelationVm } from '@/core/providers';
 
-// TODO: Add testing
 export const findFieldNameAndParent = (
   fields: FieldVm[],
   id: GUID
@@ -21,4 +20,19 @@ export const findFieldNameAndParent = (
     }
   }
   return undefined;
+};
+
+export type TypeOfRelation = 'origin' | 'destination' | 'none';
+export const getTypeOfRelationForTable = (
+  tableId: GUID,
+  relation: RelationVm
+): TypeOfRelation => {
+  let typeOfRelation: TypeOfRelation = 'none';
+  if (tableId === relation.fromTableId) {
+    return (typeOfRelation = 'origin');
+  }
+  if (tableId === relation.toTableId) {
+    return (typeOfRelation = 'destination');
+  }
+  return typeOfRelation;
 };

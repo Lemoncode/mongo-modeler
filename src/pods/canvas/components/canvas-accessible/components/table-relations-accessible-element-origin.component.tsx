@@ -1,6 +1,6 @@
 import React from 'react';
 import { TableVm, RelationVm, DatabaseSchemaVm } from '@/core/providers';
-import { findFieldNameAndParent } from './find-field-name-and-parent.helper';
+import { findFieldNameAndParent } from './table-relations-accessible.business';
 
 interface Props {
   relation: RelationVm;
@@ -14,7 +14,7 @@ export const TableRelationElementOrigin: React.FC<Props> = props => {
   const destinationTable = canvasSchema.tables.find(
     table => table.id === relation.toTableId
   );
-  // TODO: Review
+  // Defensive Programming
   if (!destinationTable) return <></>;
 
   const originField = findFieldNameAndParent(
