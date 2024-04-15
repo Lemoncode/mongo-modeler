@@ -186,13 +186,28 @@
         font-weight: 600;
       }
 
-      @media screen and (max-width: 1280px) {
+      @media screen and (max-width: 900px) {
+        body {
+          text-align: center;
+        }
+        .info__detail {
+          padding-bottom: 4rem;
+          flex-direction: column-reverse;
+          justify-content: center;
+        }
         .info__text {
           padding-top: 0;
+          width: 100%;
+        }
+        .info__image {
+          width: 100%;
+        }
+        .info__link {
+          margin-left: auto;
+          margin-right: auto;
         }
       }
-
-      @media screen and (max-width: 900px) {
+      @media screen and (max-width: 600px) {
         body {
           text-align: center;
         }
@@ -234,7 +249,14 @@
         .info__company {
           line-height: 1.13;
         }
+        .info__detail {
+          flex-direction: column-reverse;
+          gap: 5rem;
+        }
 
+        .info__image {
+          width: 100%;
+        }
         .info__link {
           font-size: 18px;
         }
@@ -251,7 +273,8 @@
         }
         .info__company {
           flex-direction: column;
-          justify-items: center;
+          justify-content: center;
+          align-items: center;
           gap: 8px;
         }
 
@@ -263,7 +286,6 @@
           line-height: 1.1;
         }
       }
-
       @media (hover: hover) {
         a:hover {
           color: #ae7839;

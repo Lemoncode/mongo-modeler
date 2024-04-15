@@ -10,23 +10,31 @@ import {
 } from '@/core/providers/canvas-schema';
 import { ADD_COLLECTION_TITLE } from '@/common/components/modal-dialog';
 import { SHORTCUTS } from '../../shortcut/shortcut.const';
+import { useOffsetZoomToCoords } from './set-off-set-zoom-to-coords.hook';
+
+const BORDER_MARGIN = 40;
 
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
   const { canvasSchema, addTable } = useCanvasSchemaContext();
-  const { scrollPosition, setLoadSample } = useCanvasViewSettingsContext();
+  const { setLoadSample, scrollPosition } = useCanvasViewSettingsContext();
+
+  const { x: scrollOffsetX, y: scrollOffsetY } = useOffsetZoomToCoords({
+    x: scrollPosition.x + BORDER_MARGIN,
+    y: scrollPosition.y + BORDER_MARGIN,
+  });
 
   const handleAddTable = (newTable: TableVm) => {
-    const ADD_TABLE_MARGIN = 15;
     const updatedTable = {
       ...newTable,
-      x: scrollPosition.x + ADD_TABLE_MARGIN,
-      y: scrollPosition.y + ADD_TABLE_MARGIN,
+      x: scrollOffsetX,
+      y: scrollOffsetY,
     };
 
     addTable(updatedTable);
     closeModal();
   };
+
   const handleEditTableClick = () => {
     setLoadSample(false);
     openModal(

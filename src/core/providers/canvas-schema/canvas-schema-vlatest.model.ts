@@ -60,6 +60,7 @@ export type UpdatePositionFn = (
 
 export interface CanvasSchemaContextVm {
   canvasSchema: DatabaseSchemaVm;
+  setCanvasSchema: (schema: DatabaseSchemaVm) => void;
   loadSchema: (schema: DatabaseSchemaVm) => void;
   createEmptySchema: () => void;
   updateTablePosition: UpdatePositionFn;

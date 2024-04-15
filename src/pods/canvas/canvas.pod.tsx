@@ -16,9 +16,12 @@ import {
   EDIT_RELATION_TITLE,
   EDIT_COLLECTION_TITLE,
 } from '@/common/components/modal-dialog';
-import { CANVAS_MAX_WIDTH, CanvasSvgComponent } from './canvas-svg.component';
+import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
+import { CanvasAccessible } from './components/canvas-accessible';
+import useAutosave from '@/core/autosave/autosave.hook';
+import { CANVAS_MAX_WIDTH } from '@/core/providers';
 
 const HEIGHT_OFFSET = 200;
 export const CanvasPod: React.FC = () => {
@@ -53,6 +56,7 @@ export const CanvasPod: React.FC = () => {
     loadSchema(mockSchema);
   }, []);
   */
+
   const viewBoxSize: Size = React.useMemo<Size>(
     () => ({
       width: canvasSize.width * zoomFactor,
@@ -138,6 +142,20 @@ export const CanvasPod: React.FC = () => {
     });
   }, [viewBoxSize]);
 
+  const { retrieveAutosave, startAutosave, stopAutosave } = useAutosave();
+  const [retrieveAutosaveHasInitialized, setRetrieveAutosaveHasInitialized] =
+    React.useState(false);
+
+  React.useEffect(() => {
+    if (!retrieveAutosaveHasInitialized) {
+      retrieveAutosave();
+      setRetrieveAutosaveHasInitialized(true);
+    }
+
+    startAutosave();
+    return stopAutosave;
+  }, [canvasSchema]);
+
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       //Support for MetaKey in Firefox is available only from version 118 onwards,
@@ -185,7 +203,6 @@ export const CanvasPod: React.FC = () => {
           </button>
         </div>
       )}
-
       <div
         style={{
           width: sizeFrame.width,
@@ -204,6 +221,7 @@ export const CanvasPod: React.FC = () => {
           onSelectElement={onSelectElement}
           isTabletOrMobileDevice={isTabletOrMobileDevice}
         />
+        {!loadSample && <CanvasAccessible canvasSchema={canvasSchema} />}
       </div>
     </div>
   );

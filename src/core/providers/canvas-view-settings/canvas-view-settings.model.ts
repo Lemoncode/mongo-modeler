@@ -32,4 +32,6 @@ export interface CanvasViewSettingsContextModel {
   setLoadSample: (loadSample: boolean) => void;
   viewBoxSize: Size;
   setViewBoxSize: (viewBoxSize: Size) => void;
+  autoSave: boolean;
+  setAutoSave: (autoSave: boolean) => void;
 }
