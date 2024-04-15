@@ -16,11 +16,12 @@ import {
   EDIT_RELATION_TITLE,
   EDIT_COLLECTION_TITLE,
 } from '@/common/components/modal-dialog';
-import { CANVAS_MAX_WIDTH, CanvasSvgComponent } from './canvas-svg.component';
+import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
 import { CanvasAccessible } from './components/canvas-accessible';
 import useAutosave from '@/core/autosave/autosave.hook';
+import { CANVAS_MAX_WIDTH } from '@/core/providers';
 
 const HEIGHT_OFFSET = 200;
 export const CanvasPod: React.FC = () => {
@@ -37,8 +38,12 @@ export const CanvasPod: React.FC = () => {
     deleteSelectedItem,
     loadSchema,
   } = useCanvasSchemaContext();
-  const { canvasViewSettings, setScrollPosition, setLoadSample } =
-    useCanvasViewSettingsContext();
+  const {
+    canvasViewSettings,
+    setScrollPosition,
+    setLoadSample,
+    setViewBoxSize,
+  } = useCanvasViewSettingsContext();
   const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
 
   const { isTabletOrMobileDevice } = useDeviceContext();
@@ -59,6 +64,8 @@ export const CanvasPod: React.FC = () => {
     }),
     [zoomFactor, canvasSize]
   );
+
+  if (viewBoxSize && setViewBoxSize) setViewBoxSize(viewBoxSize);
 
   const handleToggleCollapse = (tableId: GUID, fieldId: GUID) => {
     doFieldToggleCollapse(tableId, fieldId);
