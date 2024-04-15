@@ -1,20 +1,52 @@
 import React from 'react';
-import { RelationVm } from '@/core/providers';
+import { DatabaseSchemaVm, RelationVm } from '@/core/providers';
+import {
+  findFields,
+  getTableNameById,
+  generateRouteField,
+} from './relation-accesible.bussines';
 
 interface Props {
   relation: RelationVm;
+  index: number;
+  canvas: DatabaseSchemaVm;
 }
 
 export const RelationAccessible: React.FC<Props> = props => {
-  const { relation } = props;
-  //Todo: #387 Canvas Accessible-relation (https://github.com/Lemoncode/mongo-modeler/issues/387)
+  const { relation, index, canvas } = props;
+
+  const originTableName = getTableNameById(canvas.tables, relation.fromTableId);
+  const originFieldsFromTable = findFields(canvas.tables, relation.fromTableId);
+
+  const originRouteOfFields = generateRouteField(
+    originFieldsFromTable,
+    relation.fromFieldId,
+    []
+  );
+
+  const destinationTableName = getTableNameById(
+    canvas.tables,
+    relation.toTableId
+  );
+
+  const destinationFieldsFromTable = findFields(
+    canvas.tables,
+    relation.toTableId
+  );
+
+  const destinationRouteOfFields = generateRouteField(
+    destinationFieldsFromTable,
+    relation.toFieldId,
+    []
+  );
+
   return (
     <>
       <h3>
-        Relation 1: Books-Authors-id with Authors-_id
-        {relation.fromFieldId}
-        <button>Edit relation 1</button>
-        <button>Delete relation 1</button>
+        Relation {index}: {originTableName} - {originRouteOfFields} with{' '}
+        {destinationTableName} - {destinationRouteOfFields}
+        <button>Edit relation {index}</button>
+        <button>Delete relation {index}</button>
       </h3>
     </>
   );

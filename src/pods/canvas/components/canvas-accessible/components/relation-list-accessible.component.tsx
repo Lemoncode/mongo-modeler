@@ -11,15 +11,14 @@ export const RelationListAccessible: React.FC<Props> = props => {
   return (
     <>
       <h2>Relations</h2>
-      {canvasSchema.relations.map(relation => (
-        <RelationAccessible relation={relation} />
+      {canvasSchema.relations.map((relation, index) => (
+        <RelationAccessible
+          relation={relation}
+          key={relation.id}
+          index={index + 1}
+          canvas={canvasSchema}
+        />
       ))}
-
-      <h3>
-        Relation 2: Review-books with Books-_id
-        <button>Edit relation 2</button>
-        <button>Delete relation 2</button>
-      </h3>
     </>
   );
 };
