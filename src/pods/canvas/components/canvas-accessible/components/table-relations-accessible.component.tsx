@@ -41,15 +41,23 @@ export const TableRelationsAccessible: React.FC<Props> = props => {
     }
   };
 
+  const tableHasRelations = canvasSchema.relations.some(
+    relation =>
+      relation.fromTableId === table.id || relation.toTableId === table.id
+  );
+
   return (
     <>
-      <h4>Relations for {table.tableName} collection:</h4>
-
-      <ul>
-        {canvasSchema.relations.map(relation => {
-          return displayRelationType(table.id, relation);
-        })}
-      </ul>
+      {tableHasRelations ? (
+        <>
+          <h4>Relations for {table.tableName} collection:</h4>
+          <ul>
+            {canvasSchema.relations.map(relation => {
+              return displayRelationType(table.id, relation);
+            })}
+          </ul>
+        </>
+      ) : null}
     </>
   );
 };
