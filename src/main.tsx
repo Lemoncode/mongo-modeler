@@ -5,7 +5,6 @@ import { ThemeProvider } from './core/providers/theme-provider/theme-provider.ts
 import './App.css';
 import { DeviceProvider } from './core/providers/index.ts';
 
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider>

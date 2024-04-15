@@ -12,7 +12,7 @@ export const CanvasAccessibleComponent: React.FC<Props> = props => {
   return (
     <>
       <h1 id="canvas-title">Canvas</h1>
-      <CollectionListAccessible collectionList={canvasSchema.tables} />
+      <CollectionListAccessible canvasSchema={canvasSchema} />
       <RelationListAccessible canvasSchema={canvasSchema} />
     </>
   );
