@@ -6,13 +6,13 @@
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.908);
   /* uncomment for hide accessibility canvas*/
-  /* width: 1px;
-  height: 1px; 
+  width: 1px;
+  height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   -webkit-clip-path: inset(50%);
-  clip-path: inset(50%); */
+  clip-path: inset(50%);
   padding: 0;
   border: 0;
 }

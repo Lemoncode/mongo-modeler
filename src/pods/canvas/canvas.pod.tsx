@@ -22,7 +22,7 @@ import { mFlix } from './m-flix.mock.data';
 import { CanvasAccessible } from './components/canvas-accessible';
 import useAutosave from '@/core/autosave/autosave.hook';
 import { CANVAS_MAX_WIDTH } from '@/core/providers';
-
+import { setOffSetZoomToCoords } from '@/common/helpers/set-off-set-zoom-to-coords.helper';
 const HEIGHT_OFFSET = 200;
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
@@ -97,10 +97,15 @@ export const CanvasPod: React.FC = () => {
 
   const handleScroll = () => {
     if (containerRef.current) {
-      setScrollPosition({
-        x: containerRef.current.scrollLeft,
-        y: containerRef.current.scrollTop,
-      });
+      setScrollPosition(
+        setOffSetZoomToCoords(
+          containerRef.current.scrollLeft,
+          containerRef.current.scrollTop,
+          viewBoxSize,
+          canvasSize,
+          zoomFactor
+        )
+      );
     }
   };
 
@@ -213,6 +218,7 @@ export const CanvasPod: React.FC = () => {
         <CanvasSvgComponent
           viewBoxSize={viewBoxSize}
           canvasSize={canvasSize}
+          zoomFactor={zoomFactor}
           canvasSchema={canvasSchema}
           onUpdateTablePosition={updateTablePosition}
           onToggleCollapse={handleToggleCollapse}
