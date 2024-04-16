@@ -23,6 +23,8 @@ interface Props {
   isSelected: boolean;
   selectTable: (tableId: GUID) => void;
   isTabletOrMobileDevice: boolean;
+  viewBoxSize: Size;
+  zoomFactor: number;
 }
 
 export const DatabaseTable: React.FC<Props> = ({
@@ -34,6 +36,8 @@ export const DatabaseTable: React.FC<Props> = ({
   isSelected,
   selectTable,
   isTabletOrMobileDevice,
+  viewBoxSize,
+  zoomFactor,
 }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
 
@@ -62,7 +66,9 @@ export const DatabaseTable: React.FC<Props> = ({
     tableInfo.y,
     updatePosition,
     totalHeight,
-    canvasSize
+    canvasSize,
+    viewBoxSize,
+    zoomFactor
   );
 
   const handleSelectTable = () => {
