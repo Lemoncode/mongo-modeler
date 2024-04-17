@@ -32,6 +32,10 @@ export const EmptyCanvasAccessible: React.FC<Props> = props => {
     closeModal();
   };
 
+  const handleCloseModal = () => {
+    closeModal();
+  };
+
   const handleEditTableClick = () => {
     setLoadSample(false);
     openModal(
@@ -42,10 +46,6 @@ export const EmptyCanvasAccessible: React.FC<Props> = props => {
       />,
       ADD_COLLECTION_TITLE
     );
-  };
-
-  const handleCloseModal = () => {
-    closeModal();
   };
 
   return (
