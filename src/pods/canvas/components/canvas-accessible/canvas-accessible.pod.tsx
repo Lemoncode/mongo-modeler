@@ -1,13 +1,15 @@
 import React from 'react';
 import classes from './canvas-accessible.pod.module.css';
 import { CanvasAccessibleComponent } from './canvas-accessible.component';
-import { DatabaseSchemaVm } from '@/core/providers';
+import { DatabaseSchemaVm, TableVm } from '@/core/providers';
 
 interface CanvasAccessibleProps {
   canvasSchema: DatabaseSchemaVm;
+  handleEditTable: (table: TableVm) => void;
+  deleteSelectedItem: (tableId: string) => void;
 }
 export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
-  const { canvasSchema } = props;
+  const { canvasSchema, handleEditTable, deleteSelectedItem } = props;
 
   const canvasAccessibleRef = React.useRef<HTMLDivElement>(null);
 
@@ -27,7 +29,11 @@ export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
       ref={canvasAccessibleRef}
       aria-live="polite"
     >
-      <CanvasAccessibleComponent canvasSchema={canvasSchema} />
+      <CanvasAccessibleComponent
+        canvasSchema={canvasSchema}
+        handleEditTable={handleEditTable}
+        deleteSelectedItem={deleteSelectedItem}
+      />
     </section>
   );
 };

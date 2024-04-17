@@ -1,13 +1,15 @@
 import React from 'react';
 import { CollectionAccessible } from './collection-accessible.component';
-import { DatabaseSchemaVm } from '@/core/providers';
+import { DatabaseSchemaVm, TableVm } from '@/core/providers';
 
 interface Props {
   canvasSchema: DatabaseSchemaVm;
+  handleEditTable: (table: TableVm) => void;
+  deleteSelectedItem: (tableId: string) => void;
 }
 
 export const CollectionListAccessible: React.FC<Props> = props => {
-  const { canvasSchema } = props;
+  const { canvasSchema, handleEditTable, deleteSelectedItem } = props;
 
   return (
     <>
@@ -18,6 +20,8 @@ export const CollectionListAccessible: React.FC<Props> = props => {
           table={table}
           canvasSchema={canvasSchema}
           key={table.id}
+          handleEditTable={handleEditTable}
+          deleteSelectedItem={deleteSelectedItem}
         />
       ))}
     </>
