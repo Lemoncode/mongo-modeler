@@ -1,4 +1,5 @@
 .container {
+  z-index: 2;
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +13,7 @@
 
 .dialog {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   background-color: var(--background-dialog);
   color: var(--text-color);
   width: 90%;
@@ -25,7 +26,7 @@
 .dialog-header {
   position: sticky;
   top: 0;
-  z-index: 3;
+  z-index: 4;
   display: flex;
   gap: 10px;
   align-items: center;
