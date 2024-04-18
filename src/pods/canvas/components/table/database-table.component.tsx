@@ -11,6 +11,7 @@ import {
 } from './components';
 import { renderRows } from './database-table-render-rows.helper';
 import classes from './database-table.module.css';
+import { TableProvider } from '@/core/providers/table-provider';
 
 // TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
@@ -33,10 +34,8 @@ export const DatabaseTable: React.FC<Props> = ({
   canvasSize,
   isSelected,
   selectTable,
-  isTabletOrMobileDevice,
 }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
-
   const [renderedRows, totalHeight] = React.useMemo((): [
     JSX.Element[],
     number,
@@ -76,22 +75,27 @@ export const DatabaseTable: React.FC<Props> = ({
   };
 
   return (
-    <g
-      transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
-      onMouseDown={onMouseDown}
-      onTouchStart={onTouchStart}
-      className={classes.tableContainer}
-      ref={ref as React.LegacyRef<SVGGElement> | undefined}
-    >
-      <DatabaseTableBorder totalHeight={totalHeight} isSelected={isSelected} />
-      <DatabaseTableHeader
-        onEditTable={handleDoubleClick}
-        onSelectTable={handleSelectTable}
-        isSelected={isSelected}
-        tableName={tableInfo.tableName}
-        isTabletOrMobileDevice={isTabletOrMobileDevice}
-      />
-      <DatabaseTableBody renderedRows={renderedRows} />
-    </g>
+    <TableProvider>
+      <g
+        transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
+        className={classes.tableContainer}
+        ref={ref as React.LegacyRef<SVGGElement> | undefined}
+      >
+        <DatabaseTableBorder
+          totalHeight={totalHeight}
+          isSelected={isSelected}
+        />
+        <DatabaseTableHeader
+          onEditTable={handleDoubleClick}
+          onSelectTable={handleSelectTable}
+          isSelected={isSelected}
+          table={tableInfo}
+          tableName={tableInfo.tableName}
+        />
+        <DatabaseTableBody renderedRows={renderedRows} />
+      </g>
+    </TableProvider>
   );
 };

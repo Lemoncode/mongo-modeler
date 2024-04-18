@@ -35,7 +35,6 @@ export const CanvasPod: React.FC = () => {
     updateFullRelation,
     doUndo,
     doRedo,
-    deleteSelectedItem,
     loadSchema,
   } = useCanvasSchemaContext();
   const {
@@ -166,12 +165,6 @@ export const CanvasPod: React.FC = () => {
 
       if (e.metaKey && e.shiftKey && e.key === 'z') {
         doRedo();
-      }
-
-      if (e.key === 'Delete' || e.key === 'Backspace') {
-        if (canvasSchema.selectedElementId) {
-          deleteSelectedItem(canvasSchema.selectedElementId);
-        }
       }
     };
 
