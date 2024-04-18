@@ -26,17 +26,25 @@ export const ExportTablePod: React.FC<Props> = props => {
 
   return (
     <>
-      <div className={classes.inputContent}>
+      <fieldset
+        className={classes.inputContent}
+        aria-label="Select an export format"
+        aria-required="true"
+      >
         <div className={classes.radioButton}>
           <input
             className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="radio2"
-            aria-label="SVG"
+            id="radio1"
+            aria-labelledby="radio1-label"
             onChange={() => handleExportType(ExportType.SVG)}
           />
-          <label htmlFor="radio2" className={classes.radioButtonLabel}>
+          <label
+            htmlFor="radio1"
+            id="radio1-label"
+            className={classes.radioButtonLabel}
+          >
             <span className={classes.radioButtonCustom}></span>SVG
           </label>
         </div>
@@ -45,11 +53,15 @@ export const ExportTablePod: React.FC<Props> = props => {
             className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="radio1"
-            aria-label="PNG"
+            id="radio2"
+            aria-labelledby="radio2-label"
             onChange={() => handleExportType(ExportType.PNG)}
           />
-          <label htmlFor="radio1" className={classes.radioButtonLabel}>
+          <label
+            htmlFor="radio2"
+            id="radio2-label"
+            className={classes.radioButtonLabel}
+          >
             <span className={classes.radioButtonCustom}></span>PNG
           </label>
         </div>
@@ -59,28 +71,36 @@ export const ExportTablePod: React.FC<Props> = props => {
             type="radio"
             name="export type"
             id="radio3"
-            aria-label="Mongo Schema"
+            aria-labelledby="radio3-label"
             onChange={() => handleExportType(ExportType.SCHEMA)}
           />
-          <label htmlFor="radio3" className={classes.radioButtonLabel}>
+          <label
+            htmlFor="radio3"
+            id="radio3-label"
+            className={classes.radioButtonLabel}
+          >
             <span className={classes.radioButtonCustom}></span>Mongo Schema
           </label>
         </div>
-      </div>
+      </fieldset>
+
       <div className={classes.checkboxExport}>
         <Checkbox
           id="checkboxExportFile"
           onChange={() => setAreAllFieldsExpanded(!areAllFieldsExpanded)}
           checked={areAllFieldsExpanded}
+          ariaLabelledby="checkboxExport"
         />
-        <label htmlFor="checkboxExportFile">
+        <label htmlFor="checkboxExportFile" id="checkboxExport">
           <span>Expand all fields (svg & png export)</span>
         </label>
       </div>
+
       <button
         className="button-secondary"
         onClick={handleExportClick}
         disabled={!selectedExportType}
+        aria-label="Export Buttom"
       >
         Export
       </button>
