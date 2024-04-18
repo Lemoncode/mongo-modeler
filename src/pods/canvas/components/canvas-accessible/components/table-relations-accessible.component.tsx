@@ -8,10 +8,13 @@ import { GUID } from '@/core/model';
 interface Props {
   table: TableVm;
   canvasSchema: DatabaseSchemaVm;
+  collectionRefs: React.MutableRefObject<{
+    [key: string]: React.RefObject<HTMLHeadingElement>;
+  }>;
 }
 
 export const TableRelationsAccessible: React.FC<Props> = props => {
-  const { table, canvasSchema } = props;
+  const { table, canvasSchema, collectionRefs } = props;
 
   const displayRelationType = (tableGuid: GUID, relation: RelationVm) => {
     const typeOfRelation = getTypeOfRelationForTable(tableGuid, relation);
@@ -22,6 +25,7 @@ export const TableRelationsAccessible: React.FC<Props> = props => {
             <TableRelationElementOrigin
               relation={relation}
               originTable={table}
+              originTableRef={collectionRefs.current[table.id]}
               canvasSchema={canvasSchema}
             />
           </React.Fragment>
@@ -32,6 +36,7 @@ export const TableRelationsAccessible: React.FC<Props> = props => {
             <TableRelationElementDestination
               relation={relation}
               destinationTable={table}
+              destinationTableRef={collectionRefs.current[relation.fromTableId]}
               canvasSchema={canvasSchema}
             />
           </React.Fragment>
