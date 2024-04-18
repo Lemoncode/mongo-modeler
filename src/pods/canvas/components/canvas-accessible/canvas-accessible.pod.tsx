@@ -5,9 +5,10 @@ import { DatabaseSchemaVm } from '@/core/providers';
 
 interface CanvasAccessibleProps {
   canvasSchema: DatabaseSchemaVm;
+  handleNewTableModal: () => void;
 }
 export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
-  const { canvasSchema } = props;
+  const { canvasSchema, handleNewTableModal } = props;
 
   const canvasAccessibleRef = React.useRef<HTMLDivElement>(null);
 
@@ -27,7 +28,10 @@ export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
       ref={canvasAccessibleRef}
       aria-live="polite"
     >
-      <CanvasAccessibleComponent canvasSchema={canvasSchema} />
+      <CanvasAccessibleComponent
+        canvasSchema={canvasSchema}
+        handleNewTableModal={handleNewTableModal}
+      />
     </section>
   );
 };

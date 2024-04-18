@@ -5,10 +5,11 @@ import { EmptyCanvasAccessible } from './components/empty-canvas-accessible.comp
 
 interface Props {
   canvasSchema: DatabaseSchemaVm;
+  handleNewTableModal: () => void;
 }
 
 export const CanvasAccessibleComponent: React.FC<Props> = props => {
-  const { canvasSchema } = props;
+  const { canvasSchema, handleNewTableModal } = props;
 
   return (
     <>
@@ -19,7 +20,7 @@ export const CanvasAccessibleComponent: React.FC<Props> = props => {
           <RelationListAccessible canvasSchema={canvasSchema} />
         </>
       ) : (
-        <EmptyCanvasAccessible canvasSchema={canvasSchema} />
+        <EmptyCanvasAccessible handleNewTableModal={handleNewTableModal} />
       )}
     </>
   );
