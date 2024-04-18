@@ -38,7 +38,7 @@ export const TableRelationElementDestination: React.FC<Props> = props => {
     if (destinationTableRef.current) {
       destinationTableRef.current.scrollIntoView({
         behavior: 'smooth',
-        block: 'start',
+        block: 'center',
       });
     }
   };
