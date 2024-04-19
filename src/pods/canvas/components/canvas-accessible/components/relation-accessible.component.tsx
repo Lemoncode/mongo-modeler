@@ -12,11 +12,12 @@ interface Props {
   index: number;
   canvas: DatabaseSchemaVm;
   onEditRelation: (relationId: GUID) => void;
-  deleteSelectedItem: (selectedItemId: string) => void;
+  onDeleteSelectedItem: (selectedItemId: string) => void;
 }
 
 export const RelationAccessible: React.FC<Props> = props => {
-  const { relation, index, canvas, onEditRelation, deleteSelectedItem } = props;
+  const { relation, index, canvas, onEditRelation, onDeleteSelectedItem } =
+    props;
 
   const originTableName = getTableNameById(canvas.tables, relation.fromTableId);
   const originFieldsFromTable = findFields(canvas.tables, relation.fromTableId);
@@ -51,7 +52,7 @@ export const RelationAccessible: React.FC<Props> = props => {
         <button onClick={() => onEditRelation(relation.id)}>
           Edit relation {index}
         </button>
-        <button onClick={() => deleteSelectedItem(relation.id)}>
+        <button onClick={() => onDeleteSelectedItem(relation.id)}>
           Delete relation {index}
         </button>
       </h3>

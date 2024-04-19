@@ -6,11 +6,11 @@ import { GUID } from '@/core/model';
 interface Props {
   canvasSchema: DatabaseSchemaVm;
   onEditRelation: (relationId: GUID) => void;
-  deleteSelectedItem: (selectedItemId: string) => void;
+  onDeleteSelectedItem: (selectedItemId: string) => void;
 }
 
 export const CanvasAccessibleComponent: React.FC<Props> = props => {
-  const { canvasSchema, onEditRelation, deleteSelectedItem } = props;
+  const { canvasSchema, onEditRelation, onDeleteSelectedItem } = props;
 
   return (
     <>
@@ -19,7 +19,7 @@ export const CanvasAccessibleComponent: React.FC<Props> = props => {
       <RelationListAccessible
         canvasSchema={canvasSchema}
         onEditRelation={onEditRelation}
-        deleteSelectedItem={deleteSelectedItem}
+        onDeleteSelectedItem={onDeleteSelectedItem}
       />
     </>
   );

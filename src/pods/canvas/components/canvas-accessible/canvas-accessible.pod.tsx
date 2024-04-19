@@ -7,10 +7,10 @@ import { GUID } from '@/core/model';
 interface CanvasAccessibleProps {
   canvasSchema: DatabaseSchemaVm;
   onEditRelation: (relationId: GUID) => void;
-  deleteSelectedItem: (selectedItemId: string) => void;
+  onDeleteSelectedItem: (selectedItemId: string) => void;
 }
 export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
-  const { canvasSchema, onEditRelation, deleteSelectedItem } = props;
+  const { canvasSchema, onEditRelation, onDeleteSelectedItem } = props;
 
   const canvasAccessibleRef = React.useRef<HTMLDivElement>(null);
 
@@ -33,7 +33,7 @@ export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
       <CanvasAccessibleComponent
         canvasSchema={canvasSchema}
         onEditRelation={onEditRelation}
-        deleteSelectedItem={deleteSelectedItem}
+        onDeleteSelectedItem={onDeleteSelectedItem}
       />
     </section>
   );
