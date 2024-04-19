@@ -36,10 +36,8 @@ export const TableRelationElementDestination: React.FC<Props> = props => {
 
   const scrollToTablePosition = () => {
     if (destinationTableRef.current) {
-      destinationTableRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
+      destinationTableRef.current.tabIndex = 0;
+      destinationTableRef.current.focus();
     }
   };
 

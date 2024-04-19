@@ -30,10 +30,8 @@ export const TableRelationElementOrigin: React.FC<Props> = props => {
 
   const scrollToTablePosition = () => {
     if (originTableRef.current) {
-      originTableRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
+      originTableRef.current.tabIndex = 0;
+      originTableRef.current.focus();
     }
   };
 
