@@ -45,7 +45,7 @@ export const TableRelationElementOrigin: React.FC<Props> = props => {
           focusTablePosition();
         }}
       >
-        Go to {originTable.tableName}
+        Go to {destinationTable.tableName}
       </button>
     </li>
   ) : null;
