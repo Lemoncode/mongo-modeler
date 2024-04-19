@@ -251,7 +251,7 @@ export const CanvasPod: React.FC = () => {
         {!loadSample && (
           <CanvasAccessible
             canvasSchema={canvasSchema}
-            handleNewTableModal={handleNewTableModal}
+            onNewTableModal={handleNewTableModal}
           />
         )}
       </div>

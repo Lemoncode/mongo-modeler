@@ -1,17 +1,17 @@
 import React from 'react';
 
 interface Props {
-  handleNewTableModal: () => void;
+  onNewTableModal: () => void;
 }
 
 export const EmptyCanvasAccessible: React.FC<Props> = props => {
-  const { handleNewTableModal } = props;
+  const { onNewTableModal } = props;
 
   return (
     <>
       <h2>The canvas is empty</h2>
       <p>Create a collection to start working</p>
-      <button onClick={handleNewTableModal}>Add Collection</button>
+      <button onClick={onNewTableModal}>Add Collection</button>
     </>
   );
 };
