@@ -5,10 +5,10 @@ import { DatabaseSchemaVm } from '@/core/providers';
 
 interface CanvasAccessibleProps {
   canvasSchema: DatabaseSchemaVm;
-  onNewTableModal: () => void;
+  onAddTableModal: () => void;
 }
 export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
-  const { canvasSchema, onNewTableModal } = props;
+  const { canvasSchema, onAddTableModal } = props;
 
   const canvasAccessibleRef = React.useRef<HTMLDivElement>(null);
 
@@ -30,7 +30,7 @@ export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
     >
       <CanvasAccessibleComponent
         canvasSchema={canvasSchema}
-        onNewTableModal={onNewTableModal}
+        onAddTableModal={onAddTableModal}
       />
     </section>
   );

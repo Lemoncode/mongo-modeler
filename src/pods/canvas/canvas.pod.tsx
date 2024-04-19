@@ -90,7 +90,7 @@ export const CanvasPod: React.FC = () => {
     closeModal();
   };
 
-  const handleNewTableModal = () => {
+  const handleAddTableModal = () => {
     setLoadSample(false);
     openModal(
       <EditTablePod
@@ -251,7 +251,7 @@ export const CanvasPod: React.FC = () => {
         {!loadSample && (
           <CanvasAccessible
             canvasSchema={canvasSchema}
-            onNewTableModal={handleNewTableModal}
+            onAddTableModal={handleAddTableModal}
           />
         )}
       </div>
