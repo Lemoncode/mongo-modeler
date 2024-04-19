@@ -6,21 +6,21 @@ import { TableRelationsAccessible } from './table-relations-accessible.component
 interface Props {
   table: TableVm;
   canvasSchema: DatabaseSchemaVm;
-  handleEditTable: (table: TableVm) => void;
-  deleteSelectedItem: (tableId: string) => void;
+  onEditTable: (table: TableVm) => void;
+  onDeleteSelectedItem: (tableId: string) => void;
 }
 
 export const CollectionAccessible: React.FC<Props> = props => {
-  const { table, canvasSchema, handleEditTable, deleteSelectedItem } = props;
+  const { table, canvasSchema, onEditTable, onDeleteSelectedItem } = props;
 
   return (
     <>
       <h3>
         {table.tableName} collection
-        <button type="button" onClick={() => handleEditTable(table)}>
+        <button type="button" onClick={() => onEditTable(table)}>
           Edit {table.tableName} collection
         </button>
-        <button type="button" onClick={() => deleteSelectedItem(table.id)}>
+        <button type="button" onClick={() => onDeleteSelectedItem(table.id)}>
           Delete {table.tableName} collection
         </button>
       </h3>

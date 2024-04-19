@@ -5,11 +5,11 @@ import { DatabaseSchemaVm, TableVm } from '@/core/providers';
 
 interface CanvasAccessibleProps {
   canvasSchema: DatabaseSchemaVm;
-  handleEditTable: (table: TableVm) => void;
-  deleteSelectedItem: (tableId: string) => void;
+  onEditTable: (table: TableVm) => void;
+  onDeleteSelectedItem: (tableId: string) => void;
 }
 export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
-  const { canvasSchema, handleEditTable, deleteSelectedItem } = props;
+  const { canvasSchema, onEditTable, onDeleteSelectedItem } = props;
 
   const canvasAccessibleRef = React.useRef<HTMLDivElement>(null);
 
@@ -31,8 +31,8 @@ export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
     >
       <CanvasAccessibleComponent
         canvasSchema={canvasSchema}
-        handleEditTable={handleEditTable}
-        deleteSelectedItem={deleteSelectedItem}
+        onEditTable={onEditTable}
+        onDeleteSelectedItem={onDeleteSelectedItem}
       />
     </section>
   );

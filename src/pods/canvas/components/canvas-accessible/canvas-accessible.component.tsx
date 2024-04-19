@@ -4,20 +4,20 @@ import { DatabaseSchemaVm, TableVm } from '@/core/providers';
 
 interface Props {
   canvasSchema: DatabaseSchemaVm;
-  handleEditTable: (table: TableVm) => void;
-  deleteSelectedItem: (tableId: string) => void;
+  onEditTable: (table: TableVm) => void;
+  onDeleteSelectedItem: (tableId: string) => void;
 }
 
 export const CanvasAccessibleComponent: React.FC<Props> = props => {
-  const { canvasSchema, handleEditTable, deleteSelectedItem } = props;
+  const { canvasSchema, onEditTable, onDeleteSelectedItem } = props;
 
   return (
     <>
       <h1 id="canvas-title">Canvas</h1>
       <CollectionListAccessible
         canvasSchema={canvasSchema}
-        handleEditTable={handleEditTable}
-        deleteSelectedItem={deleteSelectedItem}
+        onEditTable={onEditTable}
+        onDeleteSelectedItem={onDeleteSelectedItem}
       />
       <RelationListAccessible canvasSchema={canvasSchema} />
     </>
