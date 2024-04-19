@@ -25,7 +25,7 @@ export const TableRelationsAccessible: React.FC<Props> = props => {
             <TableRelationElementOrigin
               relation={relation}
               originTable={table}
-              originTableRef={collectionRefs.current[table.id]}
+              destinationTableRef={collectionRefs.current[relation.toTableId]}
               canvasSchema={canvasSchema}
             />
           </React.Fragment>
@@ -36,7 +36,7 @@ export const TableRelationsAccessible: React.FC<Props> = props => {
             <TableRelationElementDestination
               relation={relation}
               destinationTable={table}
-              destinationTableRef={collectionRefs.current[relation.fromTableId]}
+              originTableRef={collectionRefs.current[relation.fromTableId]}
               canvasSchema={canvasSchema}
             />
           </React.Fragment>

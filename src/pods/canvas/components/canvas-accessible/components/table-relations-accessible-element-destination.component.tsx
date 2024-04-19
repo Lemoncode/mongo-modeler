@@ -10,13 +10,12 @@ import { findFieldNameAndParent } from './table-relations-accessible.business';
 interface Props {
   relation: RelationVm;
   destinationTable: TableVm;
-  destinationTableRef: React.RefObject<HTMLHeadingElement>;
+  originTableRef: React.RefObject<HTMLHeadingElement>;
   canvasSchema: DatabaseSchemaVm;
 }
 
 export const TableRelationElementDestination: React.FC<Props> = props => {
-  const { relation, destinationTable, canvasSchema, destinationTableRef } =
-    props;
+  const { relation, destinationTable, canvasSchema, originTableRef } = props;
 
   const originTable = canvasSchema.tables.find(
     table => table.id === relation.fromTableId
@@ -34,10 +33,10 @@ export const TableRelationElementDestination: React.FC<Props> = props => {
     relation.toFieldId
   );
 
-  const scrollToTablePosition = () => {
-    if (destinationTableRef.current) {
-      destinationTableRef.current.tabIndex = 0;
-      destinationTableRef.current.focus();
+  const focusTablePosition = () => {
+    if (originTableRef.current) {
+      originTableRef.current.tabIndex = 0;
+      originTableRef.current.focus();
     }
   };
 
@@ -59,7 +58,7 @@ export const TableRelationElementDestination: React.FC<Props> = props => {
         : `${destinationField.fieldName} field has a relation type ${getRelationTypeDirecction(relation.type)} with the field ${originField.fieldName} in the ${originTable.tableName} collection`}
       <button
         onClick={() => {
-          scrollToTablePosition();
+          focusTablePosition();
         }}
       >
         Go to {originTable.tableName}
