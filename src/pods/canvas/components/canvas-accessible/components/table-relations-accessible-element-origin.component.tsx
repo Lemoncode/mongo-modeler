@@ -29,9 +29,9 @@ export const TableRelationElementOrigin: React.FC<Props> = props => {
 
   return originField && destinationField ? (
     <li>
-      {destinationField.parentName
-        ? `${destinationField.fieldName} nested field of the ${destinationField.parentName} has a relation type ${relation.type} with the field ${originField.fieldName} in the ${originTable.tableName} collection`
-        : `${destinationField.fieldName} field has a relation type ${relation.type} with the field ${originField.fieldName} in the ${originTable.tableName} collection`}
+      {originField.parentName
+        ? `${originField.fieldName} nested field of the ${originField.parentName} has a relation type ${relation.type} with the field ${destinationField.fieldName} in the ${destinationTable.tableName} collection`
+        : `${originField.fieldName} field has a relation type ${relation.type} with the field ${destinationField.fieldName} in the ${destinationTable.tableName} collection`}
     </li>
   ) : null;
 };

@@ -19,9 +19,7 @@ export const CollectionAccessible: React.FC<Props> = props => {
         <button type="button">Delete {table.tableName} collection</button>
       </h3>
       <h4>Fields for {table.tableName} collection</h4>
-      <ul>
-        <FieldList fieldList={table.fields} listName={table.tableName} />
-      </ul>
+      <FieldList fieldList={table.fields} listName={table.tableName} />
       <TableRelationsAccessible table={table} canvasSchema={canvasSchema} />
     </>
   );
