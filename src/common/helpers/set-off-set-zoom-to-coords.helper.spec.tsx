@@ -1,10 +1,8 @@
 import { Coords } from '@/core/model';
-import { useOffsetZoomToCoords } from './set-off-set-zoom-to-coords.hook';
-import { CanvasViewSettingsContext } from '@/core/providers/';
-import { renderHook } from '@testing-library/react';
+import { setOffSetZoomToCoords } from './set-off-set-zoom-to-coords.helper';
 import { CanvasViewSettingsContextModel } from '@/core/providers/canvas-view-settings/canvas-view-settings.model';
 
-describe('useOffsetZoomToCoords', () => {
+describe('setOffSetZoomToCoords', () => {
   it('should return correct coordinates after applying offset zoom (random normal value #1)', () => {
     // Arrange
     const inputCoords: Coords = { x: 10, y: 10 };
@@ -31,22 +29,19 @@ describe('useOffsetZoomToCoords', () => {
       setAutoSave: () => {},
     };
 
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <CanvasViewSettingsContext.Provider value={initialContextState}>
-        {children}
-      </CanvasViewSettingsContext.Provider>
-    );
-
     // Act
-    const { result } = renderHook(
-      () => useOffsetZoomToCoords({ x: inputCoords.x, y: inputCoords.y }),
-      { wrapper }
+    const result = setOffSetZoomToCoords(
+      inputCoords.x,
+      inputCoords.y,
+      initialContextState.viewBoxSize,
+      initialContextState.canvasViewSettings.canvasSize,
+      initialContextState.canvasViewSettings.zoomFactor
     );
 
     const expected = { x: 20, y: 20 };
 
     // Assert
-    expect({ x: result.current.x, y: result.current.y }).toEqual({
+    expect({ x: result.x, y: result.y }).toEqual({
       x: expected.x,
       y: expected.y,
     });
@@ -77,21 +72,19 @@ describe('useOffsetZoomToCoords', () => {
       setAutoSave: () => {},
     };
 
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <CanvasViewSettingsContext.Provider value={initialContextState}>
-        {children}
-      </CanvasViewSettingsContext.Provider>
-    );
-
     // Act
-    const { result } = renderHook(
-      () => useOffsetZoomToCoords({ x: inputCoords.x, y: inputCoords.y }),
-      { wrapper }
+    const result = setOffSetZoomToCoords(
+      inputCoords.x,
+      inputCoords.y,
+      initialContextState.viewBoxSize,
+      initialContextState.canvasViewSettings.canvasSize,
+      initialContextState.canvasViewSettings.zoomFactor
     );
 
     const expected = { x: 312.5, y: 67.5 };
     // Assert
-    expect({ x: result.current.x, y: result.current.y }).toEqual({
+
+    expect({ x: result.x, y: result.y }).toEqual({
       x: expected.x,
       y: expected.y,
     });
@@ -122,21 +115,18 @@ describe('useOffsetZoomToCoords', () => {
       setAutoSave: () => {},
     };
 
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <CanvasViewSettingsContext.Provider value={initialContextState}>
-        {children}
-      </CanvasViewSettingsContext.Provider>
-    );
-
     // Act
-    const { result } = renderHook(
-      () => useOffsetZoomToCoords({ x: inputCoords.x, y: inputCoords.y }),
-      { wrapper }
+    const result = setOffSetZoomToCoords(
+      inputCoords.x,
+      inputCoords.y,
+      initialContextState.viewBoxSize,
+      initialContextState.canvasViewSettings.canvasSize,
+      initialContextState.canvasViewSettings.zoomFactor
     );
 
     const expected = { x: 26.66666666666667, y: 300 };
     // Assert
-    expect({ x: result.current.x, y: result.current.y }).toEqual({
+    expect({ x: result.x, y: result.y }).toEqual({
       x: expected.x,
       y: expected.y,
     });
@@ -173,21 +163,18 @@ describe('useOffsetZoomToCoords', () => {
       setAutoSave: () => {},
     };
 
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <CanvasViewSettingsContext.Provider value={initialContextState}>
-        {children}
-      </CanvasViewSettingsContext.Provider>
-    );
-
     // Act
-    const { result } = renderHook(
-      () => useOffsetZoomToCoords({ x: inputCoords.x, y: inputCoords.y }),
-      { wrapper }
+    const result = setOffSetZoomToCoords(
+      inputCoords.x,
+      inputCoords.y,
+      initialContextState.viewBoxSize,
+      initialContextState.canvasViewSettings.canvasSize,
+      initialContextState.canvasViewSettings.zoomFactor
     );
 
     const expected = { x: 55156935716294670, y: 461168781986723840 };
     // Assert
-    expect({ x: result.current.x, y: result.current.y }).toEqual({
+    expect({ x: result.x, y: result.y }).toEqual({
       x: expected.x,
       y: expected.y,
     });
@@ -218,21 +205,18 @@ describe('useOffsetZoomToCoords', () => {
       setAutoSave: () => {},
     };
 
-    const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <CanvasViewSettingsContext.Provider value={initialContextState}>
-        {children}
-      </CanvasViewSettingsContext.Provider>
-    );
-
     // Act
-    const { result } = renderHook(
-      () => useOffsetZoomToCoords({ x: inputCoords.x, y: inputCoords.y }),
-      { wrapper }
+    const result = setOffSetZoomToCoords(
+      inputCoords.x,
+      inputCoords.y,
+      initialContextState.viewBoxSize,
+      initialContextState.canvasViewSettings.canvasSize,
+      initialContextState.canvasViewSettings.zoomFactor
     );
 
     const expected = { x: 0, y: 0 };
     // Assert
-    expect({ x: result.current.x, y: result.current.y }).toEqual({
+    expect({ x: result.x, y: result.y }).toEqual({
       x: expected.x,
       y: expected.y,
     });

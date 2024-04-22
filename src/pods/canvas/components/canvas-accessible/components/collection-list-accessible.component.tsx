@@ -11,15 +11,26 @@ interface Props {
 export const CollectionListAccessible: React.FC<Props> = props => {
   const { canvasSchema, onEditTable, onDeleteSelectedItem } = props;
 
+  const collectionRefs = React.useRef<{
+    [key: string]: React.RefObject<HTMLHeadingElement>;
+  }>({});
+
+  React.useEffect(() => {
+    canvasSchema.tables.forEach(table => {
+      collectionRefs.current[table.id] = React.createRef<HTMLHeadingElement>();
+    });
+  }, [canvasSchema.tables]);
+
   return (
     <>
       <h2>Collections</h2>
 
       {canvasSchema.tables.map(table => (
         <CollectionAccessible
+          key={table.id}
           table={table}
           canvasSchema={canvasSchema}
-          key={table.id}
+          collectionRefs={collectionRefs}
           onEditTable={onEditTable}
           onDeleteSelectedItem={onDeleteSelectedItem}
         />

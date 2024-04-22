@@ -8,14 +8,23 @@ interface Props {
   canvasSchema: DatabaseSchemaVm;
   onEditTable: (table: TableVm) => void;
   onDeleteSelectedItem: (tableId: string) => void;
+  collectionRefs: React.MutableRefObject<{
+    [key: string]: React.RefObject<HTMLHeadingElement>;
+  }>;
 }
 
 export const CollectionAccessible: React.FC<Props> = props => {
-  const { table, canvasSchema, onEditTable, onDeleteSelectedItem } = props;
+  const {
+    table,
+    canvasSchema,
+    onEditTable,
+    onDeleteSelectedItem,
+    collectionRefs,
+  } = props;
 
   return (
     <>
-      <h3>
+      <h3 ref={collectionRefs.current[table.id]}>
         {table.tableName} collection
         <button type="button" onClick={() => onEditTable(table)}>
           Edit {table.tableName} collection
@@ -28,7 +37,11 @@ export const CollectionAccessible: React.FC<Props> = props => {
       <ul>
         <FieldList fieldList={table.fields} listName={table.tableName} />
       </ul>
-      <TableRelationsAccessible table={table} canvasSchema={canvasSchema} />
+      <TableRelationsAccessible
+        table={table}
+        canvasSchema={canvasSchema}
+        collectionRefs={collectionRefs}
+      />
     </>
   );
 };

@@ -1,13 +1,16 @@
 import React from 'react';
 import { RelationAccessible } from './relation-accessible.component';
 import { DatabaseSchemaVm } from '@/core/providers';
+import { GUID } from '@/core/model';
 
 interface Props {
   canvasSchema: DatabaseSchemaVm;
+  onEditRelation: (relationId: GUID) => void;
+  onDeleteSelectedItem: (selectedItemId: string) => void;
 }
 
 export const RelationListAccessible: React.FC<Props> = props => {
-  const { canvasSchema } = props;
+  const { canvasSchema, onEditRelation, onDeleteSelectedItem } = props;
   return (
     <>
       <h2>Relations</h2>
@@ -17,6 +20,8 @@ export const RelationListAccessible: React.FC<Props> = props => {
           key={relation.id}
           index={index + 1}
           canvas={canvasSchema}
+          onEditRelation={onEditRelation}
+          onDeleteSelectedItem={onDeleteSelectedItem}
         />
       ))}
     </>

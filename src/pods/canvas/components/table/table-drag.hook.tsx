@@ -1,29 +1,37 @@
 import React, { useState, useCallback } from 'react';
 import { Size } from '@/core/model';
 import { UpdatePositionFn, UpdatePositionItemInfo } from '@/core/providers';
-
+import { setOffSetZoomToCoords } from '@/common/helpers/set-off-set-zoom-to-coords.helper';
 export const useDraggable = (
   id: string,
   initialX: number,
   initialY: number,
   updatePosition: UpdatePositionFn,
   totalHeight: number,
-  canvasSize: Size
+  canvasSize: Size,
+  viewBoxSize: Size,
+  zoomFactor: number
 ) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startDragPosition, setStartDragPosition] = useState({ x: 0, y: 0 });
   const [finalInfoAfterDrag, setFinalInfoAfterDrag] =
     useState<UpdatePositionItemInfo | null>(null);
   const [node, setNode] = React.useState<SVGElement | null>(null);
-
   const ref = React.useCallback((nodeEle: SVGElement): void => {
     setNode(nodeEle);
   }, []);
 
   const startDrag = (x: number, y: number) => {
+    const { x: offsetX, y: offsetY } = setOffSetZoomToCoords(
+      x,
+      y,
+      viewBoxSize,
+      canvasSize,
+      zoomFactor
+    );
     setStartDragPosition({
-      x: x - initialX,
-      y: y - initialY,
+      x: offsetX - initialX,
+      y: offsetY - initialY,
     });
     setIsDragging(true);
   };
@@ -32,7 +40,7 @@ export const useDraggable = (
     (event: React.MouseEvent) => {
       startDrag(event.clientX, event.clientY);
     },
-    [initialX, initialY]
+    [initialX, initialY, viewBoxSize]
   );
 
   const onTouchStart = useCallback(
@@ -41,23 +49,30 @@ export const useDraggable = (
       const touch = event.touches[0];
       startDrag(touch.clientX, touch.clientY);
     },
-    [initialX, initialY]
+    [initialX, initialY, viewBoxSize]
   );
 
   const updateDrag = (x: number, y: number) => {
     if (isDragging) {
-      const newX = x - startDragPosition.x;
-      const newY = y - startDragPosition.y;
-
-      const currentItemInfo = {
+      const { x: offsetX, y: offsetY } = setOffSetZoomToCoords(
+        x,
+        y,
+        viewBoxSize,
+        canvasSize,
+        zoomFactor
+      );
+      const newPosition = {
         id,
-        position: { x: newX, y: newY },
+        position: {
+          x: offsetX - startDragPosition.x,
+          y: offsetY - startDragPosition.y,
+        },
         totalHeight,
         canvasSize,
       };
 
-      updatePosition(currentItemInfo, false);
-      setFinalInfoAfterDrag(currentItemInfo);
+      updatePosition(newPosition, false);
+      setFinalInfoAfterDrag(newPosition);
     }
   };
 

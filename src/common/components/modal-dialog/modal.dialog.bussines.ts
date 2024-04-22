@@ -41,7 +41,9 @@ export const handleFocus = (
     'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
   );
   focusableElementsInside?.forEach((element: Element) => {
-    element.removeAttribute('tabindex');
+    if (element.ariaHidden !== 'true') {
+      element.removeAttribute('tabindex');
+    }
   });
 };
 
