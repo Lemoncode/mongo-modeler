@@ -29,22 +29,16 @@ export const ExportTablePod: React.FC<Props> = props => {
       <fieldset
         className={classes.inputContent}
         aria-label="Select an export format"
-        aria-required="true"
       >
         <div className={classes.radioButton}>
           <input
             className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="radio1"
-            aria-labelledby="radio1-label"
+            id="radio-svg"
             onChange={() => handleExportType(ExportType.SVG)}
           />
-          <label
-            htmlFor="radio1"
-            id="radio1-label"
-            className={classes.radioButtonLabel}
-          >
+          <label htmlFor="radio-svg" className={classes.radioButtonLabel}>
             <span className={classes.radioButtonCustom}></span>SVG
           </label>
         </div>
@@ -53,15 +47,10 @@ export const ExportTablePod: React.FC<Props> = props => {
             className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="radio2"
-            aria-labelledby="radio2-label"
+            id="radio-png"
             onChange={() => handleExportType(ExportType.PNG)}
           />
-          <label
-            htmlFor="radio2"
-            id="radio2-label"
-            className={classes.radioButtonLabel}
-          >
+          <label htmlFor="radio-png" className={classes.radioButtonLabel}>
             <span className={classes.radioButtonCustom}></span>PNG
           </label>
         </div>
@@ -70,13 +59,11 @@ export const ExportTablePod: React.FC<Props> = props => {
             className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="radio3"
-            aria-labelledby="radio3-label"
+            id="radio-mongo-schema"
             onChange={() => handleExportType(ExportType.SCHEMA)}
           />
           <label
-            htmlFor="radio3"
-            id="radio3-label"
+            htmlFor="radio-mongo-schema"
             className={classes.radioButtonLabel}
           >
             <span className={classes.radioButtonCustom}></span>Mongo Schema
@@ -89,9 +76,8 @@ export const ExportTablePod: React.FC<Props> = props => {
           id="checkboxExportFile"
           onChange={() => setAreAllFieldsExpanded(!areAllFieldsExpanded)}
           checked={areAllFieldsExpanded}
-          ariaLabelledby="checkboxExport"
         />
-        <label htmlFor="checkboxExportFile" id="checkboxExport">
+        <label htmlFor="checkboxExportFile">
           <span>Expand all fields (svg & png export)</span>
         </label>
       </div>
@@ -100,7 +86,6 @@ export const ExportTablePod: React.FC<Props> = props => {
         className="button-secondary"
         onClick={handleExportClick}
         disabled={!selectedExportType}
-        aria-label="Export Buttom"
       >
         Export
       </button>
