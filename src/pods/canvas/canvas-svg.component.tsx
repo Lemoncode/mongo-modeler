@@ -12,6 +12,7 @@ import { CANVAS_MAX_HEIGHT, CANVAS_MAX_WIDTH } from '@/core/providers';
 interface Props {
   viewBoxSize: Size;
   canvasSize: Size;
+  zoomFactor: number;
   canvasSchema: DatabaseSchemaVm;
   onUpdateTablePosition: UpdatePositionFn;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
@@ -25,6 +26,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
   const {
     viewBoxSize,
     canvasSize,
+    zoomFactor,
     canvasSchema,
     onUpdateTablePosition,
     onToggleCollapse,
@@ -65,6 +67,8 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           isSelected={canvasSchema.selectedElementId === table.id}
           selectTable={onSelectElement}
           isTabletOrMobileDevice={isTabletOrMobileDevice}
+          viewBoxSize={viewBoxSize}
+          zoomFactor={zoomFactor}
         />
       ))}
     </svg>

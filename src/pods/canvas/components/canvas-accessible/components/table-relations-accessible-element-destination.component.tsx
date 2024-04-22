@@ -10,11 +10,12 @@ import { findFieldNameAndParent } from './table-relations-accessible.business';
 interface Props {
   relation: RelationVm;
   destinationTable: TableVm;
+  originTableRef: React.RefObject<HTMLHeadingElement>;
   canvasSchema: DatabaseSchemaVm;
 }
 
 export const TableRelationElementDestination: React.FC<Props> = props => {
-  const { relation, destinationTable, canvasSchema } = props;
+  const { relation, destinationTable, canvasSchema, originTableRef } = props;
 
   const originTable = canvasSchema.tables.find(
     table => table.id === relation.fromTableId
@@ -32,6 +33,13 @@ export const TableRelationElementDestination: React.FC<Props> = props => {
     relation.toFieldId
   );
 
+  const focusTablePosition = () => {
+    if (originTableRef.current) {
+      originTableRef.current.tabIndex = 0;
+      originTableRef.current.focus();
+    }
+  };
+
   const getRelationTypeDirecction = (type: RelationType) => {
     switch (type) {
       case '1:M':
@@ -48,6 +56,13 @@ export const TableRelationElementDestination: React.FC<Props> = props => {
       {destinationField.parentName
         ? `${destinationField.fieldName} nested field of the ${destinationField.parentName} has a relation type ${getRelationTypeDirecction(relation.type)} with the field ${originField.fieldName} in the ${originTable.tableName} collection`
         : `${destinationField.fieldName} field has a relation type ${getRelationTypeDirecction(relation.type)} with the field ${originField.fieldName} in the ${originTable.tableName} collection`}
+      <button
+        onClick={() => {
+          focusTablePosition();
+        }}
+      >
+        Go to {originTable.tableName}
+      </button>
     </li>
   ) : null;
 };
