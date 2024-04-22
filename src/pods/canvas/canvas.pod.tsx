@@ -15,6 +15,7 @@ import { EditTablePod } from '../edit-table';
 import {
   EDIT_RELATION_TITLE,
   EDIT_COLLECTION_TITLE,
+  ADD_COLLECTION_TITLE,
 } from '@/common/components/modal-dialog';
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
@@ -24,10 +25,12 @@ import useAutosave from '@/core/autosave/autosave.hook';
 import { CANVAS_MAX_WIDTH } from '@/core/providers';
 import { setOffSetZoomToCoords } from '@/common/helpers/set-off-set-zoom-to-coords.helper';
 const HEIGHT_OFFSET = 200;
+const BORDER_MARGIN = 40;
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
     canvasSchema,
+    addTable,
     updateTablePosition,
     updateFullTable,
     doFieldToggleCollapse,
@@ -40,6 +43,7 @@ export const CanvasPod: React.FC = () => {
   } = useCanvasSchemaContext();
   const {
     canvasViewSettings,
+    scrollPosition,
     setScrollPosition,
     setLoadSample,
     setViewBoxSize,
@@ -71,12 +75,35 @@ export const CanvasPod: React.FC = () => {
     doFieldToggleCollapse(tableId, fieldId);
   };
 
-  const handleTableEditUpdate = (table: TableVm) => {
-    updateFullTable(table);
+  const handleAddTable = (newTable: TableVm) => {
+    const updatedTable = {
+      ...newTable,
+      x: scrollPosition.x + BORDER_MARGIN,
+      y: scrollPosition.y + BORDER_MARGIN,
+    };
+
+    addTable(updatedTable);
     closeModal();
   };
 
-  const handleCloseEditTable = () => {
+  const handleCloseModal = () => {
+    closeModal();
+  };
+
+  const handleAddTableModal = () => {
+    setLoadSample(false);
+    openModal(
+      <EditTablePod
+        relations={canvasSchema.relations}
+        onSave={handleAddTable}
+        onClose={handleCloseModal}
+      />,
+      ADD_COLLECTION_TITLE
+    );
+  };
+
+  const handleTableEditUpdate = (table: TableVm) => {
+    updateFullTable(table);
     closeModal();
   };
 
@@ -87,7 +114,7 @@ export const CanvasPod: React.FC = () => {
         table={tableInfo}
         relations={canvasSchema.relations}
         onSave={handleTableEditUpdate}
-        onClose={handleCloseEditTable}
+        onClose={handleCloseModal}
       />,
       EDIT_COLLECTION_TITLE
     );
@@ -230,6 +257,7 @@ export const CanvasPod: React.FC = () => {
         {!loadSample && (
           <CanvasAccessible
             canvasSchema={canvasSchema}
+            onAddTableModal={handleAddTableModal}
             onEditTable={handleEditTable}
             onEditRelation={handleEditRelation}
             onDeleteSelectedItem={deleteSelectedItem}
