@@ -230,6 +230,7 @@ export const CanvasPod: React.FC = () => {
         {!loadSample && (
           <CanvasAccessible
             canvasSchema={canvasSchema}
+            onEditTable={handleEditTable}
             onEditRelation={handleEditRelation}
             onDeleteSelectedItem={deleteSelectedItem}
           />
