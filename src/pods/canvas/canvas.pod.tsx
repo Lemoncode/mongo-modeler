@@ -258,6 +258,7 @@ export const CanvasPod: React.FC = () => {
           <CanvasAccessible
             canvasSchema={canvasSchema}
             onAddTableModal={handleAddTableModal}
+            onEditTable={handleEditTable}
             onEditRelation={handleEditRelation}
             onDeleteSelectedItem={deleteSelectedItem}
           />

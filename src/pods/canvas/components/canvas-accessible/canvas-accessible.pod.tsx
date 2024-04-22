@@ -1,19 +1,21 @@
 import React from 'react';
 import classes from './canvas-accessible.pod.module.css';
 import { CanvasAccessibleComponent } from './canvas-accessible.component';
-import { DatabaseSchemaVm } from '@/core/providers';
+import { DatabaseSchemaVm, TableVm } from '@/core/providers';
 import { GUID } from '@/core/model';
 
 interface CanvasAccessibleProps {
   canvasSchema: DatabaseSchemaVm;
   onAddTableModal: () => void;
+  onEditTable: (table: TableVm) => void;
   onEditRelation: (relationId: GUID) => void;
-  onDeleteSelectedItem: (selectedItemId: string) => void;
+  onDeleteSelectedItem: (tableId: string) => void;
 }
 export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
   const {
     canvasSchema,
     onAddTableModal,
+    onEditTable,
     onEditRelation,
     onDeleteSelectedItem,
   } = props;
@@ -39,6 +41,7 @@ export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
       <CanvasAccessibleComponent
         canvasSchema={canvasSchema}
         onAddTableModal={onAddTableModal}
+        onEditTable={onEditTable}
         onEditRelation={onEditRelation}
         onDeleteSelectedItem={onDeleteSelectedItem}
       />
