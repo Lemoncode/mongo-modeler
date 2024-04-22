@@ -227,7 +227,13 @@ export const CanvasPod: React.FC = () => {
           onSelectElement={onSelectElement}
           isTabletOrMobileDevice={isTabletOrMobileDevice}
         />
-        {!loadSample && <CanvasAccessible canvasSchema={canvasSchema} />}
+        {!loadSample && (
+          <CanvasAccessible
+            canvasSchema={canvasSchema}
+            onEditRelation={handleEditRelation}
+            onDeleteSelectedItem={deleteSelectedItem}
+          />
+        )}
       </div>
     </div>
   );
