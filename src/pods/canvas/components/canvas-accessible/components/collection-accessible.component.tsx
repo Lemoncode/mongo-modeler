@@ -11,6 +11,7 @@ interface Props {
   collectionRefs: React.MutableRefObject<{
     [key: string]: React.RefObject<HTMLHeadingElement>;
   }>;
+  isTabletOrMobileDevice: boolean;
 }
 
 export const CollectionAccessible: React.FC<Props> = props => {
@@ -20,18 +21,26 @@ export const CollectionAccessible: React.FC<Props> = props => {
     onEditTable,
     onDeleteSelectedItem,
     collectionRefs,
+    isTabletOrMobileDevice,
   } = props;
 
   return (
     <>
       <h3 ref={collectionRefs.current[table.id]}>
         {table.tableName} collection
-        <button type="button" onClick={() => onEditTable(table)}>
-          Edit {table.tableName} collection
-        </button>
-        <button type="button" onClick={() => onDeleteSelectedItem(table.id)}>
-          Delete {table.tableName} collection
-        </button>
+        {!isTabletOrMobileDevice ? (
+          <>
+            <button type="button" onClick={() => onEditTable(table)}>
+              Edit {table.tableName} collection
+            </button>
+            <button
+              type="button"
+              onClick={() => onDeleteSelectedItem(table.id)}
+            >
+              Delete {table.tableName} collection
+            </button>
+          </>
+        ) : null}
       </h3>
       <h4>Fields for {table.tableName} collection</h4>
       <FieldList fieldList={table.fields} listName={table.tableName} />

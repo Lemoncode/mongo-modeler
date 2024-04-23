@@ -10,6 +10,7 @@ interface CanvasAccessibleProps {
   onEditTable: (table: TableVm) => void;
   onEditRelation: (relationId: GUID) => void;
   onDeleteSelectedItem: (tableId: string) => void;
+  isTabletOrMobileDevice: boolean;
 }
 export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
   const {
@@ -18,6 +19,7 @@ export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
     onEditTable,
     onEditRelation,
     onDeleteSelectedItem,
+    isTabletOrMobileDevice,
   } = props;
 
   const canvasAccessibleRef = React.useRef<HTMLDivElement>(null);
@@ -44,6 +46,7 @@ export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
         onEditTable={onEditTable}
         onEditRelation={onEditRelation}
         onDeleteSelectedItem={onDeleteSelectedItem}
+        isTabletOrMobileDevice={isTabletOrMobileDevice}
       />
     </section>
   );

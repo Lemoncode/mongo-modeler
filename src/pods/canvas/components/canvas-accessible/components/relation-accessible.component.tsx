@@ -13,11 +13,18 @@ interface Props {
   canvas: DatabaseSchemaVm;
   onEditRelation: (relationId: GUID) => void;
   onDeleteSelectedItem: (selectedItemId: string) => void;
+  isTabletOrMobileDevice: boolean;
 }
 
 export const RelationAccessible: React.FC<Props> = props => {
-  const { relation, index, canvas, onEditRelation, onDeleteSelectedItem } =
-    props;
+  const {
+    relation,
+    index,
+    canvas,
+    onEditRelation,
+    onDeleteSelectedItem,
+    isTabletOrMobileDevice,
+  } = props;
 
   const originTableName = getTableNameById(canvas.tables, relation.fromTableId);
   const originFieldsFromTable = findFields(canvas.tables, relation.fromTableId);
@@ -49,12 +56,16 @@ export const RelationAccessible: React.FC<Props> = props => {
       <h3>
         Relation {index}: {originTableName} - {originRouteOfFields} with{' '}
         {destinationTableName} - {destinationRouteOfFields}
-        <button onClick={() => onEditRelation(relation.id)}>
-          Edit relation {index}
-        </button>
-        <button onClick={() => onDeleteSelectedItem(relation.id)}>
-          Delete relation {index}
-        </button>
+        {!isTabletOrMobileDevice ? (
+          <>
+            <button onClick={() => onEditRelation(relation.id)}>
+              Edit relation {index}
+            </button>
+            <button onClick={() => onDeleteSelectedItem(relation.id)}>
+              Delete relation {index}
+            </button>
+          </>
+        ) : null}
       </h3>
     </>
   );

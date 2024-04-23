@@ -261,6 +261,7 @@ export const CanvasPod: React.FC = () => {
             onEditTable={handleEditTable}
             onEditRelation={handleEditRelation}
             onDeleteSelectedItem={deleteSelectedItem}
+            isTabletOrMobileDevice={isTabletOrMobileDevice}
           />
         )}
       </div>

@@ -7,10 +7,16 @@ interface Props {
   canvasSchema: DatabaseSchemaVm;
   onEditRelation: (relationId: GUID) => void;
   onDeleteSelectedItem: (selectedItemId: string) => void;
+  isTabletOrMobileDevice: boolean;
 }
 
 export const RelationListAccessible: React.FC<Props> = props => {
-  const { canvasSchema, onEditRelation, onDeleteSelectedItem } = props;
+  const {
+    canvasSchema,
+    onEditRelation,
+    onDeleteSelectedItem,
+    isTabletOrMobileDevice,
+  } = props;
   return (
     <>
       <h2>Relations</h2>
@@ -22,6 +28,7 @@ export const RelationListAccessible: React.FC<Props> = props => {
           canvas={canvasSchema}
           onEditRelation={onEditRelation}
           onDeleteSelectedItem={onDeleteSelectedItem}
+          isTabletOrMobileDevice={isTabletOrMobileDevice}
         />
       ))}
     </>
