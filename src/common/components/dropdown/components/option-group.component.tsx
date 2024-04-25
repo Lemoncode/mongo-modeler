@@ -10,6 +10,8 @@ interface Props {
   optionsListVisible: boolean;
   handleOptionClick: (option: DropdownOptionVm) => void;
   selectedOption?: string;
+  modalRef: React.RefObject<HTMLUListElement>;
+  label?: string;
 }
 
 export const OptionGroup: React.FC<Props> = props => {
@@ -19,12 +21,19 @@ export const OptionGroup: React.FC<Props> = props => {
     optionsListVisible,
     handleOptionClick,
     selectedOption,
+    modalRef,
+    label,
   } = props;
 
   return (
     <ul
       className={classes.options}
       style={{ display: optionsListVisible ? 'block' : 'none' }}
+      ref={modalRef}
+      onClick={e => e.stopPropagation()}
+      id={`${name}-select`}
+      role="listbox"
+      aria-label={label}
     >
       <Option
         name={name}
@@ -44,22 +53,20 @@ interface OptionProps {
 }
 
 const Option: React.FC<OptionProps> = props => {
-  const { options, selectedOption, name, handleOptionClick } = props;
+  const { options, selectedOption, handleOptionClick, name } = props;
 
   return options.map(option => (
-    <li key={option.id}>
+    <li
+      key={option.id}
+      role="option"
+      onClick={() => handleOptionClick(option)}
+      aria-selected={selectedOption === option.id}
+      id={`${name}-option-${option.id}`}
+    >
+      {option.label}
       <div className={classes.svg}>
         {selectedOption === option.id ? <Tick /> : ''}
       </div>
-      <label>
-        <input
-          type="radio"
-          name={name}
-          value={option.id}
-          onChange={() => handleOptionClick(option)}
-        />
-        {option.label}
-      </label>
     </li>
   ));
 };

@@ -47,6 +47,7 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
               formik.setFieldValue('toFieldId', { id: '', label: '' });
             }
           }}
+          label={label}
         ></Dropdown>
         {isError && <span className={classes.error}>{meta.error}</span>}
       </div>

@@ -3,7 +3,7 @@ export const handleTabsInsideDialog = (
   containerRef: React.RefObject<HTMLDivElement>
 ) => {
   const focusableElements = containerRef.current?.querySelectorAll(
-    'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
+    'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, div[role="combobox"]'
   );
   const lastFocusableElement =
     focusableElements?.[focusableElements.length - 1];
@@ -32,13 +32,13 @@ export const handleFocus = (
   previousFocusedElement.current = document.activeElement;
   containerRef.current?.focus();
   const focusableElements = document.querySelectorAll(
-    'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
+    'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, div[role="combobox"]'
   );
   focusableElements.forEach((element: Element) => {
     element.setAttribute('tabindex', '-1');
   });
   const focusableElementsInside = containerRef.current?.querySelectorAll(
-    'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
+    'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, div[role="combobox"]'
   );
   focusableElementsInside?.forEach((element: Element) => {
     if (element.ariaHidden !== 'true') {
@@ -51,7 +51,7 @@ export const handleNextFocus = (
   previousFocusedElement: React.MutableRefObject<Element | null>
 ) => {
   const focusableElements = document.querySelectorAll(
-    'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
+    'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, div[role="combobox"]'
   );
   focusableElements.forEach((element: Element) => {
     element.removeAttribute('tabindex');
