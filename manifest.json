@@ -1,0 +1,19 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "Mongo Modeler",
+  "description": "A free, online Data Modeling tool for MongoDB",
+  "start_url": "./editor.html",
+  "display_override": ["minimal-ui", "fullscreen"],
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "background_color": "#455a6c",
+  "theme_color": "#455a6c"
+}
