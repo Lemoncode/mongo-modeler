@@ -16,6 +16,7 @@ import {
   EDIT_RELATION_TITLE,
   EDIT_COLLECTION_TITLE,
   ADD_COLLECTION_TITLE,
+  ADD_RELATION_TITLE,
 } from '@/common/components/modal-dialog';
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
@@ -31,6 +32,7 @@ export const CanvasPod: React.FC = () => {
   const {
     canvasSchema,
     addTable,
+    addRelation,
     updateTablePosition,
     updateFullTable,
     doFieldToggleCollapse,
@@ -157,6 +159,23 @@ export const CanvasPod: React.FC = () => {
     );
   };
 
+  const handleChangeCanvasSchema = (relation: RelationVm) => {
+    addRelation(relation);
+    closeModal();
+  };
+
+  const handleAddRelation = () => {
+    if (isTabletOrMobileDevice) return;
+    openModal(
+      <EditRelationPod
+        onChangeRelation={handleChangeCanvasSchema}
+        canvasSchema={canvasSchema}
+        onClose={handleCloseEditRelation}
+      />,
+      ADD_RELATION_TITLE
+    );
+  };
+
   const onSelectElement = (relationId: GUID | null) => {
     doSelectElement(relationId);
   };
@@ -258,6 +277,7 @@ export const CanvasPod: React.FC = () => {
           <CanvasAccessible
             canvasSchema={canvasSchema}
             onAddTableModal={handleAddTableModal}
+            onAddRelationModal={handleAddRelation}
             onEditTable={handleEditTable}
             onEditRelation={handleEditRelation}
             onDeleteSelectedItem={deleteSelectedItem}

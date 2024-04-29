@@ -7,6 +7,7 @@ import { GUID } from '@/core/model';
 interface CanvasAccessibleProps {
   canvasSchema: DatabaseSchemaVm;
   onAddTableModal: () => void;
+  onAddRelationModal: () => void;
   onEditTable: (table: TableVm) => void;
   onEditRelation: (relationId: GUID) => void;
   onDeleteSelectedItem: (tableId: string) => void;
@@ -16,6 +17,7 @@ export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
   const {
     canvasSchema,
     onAddTableModal,
+    onAddRelationModal,
     onEditTable,
     onEditRelation,
     onDeleteSelectedItem,
@@ -43,6 +45,7 @@ export const CanvasAccessible: React.FC<CanvasAccessibleProps> = props => {
       <CanvasAccessibleComponent
         canvasSchema={canvasSchema}
         onAddTableModal={onAddTableModal}
+        onAddRelationModal={onAddRelationModal}
         onEditTable={onEditTable}
         onEditRelation={onEditRelation}
         onDeleteSelectedItem={onDeleteSelectedItem}
