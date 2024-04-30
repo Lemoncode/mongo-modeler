@@ -151,7 +151,7 @@
         letter-spacing: 0.2px;
         font-size: 20px;
       }
-      .info_group_link {
+      .info__group {
         display: flex;
         align-items: center;
         margin-top: 3.5rem;
@@ -184,6 +184,13 @@
         font-weight: 600;
       }
 
+      @media screen and (max-width: 1252px) {
+        .info__group {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
       @media screen and (max-width: 900px) {
         body {
           text-align: center;
@@ -200,6 +207,15 @@
         .info__image {
           width: 100%;
         }
+
+        .info__group {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 3.5rem;
+          gap: 0.8em;
+        }
+
         .info__link {
           margin-left: auto;
           margin-right: auto;
@@ -314,12 +330,12 @@
             </h3>
 
             <p>Community preview</p>
-            <div class="info_group_link">
+            <div class="info__group">
               <a href="./editor.html" class="info__link"
                 >Launch MongoDB Designer</a
               >
-              <span id="install_span" hidden>or</span>
-              <a id="install" class="info_link" hidden>Install on Desktop</a>
+              <span id="install__span" hidden>or</span>
+              <a id="install" class="info__link" hidden>Install on Device</a>
             </div>
           </div>
           <div class="info__image">
@@ -340,37 +356,37 @@
         </p>
       </div>
     </main>
-  </body>
-  <script>
-    let installPrompt = null;
-    const installButton = document.querySelector('#install');
-    const installSpan = document.querySelector('#install_span');
+    <script>
+      let installPrompt = null;
+      const installButton = document.querySelector('#install');
+      const installSpan = document.querySelector('#install__span');
 
-    window.addEventListener('beforeinstallprompt', event => {
-      event.preventDefault();
-      installPrompt = event;
-      installButton.removeAttribute('hidden');
-      installSpan.removeAttribute('hidden');
-      installButton.classList.add('info__link');
-    });
+      window.addEventListener('beforeinstallprompt', event => {
+        event.preventDefault();
+        installPrompt = event;
+        installButton.removeAttribute('hidden');
+        installSpan.removeAttribute('hidden');
+        installButton.classList.add('info__link');
+      });
 
-    function disableInAppInstallPrompt() {
-      installPrompt = null;
-      installButton.setAttribute('hidden', '');
-      installSpan.setAttribute('hidden', '');
-    }
-
-    installButton.addEventListener('click', async () => {
-      if (!installPrompt) {
-        return;
+      function disableInAppInstallPrompt() {
+        installPrompt = null;
+        installButton.setAttribute('hidden', '');
+        installSpan.setAttribute('hidden', '');
       }
-      const result = await installPrompt.prompt();
-      disableInAppInstallPrompt();
-    });
 
-    window.addEventListener('appinstalled', () => {
-      window.location.href = '/editor.html';
-      disableInAppInstallPrompt();
-    });
-  </script>
+      installButton.addEventListener('click', async () => {
+        if (!installPrompt) {
+          return;
+        }
+        const result = await installPrompt.prompt();
+        disableInAppInstallPrompt();
+      });
+
+      window.addEventListener('appinstalled', () => {
+        window.location.href = '/editor.html';
+        disableInAppInstallPrompt();
+      });
+    </script>
+  </body>
 </html>
