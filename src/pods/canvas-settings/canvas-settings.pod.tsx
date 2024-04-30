@@ -11,7 +11,7 @@ interface Props {
 }
 export const CanvasSettingsComponent: React.FC<Props> = props => {
   const { onChangeSettings } = props;
-  const { autoSave, setAutoSave } = useCanvasViewSettingsContext();
+  const { canvasViewSettings, setAutoSave } = useCanvasViewSettingsContext();
   const [changedValue, setChangedValue] = React.useState<boolean>(false);
 
   const handleCheckboxChange = () => {
@@ -24,14 +24,14 @@ export const CanvasSettingsComponent: React.FC<Props> = props => {
   };
 
   React.useEffect(() => {
-    setChangedValue(autoSave);
-  }, [autoSave]);
+    setChangedValue(canvasViewSettings.autoSave);
+  }, [canvasViewSettings.autoSave]);
 
   return (
     <div className={classes.center}>
       <Formik
         onSubmit={handleSubmitSize}
-        initialValues={autoSave}
+        initialValues={canvasViewSettings.autoSave}
         validate={formValidation.validateForm}
       >
         {() => (

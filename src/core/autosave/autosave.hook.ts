@@ -15,7 +15,7 @@ const useAutosave = () => {
   const autoSaveRef = useRef<boolean | null>(null);
 
   const { canvasSchema, setCanvasSchema } = useCanvasSchemaContext();
-  const { filename, setFilename, setLoadSample, autoSave } =
+  const { canvasViewSettings, setFilename, setLoadSample } =
     useCanvasViewSettingsContext();
 
   const [autosaveError, setAutosaveError] = useState(0);
@@ -23,11 +23,11 @@ const useAutosave = () => {
   const autosaveHandler = () => {
     if (autosaveError > 1) stopAutosave();
 
-    if (canvasSchema.tables.length !== 0 && autoSave) {
+    if (canvasSchema.tables.length !== 0 && canvasViewSettings.autoSave) {
       saveToLocal(
         AUTOSAVE_KEY,
         {
-          filename: filename ?? undefined,
+          filename: canvasViewSettings.filename ?? undefined,
           canvasSchema,
         },
         autosaveError,
@@ -69,14 +69,14 @@ const useAutosave = () => {
   }, [AUTOSAVE_KEY]);
 
   useEffect(() => {
-    autoSaveRef.current = autoSave;
+    autoSaveRef.current = canvasViewSettings.autoSave;
     if (autoSaveRef.current) {
       startAutosave();
     } else {
       stopAutosave();
       deleteAutosaveStorage();
     }
-  }, [autoSave]);
+  }, [canvasViewSettings.autoSave]);
 
   return {
     retrieveAutosave,

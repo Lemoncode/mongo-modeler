@@ -10,10 +10,10 @@ import { useDeviceContext } from '@/core/providers';
 const NEW_DOCUMENT_NAME = 'New Document';
 
 export const FooterComponent: React.FC = () => {
-  const { filename } = useCanvasViewSettingsContext();
+  const { canvasViewSettings } = useCanvasViewSettingsContext();
   const { theme, toggleTheme } = useThemeContext();
   const { isTabletOrMobileDevice: isDevice } = useDeviceContext();
-
+  const { filename } = canvasViewSettings;
   const documentNameMobile = () =>
     filename ? `${filename} - Read Only` : `Read Only`;
 

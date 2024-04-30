@@ -10,14 +10,13 @@ describe('setOffSetZoomToCoords', () => {
     const initialContextState: CanvasViewSettingsContextModel = {
       canvasViewSettings: {
         canvasSize: { width: 5000, height: 5000 },
+        viewBoxSize: { width: 20000, height: 20000 },
         zoomFactor: 2,
         scrollPosition: { x: 0, y: 0 },
         filename: '',
         loadSample: true,
+        autoSave: false,
       },
-      scrollPosition: { x: 0, y: 0 },
-      filename: '',
-      viewBoxSize: { width: 20000, height: 20000 },
       zoomIn: () => {},
       zoomOut: () => {},
       setCanvasSize: () => {},
@@ -25,7 +24,6 @@ describe('setOffSetZoomToCoords', () => {
       setFilename: () => {},
       setLoadSample: () => {},
       setViewBoxSize: () => {},
-      autoSave: false,
       setAutoSave: () => {},
     };
 
@@ -33,7 +31,7 @@ describe('setOffSetZoomToCoords', () => {
     const result = setOffSetZoomToCoords(
       inputCoords.x,
       inputCoords.y,
-      initialContextState.viewBoxSize,
+      initialContextState.canvasViewSettings.viewBoxSize,
       initialContextState.canvasViewSettings.canvasSize,
       initialContextState.canvasViewSettings.zoomFactor
     );
@@ -53,14 +51,13 @@ describe('setOffSetZoomToCoords', () => {
     const initialContextState: CanvasViewSettingsContextModel = {
       canvasViewSettings: {
         canvasSize: { width: 10000, height: 10000 },
+        viewBoxSize: { width: 25000, height: 15000 },
         zoomFactor: 2,
         scrollPosition: { x: 0, y: 0 },
         filename: '',
         loadSample: true,
+        autoSave: false,
       },
-      scrollPosition: { x: 0, y: 0 },
-      filename: '',
-      viewBoxSize: { width: 25000, height: 15000 },
       zoomIn: () => {},
       zoomOut: () => {},
       setCanvasSize: () => {},
@@ -68,7 +65,6 @@ describe('setOffSetZoomToCoords', () => {
       setFilename: () => {},
       setLoadSample: () => {},
       setViewBoxSize: () => {},
-      autoSave: false,
       setAutoSave: () => {},
     };
 
@@ -76,7 +72,7 @@ describe('setOffSetZoomToCoords', () => {
     const result = setOffSetZoomToCoords(
       inputCoords.x,
       inputCoords.y,
-      initialContextState.viewBoxSize,
+      initialContextState.canvasViewSettings.viewBoxSize,
       initialContextState.canvasViewSettings.canvasSize,
       initialContextState.canvasViewSettings.zoomFactor
     );
@@ -96,14 +92,13 @@ describe('setOffSetZoomToCoords', () => {
     const initialContextState: CanvasViewSettingsContextModel = {
       canvasViewSettings: {
         canvasSize: { width: 300, height: 100 },
+        viewBoxSize: { width: 2000, height: 5000 },
         zoomFactor: 5,
         scrollPosition: { x: 0, y: 0 },
         filename: '',
         loadSample: true,
+        autoSave: false,
       },
-      scrollPosition: { x: 0, y: 0 },
-      filename: '',
-      viewBoxSize: { width: 2000, height: 5000 },
       zoomIn: () => {},
       zoomOut: () => {},
       setCanvasSize: () => {},
@@ -111,7 +106,6 @@ describe('setOffSetZoomToCoords', () => {
       setFilename: () => {},
       setLoadSample: () => {},
       setViewBoxSize: () => {},
-      autoSave: false,
       setAutoSave: () => {},
     };
 
@@ -119,7 +113,7 @@ describe('setOffSetZoomToCoords', () => {
     const result = setOffSetZoomToCoords(
       inputCoords.x,
       inputCoords.y,
-      initialContextState.viewBoxSize,
+      initialContextState.canvasViewSettings.viewBoxSize,
       initialContextState.canvasViewSettings.canvasSize,
       initialContextState.canvasViewSettings.zoomFactor
     );
@@ -141,16 +135,15 @@ describe('setOffSetZoomToCoords', () => {
           width: Number.MAX_SAFE_INTEGER,
           height: Number.MAX_SAFE_INTEGER,
         },
+        viewBoxSize: {
+          width: Number.MAX_SAFE_INTEGER,
+          height: Number.MAX_SAFE_INTEGER,
+        },
         zoomFactor: 5,
         scrollPosition: { x: 0, y: 0 },
         filename: '',
         loadSample: true,
-      },
-      scrollPosition: { x: 0, y: 0 },
-      filename: '',
-      viewBoxSize: {
-        width: Number.MAX_SAFE_INTEGER,
-        height: Number.MAX_SAFE_INTEGER,
+        autoSave: false,
       },
       zoomIn: () => {},
       zoomOut: () => {},
@@ -159,7 +152,6 @@ describe('setOffSetZoomToCoords', () => {
       setFilename: () => {},
       setLoadSample: () => {},
       setViewBoxSize: () => {},
-      autoSave: false,
       setAutoSave: () => {},
     };
 
@@ -167,7 +159,7 @@ describe('setOffSetZoomToCoords', () => {
     const result = setOffSetZoomToCoords(
       inputCoords.x,
       inputCoords.y,
-      initialContextState.viewBoxSize,
+      initialContextState.canvasViewSettings.viewBoxSize,
       initialContextState.canvasViewSettings.canvasSize,
       initialContextState.canvasViewSettings.zoomFactor
     );
@@ -186,14 +178,13 @@ describe('setOffSetZoomToCoords', () => {
     const initialContextState: CanvasViewSettingsContextModel = {
       canvasViewSettings: {
         canvasSize: { width: 5000, height: 5000 },
+        viewBoxSize: { width: 20000, height: 20000 },
         zoomFactor: 2,
         scrollPosition: { x: 0, y: 0 },
         filename: '',
         loadSample: true,
+        autoSave: false,
       },
-      scrollPosition: { x: 0, y: 0 },
-      filename: '',
-      viewBoxSize: { width: 20000, height: 20000 },
       zoomIn: () => {},
       zoomOut: () => {},
       setCanvasSize: () => {},
@@ -201,7 +192,6 @@ describe('setOffSetZoomToCoords', () => {
       setFilename: () => {},
       setLoadSample: () => {},
       setViewBoxSize: () => {},
-      autoSave: false,
       setAutoSave: () => {},
     };
 
@@ -209,7 +199,7 @@ describe('setOffSetZoomToCoords', () => {
     const result = setOffSetZoomToCoords(
       inputCoords.x,
       inputCoords.y,
-      initialContextState.viewBoxSize,
+      initialContextState.canvasViewSettings.viewBoxSize,
       initialContextState.canvasViewSettings.canvasSize,
       initialContextState.canvasViewSettings.zoomFactor
     );
