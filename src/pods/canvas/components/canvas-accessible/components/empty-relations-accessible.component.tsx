@@ -10,10 +10,10 @@ export const EmptyRelationsAccessible: React.FC<Props> = props => {
 
   return (
     <>
-      <h2>No relations in canvas</h2>
-      <p>Create a new relation</p>
+      <h2>Relations</h2>
+      <p>This canvas has no relations</p>
       {!isTabletOrMobileDevice ? (
-        <button onClick={onAddRelationModal}>Add Relation</button>
+        <button onClick={onAddRelationModal}>Create a new relation</button>
       ) : null}
     </>
   );
