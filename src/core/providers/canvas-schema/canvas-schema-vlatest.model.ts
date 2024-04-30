@@ -77,5 +77,5 @@ export interface CanvasSchemaContextVm {
   doRedo: () => void;
   updateFullRelation: (relation: RelationVm) => void;
   deleteSelectedItem: (selectedElementId: GUID) => void;
-  checkFileIsPristine: (prevFile: string, currentFile: string) => boolean;
+  switchIsPristine: (isPristine: boolean) => void;
 }

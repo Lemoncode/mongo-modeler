@@ -47,7 +47,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
 
   const loadSchema = (newSchema: DatabaseSchemaVm) => {
     const latestVersionSchema = mapSchemaToLatestVersion(newSchema);
-    setSchema(latestVersionSchema);
+    setSchema({ ...latestVersionSchema, isPristine: true });
   };
 
   const createEmptySchema = () => {
@@ -150,14 +150,13 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     );
   };
 
-  const checkFileIsPristine = (
-    prevFile: string,
-    currentFile: string
-  ): boolean => {
-    return prevFile === currentFile
-      ? (canvasSchema.isPristine = true)
-      : (canvasSchema.isPristine = false);
+  const switchIsPristine = (isPristine: boolean) => {
+    setSchema(currentSchema => ({
+      ...currentSchema,
+      isPristine: isPristine,
+    }));
   };
+
   return (
     <CanvasSchemaContext.Provider
       value={{
@@ -177,7 +176,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         doRedo,
         updateFullRelation,
         deleteSelectedItem,
-        checkFileIsPristine,
+        switchIsPristine: switchIsPristine,
       }}
     >
       {children}

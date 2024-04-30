@@ -20,10 +20,16 @@ export const FooterComponent: React.FC = () => {
   const documentNameMobile = () =>
     filename ? `${filename} - Read Only` : `Read Only`;
 
-  const documentName = () =>
-    filename && canvasSchema.isPristine
-      ? filename
-      : `${NEW_DOCUMENT_NAME} ${ASTERISK}`;
+  const documentName = () => {
+    if (canvasSchema.isPristine) {
+      return filename ? filename : `${NEW_DOCUMENT_NAME}`;
+    }
+    if (!canvasSchema.isPristine) {
+      return filename
+        ? `${filename} ${ASTERISK}`
+        : `${NEW_DOCUMENT_NAME} ${ASTERISK}`;
+    }
+  };
   return (
     <div className={classes.footerText}>
       <span>{isDevice ? documentNameMobile() : documentName()}</span>

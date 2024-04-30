@@ -13,7 +13,7 @@ const DEFAULT_EXTENSION_DESCRIPTION = 'Mongo Modeler';
 const DEFAULT_FILE_EXTENSION = 'mml';
 
 export const SaveButton = () => {
-  const { canvasSchema, checkFileIsPristine } = useCanvasSchemaContext();
+  const { canvasSchema, switchIsPristine } = useCanvasSchemaContext();
   const { filename: openedFilename, setFilename } =
     useCanvasViewSettingsContext();
 
@@ -39,7 +39,7 @@ export const SaveButton = () => {
 
       if (savedFilename) {
         setFilename(savedFilename);
-        checkFileIsPristine(filename, savedFilename);
+        switchIsPristine(true);
       }
     }
     URL.revokeObjectURL(url);
