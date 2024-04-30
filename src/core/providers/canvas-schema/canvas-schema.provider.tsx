@@ -153,7 +153,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   const switchIsPristine = (isPristine: boolean) => {
     setSchema(currentSchema => ({
       ...currentSchema,
-      isPristine: isPristine,
+      isPristine,
     }));
   };
 
