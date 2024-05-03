@@ -23,7 +23,7 @@ export const FooterComponent: React.FC = () => {
   const documentName = () => {
     if (canvasSchema.isPristine) {
       return filename ? filename : `${NEW_DOCUMENT_NAME}`;
-    } else if (!canvasSchema.isPristine) {
+    } else {
       return filename
         ? `${filename} ${ASTERISK}`
         : `${NEW_DOCUMENT_NAME} ${ASTERISK}`;
