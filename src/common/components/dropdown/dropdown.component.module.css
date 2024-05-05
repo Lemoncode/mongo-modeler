@@ -74,6 +74,10 @@
   cursor: pointer;
 }
 
+.options li:hover {
+  color: var(--input-border-color-active);
+}
+
 .svg {
   position: absolute;
   top: 0;
