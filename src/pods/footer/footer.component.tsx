@@ -7,6 +7,10 @@ import {
 } from '@/core/providers';
 import { DarkIcon, LightIcon } from '@/common/components';
 import { useDeviceContext } from '@/core/providers';
+import {
+  getFileNameCanvasIsPristine,
+  getFileNameCanvasDirty,
+} from '@/pods/footer/footer.business';
 
 const NEW_DOCUMENT_NAME = 'New Document';
 const ASTERISK = '*';
@@ -20,15 +24,10 @@ export const FooterComponent: React.FC = () => {
   const documentNameMobile = () =>
     filename ? `${filename} - Read Only` : `Read Only`;
 
-  const documentName = () => {
-    if (canvasSchema.isPristine) {
-      return filename ? filename : `${NEW_DOCUMENT_NAME}`;
-    } else {
-      return filename
-        ? `${filename} ${ASTERISK}`
-        : `${NEW_DOCUMENT_NAME} ${ASTERISK}`;
-    }
-  };
+  const documentName = () =>
+    canvasSchema.isPristine
+      ? getFileNameCanvasIsPristine(filename, NEW_DOCUMENT_NAME)
+      : getFileNameCanvasDirty(filename, NEW_DOCUMENT_NAME, ASTERISK);
   return (
     <div className={classes.footerText}>
       <span>{isDevice ? documentNameMobile() : documentName()}</span>
