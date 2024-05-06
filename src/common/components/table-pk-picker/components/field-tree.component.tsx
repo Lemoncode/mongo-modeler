@@ -9,6 +9,8 @@ interface Props {
   optionsListVisible: boolean;
   handleOptionClick: (option: PkOptionVm, parentPath: string) => void;
   selectedPKField?: string;
+  modalRef: React.RefObject<HTMLUListElement>;
+  label: string;
 }
 
 export const FieldTree: React.FC<Props> = props => {
@@ -18,12 +20,19 @@ export const FieldTree: React.FC<Props> = props => {
     optionsListVisible,
     handleOptionClick,
     selectedPKField,
+    modalRef,
+    label,
   } = props;
 
   return (
     <ul
       className={classes.options}
       style={{ display: optionsListVisible ? 'block' : 'none' }}
+      role="listbox"
+      ref={modalRef}
+      onClick={e => e.stopPropagation()}
+      id={`${name}-select`}
+      aria-label={label}
     >
       <GenerateOptions
         name={name}

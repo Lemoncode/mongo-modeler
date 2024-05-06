@@ -7,6 +7,10 @@
   background-color: var(--bg-input);
   border-radius: var(--border-radius-xs);
   transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-xs);
 }
 
 .select-chosen {
@@ -22,20 +26,23 @@
 }
 
 .options {
+  --border-select-width: 1px;
+  --border-select-color: var(--input-border-color-active);
   list-style: none;
   padding: 8px;
   padding-left: 36px;
   margin: 0;
   display: none;
   position: absolute;
-  z-index: 2;
-  top: calc(100% + var(--border-select-width));
+  z-index: 3;
+  top: calc(0% + var(--border-select-width));
   left: calc(0px - var(--border-select-width));
   width: calc(100% + var(--border-select-width) * 2);
   border: var(--border-select-width) solid var(--border-select-color);
   border-top: none;
   background-color: var(--bg-input);
   border-radius: var(--border-radius-xs);
+  color: var(--text-disabled);
 }
 
 /* Active */
@@ -79,32 +86,38 @@
 .options ul {
   list-style: none;
   padding-left: 20px;
-}
-
-.options li {
-  font-size: 16px;
   color: var(--text-disabled);
 }
 
-.options label {
-  cursor: pointer;
+.options li {
+  position: relative;
+  font-size: 16px;
   color: var(--text-color);
+  cursor: pointer;
 }
 
-.options label:hover {
+.options li:hover {
   color: var(--input-border-color-active);
 }
 
-.options input[type='radio'] {
-  position: relative;
-  z-index: -1;
-  width: 0;
-  margin: 0;
+.options .li-disabled {
+  color: var(--text-disabled);
+  cursor: text;
+}
+.options .li-disabled:hover {
+  color: var(--text-disabled);
+}
+.li-group {
+  padding-left: 1rem;
+}
+.li-group .svg {
+  left: calc(-1rem + -28px);
 }
 
 .svg {
   position: absolute;
-  left: 8px;
+  top: 0;
+  left: -28px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -115,10 +128,15 @@
 
 /*Veil works because it is being used within a modal*/
 .veil {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: 1;
+  z-index: 2;
+  position: fixed;
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--veil-modal);
+  opacity: 0.5;
 }
