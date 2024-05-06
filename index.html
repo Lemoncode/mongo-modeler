@@ -184,7 +184,9 @@
         color: #73cc8f;
         font-weight: 600;
       }
-
+      .hidden {
+        display: none;
+      }
       @media screen and (max-width: 1252px) {
         .info__group {
           display: flex;
@@ -342,8 +344,8 @@
               <a href="./editor.html" class="info__link"
                 >Launch MongoDB Designer</a
               >
-              <span id="install__span" class="install__span" hidden>or</span>
-              <a id="install" class="info__link" hidden>Install on Device</a>
+              <span id="install__span" class="install__span hidden">or</span>
+              <a id="install" class="info__link hidden">Install on Device</a>
             </div>
           </div>
           <div class="info__image">
@@ -372,15 +374,14 @@
       window.addEventListener('beforeinstallprompt', event => {
         event.preventDefault();
         installPrompt = event;
-        installButton.removeAttribute('hidden');
-        installSpan.removeAttribute('hidden');
-        installButton.classList.add('info__link');
+        installButton.classList.remove('hidden');
+        installSpan.classList.remove('hidden');
       });
 
       function disableInAppInstallPrompt() {
         installPrompt = null;
-        installButton.setAttribute('hidden', '');
-        installSpan.setAttribute('hidden', '');
+        installButton.classList.add('hidden');
+        installSpan.classList.add('hidden');
       }
 
       installButton.addEventListener('click', async () => {
