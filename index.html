@@ -20,10 +20,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="manifest" href="/manifest.json" />
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-    <meta name="msapplication-TileColor" content="#da532c" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#142231" />
     <title>Mongo Modeler</title>
     <meta
       name="description"
@@ -150,8 +150,15 @@
         font-weight: 600;
         letter-spacing: 0.2px;
         font-size: 20px;
-        margin-top: 3.5rem;
       }
+      .info__group {
+        display: flex;
+        align-items: center;
+        margin-top: 3.5rem;
+        margin-bottom: 3.5rem;
+        gap: 0.8em;
+      }
+
       .info__image {
         width: 45%;
         border-radius: 10px;
@@ -177,6 +184,19 @@
         color: #73cc8f;
         font-weight: 600;
       }
+      .hidden {
+        display: none;
+      }
+      @media screen and (max-width: 1252px) {
+        .info__group {
+          display: flex;
+          align-items: start;
+          flex-direction: column;
+        }
+        .install__span {
+          padding-left: 18px;
+        }
+      }
 
       @media screen and (max-width: 900px) {
         body {
@@ -194,9 +214,21 @@
         .info__image {
           width: 100%;
         }
+
+        .info__group {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 3.5rem;
+          gap: 0.8em;
+        }
+
         .info__link {
           margin-left: auto;
           margin-right: auto;
+        }
+        .install__span {
+          padding-left: 0px;
         }
       }
       @media screen and (max-width: 600px) {
@@ -308,10 +340,13 @@
             </h3>
 
             <p>Community preview</p>
-
-            <a href="./editor.html" class="info__link"
-              >Launch MongoDB Designer</a
-            >
+            <div class="info__group">
+              <a href="./editor.html" class="info__link"
+                >Launch MongoDB Designer</a
+              >
+              <span id="install__span" class="install__span hidden">or</span>
+              <a id="install" class="info__link hidden">Install on Device</a>
+            </div>
           </div>
           <div class="info__image">
             <img
@@ -331,5 +366,36 @@
         </p>
       </div>
     </main>
+    <script>
+      let installPrompt = null;
+      const installButton = document.querySelector('#install');
+      const installSpan = document.querySelector('#install__span');
+
+      window.addEventListener('beforeinstallprompt', event => {
+        event.preventDefault();
+        installPrompt = event;
+        installButton.classList.remove('hidden');
+        installSpan.classList.remove('hidden');
+      });
+
+      function disableInAppInstallPrompt() {
+        installPrompt = null;
+        installButton.classList.add('hidden');
+        installSpan.classList.add('hidden');
+      }
+
+      installButton.addEventListener('click', async () => {
+        if (!installPrompt) {
+          return;
+        }
+        const result = await installPrompt.prompt();
+        disableInAppInstallPrompt();
+      });
+
+      window.addEventListener('appinstalled', () => {
+        window.location.href = '/editor.html';
+        disableInAppInstallPrompt();
+      });
+    </script>
   </body>
 </html>
