@@ -61,6 +61,13 @@ export const CanvasPod: React.FC = () => {
   }, []);
   */
 
+  React.useEffect(() => {
+    setViewBoxSize({
+      width: canvasSize.width * zoomFactor,
+      height: canvasSize.height * zoomFactor,
+    });
+  }, [canvasSize, zoomFactor]);
+
   const handleToggleCollapse = (tableId: GUID, fieldId: GUID) => {
     doFieldToggleCollapse(tableId, fieldId);
   };
@@ -162,12 +169,7 @@ export const CanvasPod: React.FC = () => {
       width: canvasSize.width + newSize,
       height: canvasSize.width + newSize + HEIGHT_OFFSET / zoomFactor,
     });
-
-    setViewBoxSize({
-      width: canvasSize.width * zoomFactor,
-      height: canvasSize.height * zoomFactor,
-    });
-  }, [viewBoxSize, zoomFactor, canvasSize]);
+  }, [viewBoxSize]);
 
   const { retrieveAutosave, startAutosave, stopAutosave } = useAutosave();
   const [retrieveAutosaveHasInitialized, setRetrieveAutosaveHasInitialized] =
