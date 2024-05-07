@@ -26,17 +26,19 @@ export const ExportTablePod: React.FC<Props> = props => {
 
   return (
     <>
-      <div className={classes.inputContent}>
+      <fieldset
+        className={classes.inputContent}
+        aria-label="Select an export format"
+      >
         <div className={classes.radioButton}>
           <input
             className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="radio2"
-            aria-label="SVG"
+            id="radio-svg"
             onChange={() => handleExportType(ExportType.SVG)}
           />
-          <label htmlFor="radio2" className={classes.radioButtonLabel}>
+          <label htmlFor="radio-svg" className={classes.radioButtonLabel}>
             <span className={classes.radioButtonCustom}></span>SVG
           </label>
         </div>
@@ -45,11 +47,10 @@ export const ExportTablePod: React.FC<Props> = props => {
             className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="radio1"
-            aria-label="PNG"
+            id="radio-png"
             onChange={() => handleExportType(ExportType.PNG)}
           />
-          <label htmlFor="radio1" className={classes.radioButtonLabel}>
+          <label htmlFor="radio-png" className={classes.radioButtonLabel}>
             <span className={classes.radioButtonCustom}></span>PNG
           </label>
         </div>
@@ -58,15 +59,18 @@ export const ExportTablePod: React.FC<Props> = props => {
             className={classes.radioButtonInput}
             type="radio"
             name="export type"
-            id="radio3"
-            aria-label="Mongo Schema"
+            id="radio-mongo-schema"
             onChange={() => handleExportType(ExportType.SCHEMA)}
           />
-          <label htmlFor="radio3" className={classes.radioButtonLabel}>
+          <label
+            htmlFor="radio-mongo-schema"
+            className={classes.radioButtonLabel}
+          >
             <span className={classes.radioButtonCustom}></span>Mongo Schema
           </label>
         </div>
-      </div>
+      </fieldset>
+
       <div className={classes.checkboxExport}>
         <Checkbox
           id="checkboxExportFile"
@@ -77,6 +81,7 @@ export const ExportTablePod: React.FC<Props> = props => {
           <span>Expand all fields (svg & png export)</span>
         </label>
       </div>
+
       <button
         className="button-secondary"
         onClick={handleExportClick}

@@ -47,7 +47,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
 
   const loadSchema = (newSchema: DatabaseSchemaVm) => {
     const latestVersionSchema = mapSchemaToLatestVersion(newSchema);
-    setSchema(latestVersionSchema);
+    setSchema({ ...latestVersionSchema, isPristine: true });
   };
 
   const createEmptySchema = () => {
@@ -55,13 +55,17 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   };
 
   const updateFullTable = (table: TableVm) => {
-    setSchema(prevSchema => updateTable(table, prevSchema));
+    setSchema(prevSchema =>
+      updateTable(table, { ...prevSchema, isPristine: false })
+    );
   };
 
   // TODO: #56 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/56
   const addTable = (table: TableVm) => {
-    setSchema(prevSchema => addNewTable(table, prevSchema));
+    setSchema(prevSchema =>
+      addNewTable(table, { ...prevSchema, isPristine: false })
+    );
   };
 
   // TODO: #90
@@ -69,7 +73,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   const addRelation = (relation: RelationVm) => {
     if (!doesRelationAlreadyExists(canvasSchema, relation)) {
       setSchema(prevSchema =>
-        produce(prevSchema, draft => {
+        produce({ ...prevSchema, isPristine: false }, draft => {
           draft.relations.push(relation);
         })
       );
@@ -77,7 +81,9 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   };
 
   const updateFullRelation = (relationUpdated: RelationVm) => {
-    setSchema(prevSchema => updateRelation(relationUpdated, prevSchema));
+    setSchema(prevSchema =>
+      updateRelation(relationUpdated, { ...prevSchema, isPristine: false })
+    );
   };
 
   const updateTablePosition = (
@@ -87,7 +93,11 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     const { id, position, totalHeight, canvasSize } = itemInfo;
     isDragFinished
       ? setSchema(prevSchema =>
-          moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
+          moveTableToTop(
+            { ...prevSchema, isPristine: false },
+            { id, position, totalHeight },
+            canvasSize
+          )
         )
       : setSchemaSkipHistory(prevSchema =>
           moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
@@ -133,9 +143,20 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
 
   const deleteSelectedItem = (selectedElementId: GUID) => {
     setSchema(currentSchema =>
-      deleteItemFromCanvasSchema(currentSchema, selectedElementId)
+      deleteItemFromCanvasSchema(
+        { ...currentSchema, isPristine: false },
+        selectedElementId
+      )
     );
   };
+
+  const switchIsPristine = (isPristine: boolean) => {
+    setSchema(currentSchema => ({
+      ...currentSchema,
+      isPristine,
+    }));
+  };
+
   return (
     <CanvasSchemaContext.Provider
       value={{
@@ -155,6 +176,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         doRedo,
         updateFullRelation,
         deleteSelectedItem,
+        switchIsPristine: switchIsPristine,
       }}
     >
       {children}

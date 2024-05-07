@@ -28,10 +28,26 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
   // of error a the initial state
   const isError = Boolean(meta && meta.touched && meta.error);
 
+  const selectContainerRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    if (
+      inputFieldProps.name === Object.keys(formik.errors)[0] &&
+      isError &&
+      selectContainerRef.current
+    ) {
+      selectContainerRef.current.focus();
+      selectContainerRef.current.tabIndex = 0;
+    }
+  }, [isError]);
+
   return (
-    <div className={classes.select}>
+    <div className={classes.select} id={inputFieldProps.name}>
       <p className={classes.selectLabel}>{label ? label : ''}</p>
-      <div className={classes.selectContainer}>
+      <div
+        className={classes.selectContainer}
+        ref={selectContainerRef}
+        tabIndex={-1}
+      >
         <Dropdown
           name={inputFieldProps.name}
           options={options}
@@ -39,16 +55,21 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
           value={inputFieldProps.value}
           isError={isError}
           onChange={field => {
-            setValue(field);
             if (inputFieldProps.name === 'fromTableId') {
               formik.setFieldValue('fromFieldId', { id: '', label: '' });
             }
             if (inputFieldProps.name === 'toTableId') {
               formik.setFieldValue('toFieldId', { id: '', label: '' });
             }
+            setValue(field);
           }}
+          label={label}
         ></Dropdown>
-        {isError && <span className={classes.error}>{meta.error}</span>}
+        {isError && (
+          <span className={classes.error} aria-live="polite">
+            {meta.error}
+          </span>
+        )}
       </div>
     </div>
   );

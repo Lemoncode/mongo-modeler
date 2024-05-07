@@ -74,7 +74,7 @@
 }
 
 :global(.light) .dialog-component {
-  --text-disabled: #f3eded;
+  --text-disabled: #a9a9a9;
 }
 
 @media screen and (max-device-width: 780px) {
