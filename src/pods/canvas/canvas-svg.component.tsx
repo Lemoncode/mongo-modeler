@@ -8,10 +8,11 @@ import {
 import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
 import { SelectedTableFilterHighlightComponent } from './components/table/components/selected-table-filter-highlight.component';
-
+import { CANVAS_MAX_HEIGHT, CANVAS_MAX_WIDTH } from '@/core/providers';
 interface Props {
   viewBoxSize: Size;
   canvasSize: Size;
+  zoomFactor: number;
   canvasSchema: DatabaseSchemaVm;
   onUpdateTablePosition: UpdatePositionFn;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
@@ -21,13 +22,11 @@ interface Props {
   isTabletOrMobileDevice: boolean;
 }
 
-export const CANVAS_MAX_WIDTH = 20000;
-export const CANVAS_MAX_HEIGHT = 20000;
-
 export const CanvasSvgComponent: React.FC<Props> = props => {
   const {
     viewBoxSize,
     canvasSize,
+    zoomFactor,
     canvasSchema,
     onUpdateTablePosition,
     onToggleCollapse,
@@ -49,6 +48,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
       width={CANVAS_MAX_WIDTH}
       height={CANVAS_MAX_HEIGHT}
       onClick={clearSelection}
+      aria-hidden={true}
     >
       <DatabaseRelationCollectionComponent
         schema={canvasSchema}
@@ -67,6 +67,8 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           isSelected={canvasSchema.selectedElementId === table.id}
           selectTable={onSelectElement}
           isTabletOrMobileDevice={isTabletOrMobileDevice}
+          viewBoxSize={viewBoxSize}
+          zoomFactor={zoomFactor}
         />
       ))}
     </svg>

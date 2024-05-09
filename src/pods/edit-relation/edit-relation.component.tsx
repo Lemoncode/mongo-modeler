@@ -35,7 +35,7 @@ export const EditRelationComponent: React.FC<Props> = props => {
     <>
       <DropdownFormik
         name="type"
-        label="Type"
+        label="Type of relation"
         options={relationsTypeOptions}
         selectTitle="Select type"
       ></DropdownFormik>

@@ -37,6 +37,7 @@ export interface DatabaseSchemaVm {
   tables: TableVm[];
   relations: RelationVm[];
   selectedElementId: GUID | null;
+  isPristine?: boolean;
 }
 
 export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
@@ -44,6 +45,7 @@ export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
   tables: [],
   relations: [],
   selectedElementId: null,
+  isPristine: true,
 });
 
 export interface UpdatePositionItemInfo {
@@ -60,6 +62,7 @@ export type UpdatePositionFn = (
 
 export interface CanvasSchemaContextVm {
   canvasSchema: DatabaseSchemaVm;
+  setCanvasSchema: (schema: DatabaseSchemaVm) => void;
   loadSchema: (schema: DatabaseSchemaVm) => void;
   createEmptySchema: () => void;
   updateTablePosition: UpdatePositionFn;
@@ -74,4 +77,5 @@ export interface CanvasSchemaContextVm {
   doRedo: () => void;
   updateFullRelation: (relation: RelationVm) => void;
   deleteSelectedItem: (selectedElementId: GUID) => void;
+  switchIsPristine: (isPristine: boolean) => void;
 }

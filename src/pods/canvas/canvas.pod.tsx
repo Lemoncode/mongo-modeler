@@ -15,16 +15,24 @@ import { EditTablePod } from '../edit-table';
 import {
   EDIT_RELATION_TITLE,
   EDIT_COLLECTION_TITLE,
+  ADD_COLLECTION_TITLE,
+  ADD_RELATION_TITLE,
 } from '@/common/components/modal-dialog';
-import { CANVAS_MAX_WIDTH, CanvasSvgComponent } from './canvas-svg.component';
+import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
 import { mFlix } from './m-flix.mock.data';
-
+import { CanvasAccessible } from './components/canvas-accessible';
+import useAutosave from '@/core/autosave/autosave.hook';
+import { CANVAS_MAX_WIDTH } from '@/core/providers';
+import { setOffSetZoomToCoords } from '@/common/helpers/set-off-set-zoom-to-coords.helper';
 const HEIGHT_OFFSET = 200;
+const BORDER_MARGIN = 40;
 export const CanvasPod: React.FC = () => {
   const { openModal, closeModal, modalDialog } = useModalDialogContext();
   const {
     canvasSchema,
+    addTable,
+    addRelation,
     updateTablePosition,
     updateFullTable,
     doFieldToggleCollapse,
@@ -35,9 +43,14 @@ export const CanvasPod: React.FC = () => {
     deleteSelectedItem,
     loadSchema,
   } = useCanvasSchemaContext();
-  const { canvasViewSettings, setScrollPosition, setLoadSample } =
-    useCanvasViewSettingsContext();
-  const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
+  const {
+    canvasViewSettings,
+    setScrollPosition,
+    setLoadSample,
+    setViewBoxSize,
+  } = useCanvasViewSettingsContext();
+  const { canvasSize, zoomFactor, loadSample, viewBoxSize } =
+    canvasViewSettings;
 
   const { isTabletOrMobileDevice } = useDeviceContext();
   // TODO: This is temporary code, once we get load and save
@@ -49,24 +62,47 @@ export const CanvasPod: React.FC = () => {
     loadSchema(mockSchema);
   }, []);
   */
-  const viewBoxSize: Size = React.useMemo<Size>(
-    () => ({
+
+  React.useEffect(() => {
+    setViewBoxSize({
       width: canvasSize.width * zoomFactor,
       height: canvasSize.height * zoomFactor,
-    }),
-    [zoomFactor, canvasSize]
-  );
+    });
+  }, [canvasSize, zoomFactor]);
 
   const handleToggleCollapse = (tableId: GUID, fieldId: GUID) => {
     doFieldToggleCollapse(tableId, fieldId);
   };
 
-  const handleTableEditUpdate = (table: TableVm) => {
-    updateFullTable(table);
+  const handleAddTable = (newTable: TableVm) => {
+    const updatedTable = {
+      ...newTable,
+      x: canvasViewSettings.scrollPosition.x + BORDER_MARGIN,
+      y: canvasViewSettings.scrollPosition.y + BORDER_MARGIN,
+    };
+
+    addTable(updatedTable);
     closeModal();
   };
 
-  const handleCloseEditTable = () => {
+  const handleCloseModal = () => {
+    closeModal();
+  };
+
+  const handleAddTableModal = () => {
+    setLoadSample(false);
+    openModal(
+      <EditTablePod
+        relations={canvasSchema.relations}
+        onSave={handleAddTable}
+        onClose={handleCloseModal}
+      />,
+      ADD_COLLECTION_TITLE
+    );
+  };
+
+  const handleTableEditUpdate = (table: TableVm) => {
+    updateFullTable(table);
     closeModal();
   };
 
@@ -77,7 +113,7 @@ export const CanvasPod: React.FC = () => {
         table={tableInfo}
         relations={canvasSchema.relations}
         onSave={handleTableEditUpdate}
-        onClose={handleCloseEditTable}
+        onClose={handleCloseModal}
       />,
       EDIT_COLLECTION_TITLE
     );
@@ -87,10 +123,15 @@ export const CanvasPod: React.FC = () => {
 
   const handleScroll = () => {
     if (containerRef.current) {
-      setScrollPosition({
-        x: containerRef.current.scrollLeft,
-        y: containerRef.current.scrollTop,
-      });
+      setScrollPosition(
+        setOffSetZoomToCoords(
+          containerRef.current.scrollLeft,
+          containerRef.current.scrollTop,
+          viewBoxSize,
+          canvasSize,
+          zoomFactor
+        )
+      );
     }
   };
 
@@ -115,6 +156,23 @@ export const CanvasPod: React.FC = () => {
     );
   };
 
+  const handleChangeCanvasSchema = (relation: RelationVm) => {
+    addRelation(relation);
+    closeModal();
+  };
+
+  const handleAddRelation = () => {
+    if (isTabletOrMobileDevice) return;
+    openModal(
+      <EditRelationPod
+        onChangeRelation={handleChangeCanvasSchema}
+        canvasSchema={canvasSchema}
+        onClose={handleCloseEditRelation}
+      />,
+      ADD_RELATION_TITLE
+    );
+  };
+
   const onSelectElement = (relationId: GUID | null) => {
     doSelectElement(relationId);
   };
@@ -131,6 +189,20 @@ export const CanvasPod: React.FC = () => {
       height: canvasSize.width + newSize + HEIGHT_OFFSET / zoomFactor,
     });
   }, [viewBoxSize]);
+
+  const { retrieveAutosave, startAutosave, stopAutosave } = useAutosave();
+  const [retrieveAutosaveHasInitialized, setRetrieveAutosaveHasInitialized] =
+    React.useState(false);
+
+  React.useEffect(() => {
+    if (!retrieveAutosaveHasInitialized) {
+      retrieveAutosave();
+      setRetrieveAutosaveHasInitialized(true);
+    }
+
+    startAutosave();
+    return stopAutosave;
+  }, [canvasSchema]);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -179,7 +251,6 @@ export const CanvasPod: React.FC = () => {
           </button>
         </div>
       )}
-
       <div
         style={{
           width: sizeFrame.width,
@@ -190,6 +261,7 @@ export const CanvasPod: React.FC = () => {
         <CanvasSvgComponent
           viewBoxSize={viewBoxSize}
           canvasSize={canvasSize}
+          zoomFactor={zoomFactor}
           canvasSchema={canvasSchema}
           onUpdateTablePosition={updateTablePosition}
           onToggleCollapse={handleToggleCollapse}
@@ -198,6 +270,17 @@ export const CanvasPod: React.FC = () => {
           onSelectElement={onSelectElement}
           isTabletOrMobileDevice={isTabletOrMobileDevice}
         />
+        {!loadSample && (
+          <CanvasAccessible
+            canvasSchema={canvasSchema}
+            onAddTableModal={handleAddTableModal}
+            onAddRelationModal={handleAddRelation}
+            onEditTable={handleEditTable}
+            onEditRelation={handleEditRelation}
+            onDeleteSelectedItem={deleteSelectedItem}
+            isTabletOrMobileDevice={isTabletOrMobileDevice}
+          />
+        )}
       </div>
     </div>
   );

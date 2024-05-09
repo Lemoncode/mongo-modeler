@@ -45,15 +45,16 @@ const mapTableToDropdownVm = (table: TableVm): DropdownOptionVm => ({
 export const mapTableListToDropdownVm = (
   canvasSchema: DatabaseSchemaVm
 ): DropdownOptionVm[] => {
- const orderedList =  orderTableListToDropDownVm(canvasSchema);
- return orderedList.map(
+  const orderedList = orderTableListToDropDownVm(canvasSchema);
+  return orderedList.map(
     (table): DropdownOptionVm => mapTableToDropdownVm(table)
-  )};
+  );
+};
 
-  const orderTableListToDropDownVm = (canvasSchema: DatabaseSchemaVm) => {
-    const copyArray = [...canvasSchema.tables];
-    return copyArray.sort((a, b) => a.tableName.localeCompare(b.tableName));
-  }
+const orderTableListToDropDownVm = (canvasSchema: DatabaseSchemaVm) => {
+  const copyArray = [...canvasSchema.tables];
+  return copyArray.sort((a, b) => a.tableName.localeCompare(b.tableName));
+};
 
 const returnTableFromCanvasSchema = (
   id: GUID,

@@ -17,16 +17,16 @@ export const validationSchema: ValidationSchema = {
         message: 'Selected table option is required',
       },
     ],
-    toTableId: [
-      {
-        validator: objectEmptyIdValidator,
-        message: 'Selected table option is required',
-      },
-    ],
     fromFieldId: [
       {
         validator: objectEmptyIdValidator,
         message: 'Selected field option is required',
+      },
+    ],
+    toTableId: [
+      {
+        validator: objectEmptyIdValidator,
+        message: 'Selected table option is required',
       },
     ],
     toFieldId: [

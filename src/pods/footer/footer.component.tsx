@@ -1,24 +1,33 @@
 import React from 'react';
 import classes from './footer.pod.module.css';
 import {
+  useCanvasSchemaContext,
   useCanvasViewSettingsContext,
   useThemeContext,
 } from '@/core/providers';
 import { DarkIcon, LightIcon } from '@/common/components';
 import { useDeviceContext } from '@/core/providers';
+import {
+  getFileNameCanvasIsPristine,
+  getFileNameCanvasDirty,
+} from '@/pods/footer/footer.business';
 
 const NEW_DOCUMENT_NAME = 'New Document';
+const ASTERISK = '*';
 
 export const FooterComponent: React.FC = () => {
-  const { filename } = useCanvasViewSettingsContext();
+  const { canvasSchema } = useCanvasSchemaContext();
+  const { canvasViewSettings } = useCanvasViewSettingsContext();
   const { theme, toggleTheme } = useThemeContext();
   const { isTabletOrMobileDevice: isDevice } = useDeviceContext();
-
+  const { filename } = canvasViewSettings;
   const documentNameMobile = () =>
     filename ? `${filename} - Read Only` : `Read Only`;
 
-  const documentName = () => (filename ? filename : NEW_DOCUMENT_NAME);
-
+  const documentName = () =>
+    canvasSchema.isPristine
+      ? getFileNameCanvasIsPristine(filename, NEW_DOCUMENT_NAME)
+      : getFileNameCanvasDirty(filename, NEW_DOCUMENT_NAME, ASTERISK);
   return (
     <div className={classes.footerText}>
       <span>{isDevice ? documentNameMobile() : documentName()}</span>

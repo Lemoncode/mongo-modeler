@@ -1,3 +1,9 @@
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
 .inputContent {
   display: flex;
   flex-direction: column;
@@ -37,19 +43,19 @@
   width: 20px;
   height: 20px;
   border-radius: var(--border-radius-xxxl);
-  border: 2px solid #555;
+  background-color: var(--bg-input);
+  border: 1px solid var(--input-radio-border-color);
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .radioButtonInput:checked + .radioButtonLabel .radioButtonCustom {
   transform: translateY(-50%) scale(0.9);
-  border: 5px solid var(--input-radio-border-color);
+  border: 5px solid var(--primary-500);
 }
 
 .radioButtonLabel:hover .radioButtonCustom {
-  transform: translateY(-50%) scale(1.2);
-  border-color: var(--input-radio-border-color);
-  box-shadow: 0 0 10px var(--input-radio-border-color);
+  border-color: var(--hover-checkbox);
+  box-shadow: 0 0 4px var(--hover-checkbox);
 }
 
 .checkboxExport {

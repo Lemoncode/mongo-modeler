@@ -58,7 +58,7 @@ export const EditRelationPod: React.FC<Props> = props => {
             <button type="submit" className="button-secondary">
               Apply
             </button>
-            <button className="button-tertiary" onClick={onClose}>
+            <button type="button" className="button-tertiary" onClick={onClose}>
               Cancel
             </button>
           </div>

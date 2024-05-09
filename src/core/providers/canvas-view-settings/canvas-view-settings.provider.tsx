@@ -1,10 +1,12 @@
 import React from 'react';
 import {
   CanvasViewSettingsModel,
+  USERSAVE_KEY,
   createInitialSettings,
 } from './canvas-view-settings.model';
 import { CanvasViewSettingsContext } from './canvas-view-settings.context';
 import { Coords, Size } from '@/core/model';
+import { saveValueToLocalStorage } from '@/common/local-storage';
 
 interface Props {
   children: React.ReactNode;
@@ -36,22 +38,13 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     React.useState<CanvasViewSettingsModel>(
       createInitialSettings(DEFAULT_ZOOM_FACTOR)
     );
-  const [scrollPosition, setScrollPosition] = React.useState<Coords>({
-    x: 0,
-    y: 0,
-  });
 
-  const zoomIn = () =>
+  const setScrollPosition = (scrollPosition: Coords) => {
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
-      zoomFactor: canvasViewSettings.zoomFactor * 0.9,
+      scrollPosition: scrollPosition,
     }));
-
-  const zoomOut = () =>
-    setCanvasViewSettings(canvasViewSettings => ({
-      ...canvasViewSettings,
-      zoomFactor: canvasViewSettings.zoomFactor * 1.1,
-    }));
+  };
 
   const setCanvasSize = (canvasSize: Size) => {
     setCanvasViewSettings(canvasViewSettings => ({
@@ -67,6 +60,20 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     }));
   };
 
+  const zoomIn = () => {
+    setCanvasViewSettings(canvasViewSettings => ({
+      ...canvasViewSettings,
+      zoomFactor: canvasViewSettings.zoomFactor * 0.9,
+    }));
+  };
+
+  const zoomOut = () => {
+    setCanvasViewSettings(canvasViewSettings => ({
+      ...canvasViewSettings,
+      zoomFactor: canvasViewSettings.zoomFactor * 1.1,
+    }));
+  };
+
   const setLoadSample = (loadSample: boolean) => {
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
@@ -74,18 +81,35 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     }));
   };
 
+  const setViewBoxSize = (viewBoxSize: Size) => {
+    setCanvasViewSettings(canvasViewSettings => ({
+      ...canvasViewSettings,
+      viewBoxSize: viewBoxSize,
+    }));
+  };
+
+  const setAutoSave = (autoSave: boolean) => {
+    saveValueToLocalStorage(USERSAVE_KEY, {
+      autoSave: canvasViewSettings.autoSave,
+    });
+    setCanvasViewSettings(canvasViewSettings => ({
+      ...canvasViewSettings,
+      autoSave,
+    }));
+  };
+
   return (
     <CanvasViewSettingsContext.Provider
       value={{
         canvasViewSettings,
-        scrollPosition,
-        filename: canvasViewSettings.filename,
+        setScrollPosition,
+        setCanvasSize,
+        setFilename,
         zoomIn,
         zoomOut,
-        setCanvasSize,
-        setScrollPosition,
-        setFilename,
         setLoadSample,
+        setViewBoxSize,
+        setAutoSave,
       }}
     >
       {children}

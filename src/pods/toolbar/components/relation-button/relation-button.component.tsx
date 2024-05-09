@@ -3,7 +3,7 @@ import { EditRelationPod } from '@/pods/edit-relation';
 import { Relation } from '@/common/components/icons';
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
-import { EDIT_RELATION_TITLE } from '@/common/components';
+import { ADD_RELATION_TITLE } from '@/common/components';
 import {
   RelationVm,
   useCanvasSchemaContext,
@@ -29,7 +29,7 @@ export const RelationButton = () => {
         canvasSchema={canvasSchema}
         onClose={handleCloseEditRelation}
       />,
-      EDIT_RELATION_TITLE
+      ADD_RELATION_TITLE
     );
   };
 

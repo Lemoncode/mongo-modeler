@@ -32,7 +32,16 @@ interface Props {
   onMoveUpField: (fieldId: GUID) => void;
   onDragField: (fields: FieldVm[], id?: GUID) => void;
   isDeleteVisible: boolean;
+  labelAddField?: string;
 }
+
+const INPUT_NAME = 'Field for field ';
+const CHECKBOX_PK = 'Checkbox pk for field ';
+const CHECKBOX_FK = 'Checkbox fk for field ';
+const CHECKBOX_ARRAY = 'Checkbox isArray for field ';
+const CHECKBOX_ISNN = 'Checkbox isNN for field ';
+const SELECT = 'Select field type for';
+const NESTED_FIELD_ADD_FIELD_LABEL = 'Add nested field for ';
 
 export const Field: React.FC<Props> = props => {
   const {
@@ -50,6 +59,7 @@ export const Field: React.FC<Props> = props => {
     updateFieldValue,
     nameInputRefRecord,
     isDeleteVisible,
+    labelAddField,
   } = props;
   const variantsItem = {
     left: {
@@ -113,12 +123,21 @@ export const Field: React.FC<Props> = props => {
             className={classes.dragButton}
             onPointerDown={e => handlerPointerDown(e, field)}
             onPointerUp={e => (e.currentTarget.style.cursor = 'grab')}
+            aria-hidden="true"
+            tabIndex={-1}
           >
             <DragDropIcon />
           </motion.button>
           <div className={`${classes.expandCell} ${classes[`indent${level}`]}`}>
             {field.type === 'object' ? (
-              <button onClick={() => toggleExpand(field.id)}>
+              <button
+                onClick={() => toggleExpand(field.id)}
+                aria-label={
+                  expandedFields.has(field.id)
+                    ? 'contract nested fields'
+                    : 'expand nested fields'
+                }
+              >
                 {expandedFields.has(field.id) ? (
                   <ExpandDown />
                 ) : (
@@ -135,6 +154,7 @@ export const Field: React.FC<Props> = props => {
                   updateFieldValue(field, 'name', e.target.value);
                 }}
                 ref={el => assignRef(el, field.id)}
+                aria-label={INPUT_NAME + field.name}
               />
             </div>
           </div>
@@ -144,7 +164,7 @@ export const Field: React.FC<Props> = props => {
             id="check1"
             checked={field.PK}
             onChange={() => updateFieldValue(field, 'PK', !field.PK)}
-            ariaLabelledby="Is PK"
+            ariaLabel={CHECKBOX_PK + field.name}
           ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
@@ -152,7 +172,8 @@ export const Field: React.FC<Props> = props => {
             id="check2"
             checked={field.FK}
             onChange={() => updateFieldValue(field, 'FK', !field.FK)}
-            ariaLabelledby="Is FK"
+            disabled={true}
+            ariaLabel={CHECKBOX_FK + field.name}
           ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
@@ -161,6 +182,7 @@ export const Field: React.FC<Props> = props => {
             onChange={e =>
               updateFieldValue(field, 'type', e.target.value as FieldType)
             }
+            aria-label={SELECT + field.name}
           >
             {fieldTypeOptions.map(entry => (
               <option key={entry.value} value={entry.value}>
@@ -174,7 +196,7 @@ export const Field: React.FC<Props> = props => {
             id="check3"
             checked={field.isArray || false}
             onChange={() => updateFieldValue(field, 'isArray', !field.isArray)}
-            ariaLabelledby="Is an Array"
+            ariaLabel={CHECKBOX_ARRAY + field.name}
           ></Checkbox>
         </div>
         <div className={classes.fieldCell}>
@@ -182,7 +204,7 @@ export const Field: React.FC<Props> = props => {
             id="check4"
             checked={field.isNN || false}
             onChange={() => updateFieldValue(field, 'isNN', !field.isNN)}
-            ariaLabelledby="Is a NN"
+            ariaLabel={CHECKBOX_ISNN + field.name}
           ></Checkbox>
         </div>
         <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
@@ -194,6 +216,7 @@ export const Field: React.FC<Props> = props => {
             onMoveDownField={onMoveDownField}
             onMoveUpField={onMoveUpField}
             isDeleteVisible={isDeleteVisible}
+            labelAddField={labelAddField}
           />
         </div>
       </Reorder.Item>
@@ -213,6 +236,7 @@ export const Field: React.FC<Props> = props => {
           onDragField={onDragField}
           nameInputRefRecord={nameInputRefRecord}
           isDeleteVisible={isDeleteVisible}
+          labelAddField={NESTED_FIELD_ADD_FIELD_LABEL + field.name}
         />
       )}
     </React.Fragment>

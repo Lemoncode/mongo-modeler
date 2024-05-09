@@ -1,0 +1,39 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "Mongo Modeler",
+  "description": "A free, online Data Modeling tool for MongoDB",
+  "start_url": "./editor.html",
+  "display_override": ["minimal-ui", "fullscreen"],
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    }
+  ],
+  "background_color": "#455a6c",
+  "theme_color": "#455a6c"
+}
