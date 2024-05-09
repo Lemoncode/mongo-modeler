@@ -17,10 +17,10 @@ const ASTERISK = '*';
 
 export const FooterComponent: React.FC = () => {
   const { canvasSchema } = useCanvasSchemaContext();
-  const { filename } = useCanvasViewSettingsContext();
+  const { canvasViewSettings } = useCanvasViewSettingsContext();
   const { theme, toggleTheme } = useThemeContext();
   const { isTabletOrMobileDevice: isDevice } = useDeviceContext();
-
+  const { filename } = canvasViewSettings;
   const documentNameMobile = () =>
     filename ? `${filename} - Read Only` : `Read Only`;
 

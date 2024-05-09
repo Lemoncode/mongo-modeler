@@ -16,13 +16,13 @@ const BORDER_MARGIN = 40;
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
   const { canvasSchema, addTable } = useCanvasSchemaContext();
-  const { setLoadSample, scrollPosition } = useCanvasViewSettingsContext();
+  const { canvasViewSettings, setLoadSample } = useCanvasViewSettingsContext();
 
   const handleAddTable = (newTable: TableVm) => {
     const updatedTable = {
       ...newTable,
-      x: scrollPosition.x + BORDER_MARGIN,
-      y: scrollPosition.y + BORDER_MARGIN,
+      x: canvasViewSettings.scrollPosition.x + BORDER_MARGIN,
+      y: canvasViewSettings.scrollPosition.y + BORDER_MARGIN,
     };
 
     addTable(updatedTable);

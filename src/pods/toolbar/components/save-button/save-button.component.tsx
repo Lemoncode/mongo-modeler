@@ -14,8 +14,7 @@ const DEFAULT_FILE_EXTENSION = 'mml';
 
 export const SaveButton = () => {
   const { canvasSchema, switchIsPristine } = useCanvasSchemaContext();
-  const { filename: openedFilename, setFilename } =
-    useCanvasViewSettingsContext();
+  const { canvasViewSettings, setFilename } = useCanvasViewSettingsContext();
 
   const content = JSON.stringify(canvasSchema);
 
@@ -49,7 +48,7 @@ export const SaveButton = () => {
     <ToolbarButton
       icon={<SaveIcon />}
       label={'Save'}
-      onClick={() => saveFile(openedFilename)}
+      onClick={() => saveFile(canvasViewSettings.filename)}
       className={`${classes.button} hide-mobile`}
       shortcutOptions={SHORTCUTS.save}
       disabled={canvasSchema.tables.length < 1}

@@ -45,12 +45,12 @@ export const CanvasPod: React.FC = () => {
   } = useCanvasSchemaContext();
   const {
     canvasViewSettings,
-    scrollPosition,
     setScrollPosition,
     setLoadSample,
     setViewBoxSize,
   } = useCanvasViewSettingsContext();
-  const { canvasSize, zoomFactor, loadSample } = canvasViewSettings;
+  const { canvasSize, zoomFactor, loadSample, viewBoxSize } =
+    canvasViewSettings;
 
   const { isTabletOrMobileDevice } = useDeviceContext();
   // TODO: This is temporary code, once we get load and save
@@ -63,15 +63,12 @@ export const CanvasPod: React.FC = () => {
   }, []);
   */
 
-  const viewBoxSize: Size = React.useMemo<Size>(
-    () => ({
+  React.useEffect(() => {
+    setViewBoxSize({
       width: canvasSize.width * zoomFactor,
       height: canvasSize.height * zoomFactor,
-    }),
-    [zoomFactor, canvasSize]
-  );
-
-  if (viewBoxSize && setViewBoxSize) setViewBoxSize(viewBoxSize);
+    });
+  }, [canvasSize, zoomFactor]);
 
   const handleToggleCollapse = (tableId: GUID, fieldId: GUID) => {
     doFieldToggleCollapse(tableId, fieldId);
@@ -80,8 +77,8 @@ export const CanvasPod: React.FC = () => {
   const handleAddTable = (newTable: TableVm) => {
     const updatedTable = {
       ...newTable,
-      x: scrollPosition.x + BORDER_MARGIN,
-      y: scrollPosition.y + BORDER_MARGIN,
+      x: canvasViewSettings.scrollPosition.x + BORDER_MARGIN,
+      y: canvasViewSettings.scrollPosition.y + BORDER_MARGIN,
     };
 
     addTable(updatedTable);
