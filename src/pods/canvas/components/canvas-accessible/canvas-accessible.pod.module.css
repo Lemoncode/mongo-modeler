@@ -1,8 +1,9 @@
 .screenReaderOnly {
   position: absolute;
-  /* only for see the content while developing */
-  /* top: 0;
+  top: 0;
   left: 0;
+  /* only for see the content while developing */
+  /* 
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.908); */
   /* comment for show accessibility canvas*/
