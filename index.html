@@ -127,11 +127,11 @@
         padding-top: 0.9rem;
         width: 50%;
       }
-      .info__text h3 {
+      .info__first {
         font-weight: 400;
         font-size: 30px;
       }
-      .info__text p {
+      .info__community {
         font-size: 24px;
         padding-top: 1.2rem;
         color: #fc5969;
@@ -198,10 +198,10 @@
         .info__text {
           padding-top: 0;
         }
-        .info__text h3 {
+        .info__first {
           font-size: 26px;
         }
-        .info__text p {
+        .info__community {
           font-size: 20px;
         }
         .info__group {
@@ -284,10 +284,10 @@
           font-size: 18px;
         }
 
-        .info__text h3 {
+        .info__first {
           font-size: 22px;
         }
-        .info__text p {
+        .info__community {
           font-size: 19px;
         }
         .github p {
@@ -339,7 +339,7 @@
       </a>
     </header>
     <main class="main">
-      <div class="info container">
+      <section class="info container">
         <div class="info__company">
           <img
             src="/assets/logo_mongo_modeler_dark_mode.svg"
@@ -352,12 +352,13 @@
         </h1>
         <div class="info__detail">
           <div class="info__text">
-            <h3>
+            <p class="info__first">
               Mongo Modeler is a <span class="highlight">free</span>, open
               source <span class="highlight">tool</span> for visualization of
               <span class="highlight">MongoDB</span> schema design
-            </h3>
-            <p>Community preview</p>
+            </p>
+
+            <p class="info__community">Community preview</p>
             <div class="info__group">
               <a href="./editor.html" class="info__link"
                 >Launch MongoDB Designer</a
@@ -374,17 +375,17 @@
             ></iframe>
           </div>
         </div>
-      </div>
-      <div class="github">
-        <p class="container">
-          Interested in suggesting a new feature or reporting a bug? Visit our
-          project's Github page to make your contribution.
-          <a href="https://github.com/Lemoncode/mongo-modeler" target="_blank"
-            >Go to Github</a
-          >
-        </p>
-      </div>
+      </section>
     </main>
+    <footer class="github">
+      <p class="container">
+        Interested in suggesting a new feature or reporting a bug? Visit our
+        project's Github page to make your contribution.
+        <a href="https://github.com/Lemoncode/mongo-modeler" target="_blank"
+          >Go to Github</a
+        >
+      </p>
+    </footer>
     <script>
       let installPrompt = null;
       const installButton = document.querySelector('#install');
