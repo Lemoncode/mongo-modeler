@@ -94,17 +94,19 @@
         padding-top: 0;
         padding-bottom: 4rem;
       }
-      .info__company {
+      h1 {
         display: flex;
-        align-items: center;
-        gap: 3%;
+        flex-direction: column;
       }
       .info__company img {
         width: 12%;
         height: 100%;
         margin-top: 4px;
       }
-      .info__company h2 {
+      .info__company {
+        display: flex;
+        align-items: center;
+        gap: 3%;
         font-size: clamp(55px, 9vw, 10rem);
         color: var(--accent);
         background-image: linear-gradient(69deg, #96d9ab 30%, #ffffff 75%);
@@ -304,7 +306,7 @@
           width: 70px;
           margin-top: 0;
         }
-        .info__company h2 {
+        .info__company {
           line-height: 1.1;
         }
       }
@@ -340,15 +342,17 @@
     </header>
     <main class="main">
       <section class="info container">
-        <div class="info__company">
-          <img
-            src="/assets/logo_mongo_modeler_dark_mode.svg"
-            alt="Mongo Modeler Logo"
-          />
-          <h2 class="info__company">Mongo Modeler</h2>
-        </div>
-        <h1 class="info__claim">
-          A free, online Data Modeling tool for MongoDB.
+        <h1>
+          <span class="info__company">
+            <img
+              src="/assets/logo_mongo_modeler_dark_mode.svg"
+              alt="Mongo Modeler Logo"
+            />
+            Mongo Modeler</span
+          >
+          <span class="info__claim">
+            A free, online Data Modeling tool for MongoDB.
+          </span>
         </h1>
         <div class="info__detail">
           <div class="info__text">
