@@ -28,20 +28,24 @@ export const CollectionAccessible: React.FC<Props> = props => {
     <>
       <h3 ref={collectionRefs.current[table.id]}>
         {table.tableName} collection
-        {!isTabletOrMobileDevice ? (
-          <>
+      </h3>
+      {!isTabletOrMobileDevice ? (
+        <ul>
+          <li>
             <button type="button" onClick={() => onEditTable(table)}>
               Edit {table.tableName} collection
             </button>
+          </li>
+          <li>
             <button
               type="button"
               onClick={() => onDeleteSelectedItem(table.id)}
             >
               Delete {table.tableName} collection
             </button>
-          </>
-        ) : null}
-      </h3>
+          </li>
+        </ul>
+      ) : null}
       <h4>Fields for {table.tableName} collection</h4>
       <FieldList fieldList={table.fields} listName={table.tableName} />
       <TableRelationsAccessible
