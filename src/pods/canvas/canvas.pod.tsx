@@ -233,7 +233,7 @@ export const CanvasPod: React.FC = () => {
   }, [modalDialog.isOpen, canvasSchema.selectedElementId]);
 
   return (
-    <div
+    <main
       className={classes.container}
       ref={containerRef}
       onScroll={handleScroll}
@@ -282,6 +282,6 @@ export const CanvasPod: React.FC = () => {
           />
         )}
       </div>
-    </div>
+    </main>
   );
 };
