@@ -36,7 +36,7 @@ interface Props {
 }
 
 const INPUT_NAME = 'Field for field ';
-const CHECKBOX_PK = 'Checkbox pk for field ';
+const CHECKBOX_PK = 'Primary key for field ';
 const CHECKBOX_FK = 'Foreign key for field ';
 const CHECKBOX_ARRAY = 'Array for field ';
 const CHECKBOX_ISNN = 'Not null for field ';
