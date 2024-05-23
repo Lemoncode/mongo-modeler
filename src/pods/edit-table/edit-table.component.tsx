@@ -71,6 +71,7 @@ export const EditTableComponent: React.FC<Props> = props => {
             type="text"
             value={table.tableName}
             onChange={handleChangeTableName}
+            onFocus={e => e.currentTarget.select()}
           />
         </label>
       </div>
