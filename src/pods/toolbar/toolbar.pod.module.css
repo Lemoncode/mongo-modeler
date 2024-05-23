@@ -1,11 +1,17 @@
 .container {
   grid-area: toolbar;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 10px;
   background-color: var(--bg-toolbar);
   border: none;
   border-bottom: var(--border-toolbar);
+}
+.container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
 }
 @media screen and (min-device-width: 780px) and (max-device-width: 1090px) {
   .container {

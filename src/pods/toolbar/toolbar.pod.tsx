@@ -21,20 +21,52 @@ import classes from './toolbar.pod.module.css';
 export const ToolbarPod: React.FC = () => {
   return (
     <div className={classes.container}>
-      <NewButton />
-      <OpenButton />
-      <SaveButton />
-      <ZoomInButton />
-      <ZoomOutButton />
-      <AddCollection />
-      <RelationButton />
-      <UndoButton />
-      <RedoButton />
-      <ExportButton />
-      <DeleteButton />
-      <CanvasSettingButton />
-      <AboutButton />
-      <ThemeToggleButton darkLabel="Dark Mode" lightLabel="Light Mode" />
+      <ul>
+        <li>
+          <NewButton />
+        </li>
+        <li>
+          <OpenButton />
+        </li>
+        <li>
+          <SaveButton />
+        </li>
+        <li>
+          <ExportButton />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <ZoomInButton />
+        </li>
+        <li>
+          <ZoomOutButton />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <AddCollection />
+        </li>
+        <li>
+          <RelationButton />
+        </li>
+      </ul>
+      <ul>
+        <UndoButton />
+        <RedoButton />
+        <DeleteButton />
+      </ul>
+      <ul>
+        <li>
+          <CanvasSettingButton />
+        </li>
+        <li>
+          <AboutButton />
+        </li>
+        <li>
+          <ThemeToggleButton darkLabel="Dark Mode" lightLabel="Light Mode" />
+        </li>
+      </ul>
     </div>
   );
 };
