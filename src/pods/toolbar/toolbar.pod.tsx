@@ -20,7 +20,7 @@ import classes from './toolbar.pod.module.css';
 
 export const ToolbarPod: React.FC = () => {
   return (
-    <div className={classes.container}>
+    <header className={classes.container}>
       <ul>
         <li>
           <NewButton />
@@ -67,6 +67,6 @@ export const ToolbarPod: React.FC = () => {
           <ThemeToggleButton darkLabel="Dark Mode" lightLabel="Light Mode" />
         </li>
       </ul>
-    </div>
+    </header>
   );
 };
