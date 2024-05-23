@@ -8,10 +8,18 @@ interface Props {
 }
 
 export const Field: React.FC<Props> = props => {
-  const { field, listName } = props;
+  const { field } = props;
 
   const renderNNElement = (NN?: boolean) => {
-    if (NN) return <span>NN</span>;
+    if (NN) return <span>Not Null</span>;
+  };
+  const renderArrayElement = (isArray?: boolean) => {
+    if (isArray)
+      return (
+        <>
+          <span>array</span>&nbsp;
+        </>
+      );
   };
 
   const renderChildrenElement = (name: string, children?: FieldVm[]) => {
@@ -20,9 +28,10 @@ export const Field: React.FC<Props> = props => {
   };
 
   return (
-    <li aria-label={`${listName} field`}>
-      <span>{field.name}</span>
-      <span>{field.type}</span>
+    <li>
+      <span>{field.name}</span>&nbsp;
+      <span>{field.type}</span>&nbsp;
+      {renderArrayElement(field.isArray)}
       {renderNNElement(field.isNN)}
       {renderChildrenElement(field.name, field.children)}
     </li>
