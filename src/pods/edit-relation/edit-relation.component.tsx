@@ -23,11 +23,12 @@ export const EditRelationComponent: React.FC<Props> = props => {
     props;
 
   const fieldsTableOrigin: PkOptionVm[] = mapTablesFieldsToPkOptionVm(
-    values.fromTableId.id,
+    values.fromTableId,
     canvasSchema
   );
+
   const fieldsTableDestination: PkOptionVm[] = mapTablesFieldsToPkOptionVm(
-    values.toTableId.id,
+    values.toTableId,
     canvasSchema
   );
 
@@ -46,11 +47,12 @@ export const EditRelationComponent: React.FC<Props> = props => {
         selectTitle={DROPDOWN_ORIGIN_TABLE_TITLE}
       ></DropdownFormik>
       <TablePkPickerFormik
+        key={`fromFieldId-${values.fromTableId}`}
         name="fromFieldId"
         label="Origin field"
         options={fieldsTableOrigin}
         selectTitle={DROPDOWN_ORIGIN_FIELD}
-        disabled={values.fromTableId.id ? false : true}
+        disabled={!values.fromTableId}
       ></TablePkPickerFormik>
       <DropdownFormik
         name="toTableId"
@@ -59,11 +61,12 @@ export const EditRelationComponent: React.FC<Props> = props => {
         selectTitle={DROPDOWN_DESTINATION_TABLE_TITLE}
       ></DropdownFormik>
       <TablePkPickerFormik
+        key={`toFieldId-${values.toTableId}`}
         name="toFieldId"
         label="Destination field"
         options={fieldsTableDestination}
         selectTitle={DROPDOWN_DESTINATION_FIELD}
-        disabled={values.toTableId.id ? false : true}
+        disabled={!values.toTableId}
       ></TablePkPickerFormik>
     </>
   );

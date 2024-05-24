@@ -1,37 +1,37 @@
 import { createFormikValidation } from '@lemoncode/fonk-formik';
-import { ValidationSchema } from '@lemoncode/fonk';
+import { ValidationSchema, Validators } from '@lemoncode/fonk';
 
-import { objectEmptyIdValidator } from './object-empty-id.validator';
+// import { objectEmptyIdValidator } from './object-empty-id.validator';
 
 export const validationSchema: ValidationSchema = {
   field: {
     type: [
       {
-        validator: objectEmptyIdValidator,
+        validator: Validators.required,
         message: 'Selected type option is required',
       },
     ],
     fromTableId: [
       {
-        validator: objectEmptyIdValidator,
+        validator: Validators.required,
         message: 'Selected table option is required',
       },
     ],
     fromFieldId: [
       {
-        validator: objectEmptyIdValidator,
+        validator: Validators.required,
         message: 'Selected field option is required',
       },
     ],
     toTableId: [
       {
-        validator: objectEmptyIdValidator,
+        validator: Validators.required,
         message: 'Selected table option is required',
       },
     ],
     toFieldId: [
       {
-        validator: objectEmptyIdValidator,
+        validator: Validators.required,
         message: 'Selected field option is required',
       },
     ],

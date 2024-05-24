@@ -35,12 +35,12 @@ interface Props {
   labelAddField?: string;
 }
 
-const INPUT_NAME = 'Field for field ';
+const INPUT_NAME = 'Field name ';
 const CHECKBOX_PK = 'Primary key for field ';
 const CHECKBOX_FK = 'Foreign key for field ';
 const CHECKBOX_ARRAY = 'Array for field ';
 const CHECKBOX_ISNN = 'Not null for field ';
-const SELECT = 'Select field type for';
+const SELECT = 'Select a field type for';
 const NESTED_FIELD_ADD_FIELD_LABEL = 'Add nested field for ';
 
 export const Field: React.FC<Props> = props => {
