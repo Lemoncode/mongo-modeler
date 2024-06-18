@@ -51,7 +51,8 @@ export const useA11ySelect = <Option>(
     );
   };
 
-  useOnKey(buttonRef, ['ArrowDown', 'ArrowUp'], () => {
+  useOnKey(buttonRef, ['ArrowDown', 'ArrowUp'], (e: KeyboardEvent) => {
+    e.preventDefault();
     if (!isOpen) {
       setIsOpen(true);
     }
