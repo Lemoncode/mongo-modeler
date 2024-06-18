@@ -47,7 +47,9 @@ export const CollectionAccessible: React.FC<Props> = props => {
         </ul>
       ) : null}
       <h4>Fields for {table.tableName} collection</h4>
-      <FieldList fieldList={table.fields} listName={table.tableName} />
+      <ul>
+        <FieldList fieldList={table.fields} listName={table.tableName} />
+      </ul>
       <TableRelationsAccessible
         table={table}
         canvasSchema={canvasSchema}

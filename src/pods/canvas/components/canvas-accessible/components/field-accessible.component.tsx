@@ -24,7 +24,11 @@ export const Field: React.FC<Props> = props => {
 
   const renderChildrenElement = (name: string, children?: FieldVm[]) => {
     if (children)
-      return <FieldList fieldList={children} listName={`${name} nested`} />;
+      return (
+        <ul>
+          <FieldList fieldList={children} listName={`${name} nested`} />
+        </ul>
+      );
   };
 
   return (
