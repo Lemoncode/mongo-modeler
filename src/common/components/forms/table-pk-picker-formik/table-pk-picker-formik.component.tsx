@@ -7,7 +7,6 @@ interface Props {
   name: string;
   options: PkOptionVm[];
   label?: string;
-  value?: PkOptionVm;
   selectTitle?: string;
   disabled?: boolean;
 }
@@ -19,8 +18,6 @@ export const TablePkPickerFormik: React.FC<Props> = props => {
   //useField allows us to extract all formik metadata about that field
   const [field, meta, helpers] = useField(props.name ?? '');
 
-  // If the field doesn't exist then treat this as a normal input
-  const inputFieldProps = Boolean(field) ? field : props;
   const { setValue } = helpers;
   // We only want to display the field validation error message
   // if Formik is enabled, and is the field has been touched
@@ -31,7 +28,7 @@ export const TablePkPickerFormik: React.FC<Props> = props => {
   const selectContainerRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     if (
-      inputFieldProps.name === Object.keys(formik.errors)[0] &&
+      field.name === Object.keys(formik.errors)[0] &&
       isError &&
       selectContainerRef.current
     ) {
@@ -42,20 +39,22 @@ export const TablePkPickerFormik: React.FC<Props> = props => {
   return (
     <>
       <div className={classes.select}>
-        <p className={classes.selectLabel}>{label ? label : ''}</p>
+        <p className={classes.selectLabel} id={field.name}>
+          {label ? label : ''}
+        </p>
         <div
           className={classes.selectContainer}
           ref={selectContainerRef}
           tabIndex={-1}
         >
           <TablePkPicker
-            name={inputFieldProps.name}
+            name={field.name}
             options={options}
             selectTitle={selectTitle}
-            value={inputFieldProps.value}
+            value={field.value}
             isError={isError}
-            onChange={field => {
-              setValue(field);
+            onChange={id => {
+              id ? setValue(id) : setValue('');
             }}
             disabled={disabled}
           ></TablePkPicker>

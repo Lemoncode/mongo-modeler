@@ -7,7 +7,7 @@ import {
   RelationVm,
   TableVm,
 } from '@/core/providers/canvas-schema';
-import { FormValueVm, RelationFormVm } from './edit-relation.vm';
+import { RelationFormVm } from './edit-relation.vm';
 
 export const mapRelationFormVmToRelationVM = (
   values: RelationFormVm,
@@ -15,18 +15,18 @@ export const mapRelationFormVmToRelationVM = (
 ): RelationVm => {
   return {
     id: relationId || GenerateGUID(),
-    type: values.type.label as RelationType,
-    fromTableId: values.fromTableId.id,
-    fromFieldId: values.fromFieldId.id,
-    toFieldId: values.toFieldId.id,
-    toTableId: values.toTableId.id,
+    type: values.type as RelationType,
+    fromTableId: values.fromTableId,
+    fromFieldId: values.fromFieldId,
+    toFieldId: values.toFieldId,
+    toTableId: values.toTableId,
   };
 };
 
 export const mapRelationsTypeToDropdownVm = (): DropdownOptionVm[] => [
-  { id: '1', label: '1:1' },
-  { id: '2', label: '1:M' },
-  { id: '3', label: 'M:1' },
+  { id: '1:1', label: '1:1' },
+  { id: '1:M', label: '1:M' },
+  { id: 'M:1', label: 'M:1' },
 ];
 
 // TODO:
@@ -97,23 +97,23 @@ export const mapTablesFieldsToPkOptionVm = (
 };
 
 //Form
-const mapTableToFormValueVm = (table: TableVm): FormValueVm => ({
-  id: table.id,
-  label: table.tableName,
-});
+// const mapTableToFormValueVm = (table: TableVm): FormValueVm => ({
+//   id: table.id,
+//   label: table.tableName,
+// });
 
-const mapFieldVmToFormValueVm = (field: FieldVm): FormValueVm => ({
-  id: field.id,
-  label: field.name,
-});
+// const mapFieldVmToFormValueVm = (field: FieldVm): FormValueVm => ({
+//   id: field.id,
+//   label: field.name,
+// });
 
-const createFormValueFromTableId = (
-  id: GUID,
-  canvasSchema: DatabaseSchemaVm
-): FormValueVm => {
-  const findTable = returnTableFromCanvasSchema(id, canvasSchema);
-  return mapTableToFormValueVm(findTable);
-};
+// const createFormValueFromTableId = (
+//   id: GUID,
+//   canvasSchema: DatabaseSchemaVm
+// ): FormValueVm => {
+//   const findTable = returnTableFromCanvasSchema(id, canvasSchema);
+//   return mapTableToFormValueVm(findTable);
+// };
 
 export const findFieldRecursively = (
   fields: FieldVm[],
@@ -129,31 +129,31 @@ export const findFieldRecursively = (
   return undefined;
 };
 
-const createFormValueFromFieldId = (
-  tableId: GUID,
-  fieldId: GUID,
-  canvasSchema: DatabaseSchemaVm
-): FormValueVm => {
-  const findTable = returnTableFromCanvasSchema(tableId, canvasSchema);
-  const findField = findFieldRecursively(findTable.fields, fieldId);
+// const createFormValueFromFieldId = (
+//   tableId: GUID,
+//   fieldId: GUID,
+//   canvasSchema: DatabaseSchemaVm
+// ): FormValueVm => {
+//   const findTable = returnTableFromCanvasSchema(tableId, canvasSchema);
+//   const findField = findFieldRecursively(findTable.fields, fieldId);
 
-  if (!findField) {
-    throw new Error(`Field with ID ${fieldId} not found`);
-  }
-  return mapFieldVmToFormValueVm(findField);
-};
+//   if (!findField) {
+//     throw new Error(`Field with ID ${fieldId} not found`);
+//   }
+//   return mapFieldVmToFormValueVm(findField);
+// };
 
-const createFormValueFromType = (type: RelationType): FormValueVm => {
-  const typeOptionList = mapRelationsTypeToDropdownVm();
-  const findType = typeOptionList.find(typeOption => typeOption.label === type);
+// const createFormValueFromType = (type: RelationType): FormValueVm => {
+//   const typeOptionList = mapRelationsTypeToDropdownVm();
+//   const findType = typeOptionList.find(typeOption => typeOption.label === type);
 
-  if (!findType) {
-    throw Error(`Relation type ${type} has not valid value`);
-  }
+//   if (!findType) {
+//     throw Error(`Relation type ${type} has not valid value`);
+//   }
 
-  //map?
-  return findType as FormValueVm;
-};
+//   //map?
+//   return findType as FormValueVm;
+// };
 
 const findRelation = (relations: RelationVm[], id: GUID): RelationVm => {
   const relationId = relations.find(relation => relation.id === id);
@@ -169,43 +169,20 @@ export const createInitialIdValues = (
 ): RelationFormVm => {
   const relation = findRelation(canvasSchema.relations, relationId);
   const { fromFieldId, fromTableId, toFieldId, toTableId, type } = relation;
-  const fromTableIdFormValue = createFormValueFromTableId(
-    fromTableId,
-    canvasSchema
-  );
-
-  const toTableIdFormValue = createFormValueFromTableId(
-    toTableId,
-    canvasSchema
-  );
-
-  const fromFieldIdFormValue = createFormValueFromFieldId(
-    fromTableId,
-    fromFieldId,
-    canvasSchema
-  );
-
-  const toFieldIdFormValue = createFormValueFromFieldId(
-    toTableId,
-    toFieldId,
-    canvasSchema
-  );
-
-  const typeFormValue = createFormValueFromType(type);
 
   return {
-    fromTableId: fromTableIdFormValue,
-    toTableId: toTableIdFormValue,
-    fromFieldId: fromFieldIdFormValue,
-    toFieldId: toFieldIdFormValue,
-    type: typeFormValue,
+    fromTableId,
+    toTableId,
+    fromFieldId,
+    toFieldId,
+    type,
   };
 };
 
 export const createInitialValues = (): RelationFormVm => ({
-  fromFieldId: { id: '', label: '' },
-  fromTableId: { id: '', label: '' },
-  toFieldId: { id: '', label: '' },
-  toTableId: { id: '', label: '' },
-  type: { id: '1', label: '1:1' },
+  fromFieldId: '',
+  fromTableId: '',
+  toFieldId: '',
+  toTableId: '',
+  type: '1:1',
 });
