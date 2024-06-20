@@ -134,8 +134,8 @@ export const Field: React.FC<Props> = props => {
                 onClick={() => toggleExpand(field.id)}
                 aria-label={
                   expandedFields.has(field.id)
-                    ? 'contract nested fields'
-                    : 'expand nested fields'
+                    ? `collapse nested fields of "${field.name}"`
+                    : `expand nested fields of "${field.name}"`
                 }
               >
                 {expandedFields.has(field.id) ? (

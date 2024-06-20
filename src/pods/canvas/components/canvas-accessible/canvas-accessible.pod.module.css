@@ -5,7 +5,9 @@
   /* only for see the content while developing */
   /* 
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.908); */
+  background-color: rgba(0, 0, 0, 0.908);
+  text-align: left;
+  padding-left: 2rem; */
   /* comment for show accessibility canvas*/
   width: 1px;
   height: 1px;
