@@ -10,19 +10,68 @@ import {
 } from '@/core/providers/canvas-schema';
 import { ADD_COLLECTION_TITLE } from '@/common/components/modal-dialog';
 import { SHORTCUTS } from '../../shortcut/shortcut.const';
-
-const BORDER_MARGIN = 40;
+import { findFreePositionOrMinCollision } from '@/common/autoarrange-table';
+import { setOffSetZoomToCoords } from '@/common/helpers/set-off-set-zoom-to-coords.helper';
+import { getTableSize } from './add-collection.helper';
+import { mapTableVMtoBoxVMMapper } from './add-collection.mapper';
 
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
   const { canvasSchema, addTable } = useCanvasSchemaContext();
   const { canvasViewSettings, setLoadSample } = useCanvasViewSettingsContext();
+  const { canvasSize, zoomFactor, viewBoxSize } = canvasViewSettings;
 
   const handleAddTable = (newTable: TableVm) => {
-    const updatedTable = {
+    if (!newTable) {
+      return;
+    }
+
+    const tableSize = setOffSetZoomToCoords(
+      getTableSize(newTable.fields).width,
+      getTableSize(newTable.fields).height,
+      viewBoxSize,
+      canvasSize,
+      zoomFactor
+    );
+
+    const getTableSizeOffSetDependingAtZoom = () => {
+      return {
+        width: tableSize.x / getTableSize(newTable.fields).width,
+        height: tableSize.y / getTableSize(newTable.fields).height,
+      };
+    };
+
+    const position = findFreePositionOrMinCollision(
+      mapTableVMtoBoxVMMapper(canvasSchema.tables),
+      {
+        width:
+          getTableSize(newTable.fields).width /
+          getTableSizeOffSetDependingAtZoom().width,
+        height:
+          getTableSize(newTable.fields).height /
+          getTableSizeOffSetDependingAtZoom().height,
+      },
+      {
+        width: canvasViewSettings.canvasViewSize.width,
+        height: canvasViewSettings.canvasViewSize.height,
+      }
+    );
+
+    console.log(
+      getTableSize(newTable.fields).width /
+        getTableSizeOffSetDependingAtZoom().width,
+      getTableSize(newTable.fields).height /
+        getTableSizeOffSetDependingAtZoom().height
+    );
+
+    if (!position) {
+      return;
+    }
+
+    const updatedTable: TableVm = {
       ...newTable,
-      x: canvasViewSettings.scrollPosition.x + BORDER_MARGIN,
-      y: canvasViewSettings.scrollPosition.y + BORDER_MARGIN,
+      x: position.x - getTableSize(newTable.fields).width / 2,
+      y: position.y - getTableSize(newTable.fields).height / 2,
     };
 
     addTable(updatedTable);
@@ -40,9 +89,11 @@ export const AddCollection = () => {
       ADD_COLLECTION_TITLE
     );
   };
+
   const handleCloseModal = () => {
     closeModal();
   };
+
   return (
     <ToolbarButton
       icon={<TableIcon />}
