@@ -3,6 +3,7 @@ import { Coords, Size } from '@/core/model';
 
 export interface CanvasViewSettingsModel {
   canvasSize: Size;
+  canvasViewSize: Size;
   viewBoxSize: Size;
   zoomFactor: number;
   scrollPosition: Coords;
@@ -26,6 +27,7 @@ const initialAutoSaveValue =
 
 export const createInitialSettings = (DEFAULT_ZOOM_FACTOR: number) => ({
   canvasSize: CANVAS_SIZE,
+  canvasViewSize: CANVAS_SIZE,
   viewBoxSize: { width: 0, height: 0 },
   zoomFactor: DEFAULT_ZOOM_FACTOR,
   scrollPosition: { x: 0, y: 0 },
@@ -38,6 +40,7 @@ export interface CanvasViewSettingsContextModel {
   canvasViewSettings: CanvasViewSettingsModel;
   setScrollPosition: (scrollPosition: Coords) => void;
   setCanvasSize: (canvasSize: Size) => void;
+  setCanvasViewSize: (canvasViewSize: Size) => void;
   setFilename: (filename: string) => void;
   zoomIn: () => void;
   zoomOut: () => void;
