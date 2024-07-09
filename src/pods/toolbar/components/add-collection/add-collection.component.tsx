@@ -57,13 +57,6 @@ export const AddCollection = () => {
       }
     );
 
-    console.log(
-      getTableSize(newTable.fields).width /
-        getTableSizeOffSetDependingAtZoom().width,
-      getTableSize(newTable.fields).height /
-        getTableSizeOffSetDependingAtZoom().height
-    );
-
     if (!position) {
       return;
     }
