@@ -37,6 +37,8 @@ export const AddCollection = () => {
       zoomFactor
     );
 
+    // Obtaining free position or with minimum collision for the new table
+
     const position = findFreePositionOrMinCollision(
       mapTableVMtoBoxVMMapper(canvasSchema.tables),
       {
@@ -52,6 +54,8 @@ export const AddCollection = () => {
     if (!position) {
       return;
     }
+
+    // Subtracting the size of the board by two to place the board from the middle
 
     const updatedTable: TableVm = {
       ...newTable,
