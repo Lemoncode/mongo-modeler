@@ -15,6 +15,8 @@ import { setOffSetZoomToCoords } from '@/common/helpers/set-off-set-zoom-to-coor
 import { getTableSize } from './add-collection.helper';
 import { mapTableVMtoBoxVMMapper } from './add-collection.mapper';
 
+const TABLE_GAP = 40;
+
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
   const { canvasSchema, addTable } = useCanvasSchemaContext();
@@ -29,9 +31,9 @@ export const AddCollection = () => {
     // Applying a zoom offSet to the table size,
     // so that when zoomed the size of the tables is updated
 
-    const tableSize = setOffSetZoomToCoords(
-      getTableSize(newTable.fields).width,
-      getTableSize(newTable.fields).height,
+    const tableSizeWithZoomOffSet = setOffSetZoomToCoords(
+      getTableSize(newTable.fields).width + TABLE_GAP,
+      getTableSize(newTable.fields).height + TABLE_GAP,
       viewBoxSize,
       canvasSize,
       zoomFactor
@@ -42,8 +44,8 @@ export const AddCollection = () => {
     const position = findFreePositionOrMinCollision(
       mapTableVMtoBoxVMMapper(canvasSchema.tables),
       {
-        width: tableSize.x,
-        height: tableSize.y,
+        width: tableSizeWithZoomOffSet.x,
+        height: tableSizeWithZoomOffSet.y,
       },
       {
         width: canvasViewSettings.canvasViewSize.width,
@@ -55,12 +57,22 @@ export const AddCollection = () => {
       return;
     }
 
-    // Subtracting the size of the board by two to place the board from the middle
+    // Adding zoom offset to position coords and
+    // subtracting the size of the board by two
+    // to place the board from the middle
+
+    const positionWithZoomOffSet = setOffSetZoomToCoords(
+      position.x - getTableSize(newTable.fields).width / 2,
+      position.y - getTableSize(newTable.fields).height / 2,
+      viewBoxSize,
+      canvasSize,
+      zoomFactor
+    );
 
     const updatedTable: TableVm = {
       ...newTable,
-      x: position.x - getTableSize(newTable.fields).width / 2,
-      y: position.y - getTableSize(newTable.fields).height / 2,
+      x: positionWithZoomOffSet.x,
+      y: positionWithZoomOffSet.y,
     };
 
     addTable(updatedTable);
