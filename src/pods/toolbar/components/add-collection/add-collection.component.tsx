@@ -26,6 +26,9 @@ export const AddCollection = () => {
       return;
     }
 
+    // Applying a zoom offSet to the table size,
+    // so that when zoomed the size of the tables is updated
+
     const tableSize = setOffSetZoomToCoords(
       getTableSize(newTable.fields).width,
       getTableSize(newTable.fields).height,
@@ -34,22 +37,11 @@ export const AddCollection = () => {
       zoomFactor
     );
 
-    const getTableSizeOffSetDependingAtZoom = () => {
-      return {
-        width: tableSize.x / getTableSize(newTable.fields).width,
-        height: tableSize.y / getTableSize(newTable.fields).height,
-      };
-    };
-
     const position = findFreePositionOrMinCollision(
       mapTableVMtoBoxVMMapper(canvasSchema.tables),
       {
-        width:
-          getTableSize(newTable.fields).width /
-          getTableSizeOffSetDependingAtZoom().width,
-        height:
-          getTableSize(newTable.fields).height /
-          getTableSizeOffSetDependingAtZoom().height,
+        width: tableSize.x,
+        height: tableSize.y,
       },
       {
         width: canvasViewSettings.canvasViewSize.width,
