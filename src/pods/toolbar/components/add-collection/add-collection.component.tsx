@@ -13,6 +13,7 @@ import { SHORTCUTS } from '../../shortcut/shortcut.const';
 import { findFreePositionOrMinCollision } from '@/common/autoarrange-table';
 import { getTableSize } from './add-collection.helper';
 import { mapTableVMtoBoxVMMapper } from './add-collection.mapper';
+import { TABLE_GAP } from './add-collection.model';
 
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -42,7 +43,7 @@ export const AddCollection = () => {
 
     const updatedTable: TableVm = {
       ...newTable,
-      x: position.x,
+      x: position.x + TABLE_GAP,
       y: position.y,
     };
 
