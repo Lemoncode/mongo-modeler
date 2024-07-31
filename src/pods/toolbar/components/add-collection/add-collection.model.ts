@@ -1,1 +1,1 @@
-export const TABLE_GAP = 20;
+export const TABLE_GAP = 50;

@@ -90,8 +90,11 @@ export const DatabaseTable: React.FC<Props> = ({
         className={classes.tableContainer}
         ref={ref as React.Ref<SVGGElement> | undefined}
         initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
+        animate={{ opacity: [0, 1, 0, 1], scale: 1 }}
+        transition={{
+          opacity: { duration: 2 },
+          scale: { duration: 0.8 },
+        }}
       >
         <DatabaseTableBorder
           totalHeight={totalHeight}
