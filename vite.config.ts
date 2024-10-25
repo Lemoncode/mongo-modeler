@@ -2,16 +2,7 @@ import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
 import checker from 'vite-plugin-checker';
-import type { UserConfig as VitestUserConfigInterface } from 'vitest/config';
-
-const vitestConfig: VitestUserConfigInterface = {
-  test: {
-    setupFiles: ['./vitest.setup.ts'],
-    globals: true,
-    restoreMocks: true,
-    environment: 'jsdom',
-  },
-};
+import { configDefaults } from 'vitest/config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -24,7 +15,14 @@ export default defineConfig({
       },
     },
   },
-  test: vitestConfig.test,
+  test: {
+    setupFiles: ['./vitest.setup.ts'],
+    globals: true,
+    environment: 'jsdom',
+    restoreMocks: true,
+    include: ['./src/**/*.spec.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    exclude: [...configDefaults.exclude, 'e2e/*'],
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
