@@ -78,4 +78,11 @@ export const memberList: Member[] = [
     urlLinkedin: 'https://www.linkedin.com/in/deletidev/',
     image: './assets/leticia-de-la-osa.jpeg',
   },
+  {
+    id: '11',
+    name: 'Fran',
+    surname: 'López',
+    urlLinkedin: 'https://linkedin.com/in/francisco-l%C3%B3pez-torres',
+    image: './assets/fran-lopez.jpg',
+  },
 ];
