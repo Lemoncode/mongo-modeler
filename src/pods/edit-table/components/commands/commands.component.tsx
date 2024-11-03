@@ -3,7 +3,7 @@ import { CommandIconButton } from './command-icon-button';
 import { FieldVm } from '../../edit-table.vm';
 import { GUID, GenerateGUID } from '@/core/model';
 import { isFirstItemInArray, isLastItemInArray } from './commands.business';
-import { AddFolder, UpIcon, DownIcon, RemoveIcon } from '@/common/components';
+import { AddFolder, UpIcon, DownIcon, TrashIcon } from '@/common/components';
 
 interface Props {
   onDeleteField: (fieldId: GUID) => void;
@@ -50,7 +50,7 @@ export const Commands: React.FC<Props> = (props: Props) => {
       )}
       {isDeleteVisible && (
         <CommandIconButton
-          icon={<RemoveIcon />}
+          icon={<TrashIcon />}
           onClick={() => onDeleteField(field.id)}
           ariaLabel={REMOVE_ICON + field.name}
         />
