@@ -4,14 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "postinstall": "npm run install:e2e-browsers",
+    "install:e2e-browsers": "npx playwright install",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier --write .",
     "test": "vitest",
-    "prepare": "husky install",
-    "tsc-check": "tsc --noEmit"
+    "prepare": "husky || \"No need to install husky\"",
+    "tsc-check": "tsc --noEmit",
+    "e2e": "playwright test --ui"
   },
   "dependencies": {
     "@lemoncode/fonk": "^1.5.4",
@@ -26,6 +29,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.48.1",
     "@testing-library/dom": "^9.3.4",
     "@testing-library/react": "^14.2.1",
     "@types/jest": "^29.5.11",
