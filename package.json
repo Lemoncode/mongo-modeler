@@ -14,7 +14,8 @@
     "test": "vitest",
     "prepare": "husky || \"No need to install husky\"",
     "tsc-check": "tsc --noEmit",
-    "e2e": "playwright test --ui"
+    "e2e": "playwright test --ui",
+    "ci:e2e": "playwright test"
   },
   "dependencies": {
     "@lemoncode/fonk": "^1.5.4",
