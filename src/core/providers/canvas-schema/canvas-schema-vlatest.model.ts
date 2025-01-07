@@ -6,6 +6,7 @@ export interface TableVm {
   tableName: string;
   x: number; // Canvas X Position
   y: number; // Canvas Y Position
+  indexes?: IndexVm[];
 }
 
 export interface FieldVm {
@@ -40,6 +41,20 @@ export interface DatabaseSchemaVm {
   isPristine?: boolean;
 }
 
+export type OrderMethod = 'Ascending' | 'Descending';
+
+export interface IndexField {
+  name: string;
+  orderMethod: OrderMethod;
+}
+export interface IndexVm {
+  id: string;
+  name: string;
+  isUnique: boolean;
+  fields: IndexField[];
+  fieldsString?: string;
+}
+
 export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
   version: '0.1',
   tables: [],
@@ -70,6 +85,7 @@ export interface CanvasSchemaContextVm {
   updateFullTable: (table: TableVm) => void;
   addTable: (table: TableVm) => void;
   addRelation: (relation: RelationVm) => void;
+  addIndexes: (tableId: GUID, indexes: IndexVm[]) => void;
   doSelectElement: (id: GUID | null) => void;
   canUndo: () => boolean;
   canRedo: () => boolean;

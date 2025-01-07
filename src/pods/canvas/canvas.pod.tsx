@@ -17,6 +17,7 @@ import {
   EDIT_COLLECTION_TITLE,
   ADD_COLLECTION_TITLE,
   ADD_RELATION_TITLE,
+  MANAGE_INDEX_TITLE,
 } from '@/common/components/modal-dialog';
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
@@ -25,6 +26,8 @@ import { CanvasAccessible } from './components/canvas-accessible';
 import useAutosave from '@/core/autosave/autosave.hook';
 import { CANVAS_MAX_WIDTH } from '@/core/providers';
 import { setOffSetZoomToCoords } from '@/common/helpers/set-off-set-zoom-to-coords.helper';
+import { ManageIndexPod } from '../manage-index';
+
 const HEIGHT_OFFSET = 200;
 const BORDER_MARGIN = 40;
 export const CanvasPod: React.FC = () => {
@@ -116,6 +119,22 @@ export const CanvasPod: React.FC = () => {
         onClose={handleCloseModal}
       />,
       EDIT_COLLECTION_TITLE
+    );
+  };
+
+  const handleManageIndexSave = (table: TableVm) => {
+    console.log(table);
+  };
+
+  const handleManageIndex = (tableInfo: TableVm) => {
+    if (isTabletOrMobileDevice) return;
+    openModal(
+      <ManageIndexPod
+        table={tableInfo}
+        onSave={handleManageIndexSave}
+        onClose={handleCloseModal}
+      />,
+      MANAGE_INDEX_TITLE
     );
   };
 
@@ -231,7 +250,6 @@ export const CanvasPod: React.FC = () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [modalDialog.isOpen, canvasSchema.selectedElementId]);
-
   return (
     <div
       className={classes.container}
@@ -266,6 +284,7 @@ export const CanvasPod: React.FC = () => {
           onUpdateTablePosition={updateTablePosition}
           onToggleCollapse={handleToggleCollapse}
           onEditTable={handleEditTable}
+          onManageIndex={handleManageIndex}
           onEditRelation={handleEditRelation}
           onSelectElement={onSelectElement}
           isTabletOrMobileDevice={isTabletOrMobileDevice}

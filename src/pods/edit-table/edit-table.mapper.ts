@@ -9,7 +9,7 @@ import * as editTableModel from './edit-table.vm';
 const extractFieldIDThatIsFk =
   (tableId: GUID) =>
   (relation: canvasModel.RelationVm): GUID => {
-    let result: GUID = '-1';
+    const result: GUID = '-1';
     switch (relation.type) {
       case '1:1':
         if (
@@ -44,7 +44,7 @@ const markFKFields = (
   fields: canvasModel.FieldVm[],
   FKFields: GUID[]
 ): editTableModel.FieldVm[] => {
-  let result: editTableModel.FieldVm[] = [];
+  const result: editTableModel.FieldVm[] = [];
   fields.forEach(field => {
     const isFK = FKFields.includes(field.id);
     result.push({
@@ -93,10 +93,10 @@ export const mapTableVmToEditTableVm = (
 const mapEditTableFieldsToTableVmFields = (
   fields: editTableModel.FieldVm[]
 ): canvasModel.FieldVm[] => {
-  let result: canvasModel.FieldVm[] = [];
+  const result: canvasModel.FieldVm[] = [];
 
   fields.forEach(field => {
-    const { FK, ...editFieldVm } = field;
+    const { ...editFieldVm } = field;
     result.push({
       ...editFieldVm,
       children: !field.children

@@ -1,4 +1,4 @@
-import { Edit } from '@/common/components';
+import { Edit, KeyIcon } from '@/common/components';
 import { TABLE_CONST } from '@/core/providers';
 import { TruncatedText } from './truncated-text.component';
 import {
@@ -16,11 +16,13 @@ interface Props {
   tableName: string;
   onSelectTable: () => void;
   isTabletOrMobileDevice: boolean;
+  onManageIndex: () => void;
 }
 
 export const DatabaseTableHeader: React.FC<Props> = props => {
   const {
     onEditTable,
+    onManageIndex,
     isSelected,
     tableName,
     onSelectTable,
@@ -34,6 +36,10 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
     e.stopPropagation();
   };
 
+  const handleIndexClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
+    onManageIndex();
+    e.stopPropagation();
+  };
   const handleClick = (e: React.MouseEvent<SVGGElement, MouseEvent>) => {
     onSelectTable();
     e.stopPropagation();
@@ -72,21 +78,38 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
         textClass={classes.tableText}
       />
       {isSelected && !isTabletOrMobileDevice && (
-        <g
-          transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
-          onClick={handlePencilIconClick}
-        >
-          <rect
-            x="0"
-            y="0"
-            width={PENCIL_ICON_WIDTH + PENCIL_MARGIN_RIGHT}
-            fill="transparent"
-            height={PENCIL_ICON_HEIGHT}
+        <>
+          <g
+            transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
             onClick={handlePencilIconClick}
-            style={{ cursor: 'pointer' }}
-          />
-          <Edit />
-        </g>
+          >
+            <rect
+              x="0"
+              y="0"
+              width={PENCIL_ICON_WIDTH + PENCIL_MARGIN_RIGHT}
+              fill="transparent"
+              height={PENCIL_ICON_HEIGHT}
+              onClick={handlePencilIconClick}
+              style={{ cursor: 'pointer' }}
+            />
+            <Edit />
+          </g>
+          <g
+            transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT) - 30}, 2)`}
+            onClick={handleIndexClick}
+          >
+            <rect
+              x="0"
+              y="0"
+              width={PENCIL_ICON_WIDTH + PENCIL_MARGIN_RIGHT}
+              fill="transparent"
+              height={PENCIL_ICON_HEIGHT}
+              onClick={handleIndexClick}
+              style={{ cursor: 'pointer' }}
+            />
+            <KeyIcon />
+          </g>
+        </>
       )}
       {/* Clikable area to select the table or edit it*/}
       <rect
@@ -94,7 +117,7 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
         y="0"
         width={
           isSelected
-            ? TABLE_CONST.TABLE_WIDTH - PENCIL_ICON_WIDTH
+            ? TABLE_CONST.TABLE_WIDTH - PENCIL_ICON_WIDTH - 30
             : TABLE_CONST.TABLE_WIDTH
         }
         height={TABLE_CONST.HEADER_HEIGHT}

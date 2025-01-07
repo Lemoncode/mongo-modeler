@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
   DatabaseSchemaVm,
+  IndexVm,
   RelationVm,
   TableVm,
   UpdatePositionItemInfo,
@@ -19,6 +20,7 @@ import {
   addNewTable,
   updateRelation,
   updateTable,
+  updateIndexes,
 } from './canvas-schema.business';
 import { useHistoryManager } from '@/common/undo-redo';
 import { mapSchemaToLatestVersion } from './canvas-schema.mapper';
@@ -78,6 +80,12 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         })
       );
     }
+  };
+
+  const addIndexes = (tableId: GUID, indexes: IndexVm[]) => {
+    setSchema(prevSchema =>
+      updateIndexes(tableId, indexes, { ...prevSchema, isPristine: false })
+    );
   };
 
   const updateFullRelation = (relationUpdated: RelationVm) => {
@@ -169,6 +177,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         updateFullTable,
         addTable,
         addRelation,
+        addIndexes,
         doSelectElement,
         canUndo,
         canRedo,
