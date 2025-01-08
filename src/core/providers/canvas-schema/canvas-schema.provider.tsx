@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
   DatabaseSchemaVm,
+  IndexVm,
   RelationVm,
   TableVm,
   UpdatePositionItemInfo,
@@ -19,10 +20,13 @@ import {
   addNewTable,
   updateRelation,
   updateTable,
+  updateIndexes,
 } from './canvas-schema.business';
 import { useHistoryManager } from '@/common/undo-redo';
 import { mapSchemaToLatestVersion } from './canvas-schema.mapper';
 import { useStateWithInterceptor } from './canvas-schema.hook';
+import { indexDuplicateNameChecking } from '@/pods/manage-index/manage-index.business';
+import { errorHandling } from '@/core/model/errorHandling';
 
 interface Props {
   children: React.ReactNode;
@@ -60,6 +64,17 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     );
   };
 
+  const updateFullTableByCheckingIndexes = (table: TableVm): errorHandling => {
+    const res = indexDuplicateNameChecking(table, canvasSchema);
+    if (!res.isSuccessful) {
+      return res;
+    }
+    setSchema(prevSchema =>
+      updateTable(table, { ...prevSchema, isPristine: false })
+    );
+    return res;
+  };
+
   // TODO: #56 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/56
   const addTable = (table: TableVm) => {
@@ -78,6 +93,12 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         })
       );
     }
+  };
+
+  const addIndexes = (tableId: GUID, indexes: IndexVm[]) => {
+    setSchema(prevSchema =>
+      updateIndexes(tableId, indexes, { ...prevSchema, isPristine: false })
+    );
   };
 
   const updateFullRelation = (relationUpdated: RelationVm) => {
@@ -167,8 +188,10 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         updateTablePosition,
         doFieldToggleCollapse,
         updateFullTable,
+        updateFullTableByCheckingIndexes,
         addTable,
         addRelation,
+        addIndexes,
         doSelectElement,
         canUndo,
         canRedo,
