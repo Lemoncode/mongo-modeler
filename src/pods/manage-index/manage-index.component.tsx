@@ -64,18 +64,28 @@ export const ManageIndexComponent: React.FC<Props> = props => {
           (Ascending/Descending: optional). The comma separator is needed if
           more than one field is needed
         </li>
+        <li>
+          Partial Filter Expression: has to be provided without the initial{' '}
+          {'{}'}. Example= {`email: { $exists: true, $ne: null }`}
+        </li>
       </div>
 
       <div className={classes.tableEditor}>
         <div className={classes.headerRow}>
           <div className={classes.headerCell}>Name</div>
-          <div className={classes.headerCell}>Unique</div>
           <div className={classes.headerCell}>Fields</div>
+          <div className={classes.headerCell}>Unique</div>
+          <div className={classes.headerCell}>Sparse</div>
+          <div className={classes.headerCell}>Partial Filter Expression</div>
           <div className={classes.headerCell}>Actions</div>
         </div>
 
         <NestedManageIndexGrid
-          indexes={(table.indexes as FieldVm[]) ?? [createDefaultIndex()]}
+          indexes={
+            (!table.indexes || table.indexes?.length === 0
+              ? [createDefaultIndex(table.tableName)]
+              : table.indexes) as FieldVm[]
+          }
           level={0}
           expanded={expanded}
           toggleExpand={toggleExpand}

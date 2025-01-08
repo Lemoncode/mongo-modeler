@@ -25,6 +25,8 @@ import {
 import { useHistoryManager } from '@/common/undo-redo';
 import { mapSchemaToLatestVersion } from './canvas-schema.mapper';
 import { useStateWithInterceptor } from './canvas-schema.hook';
+import { indexDuplicateNameChecking } from '@/pods/manage-index/manage-index.business';
+import { errorHandling } from '@/core/model/errorHandling';
 
 interface Props {
   children: React.ReactNode;
@@ -60,6 +62,17 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     setSchema(prevSchema =>
       updateTable(table, { ...prevSchema, isPristine: false })
     );
+  };
+
+  const updateFullTableByCheckingIndexes = (table: TableVm): errorHandling => {
+    const res = indexDuplicateNameChecking(table, canvasSchema);
+    if (!res.isSuccessful) {
+      return res;
+    }
+    setSchema(prevSchema =>
+      updateTable(table, { ...prevSchema, isPristine: false })
+    );
+    return res;
   };
 
   // TODO: #56 created to track this
@@ -175,6 +188,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         updateTablePosition,
         doFieldToggleCollapse,
         updateFullTable,
+        updateFullTableByCheckingIndexes,
         addTable,
         addRelation,
         addIndexes,

@@ -112,6 +112,17 @@ export const Index: React.FC<Props> = props => {
           </div>
         </div>
         <div className={classes.indexCell}>
+          <input
+            value={index.fieldsString}
+            onChange={e => {
+              updateValue(index, 'fieldsString', e.target.value);
+            }}
+            ref={el => assignRef(el, index.id)}
+            aria-label={INPUT_NAME + index.name}
+          />
+        </div>
+
+        <div className={classes.indexCell}>
           <Checkbox
             id="isUnique"
             checked={index.isUnique}
@@ -119,11 +130,19 @@ export const Index: React.FC<Props> = props => {
             ariaLabel={CHECKBOX_ISUNIQUE + index.name}
           ></Checkbox>
         </div>
-        <div className={classes.inputName}>
+        <div className={classes.indexCell}>
+          <Checkbox
+            id="sparse"
+            checked={index.sparse}
+            onChange={() => updateValue(index, 'sparse', !index.sparse)}
+            ariaLabel={CHECKBOX_ISUNIQUE + index.name}
+          ></Checkbox>
+        </div>
+        <div className={classes.indexCell}>
           <input
-            value={index.fieldsString}
+            value={index.partialFilterExpression}
             onChange={e => {
-              updateValue(index, 'fieldsString', e.target.value);
+              updateValue(index, 'partialFilterExpression', e.target.value);
             }}
             ref={el => assignRef(el, index.id)}
             aria-label={INPUT_NAME + index.name}

@@ -1,4 +1,5 @@
 import { Coords, FieldType, GUID, Size } from '@/core/model';
+import { errorHandling } from '@/core/model/errorHandling';
 
 export interface TableVm {
   id: string;
@@ -51,8 +52,10 @@ export interface IndexVm {
   id: string;
   name: string;
   isUnique: boolean;
+  sparse: boolean;
   fields: IndexField[];
   fieldsString?: string;
+  partialFilterExpression?: string;
 }
 
 export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
@@ -83,6 +86,7 @@ export interface CanvasSchemaContextVm {
   updateTablePosition: UpdatePositionFn;
   doFieldToggleCollapse: (tableId: string, fieldId: GUID) => void;
   updateFullTable: (table: TableVm) => void;
+  updateFullTableByCheckingIndexes: (table: TableVm) => errorHandling;
   addTable: (table: TableVm) => void;
   addRelation: (relation: RelationVm) => void;
   addIndexes: (tableId: GUID, indexes: IndexVm[]) => void;

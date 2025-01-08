@@ -15,9 +15,6 @@ export const ManageIndexButton = () => {
     addIndexes('tableId', indexes);
     closeModal();
   };
-  // const handleClose = () => {
-  //   closeModal();
-  // };
 
   const handleClick = () => {
     openModal('Test1', MANAGE_INDEX_TITLE);
@@ -26,6 +23,7 @@ export const ManageIndexButton = () => {
         id: '',
         name: 'test',
         isUnique: false,
+        sparse: false,
         fields: [],
       },
     ]);

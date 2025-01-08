@@ -38,6 +38,7 @@ export const CanvasPod: React.FC = () => {
     addRelation,
     updateTablePosition,
     updateFullTable,
+    updateFullTableByCheckingIndexes,
     doFieldToggleCollapse,
     doSelectElement,
     updateFullRelation,
@@ -123,7 +124,13 @@ export const CanvasPod: React.FC = () => {
   };
 
   const handleManageIndexSave = (table: TableVm) => {
+    const res = updateFullTableByCheckingIndexes(table);
     console.log(table);
+    if (!res.isSuccessful) {
+      alert(res.errorMessage);
+      return;
+    }
+    closeModal();
   };
 
   const handleManageIndex = (tableInfo: TableVm) => {

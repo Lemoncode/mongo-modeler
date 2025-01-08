@@ -9,7 +9,7 @@ export const parseManageIndexFields = (fieldsString?: string): IndexField[] => {
       const [name, ...orderParts] = field.trim().split(/\s+/); // Split by one or more spaces
       return { name, orderMethod: orderParts.join(' ') }; // Handle multi-word order methods
     });
-  return fields as IndexField[];
+  return fields?.filter(x => !isNullOrWhiteSpace(x.name)) as IndexField[];
 };
 
 export const clonify = <T>(input: object): T => {
@@ -18,7 +18,16 @@ export const clonify = <T>(input: object): T => {
   return obj as T;
 };
 
-export const isEqual = (a?: string, b?: string): boolean => {
-  if (a?.toLowerCase() === b?.toLowerCase()) return true;
+export const isEqual = (
+  a?: string,
+  b?: string,
+  ignoreCaseSensivity?: boolean
+): boolean => {
+  ignoreCaseSensivity = ignoreCaseSensivity ?? true;
+  if (ignoreCaseSensivity) {
+    a = a?.toLowerCase();
+    b = b?.toLowerCase();
+  }
+  if (a === b) return true;
   return false;
 };

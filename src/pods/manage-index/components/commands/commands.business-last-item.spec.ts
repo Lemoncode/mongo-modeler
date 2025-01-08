@@ -5,8 +5,8 @@ describe('isLastItemInArray', () => {
   it('should return true when it is the last item of the array', () => {
     // Arrange
     const indexes: FieldVm[] = [
-      { id: '1', name: 'Index1', isUnique: false, fields: [] },
-      { id: '2', name: 'Index2', isUnique: false, fields: [] },
+      { id: '1', name: 'Index1', isUnique: false, sparse: false, fields: [] },
+      { id: '2', name: 'Index2', isUnique: false, sparse: false, fields: [] },
     ];
 
     //Act
@@ -18,8 +18,8 @@ describe('isLastItemInArray', () => {
   it('should return false when it is not the last item of the array', () => {
     // Arrange
     const indexes: FieldVm[] = [
-      { id: '1', name: 'Index1', isUnique: false, fields: [] },
-      { id: '2', name: 'Index2', isUnique: false, fields: [] },
+      { id: '1', name: 'Index1', isUnique: false, sparse: false, fields: [] },
+      { id: '2', name: 'Index2', isUnique: false, sparse: false, fields: [] },
     ];
 
     //Act
@@ -32,8 +32,8 @@ describe('isLastItemInArray', () => {
   it('should return false when it is not the last item of the array', () => {
     // Arrange
     const indexes: FieldVm[] = [
-      { id: '1', name: 'Index1', isUnique: false, fields: [] },
-      { id: '2', name: 'Index2', isUnique: false, fields: [] },
+      { id: '1', name: 'Index1', isUnique: false, sparse: false, fields: [] },
+      { id: '2', name: 'Index2', isUnique: false, sparse: false, fields: [] },
     ];
 
     //Act

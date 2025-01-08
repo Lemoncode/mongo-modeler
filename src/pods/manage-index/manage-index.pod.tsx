@@ -8,7 +8,7 @@ import {
   moveDown,
   moveUp,
   removeIndex,
-  save,
+  apply,
   updateIndexValueLogic,
 } from './manage-index.business';
 
@@ -25,7 +25,7 @@ export const ManageIndexPod: React.FC<Props> = props => {
     React.useState<canvasVm.TableVm>(table);
 
   const handleSubmit = (table: canvasVm.TableVm) => {
-    const saveResult = save(table);
+    const saveResult = apply(table);
     if (!saveResult.errorHandling.isSuccessful) {
       alert(saveResult.errorHandling.errorMessage);
       return;

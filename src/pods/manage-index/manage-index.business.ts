@@ -9,7 +9,7 @@ import {
   isNullOrWhiteSpace,
   parseManageIndexFields,
 } from '@/core/functions';
-import { Output } from '@/core/model/errorHandling';
+import { errorHandling, Output } from '@/core/model/errorHandling';
 
 export interface UpdateIndexValueParams<K extends keyof editIndexVm.FieldVm> {
   indexToUpdate: editIndexVm.FieldVm;
@@ -69,7 +69,7 @@ export const addIndexLogic = (
         indexes.splice(
           foundIndex + 1,
           0,
-          editIndexVm.createDefaultIndex(newFieldId)
+          editIndexVm.createDefaultIndex(currentTable.tableName, newFieldId)
         );
         return true;
       }
@@ -133,7 +133,7 @@ export const findIndex = (
 };
 
 //of course this needs unit test
-export const save = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
+export const apply = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
   const result: Output<canvasVm.TableVm> = {
     errorHandling: {
       isSuccessful: true,
@@ -156,16 +156,29 @@ export const save = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
     for (let i = 0; i < _table.indexes.length; i++) {
       const item = _table.indexes[i];
       const fields = parseManageIndexFields(item.fieldsString);
+      _table.indexes[i].fields = [];
       _table.indexes[i].fields.push(...fields);
     }
 
     let error: string = '';
-    _table.indexes.forEach(elem => {
-      elem.fields.forEach(fld => {
+    _table.indexes.some(elem => {
+      elem.fields.some(fld => {
         const found = _table.fields.find(x => isEqual(x.name, fld.name));
-        if (!found)
+        if (!found) {
           error = `Field name provided(${fld.name}) does not exist in the table schema.`;
+          return true;
+        }
+
+        if (
+          !isNullOrWhiteSpace(fld.orderMethod) &&
+          !isEqual(fld.orderMethod, 'Ascending') &&
+          !isEqual(fld.orderMethod, 'Descending')
+        ) {
+          error = `The order method provided(${fld.orderMethod}) is incorrect.`;
+          return true;
+        }
       });
+      if (!isNullOrWhiteSpace(error)) return true;
     });
 
     if (!isNullOrWhiteSpace(error)) {
@@ -176,6 +189,47 @@ export const save = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
   }
 
   result.data = _table;
+
+  return result;
+};
+
+export const indexDuplicateNameChecking = (
+  table: canvasVm.TableVm,
+  schema: canvasVm.DatabaseSchemaVm
+): errorHandling => {
+  const result: errorHandling = {
+    isSuccessful: true,
+  };
+
+  // Check the duplicates index name in the current table
+  table.indexes?.some(idx => {
+    const dupFound = table.indexes?.find(
+      x => isEqual(x.name, idx.name) && x.id !== idx.id
+    );
+
+    if (dupFound) {
+      result.errorMessage = `Duplicate index name found in table (${table.tableName}) with index name (${dupFound.name})`;
+      result.isSuccessful = false;
+      return true;
+    }
+  });
+
+  if (!result.isSuccessful) return result;
+
+  // Check the duplicates index name in the whole schema
+  schema.tables.some(tbl => {
+    if (isEqual(tbl.tableName, table.tableName)) return false;
+
+    table.indexes?.some(idx => {
+      const dupFound = tbl.indexes?.find(x => isEqual(x.name, idx.name));
+
+      if (dupFound) {
+        result.errorMessage = `Duplicate index name found in table (${tbl.tableName}) with index name (${dupFound.name})`;
+        result.isSuccessful = false;
+        return true;
+      }
+    });
+  });
 
   return result;
 };

@@ -5,14 +5,20 @@ export interface FieldVm {
   id: GUID;
   name: string;
   isUnique: boolean;
+  sparse: boolean;
   fields: IndexField[];
   fieldsString?: string;
+  partialFilterExpression?: string;
 }
 
-export const createDefaultIndex = (guid?: GUID): FieldVm => ({
+export const createDefaultIndex = (
+  tableName: string,
+  guid?: GUID
+): FieldVm => ({
   id: guid ? guid : GenerateGUID(),
-  name: 'newIndex',
+  name: `${tableName}_idx_newIndex`,
   isUnique: false,
+  sparse: false,
   fields: [],
   fieldsString: '',
 });
