@@ -163,7 +163,7 @@ export const apply = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
     let error: string = '';
     _table.indexes.some(elem => {
       elem.fields.some(fld => {
-        const found = _table.fields.find(x => isEqual(x.name, fld.name));
+        const found = _table.fields.find(x => isEqual(x.name, fld.name, false));
         if (!found) {
           error = `Field name provided(${fld.name}) does not exist in the table schema.`;
           return true;

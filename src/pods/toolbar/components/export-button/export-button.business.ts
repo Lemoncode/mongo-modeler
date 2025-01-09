@@ -149,8 +149,7 @@ export const getSchemaScriptFromTableVm = (table: TableVm): string => {
 
   const createIndexes: string = generateIndexScript(table);
 
-  return `${schemaScript}
-          ${createIndexes}`;
+  return `${schemaScript}\n${createIndexes}`;
 };
 
 const generateIndexScript = (table: TableVm): string => {
@@ -173,16 +172,17 @@ const generateIndexScript = (table: TableVm): string => {
           return `${item.name} ${oM}`;
         })
         .join(', ');
-      return `{
-          key:{${fields}},
-          name:"${idx.name}",
+
+      return `db.${table.tableName}.createIndex(
+        { ${fields} }, 
+        {
+          name: "${idx.name}",
           unique:${idx.isUnique ? 'true' : 'false'},
           sparse:${idx.sparse ? 'true' : 'false'},
-          ${isNullOrWhiteSpace(idx.partialFilterExpression) ? '' : `partialFilterExpression:{${idx.partialFilterExpression}}`} 
-        }`;
+          ${isNullOrWhiteSpace(idx.partialFilterExpression) ? '' : `partialFilterExpression:{${idx.partialFilterExpression}}`}
+        })`;
     });
-
-    createIndexes = `db.${table.tableName}.createIndexes([${t}]);`;
+    createIndexes = t.join(';\n');
   }
   return createIndexes;
 };
