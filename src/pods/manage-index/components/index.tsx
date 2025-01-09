@@ -78,7 +78,7 @@ export const Index: React.FC<Props> = props => {
         value={index}
         key={index.id}
         style={{ y: 0 }}
-        className={`${classes.indexRow} `}
+        className={`${classes.fieldRow} `}
         initial="left"
         animate="stay"
         exit="left"
@@ -87,7 +87,7 @@ export const Index: React.FC<Props> = props => {
         dragListener={false}
         dragControls={dragControls}
       >
-        <div className={classes.indexCell}>
+        <div className={classes.fieldCell}>
           <motion.button
             className={classes.dragButton}
             onPointerDown={e => handlerPointerDown(e)}
@@ -111,7 +111,7 @@ export const Index: React.FC<Props> = props => {
             </div>
           </div>
         </div>
-        <div className={classes.indexCell}>
+        <div className={classes.fieldCell}>
           <input
             value={index.fieldsString}
             onChange={e => {
@@ -121,8 +121,7 @@ export const Index: React.FC<Props> = props => {
             aria-label={INPUT_NAME + index.name}
           />
         </div>
-
-        <div className={classes.indexCell}>
+        <div className={classes.fieldCell}>
           <Checkbox
             id="isUnique"
             checked={index.isUnique}
@@ -130,7 +129,7 @@ export const Index: React.FC<Props> = props => {
             ariaLabel={CHECKBOX_ISUNIQUE + index.name}
           ></Checkbox>
         </div>
-        <div className={classes.indexCell}>
+        <div className={classes.fieldCell}>
           <Checkbox
             id="sparse"
             checked={index.sparse}
@@ -138,7 +137,7 @@ export const Index: React.FC<Props> = props => {
             ariaLabel={CHECKBOX_ISUNIQUE + index.name}
           ></Checkbox>
         </div>
-        <div className={classes.indexCell}>
+        <div className={classes.fieldCell}>
           <input
             value={index.partialFilterExpression}
             onChange={e => {
@@ -148,7 +147,7 @@ export const Index: React.FC<Props> = props => {
             aria-label={INPUT_NAME + index.name}
           />
         </div>
-        <div className={`${classes.indexCell} ${classes.commandsContainer}`}>
+        <div className={`${classes.fieldCell} ${classes.commandsContainer}`}>
           <Commands
             index={index}
             indexes={indexes}
@@ -160,6 +159,7 @@ export const Index: React.FC<Props> = props => {
             labelAddIndex={labelAddIndex}
           />
         </div>
+        <div className={classes.fieldCell}></div>
       </Reorder.Item>
     </React.Fragment>
   );

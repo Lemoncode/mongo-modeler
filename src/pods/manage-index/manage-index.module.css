@@ -10,7 +10,7 @@
   margin: 0;
 }
 
-.indexRow,
+.fieldRow,
 .header-row {
   display: grid;
   grid-template-columns: auto 60px 60px 150px 80px 60px 250px;
@@ -46,7 +46,7 @@
   grid-template-columns: auto 60px 60px 150px 80px 60px 250px;
   transform-origin: top center;
 }
-.indexCell,
+.fieldCell,
 .headerCell {
   width: 100%;
   height: 100%;
@@ -56,7 +56,7 @@
   padding: var(--space-cells);
 }
 
-.indexCell + .indexCell,
+.fieldCell + .fieldCell,
 .headerCell + .headerCell {
   border-left: 1px solid var(--secondary-border-color);
 }
@@ -86,7 +86,7 @@
   .tableEditor {
     grid-template-columns: repeat(7, auto);
   }
-  .indexRow,
+  .fieldRow,
   .header-row,
   .nestedGrid {
     grid-template-columns: subgrid;
@@ -181,7 +181,7 @@ related to each other and to the dialog header*/
   max-width: 190px;
 }
 
-.indexCell button {
+.fieldCell button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -211,7 +211,7 @@ related to each other and to the dialog header*/
   min-height: 30px;
 }
 
-.indexCell .drag-button {
+.fieldCell .drag-button {
   cursor: grab;
   padding: 3px;
   min-width: 30px;

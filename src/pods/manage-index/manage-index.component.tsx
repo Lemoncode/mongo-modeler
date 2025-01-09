@@ -78,6 +78,7 @@ export const ManageIndexComponent: React.FC<Props> = props => {
           <div className={classes.headerCell}>Sparse</div>
           <div className={classes.headerCell}>Partial Filter Expression</div>
           <div className={classes.headerCell}>Actions</div>
+          <div className={classes.headerCell}></div>
         </div>
 
         <NestedManageIndexGrid
