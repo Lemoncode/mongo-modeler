@@ -141,7 +141,7 @@ export const apply = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
   };
 
   const _table = clonify<canvasVm.TableVm>(table);
-
+  debugger;
   const errorFound = _table.indexes?.find(
     x => isNullOrWhiteSpace(x.name) || isNullOrWhiteSpace(x.fieldsString)
   );
@@ -163,7 +163,8 @@ export const apply = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
     let error: string = '';
     _table.indexes.some(elem => {
       elem.fields.some(fld => {
-        const found = _table.fields.find(x => isEqual(x.name, fld.name, false));
+        //const found = _table.fields.find(x => isEqual(x.name, fld.name, false));
+        const found = doesColumnExist(table, fld.name);
         if (!found) {
           error = `Field name provided(${fld.name}) does not exist in the table schema.`;
           return true;
@@ -191,6 +192,33 @@ export const apply = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
   result.data = _table;
 
   return result;
+};
+
+const doesColumnExist = (table: canvasVm.TableVm, searchInput: string) => {
+  const keys = searchInput.split('.');
+  const rootKey = keys[0];
+
+  for (const field of table.fields) {
+    if (field.name === rootKey) {
+      let current = field;
+      for (let i = 1; i < keys.length; i++) {
+        const key = keys[i];
+        if (current.children && Array.isArray(current.children)) {
+          const child = current.children.find(child => child.name === key);
+          if (child) {
+            current = child; // Move deeper into the hierarchy
+          } else {
+            return false; // Column not found at this level
+          }
+        } else {
+          return false; // No children to traverse further
+        }
+      }
+      return true; // Successfully traversed all keys
+    }
+  }
+
+  return false;
 };
 
 export const indexDuplicateNameChecking = (

@@ -169,7 +169,7 @@ const generateIndexScript = (table: TableVm): string => {
             default:
               oM = ':1';
           }
-          return `${item.name} ${oM}`;
+          return `"${item.name}" ${oM}`;
         })
         .join(', ');
 
