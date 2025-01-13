@@ -141,7 +141,6 @@ export const apply = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
   };
 
   const _table = clonify<canvasVm.TableVm>(table);
-  debugger;
   const errorFound = _table.indexes?.find(
     x => isNullOrWhiteSpace(x.name) || isNullOrWhiteSpace(x.fieldsString)
   );
