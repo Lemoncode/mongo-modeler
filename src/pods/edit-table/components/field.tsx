@@ -35,12 +35,12 @@ interface Props {
   labelAddField?: string;
 }
 
-const INPUT_NAME = 'Field for field ';
-const CHECKBOX_PK = 'Checkbox pk for field ';
-const CHECKBOX_FK = 'Checkbox fk for field ';
-const CHECKBOX_ARRAY = 'Checkbox isArray for field ';
-const CHECKBOX_ISNN = 'Checkbox isNN for field ';
-const SELECT = 'Select field type for';
+const INPUT_NAME = 'Field name ';
+const CHECKBOX_PK = 'Primary key for field ';
+const CHECKBOX_FK = 'Foreign key for field ';
+const CHECKBOX_ARRAY = 'Array for field ';
+const CHECKBOX_ISNN = 'Not null for field ';
+const SELECT = 'Select a field type for';
 const NESTED_FIELD_ADD_FIELD_LABEL = 'Add nested field for ';
 
 export const Field: React.FC<Props> = props => {
@@ -134,8 +134,8 @@ export const Field: React.FC<Props> = props => {
                 onClick={() => toggleExpand(field.id)}
                 aria-label={
                   expandedFields.has(field.id)
-                    ? 'contract nested fields'
-                    : 'expand nested fields'
+                    ? `collapse nested fields of "${field.name}"`
+                    : `expand nested fields of "${field.name}"`
                 }
               >
                 {expandedFields.has(field.id) ? (

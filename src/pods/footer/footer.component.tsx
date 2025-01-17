@@ -29,11 +29,11 @@ export const FooterComponent: React.FC = () => {
       ? getFileNameCanvasIsPristine(filename, NEW_DOCUMENT_NAME)
       : getFileNameCanvasDirty(filename, NEW_DOCUMENT_NAME, ASTERISK);
   return (
-    <div className={classes.footerText}>
+    <footer className={classes.footerText}>
       <span>{isDevice ? documentNameMobile() : documentName()}</span>
       <button onClick={toggleTheme} className="mobile-only">
         {theme.themeMode === 'dark' ? <LightIcon /> : <DarkIcon />}
       </button>
-    </div>
+    </footer>
   );
 };

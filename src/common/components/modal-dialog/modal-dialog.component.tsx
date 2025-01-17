@@ -64,9 +64,9 @@ export const ModalDialog: React.FC = () => {
             aria-labelledby="modal-modal-title"
           >
             <div className={styles.dialogHeader}>
-              <h2 className={styles.dialogTitle} id="modal-modal-title">
+              <h1 className={styles.dialogTitle} id="modal-modal-title">
                 {modalDialog.title}
-              </h2>
+              </h1>
               <button
                 className={styles.dialogButton}
                 onClick={handleClick}
