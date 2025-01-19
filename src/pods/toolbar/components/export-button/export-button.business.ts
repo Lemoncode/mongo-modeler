@@ -149,7 +149,7 @@ export const getSchemaScriptFromTableVm = (table: TableVm): string => {
 
   const createIndexes: string = generateIndexScript(table);
 
-  return `${schemaScript}\n${createIndexes}`;
+  return `${schemaScript}${!isNullOrWhiteSpace(createIndexes) ? `\n${createIndexes}` : ''}`;
 };
 
 const generateIndexScript = (table: TableVm): string => {
@@ -180,7 +180,7 @@ const generateIndexScript = (table: TableVm): string => {
           unique:${idx.isUnique ? 'true' : 'false'},
           sparse:${idx.sparse ? 'true' : 'false'},
           ${isNullOrWhiteSpace(idx.partialFilterExpression) ? '' : `partialFilterExpression:{${idx.partialFilterExpression}}`}
-        })`;
+        });`;
     });
     createIndexes = t.join(';\n');
   }
