@@ -156,11 +156,11 @@ export const findFieldRecursively = (
 // };
 
 const findRelation = (relations: RelationVm[], id: GUID): RelationVm => {
-  const relationId = relations.find(relation => relation.id === id);
-  if (!relationId) {
-    throw Error(`Relation for ${relationId} is missing`);
+  const relation = relations.find(relation => relation.id === id);
+  if (!relation) {
+    throw Error(`Relation for ${id} is missing`);
   }
-  return relationId;
+  return relation;
 };
 
 export const createInitialIdValues = (

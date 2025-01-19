@@ -2,6 +2,7 @@ export * from './toolbar-button';
 export * from './theme-toggle-button';
 export * from './zoom-button';
 export * from './relation-button';
+export * from './manage-index-button';
 export * from './canvas-setting-button';
 export * from './export-button';
 export * from './new-button';

@@ -1,5 +1,6 @@
 import { FieldVm, TableVm, TABLE_CONST } from '@/core/providers';
 import { doTablesOverlap } from './export-coordinate.helpers';
+import { isNullOrWhiteSpace } from '@/core/functions';
 
 export const getMaxPositionXFromTables = (tables: TableVm[]): number =>
   tables.length === 0 ? 0 : Math.max(...tables.map(table => table.x));
@@ -77,10 +78,10 @@ export const placeTableWithoutOverlap = (
 };
 
 export const placeAllTablesWithoutOverlap = (tables: TableVm[]): TableVm[] => {
-  let placedTables: TableVm[] = [];
+  const placedTables: TableVm[] = [];
 
-  for (let table of tables) {
-    let newTable = placeTableWithoutOverlap(table, placedTables);
+  for (const table of tables) {
+    const newTable = placeTableWithoutOverlap(table, placedTables);
     placedTables.push(newTable);
   }
 
@@ -116,7 +117,10 @@ export const getPropertyJsonSchema = (field: FieldVm): string => {
   return `"${field.name}": { bsonType: "${field.type}" }`;
 };
 
-export const getPropertiesJsonSchema = (fields: FieldVm[], useTab = true): string => {
+export const getPropertiesJsonSchema = (
+  fields: FieldVm[],
+  useTab = true
+): string => {
   const separator = useTab ? ',\n        ' : ', ';
   return fields.map(getPropertyJsonSchema).join(separator);
 };
@@ -141,11 +145,47 @@ export const getSchemaScriptFromTableVm = (table: TableVm): string => {
       },
     },
   },
-});`;
+  });`;
 
-  return schemaScript;
+  const createIndexes: string = generateIndexScript(table);
+
+  return `${schemaScript}\n${createIndexes}`;
 };
 
+const generateIndexScript = (table: TableVm): string => {
+  let createIndexes: string = '';
+  if (table.indexes && table.indexes?.length > 0) {
+    const t = table.indexes.map(idx => {
+      const fields = idx.fields
+        .map(item => {
+          let oM: string = '';
+          switch (item.orderMethod.toLowerCase()) {
+            case 'ascending':
+              oM = ':1';
+              break;
+            case 'descending':
+              oM = ':-1';
+              break;
+            default:
+              oM = ':1';
+          }
+          return `"${item.name}" ${oM}`;
+        })
+        .join(', ');
+
+      return `db.${table.tableName}.createIndex(
+        { ${fields} }, 
+        {
+          name: "${idx.name}",
+          unique:${idx.isUnique ? 'true' : 'false'},
+          sparse:${idx.sparse ? 'true' : 'false'},
+          ${isNullOrWhiteSpace(idx.partialFilterExpression) ? '' : `partialFilterExpression:{${idx.partialFilterExpression}}`}
+        })`;
+    });
+    createIndexes = t.join(';\n');
+  }
+  return createIndexes;
+};
 export const getSchemaScriptFromTableVmArray = (tables: TableVm[]): string => {
   return tables.map(getSchemaScriptFromTableVm).join('\n\n');
 };
