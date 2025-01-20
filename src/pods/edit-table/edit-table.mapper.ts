@@ -93,10 +93,10 @@ export const mapTableVmToEditTableVm = (
 const mapEditTableFieldsToTableVmFields = (
   fields: editTableModel.FieldVm[]
 ): canvasModel.FieldVm[] => {
-  const result: canvasModel.FieldVm[] = [];
+  let result: canvasModel.FieldVm[] = [];
 
   fields.forEach(field => {
-    const { ...editFieldVm } = field;
+    const { FK, ...editFieldVm } = field;
     result.push({
       ...editFieldVm,
       children: !field.children

@@ -22,7 +22,7 @@ describe('isFirstItemInArray', () => {
       { id: '2', name: 'Index2', isUnique: false, sparse: false, fields: [] },
     ];
     //Act
-    const firstItem = isFirstItemInArray(indexes, '1');
+    const firstItem = isFirstItemInArray(indexes, '2');
 
     //Assert
     expect(firstItem).toBeFalsy();
