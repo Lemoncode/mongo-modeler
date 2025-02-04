@@ -22,5 +22,5 @@ export * from './add-folder.component';
 export * from './down-icon';
 export * from './up-icon.component';
 export * from './remove-icon.component';
-export * from './copy-button.component';
-export * from './paste-button.component';
+export * from './copy-icon.component';
+export * from './paste-icon.component';

@@ -1,20 +1,20 @@
 import { useCanvasSchemaContext } from '@/core/providers/canvas-schema';
-import { CopyIcon } from '@/common/components/icons';
+import { PasteIcon } from '@/common/components/icons';
 import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import classes from '@/pods/toolbar/toolbar.pod.module.css';
 import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
-export const DuplicateButton = () => {
-  const { canvasSchema, duplicateSelectedTable } = useCanvasSchemaContext();
+export const PasteButton = () => {
+  const { pasteTable, hasClipboardContent } = useCanvasSchemaContext();
 
   return (
     <ToolbarButton
-      icon={<CopyIcon />}
-      label="Duplicate Table"
-      onClick={duplicateSelectedTable}
+      icon={<PasteIcon />}
+      label="Paste"
+      onClick={pasteTable}
       className={`${classes.button} hide-mobile`}
-      disabled={!canvasSchema.selectedElementId}
-      shortcutOptions={SHORTCUTS.duplicate}
+      disabled={!hasClipboardContent}
+      shortcutOptions={SHORTCUTS.Paste}
     />
   );
 };
