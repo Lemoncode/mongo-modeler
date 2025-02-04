@@ -43,6 +43,8 @@ export const CanvasPod: React.FC = () => {
     deleteSelectedItem,
     loadSchema,
     duplicateSelectedTable,
+    copySelectedTable,
+    pasteTable,
   } = useCanvasSchemaContext();
   const {
     canvasViewSettings,
@@ -227,6 +229,18 @@ export const CanvasPod: React.FC = () => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'd') {
         e.preventDefault(); // Prevent browser default
         duplicateSelectedTable();
+      }
+
+      // Add Cmd/Ctrl+C for copy
+      if ((e.metaKey || e.ctrlKey) && e.key === 'c') {
+        e.preventDefault(); // Prevent browser default
+        copySelectedTable();
+      }
+
+      // Add Cmd/Ctrl+V for paste
+      if ((e.metaKey || e.ctrlKey) && e.key === 'v') {
+        e.preventDefault(); // Prevent browser default
+        pasteTable();
       }
     };
 

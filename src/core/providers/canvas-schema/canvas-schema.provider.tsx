@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
@@ -187,6 +187,38 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     });
   };
 
+  const [clipboardTable, setClipboardTable] = useState<TableVm | null>(null);
+
+  const copySelectedTable = () => {
+    const selectedTable = canvasSchema.tables.find(
+      table => table.id === canvasSchema.selectedElementId
+    );
+    if (selectedTable) {
+      setClipboardTable(selectedTable);
+    }
+  };
+
+  const pasteTable = () => {
+    if (clipboardTable) {
+      const newTable: TableVm = {
+        ...clipboardTable,
+        id: crypto.randomUUID(),
+        x: clipboardTable.x + 50,
+        y: clipboardTable.y + 50,
+        fields: clipboardTable.fields.map(field => ({
+          ...field,
+          id: crypto.randomUUID(),
+        })),
+      };
+
+      setSchema(prev => ({
+        ...prev,
+        tables: [...prev.tables, newTable],
+        isPristine: false,
+      }));
+    }
+  };
+
   return (
     <CanvasSchemaContext.Provider
       value={{
@@ -208,6 +240,9 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         deleteSelectedItem,
         switchIsPristine: switchIsPristine,
         duplicateSelectedTable,
+        copySelectedTable,
+        pasteTable,
+        hasClipboardContent: Boolean(clipboardTable),
       }}
     >
       {children}

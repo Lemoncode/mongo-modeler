@@ -83,4 +83,16 @@ export const SHORTCUTS: Shortcut = {
     targetKey: ['d'],
     targetKeyLabel: 'D',
   },
+  copy: {
+    description: 'Copy',
+    id: 'copy-button-shortcut',
+    targetKey: ['c'],
+    targetKeyLabel: 'C',
+  },
+  paste: {
+    description: 'Paste',
+    id: 'paste-button-shortcut',
+    targetKey: ['v'],
+    targetKeyLabel: 'V',
+  },
 };
