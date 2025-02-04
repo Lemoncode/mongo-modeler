@@ -12,3 +12,4 @@ export * from './redo-button';
 export * from './delete-button';
 export * from './add-collection';
 export * from './about-button';
+export * from './duplicate-button';

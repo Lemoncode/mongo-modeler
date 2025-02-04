@@ -77,4 +77,10 @@ export const SHORTCUTS: Shortcut = {
     targetKey: ['-', '-'],
     targetKeyLabel: '"-"',
   },
+  duplicate: {
+    description: 'Duplicate',
+    id: 'duplicate-button-shortcut',
+    targetKey: ['d'],
+    targetKeyLabel: 'D',
+  },
 };
