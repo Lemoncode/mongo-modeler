@@ -78,4 +78,5 @@ export interface CanvasSchemaContextVm {
   updateFullRelation: (relation: RelationVm) => void;
   deleteSelectedItem: (selectedElementId: GUID) => void;
   switchIsPristine: (isPristine: boolean) => void;
+  duplicateSelectedTable: () => void;
 }

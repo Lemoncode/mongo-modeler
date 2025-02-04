@@ -157,6 +157,36 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     }));
   };
 
+  const duplicateSelectedTable = () => {
+    setSchema(prevSchema => {
+      if (!prevSchema.selectedElementId) return prevSchema;
+
+      const selectedTable = prevSchema.tables.find(
+        table => table.id === prevSchema.selectedElementId
+      );
+
+      if (!selectedTable) return prevSchema;
+
+      // Create duplicate with new IDs
+      const duplicateTable: TableVm = {
+        ...selectedTable,
+        id: crypto.randomUUID(), // Generate new ID
+        x: selectedTable.x + 50, // Offset position
+        y: selectedTable.y + 50,
+        fields: selectedTable.fields.map(field => ({
+          ...field,
+          id: crypto.randomUUID(), // New IDs for fields
+        })),
+      };
+
+      return {
+        ...prevSchema,
+        tables: [...prevSchema.tables, duplicateTable],
+        isPristine: false,
+      };
+    });
+  };
+
   return (
     <CanvasSchemaContext.Provider
       value={{
@@ -177,6 +207,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         updateFullRelation,
         deleteSelectedItem,
         switchIsPristine: switchIsPristine,
+        duplicateSelectedTable,
       }}
     >
       {children}

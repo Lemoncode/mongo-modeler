@@ -42,6 +42,7 @@ export const CanvasPod: React.FC = () => {
     doRedo,
     deleteSelectedItem,
     loadSchema,
+    duplicateSelectedTable,
   } = useCanvasSchemaContext();
   const {
     canvasViewSettings,
@@ -220,6 +221,12 @@ export const CanvasPod: React.FC = () => {
         if (canvasSchema.selectedElementId) {
           deleteSelectedItem(canvasSchema.selectedElementId);
         }
+      }
+
+      // Add Cmd/Ctrl+D for duplicate
+      if ((e.metaKey || e.ctrlKey) && e.key === 'd') {
+        e.preventDefault(); // Prevent browser default
+        duplicateSelectedTable();
       }
     };
 
