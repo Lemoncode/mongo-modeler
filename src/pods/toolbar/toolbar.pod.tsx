@@ -10,7 +10,6 @@ import {
   NewButton,
   OpenButton,
   SaveButton,
-  DuplicateButton,
   UndoButton,
   RedoButton,
   DeleteButton,
@@ -31,7 +30,6 @@ export const ToolbarPod: React.FC = () => {
       <ZoomOutButton />
       <AddCollection />
       <RelationButton />
-      <DuplicateButton />
       <CopyButton />
       <PasteButton />
       <UndoButton />
