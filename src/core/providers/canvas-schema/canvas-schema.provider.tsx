@@ -188,6 +188,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
   };
 
   const [clipboardTable, setClipboardTable] = useState<TableVm | null>(null);
+  const [pasteOffset, setPasteOffset] = useState({ x: 0, y: 0 });
 
   const copySelectedTable = () => {
     const selectedTable = canvasSchema.tables.find(
@@ -195,16 +196,20 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     );
     if (selectedTable) {
       setClipboardTable(selectedTable);
+      setPasteOffset({ x: 0, y: 0 }); // Reset offset on copy
     }
   };
 
   const pasteTable = () => {
     if (clipboardTable) {
+      // Increment offset
+      const newOffset = { x: pasteOffset.x + 50, y: pasteOffset.y + 50 };
+
       const newTable: TableVm = {
         ...clipboardTable,
         id: crypto.randomUUID(),
-        x: clipboardTable.x + 50,
-        y: clipboardTable.y + 50,
+        x: clipboardTable.x + newOffset.x,
+        y: clipboardTable.y + newOffset.y,
         fields: clipboardTable.fields.map(field => ({
           ...field,
           id: crypto.randomUUID(),
@@ -216,6 +221,8 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         tables: [...prev.tables, newTable],
         isPristine: false,
       }));
+
+      setPasteOffset(newOffset);
     }
   };
 
