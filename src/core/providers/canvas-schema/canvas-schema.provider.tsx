@@ -226,6 +226,11 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     }
   };
 
+  const clearClipboard = () => {
+    setClipboardTable(null);
+    setPasteOffset({ x: 0, y: 0 });
+  };
+
   return (
     <CanvasSchemaContext.Provider
       value={{
@@ -250,6 +255,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         copySelectedTable,
         pasteTable,
         hasClipboardContent: Boolean(clipboardTable),
+        clearClipboard,
       }}
     >
       {children}
