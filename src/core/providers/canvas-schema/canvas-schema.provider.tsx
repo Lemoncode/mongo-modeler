@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
@@ -178,6 +178,75 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     }));
   };
 
+  const duplicateSelectedTable = () => {
+    setSchema(prevSchema => {
+      if (!prevSchema.selectedElementId) return prevSchema;
+
+      const selectedTable = prevSchema.tables.find(
+        table => table.id === prevSchema.selectedElementId
+      );
+
+      if (!selectedTable) return prevSchema;
+
+      // Create duplicate with new IDs
+      const duplicateTable: TableVm = {
+        ...selectedTable,
+        id: crypto.randomUUID(), // Generate new ID
+        x: selectedTable.x + 50, // Offset position
+        y: selectedTable.y + 50,
+        fields: selectedTable.fields.map(field => ({
+          ...field,
+          id: crypto.randomUUID(), // New IDs for fields
+        })),
+      };
+
+      return {
+        ...prevSchema,
+        tables: [...prevSchema.tables, duplicateTable],
+        isPristine: false,
+      };
+    });
+  };
+
+  const [clipboardTable, setClipboardTable] = useState<TableVm | null>(null);
+  const [pasteOffset, setPasteOffset] = useState({ x: 0, y: 0 });
+
+  const copySelectedTable = () => {
+    const selectedTable = canvasSchema.tables.find(
+      table => table.id === canvasSchema.selectedElementId
+    );
+    if (selectedTable) {
+      setClipboardTable(selectedTable);
+      setPasteOffset({ x: 0, y: 0 }); // Reset offset on copy
+    }
+  };
+
+  const pasteTable = () => {
+    if (clipboardTable) {
+      // Increment offset
+      const newOffset = { x: pasteOffset.x + 50, y: pasteOffset.y + 50 };
+
+      const newTable: TableVm = {
+        ...clipboardTable,
+        id: crypto.randomUUID(),
+        x: clipboardTable.x + newOffset.x,
+        y: clipboardTable.y + newOffset.y,
+        fields: clipboardTable.fields.map(field => ({
+          ...field,
+          id: crypto.randomUUID(),
+        })),
+      };
+
+      setSchema(prev => ({
+        ...prev,
+        tables: [...prev.tables, newTable],
+        isPristine: false,
+      }));
+
+      setPasteOffset(newOffset);
+    }
+  };
+
   return (
     <CanvasSchemaContext.Provider
       value={{
@@ -200,6 +269,10 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         updateFullRelation,
         deleteSelectedItem,
         switchIsPristine: switchIsPristine,
+        duplicateSelectedTable,
+        copySelectedTable,
+        pasteTable,
+        hasClipboardContent: Boolean(clipboardTable),
       }}
     >
       {children}

@@ -12,3 +12,6 @@ export * from './redo-button';
 export * from './delete-button';
 export * from './add-collection';
 export * from './about-button';
+export * from './duplicate-button';
+export * from './copy-button';
+export * from './paste-button';
