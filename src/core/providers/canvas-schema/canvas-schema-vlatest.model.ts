@@ -98,4 +98,8 @@ export interface CanvasSchemaContextVm {
   updateFullRelation: (relation: RelationVm) => void;
   deleteSelectedItem: (selectedElementId: GUID) => void;
   switchIsPristine: (isPristine: boolean) => void;
+  duplicateSelectedTable: () => void;
+  copySelectedTable: () => void;
+  pasteTable: () => void;
+  hasClipboardContent: boolean;
 }
