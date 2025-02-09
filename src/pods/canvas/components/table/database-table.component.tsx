@@ -19,6 +19,7 @@ interface Props {
   updatePosition: UpdatePositionFn;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
   onEditTable: (tableInfo: TableVm) => void;
+  onManageIndex: (tableInfo: TableVm) => void;
   canvasSize: Size;
   isSelected: boolean;
   selectTable: (tableId: GUID) => void;
@@ -30,6 +31,7 @@ interface Props {
 export const DatabaseTable: React.FC<Props> = ({
   tableInfo,
   onEditTable,
+  onManageIndex,
   updatePosition,
   onToggleCollapse,
   canvasSize,
@@ -81,6 +83,10 @@ export const DatabaseTable: React.FC<Props> = ({
     onEditTable(tableInfo);
   };
 
+  const handleManageIndexClick = () => {
+    onManageIndex(tableInfo);
+  };
+
   return (
     <g
       transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
@@ -92,6 +98,7 @@ export const DatabaseTable: React.FC<Props> = ({
       <DatabaseTableBorder totalHeight={totalHeight} isSelected={isSelected} />
       <DatabaseTableHeader
         onEditTable={handleDoubleClick}
+        onManageIndex={handleManageIndexClick}
         onSelectTable={handleSelectTable}
         isSelected={isSelected}
         tableName={tableInfo.tableName}

@@ -1,5 +1,10 @@
 import { produce } from 'immer';
-import { FieldVm, RelationVm, TableVm } from './canvas-schema-vlatest.model';
+import {
+  FieldVm,
+  IndexVm,
+  RelationVm,
+  TableVm,
+} from './canvas-schema-vlatest.model';
 import { DatabaseSchemaVm } from './canvas-schema-vlatest.model';
 import { GUID } from '@/core/model';
 
@@ -103,5 +108,17 @@ export const updateRelation = (
 
     if (index !== -1) {
       draft.relations[index] = relation;
+    }
+  });
+
+export const updateIndexes = (
+  tableId: GUID,
+  indexes: IndexVm[],
+  dbSchema: DatabaseSchemaVm
+): DatabaseSchemaVm =>
+  produce(dbSchema, draft => {
+    const tableIndex = draft.tables.findIndex(t => t.id === tableId);
+    if (tableIndex !== -1) {
+      draft.tables[tableIndex].indexes = indexes;
     }
   });
