@@ -181,6 +181,13 @@ related to each other and to the dialog header*/
   max-width: 190px;
 }
 
+.table-name textarea {
+  width: 100%;
+  background-color: var(--background-dialog);
+  border-radius: var(--border-radius-table);
+  color: var(--text-white);
+}
+
 .fieldCell button {
   display: flex;
   align-items: center;
