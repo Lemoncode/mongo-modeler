@@ -11,6 +11,7 @@ import {
 } from './components';
 import { renderRows } from './database-table-render-rows.helper';
 import classes from './database-table.module.css';
+import { motion } from 'framer-motion';
 
 // TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
@@ -82,22 +83,32 @@ export const DatabaseTable: React.FC<Props> = ({
   };
 
   return (
-    <g
-      transform={`translate(${tableInfo.x}, ${tableInfo.y})`}
-      onMouseDown={onMouseDown}
-      onTouchStart={onTouchStart}
-      className={classes.tableContainer}
-      ref={ref as React.LegacyRef<SVGGElement> | undefined}
-    >
-      <DatabaseTableBorder totalHeight={totalHeight} isSelected={isSelected} />
-      <DatabaseTableHeader
-        onEditTable={handleDoubleClick}
-        onSelectTable={handleSelectTable}
-        isSelected={isSelected}
-        tableName={tableInfo.tableName}
-        isTabletOrMobileDevice={isTabletOrMobileDevice}
-      />
-      <DatabaseTableBody renderedRows={renderedRows} />
+    <g transform={`translate(${tableInfo.x}, ${tableInfo.y})`}>
+      <motion.g
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
+        className={classes.tableContainer}
+        ref={ref as React.Ref<SVGGElement> | undefined}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: [0, 1, 0, 1], scale: 1 }}
+        transition={{
+          opacity: { duration: 2 },
+          scale: { duration: 0.8 },
+        }}
+      >
+        <DatabaseTableBorder
+          totalHeight={totalHeight}
+          isSelected={isSelected}
+        />
+        <DatabaseTableHeader
+          onEditTable={handleDoubleClick}
+          onSelectTable={handleSelectTable}
+          isSelected={isSelected}
+          tableName={tableInfo.tableName}
+          isTabletOrMobileDevice={isTabletOrMobileDevice}
+        />
+        <DatabaseTableBody renderedRows={renderedRows} />
+      </motion.g>
     </g>
   );
 };

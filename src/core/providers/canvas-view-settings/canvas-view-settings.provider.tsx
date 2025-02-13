@@ -53,6 +53,13 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
     }));
   };
 
+  const setCanvasViewSize = (canvasSize: Size) => {
+    setCanvasViewSettings(canvasViewSettings => ({
+      ...canvasViewSettings,
+      canvasViewSize: canvasSize,
+    }));
+  };
+
   const setFilename = (filename: string) => {
     setCanvasViewSettings(canvasViewSettings => ({
       ...canvasViewSettings,
@@ -104,6 +111,7 @@ export const CanvasViewSettingsProvider: React.FC<Props> = props => {
         canvasViewSettings,
         setScrollPosition,
         setCanvasSize,
+        setCanvasViewSize,
         setFilename,
         zoomIn,
         zoomOut,

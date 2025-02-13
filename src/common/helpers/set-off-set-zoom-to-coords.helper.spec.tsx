@@ -10,6 +10,7 @@ describe('setOffSetZoomToCoords', () => {
     const initialContextState: CanvasViewSettingsContextModel = {
       canvasViewSettings: {
         canvasSize: { width: 5000, height: 5000 },
+        canvasViewSize: { width: 5000, height: 5000 },
         viewBoxSize: { width: 20000, height: 20000 },
         zoomFactor: 2,
         scrollPosition: { x: 0, y: 0 },
@@ -25,6 +26,7 @@ describe('setOffSetZoomToCoords', () => {
       setLoadSample: () => {},
       setViewBoxSize: () => {},
       setAutoSave: () => {},
+      setCanvasViewSize: () => {},
     };
 
     // Act
@@ -51,6 +53,7 @@ describe('setOffSetZoomToCoords', () => {
     const initialContextState: CanvasViewSettingsContextModel = {
       canvasViewSettings: {
         canvasSize: { width: 10000, height: 10000 },
+        canvasViewSize: { width: 5000, height: 5000 },
         viewBoxSize: { width: 25000, height: 15000 },
         zoomFactor: 2,
         scrollPosition: { x: 0, y: 0 },
@@ -66,6 +69,7 @@ describe('setOffSetZoomToCoords', () => {
       setLoadSample: () => {},
       setViewBoxSize: () => {},
       setAutoSave: () => {},
+      setCanvasViewSize: () => {},
     };
 
     // Act
@@ -92,6 +96,7 @@ describe('setOffSetZoomToCoords', () => {
     const initialContextState: CanvasViewSettingsContextModel = {
       canvasViewSettings: {
         canvasSize: { width: 300, height: 100 },
+        canvasViewSize: { width: 5000, height: 5000 },
         viewBoxSize: { width: 2000, height: 5000 },
         zoomFactor: 5,
         scrollPosition: { x: 0, y: 0 },
@@ -107,6 +112,7 @@ describe('setOffSetZoomToCoords', () => {
       setLoadSample: () => {},
       setViewBoxSize: () => {},
       setAutoSave: () => {},
+      setCanvasViewSize: () => {},
     };
 
     // Act
@@ -135,6 +141,10 @@ describe('setOffSetZoomToCoords', () => {
           width: Number.MAX_SAFE_INTEGER,
           height: Number.MAX_SAFE_INTEGER,
         },
+        canvasViewSize: {
+          width: Number.MAX_SAFE_INTEGER,
+          height: Number.MAX_SAFE_INTEGER,
+        },
         viewBoxSize: {
           width: Number.MAX_SAFE_INTEGER,
           height: Number.MAX_SAFE_INTEGER,
@@ -153,6 +163,7 @@ describe('setOffSetZoomToCoords', () => {
       setLoadSample: () => {},
       setViewBoxSize: () => {},
       setAutoSave: () => {},
+      setCanvasViewSize: () => {},
     };
 
     // Act
@@ -178,6 +189,7 @@ describe('setOffSetZoomToCoords', () => {
     const initialContextState: CanvasViewSettingsContextModel = {
       canvasViewSettings: {
         canvasSize: { width: 5000, height: 5000 },
+        canvasViewSize: { width: 5000, height: 5000 },
         viewBoxSize: { width: 20000, height: 20000 },
         zoomFactor: 2,
         scrollPosition: { x: 0, y: 0 },
@@ -193,6 +205,7 @@ describe('setOffSetZoomToCoords', () => {
       setLoadSample: () => {},
       setViewBoxSize: () => {},
       setAutoSave: () => {},
+      setCanvasViewSize: () => {},
     };
 
     // Act
