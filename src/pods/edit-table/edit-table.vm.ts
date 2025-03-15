@@ -29,11 +29,12 @@ export interface TableVm {
   tableName: string;
   x: number; // Canvas X Position
   y: number; // Canvas Y Position
+  comment?:string;
 }
 
 export const createDefaultTable = (): TableVm => ({
   id: GenerateGUID(),
-  tableName: 'New Collection',
+  tableName: 'New Collection',  
   fields: [
     {
       id: GenerateGUID(),

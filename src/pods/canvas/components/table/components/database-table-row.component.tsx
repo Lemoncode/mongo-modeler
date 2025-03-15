@@ -4,6 +4,7 @@ import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 import { TruncatedText } from './truncated-text.component';
 import classes from '../database-table.module.css';
 import { calculateColumNameWidth } from '../database-table.business';
+import { isNullOrWhiteSpace } from '@/core/functions';
 
 interface Props {
   tableInfo: TableVm;
@@ -41,6 +42,25 @@ export const DatabaseTableRow: React.FC<Props> = props => {
     field.type === 'object' && (field.children?.length ?? 0) > 0;
   const isExpanded = !field.isCollapsed;
 
+  const indexFlag = (fieldName: string): string => {
+    const found = tableInfo.indexes?.find(x =>
+      x.fields?.find(
+        z => z.name == fieldName || z.name.endsWith(`.${fieldName}`)
+      )
+    );
+
+    let result: string = '';
+
+    if (found) {
+      result = 'i';
+      if (found.isUnique) result = 'u' + result;
+    }
+
+    return result;
+  };
+
+  const indexFlagStr = indexFlag(field.name);
+
   return (
     <g key={field.id} transform={`translate(${MARGIN_LEFT}, ${currentY})`}>
       <g transform={`translate(${level * TABLE_CONST.LEVEL_INDENTATION}, 0)`}>
@@ -55,7 +75,10 @@ export const DatabaseTableRow: React.FC<Props> = props => {
           </text>
         )}
         <TruncatedText
-          text={field.name}
+          text={
+            field.name +
+            (isNullOrWhiteSpace(indexFlagStr) ? '' : `(${indexFlagStr})`)
+          }
           x={SPACE_ARROW_TEXT}
           y={0}
           width={
@@ -64,6 +87,16 @@ export const DatabaseTableRow: React.FC<Props> = props => {
             level * TABLE_CONST.LEVEL_INDENTATION
           }
           height={TABLE_CONST.FONT_SIZE}
+          style={
+            indexFlagStr == 'i'
+              ? { fontWeight: 'bold' }
+              : indexFlagStr == 'ui'
+                ? {
+                    fontWeight: 'bold',
+                    fontStyle: 'italic',
+                  }
+                : {}
+          }
         />
       </g>
       <TruncatedText
