@@ -82,4 +82,5 @@ export interface CanvasSchemaContextVm {
   copySelectedTable: () => void;
   pasteTable: () => void;
   hasClipboardContent: boolean;
+  clearClipboard: () => void;
 }

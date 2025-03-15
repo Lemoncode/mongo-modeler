@@ -8,13 +8,14 @@ import classes from '@/pods/toolbar/toolbar.pod.module.css';
 import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 export const NewButton = () => {
-  const { createEmptySchema } = useCanvasSchemaContext();
+  const { createEmptySchema, clearClipboard } = useCanvasSchemaContext();
   const { setFilename, setLoadSample } = useCanvasViewSettingsContext();
 
   const handleNewButtonClick = () => {
     setFilename('');
     createEmptySchema();
     setLoadSample(false);
+    clearClipboard();
   };
 
   return (
