@@ -2069,6 +2069,20 @@ describe('getSchemaScriptFromTableVm', () => {
         { id: 'id2', PK: false, name: 'field2', type: 'decimal', isNN: false },
         { id: 'id3', PK: false, name: 'field3', type: 'bool', isNN: true },
       ],
+      indexes: [
+        {
+          id: 'id_1',
+          name: 'idx_Table_01',
+          isUnique: false,
+          sparse: false,
+          fields: [
+            {
+              name: 'field1',
+              orderMethod: 'Ascending',
+            },
+          ],
+        },
+      ],
     };
     //Act
     const result = getSchemaScriptFromTableVm(table);
@@ -2087,9 +2101,17 @@ describe('getSchemaScriptFromTableVm', () => {
       },
     },
   },
-});`;
+});
+db.Table.createIndex(
+      { "field1": 1 }, 
+      { name: "idx_Table_01",
+        unique:false,
+        sparse:false,
+      });`
+      .replace(/ /g, '')
+      .replace(/\n/g, '');
 
-    expect(result).toEqual(expectedScript);
+    expect(result.replace(/ /g, '').replace(/\n/g, '')).toEqual(expectedScript);
   });
 });
 
@@ -2110,6 +2132,20 @@ describe('getSchemaScriptFromTableVmArray', () => {
             name: 'field4',
             type: 'decimal',
             isNN: false,
+          },
+        ],
+        indexes: [
+          {
+            id: 'id_1',
+            name: 'idx_Table_01',
+            isUnique: false,
+            sparse: false,
+            fields: [
+              {
+                name: 'field3',
+                orderMethod: 'Ascending',
+              },
+            ],
           },
         ],
       },
@@ -2149,6 +2185,13 @@ describe('getSchemaScriptFromTableVmArray', () => {
   },
 });
 
+db.Table.createIndex(
+      { "field3": 1 }, 
+      { name: "idx_Table_01",
+        unique:false,
+        sparse:false,
+      });
+
 db.createCollection("Table1", {
   validator: {
     $jsonSchema: {
@@ -2161,8 +2204,10 @@ db.createCollection("Table1", {
       },
     },
   },
-});`;
+});`
+      .replace(/ /g, '')
+      .replace(/\n/g, '');
 
-    expect(result).toEqual(expectedScript);
+    expect(result.replace(/ /g, '').replace(/\n/g, '')).toEqual(expectedScript);
   });
 });

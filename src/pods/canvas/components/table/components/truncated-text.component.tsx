@@ -9,6 +9,7 @@ interface Props {
   width: number;
   height: number;
   textClass?: string;
+  style?: React.CSSProperties;
 }
 
 export const TruncatedText: React.FC<Props> = props => {
@@ -26,6 +27,7 @@ export const TruncatedText: React.FC<Props> = props => {
         y={y + height}
         clipPath={`url(#clip_${id})`}
         className={!textClass ? classes.tableTextRow : textClass}
+        style={props.style}
       >
         {text}
       </text>
