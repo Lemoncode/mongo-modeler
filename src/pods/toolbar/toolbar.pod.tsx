@@ -17,6 +17,7 @@ import {
   CanvasSettingButton,
   CopyButton,
   PasteButton,
+  ImportButton,
 } from './components';
 import classes from './toolbar.pod.module.css';
 
@@ -35,6 +36,7 @@ export const ToolbarPod: React.FC = () => {
       <UndoButton />
       <RedoButton />
       <ExportButton />
+      <ImportButton />
       <DeleteButton />
       <CanvasSettingButton />
       <AboutButton />

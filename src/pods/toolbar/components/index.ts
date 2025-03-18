@@ -15,3 +15,4 @@ export * from './about-button';
 export * from './duplicate-button';
 export * from './copy-button';
 export * from './paste-button';
+export * from './import-button';
