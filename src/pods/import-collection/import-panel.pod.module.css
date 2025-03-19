@@ -1,0 +1,21 @@
+.table-name {
+	background-color: var(--background-dialog);
+	position: sticky;
+	top: 3rem;
+	left: 0px;
+	padding-top: var(--space-md);
+	padding-bottom: var(--space-md);
+	z-index: 2;
+	text-align: left;
+	border-bottom: 1px solid var(--primary-border-color);
+}
+
+.table-name label {
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+}
+
+.table-name input {
+	max-width: 190px;
+}

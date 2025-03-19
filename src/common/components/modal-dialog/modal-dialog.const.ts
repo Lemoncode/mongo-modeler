@@ -5,3 +5,4 @@ export const ADD_COLLECTION_TITLE = 'Add Collection';
 export const EDIT_COLLECTION_TITLE = 'Edit Collection';
 export const ABOUT_TITLE = 'About us';
 export const EXPORT_MODEL_TITLE = 'Export Model';
+export const IMPORT_COLLECTION_TITLE = 'Import Collection';
