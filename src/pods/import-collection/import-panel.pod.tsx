@@ -4,6 +4,7 @@ import * as canvasVm from '@/core/providers/canvas-schema';
 import * as editTableVm from '../edit-table/edit-table.vm';
 import { doMapOrCreateTable } from '../edit-table/edit-table.business';
 import { mapEditTableVmToTableVm } from '../edit-table/edit-table.mapper';
+import { parseJsonToFieldVm } from './edit-table.business';
 
 interface ImportPanelProps {
   table?: canvasVm.TableVm;
@@ -14,9 +15,14 @@ interface ImportPanelProps {
 
 const defaultJson = JSON.stringify(
   {
-    _id: { $oid: '5f5f9b3b4b4b1f001f1b1f1b' },
-    age: '30',
-    name: 'John Doe',
+    _id: { $oid: '67bdea3c01572368ed0b2d81' },
+    room: 'ada-36567',
+    content: '\nHello\n\nworld\n',
+    expireAt: {
+      $date: { $numberLong: '1740499516555' },
+      isNN: true,
+    },
+    __v: { $numberInt: '0' },
   },
   null,
   2
@@ -31,9 +37,18 @@ export const ImportPanel: React.FC<ImportPanelProps> = props => {
     doMapOrCreateTable(relations, table)
   );
 
-  const handleSubmit = (table: editTableVm.TableVm) => {
-    console.log(jsonContent);
-    onSave(mapEditTableVmToTableVm(table));
+  const handleSubmit = () => {
+    try {
+      const parsedJson = JSON.parse(jsonContent);
+      const parsedFields = parseJsonToFieldVm(parsedJson);
+      const newTable: editTableVm.TableVm = {
+        ...editTable,
+        fields: parsedFields,
+      };
+      onSave(mapEditTableVmToTableVm(newTable));
+    } catch (error) {
+      setJsonError('El JSON no es válido');
+    }
   };
 
   const handleJsonContentChange = (
@@ -62,7 +77,7 @@ export const ImportPanel: React.FC<ImportPanelProps> = props => {
           Collection:
           <input
             type="text"
-            value={table?.tableName}
+            value={editTable.tableName}
             onChange={handleChangeTableName}
             onFocus={e => e.currentTarget.select()}
           />
@@ -84,7 +99,7 @@ export const ImportPanel: React.FC<ImportPanelProps> = props => {
       <div className="two-buttons">
         <button
           className="button-secondary"
-          onClick={() => handleSubmit(editTable)}
+          onClick={handleSubmit}
           disabled={jsonError !== null}
         >
           Apply
