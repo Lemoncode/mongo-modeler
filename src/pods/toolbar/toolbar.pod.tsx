@@ -30,13 +30,13 @@ export const ToolbarPod: React.FC = () => {
       <ZoomInButton />
       <ZoomOutButton />
       <AddCollection />
+      <ImportButton />
       <RelationButton />
       <CopyButton />
       <PasteButton />
       <UndoButton />
       <RedoButton />
       <ExportButton />
-      <ImportButton />
       <DeleteButton />
       <CanvasSettingButton />
       <AboutButton />

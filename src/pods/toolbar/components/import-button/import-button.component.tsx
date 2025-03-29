@@ -47,7 +47,7 @@ export const ImportButton = () => {
   return (
     <ToolbarButton
       icon={<ImportIcon />}
-      label="Import"
+      label={'Import JSON'}
       onClick={handleImportClick}
       className={`${classes.button} hide-mobile`}
       shortcutOptions={SHORTCUTS.import}
