@@ -5,6 +5,7 @@ import { Commands } from './commands/commands.component';
 import { DragDropIcon, Checkbox } from '@/common/components';
 import { FieldVm } from '../manage-index.vm';
 import { GUID } from '@/core/model';
+import { Dropdown } from '@/common/components/dropdown/dropdown.component';
 
 interface Props {
   index: FieldVm;
@@ -25,6 +26,7 @@ interface Props {
   onMoveUp: (id: GUID) => void;
   isDeleteVisible: boolean;
   labelAddIndex?: string;
+  fieldOptions: { id: string; label: string }[];
 }
 
 const INPUT_NAME = 'Index ';
@@ -42,6 +44,7 @@ export const Index: React.FC<Props> = props => {
     nameInputRefRecord,
     isDeleteVisible,
     labelAddIndex,
+    fieldOptions,
   } = props;
   const variantsItem = {
     left: {
@@ -112,13 +115,38 @@ export const Index: React.FC<Props> = props => {
           </div>
         </div>
         <div className={classes.fieldCell}>
-          <input
-            value={index.fieldsString}
-            onChange={e => {
-              updateValue(index, 'fieldsString', e.target.value);
-            }}
-            ref={el => assignRef(el, index.id)}
-            aria-label={INPUT_NAME + index.name}
+          <Dropdown
+            name={`fields-${index.id}`}
+            options={fieldOptions}
+            value={
+              index.fields?.map(field => {
+                const option = fieldOptions.find(
+                  opt => opt.label === field.name
+                );
+                return option?.id || ''; // Map the name back to the id for the dropdown
+              }) || []
+            }
+            onChange={selectedFieldIds =>
+              updateValue(
+                index,
+                'fields',
+                selectedFieldIds.map(fieldId => {
+                  const fieldOption = fieldOptions.find(
+                    option => option.id === fieldId
+                  );
+                  if (!fieldOption) {
+                    console.error(`Field option not found for id: ${fieldId}`);
+                    return { name: '', orderMethod: 'Ascending' }; // Default to blank if not found
+                  }
+                  return {
+                    name: fieldOption.label, // Map the id to the name (label)
+                    orderMethod: 'Ascending', // Default order method
+                  };
+                })
+              )
+            }
+            selectTitle="Select Table Fields"
+            multiSelect={true}
           />
         </div>
         <div className={classes.fieldCell}>

@@ -99,6 +99,10 @@ export const ManageIndexComponent: React.FC<Props> = props => {
           onDrag={onDrag}
           nameInputRefRecord={nameInputRefRecord}
           isDeleteVisible={table.fields?.length !== 1}
+          fieldOptions={table.fields.map(field => ({
+            id: field.id,
+            label: field.name,
+          }))}
         />
       </div>
     </>

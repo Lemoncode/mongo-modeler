@@ -3,12 +3,7 @@ import { FieldVm } from './manage-index.vm';
 import { GUID } from '@/core/model';
 import * as editIndexVm from './manage-index.vm';
 import * as canvasVm from '@/core/providers/canvas-schema';
-import {
-  clonify,
-  isEqual,
-  isNullOrWhiteSpace,
-  parseManageIndexFields,
-} from '@/core/functions';
+import { clonify, isEqual, isNullOrWhiteSpace } from '@/core/functions';
 import { errorHandling, Output } from '@/core/model/errorHandling';
 
 export interface UpdateIndexValueParams<K extends keyof editIndexVm.FieldVm> {
@@ -141,8 +136,10 @@ export const apply = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
   };
 
   const _table = clonify<canvasVm.TableVm>(table);
+
+  // Validate indexes
   const errorFound = _table.indexes?.find(
-    x => isNullOrWhiteSpace(x.name) || isNullOrWhiteSpace(x.fieldsString)
+    x => isNullOrWhiteSpace(x.name) || !x.fields || x.fields.length === 0
   );
   if (!_table.indexes || errorFound) {
     const error = 'Please make sure that you provided the correct info';
@@ -154,36 +151,38 @@ export const apply = (table: canvasVm.TableVm): Output<canvasVm.TableVm> => {
   if (_table.indexes?.length > 0) {
     for (let i = 0; i < _table.indexes.length; i++) {
       const item = _table.indexes[i];
-      const fields = parseManageIndexFields(item.fieldsString);
-      _table.indexes[i].fields = [];
-      _table.indexes[i].fields.push(...fields);
-    }
 
-    let error: string = '';
-    _table.indexes.some(elem => {
-      elem.fields.some(fld => {
-        const found = doesColumnExist(table, fld.name);
+      // Validate fields array
+      if (!item.fields || item.fields.length === 0) {
+        result.errorHandling.isSuccessful = false;
+        result.errorHandling.errorMessage = `Index "${item.name}" must have at least one field.`;
+        return result;
+      }
+
+      // Validate each field in the fields array
+      let error: string = '';
+      item.fields.some(field => {
+        const found = doesColumnExist(table, field.name);
         if (!found) {
-          error = `Field name provided(${fld.name}) does not exist in the table schema.`;
+          error = `Field name provided (${field.name}) does not exist in the table schema.`;
           return true;
         }
 
         if (
-          !isNullOrWhiteSpace(fld.orderMethod) &&
-          !isEqual(fld.orderMethod, 'Ascending') &&
-          !isEqual(fld.orderMethod, 'Descending')
+          !isNullOrWhiteSpace(field.orderMethod) &&
+          !isEqual(field.orderMethod, 'Ascending') &&
+          !isEqual(field.orderMethod, 'Descending')
         ) {
-          error = `The order method provided(${fld.orderMethod}) is incorrect.`;
+          error = `The order method provided (${field.orderMethod}) is incorrect.`;
           return true;
         }
       });
-      if (!isNullOrWhiteSpace(error)) return true;
-    });
 
-    if (!isNullOrWhiteSpace(error)) {
-      result.errorHandling.isSuccessful = false;
-      result.errorHandling.errorMessage = error;
-      return result;
+      if (!isNullOrWhiteSpace(error)) {
+        result.errorHandling.isSuccessful = false;
+        result.errorHandling.errorMessage = error;
+        return result;
+      }
     }
   }
 
