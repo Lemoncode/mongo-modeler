@@ -5,6 +5,7 @@ import { Commands } from './commands/commands.component';
 import { DragDropIcon, Checkbox } from '@/common/components';
 import { FieldVm } from '../manage-index.vm';
 import { GUID } from '@/core/model';
+import { Dropdown } from '@/common/components/dropdown/dropdown.component';
 
 interface Props {
   index: FieldVm;
@@ -25,6 +26,7 @@ interface Props {
   onMoveUp: (id: GUID) => void;
   isDeleteVisible: boolean;
   labelAddIndex?: string;
+  fieldOptions: { id: string; label: string }[];
 }
 
 const INPUT_NAME = 'Index ';
@@ -42,6 +44,7 @@ export const Index: React.FC<Props> = props => {
     nameInputRefRecord,
     isDeleteVisible,
     labelAddIndex,
+    fieldOptions,
   } = props;
   const variantsItem = {
     left: {
@@ -112,13 +115,22 @@ export const Index: React.FC<Props> = props => {
           </div>
         </div>
         <div className={classes.fieldCell}>
-          <input
-            value={index.fieldsString}
-            onChange={e => {
-              updateValue(index, 'fieldsString', e.target.value);
-            }}
-            ref={el => assignRef(el, index.id)}
-            aria-label={INPUT_NAME + index.name}
+          <Dropdown
+            name={`fields-${index.id}`}
+            options={fieldOptions}
+            value={index.fields?.map(field => field.name) || []}
+            onChange={selectedFields =>
+              updateValue(
+                index,
+                'fields',
+                selectedFields.map(fieldName => ({
+                  name: fieldName,
+                  orderMethod: 'Ascending', // Default order method
+                }))
+              )
+            }
+            selectTitle="Select Table Fields"
+            multiSelect={true} // Enable multi-select
           />
         </div>
         <div className={classes.fieldCell}>

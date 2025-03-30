@@ -27,6 +27,7 @@
 
 .select-text {
   width: 100%;
+  min-width: 150px;
 }
 
 .options {
@@ -34,12 +35,11 @@
   --border-select-color: var(--input-border-color-active);
   list-style: none;
   padding: 8px;
-  padding-left: 36px;
   margin: 0;
   position: absolute;
   text-align: left;
   z-index: 3;
-  top: calc(0% + var(--border-select-width));
+  top: calc(100% + var(--border-select-width));
   left: calc(0px - var(--border-select-width));
   width: calc(100% + var(--border-select-width) * 2);
   border: var(--border-select-width) solid var(--input-border-color-active);
@@ -47,6 +47,45 @@
   background-color: var(--bg-input);
   border-radius: var(--border-radius-xs);
   max-height: 300px;
+  overflow-y: auto;
+}
+
+.options li {
+  font-size: 16px;
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  gap: 8px;
+}
+
+.options li:hover {
+  color: var(--input-border-color-active);
+  background-color: var(--hover-input);
+}
+
+.svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--input-border-color-active);
+}
+
+.svg.tick {
+  margin-right: 8px;
+}
+
+.veil {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--veil-modal);
+  opacity: 0.5;
 }
 
 .select-select:hover {
@@ -55,6 +94,7 @@
   background-color: var(--hover-input);
   color: inherit;
 }
+
 .select-active {
   --border-select-color: var(--input-border-color-active);
   box-shadow: 0 0 4px var(--hover-checkbox);
@@ -67,39 +107,4 @@
 
 .select-error.select-select:hover {
   --border-select-color: var(--color-error);
-}
-.options ul {
-  list-style: none;
-  padding-left: 20px;
-}
-
-.options li {
-  font-size: 16px;
-  color: var(--text-color);
-  cursor: pointer;
-}
-
-.options li:hover {
-  color: var(--input-border-color-active);
-}
-
-.svg {
-  position: absolute;
-  left: 8px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  width: 20px;
-  height: 21px;
-  color: var(--input-border-color-active);
-}
-
-.veil {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--veil-modal);
-  opacity: 0.5;
 }

@@ -26,6 +26,7 @@ interface NestedManageIndexGridProps {
   onDrag?: (index: FieldVm[], id?: GUID) => void;
   isDeleteVisible: boolean;
   labelAddIndex?: string;
+  fieldOptions: { id: string; label: string }[];
 }
 
 export const NestedManageIndexGrid: React.FC<NestedManageIndexGridProps> = ({
@@ -44,6 +45,7 @@ export const NestedManageIndexGrid: React.FC<NestedManageIndexGridProps> = ({
   onDrag,
   isDeleteVisible,
   labelAddIndex,
+  fieldOptions,
 }) => {
   const variantsGroup = {
     open: { opacity: 1, height: 'auto' },
@@ -79,6 +81,7 @@ export const NestedManageIndexGrid: React.FC<NestedManageIndexGridProps> = ({
             nameInputRefRecord={nameInputRefRecord}
             isDeleteVisible={isDeleteVisible}
             labelAddIndex={labelAddIndex}
+            fieldOptions={fieldOptions}
           />
         ))}
       </AnimatePresence>
