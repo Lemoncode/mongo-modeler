@@ -1,0 +1,45 @@
+.table-name,
+.json-textarea {
+	background-color: var(--background-dialog);
+	position: sticky;
+	top: 3rem;
+	left: 0;
+	padding-top: var(--space-md);
+	padding-bottom: var(--space-md);
+	z-index: 2;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.table-name {
+	border-bottom: 0.5px solid var(--primary-border-color);
+}
+
+.table-name label,
+.json-textarea label {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+}
+
+.table-name input {
+	flex: 1;
+	max-width: 190px;
+	padding: 8px;
+	height: 40px;
+}
+
+
+.json-textarea textarea {
+	flex: 1;
+	padding: 8px;
+	height: 40px;
+}
+
+.json-textarea textarea {
+	height: 200px;
+	resize: vertical;
+}
