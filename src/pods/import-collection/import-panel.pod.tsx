@@ -4,7 +4,10 @@ import * as canvasVm from '@/core/providers/canvas-schema';
 import * as editTableVm from '../edit-table/edit-table.vm';
 import { doMapOrCreateTable } from '../edit-table/edit-table.business';
 import { mapEditTableVmToTableVm } from '../edit-table/edit-table.mapper';
-import { parseJsonToFieldVm } from './edit-table.business';
+import {
+  parseJsonToFieldVm,
+  validateJsonSchema,
+} from './import-panel.business';
 
 interface ImportPanelProps {
   table?: canvasVm.TableVm;
@@ -15,14 +18,23 @@ interface ImportPanelProps {
 
 const defaultJson = JSON.stringify(
   {
-    _id: { $oid: '67bdea3c01572368ed0b2d81' },
-    room: 'ada-36567',
-    content: '\nHello\n\nworld\n',
-    expireAt: {
-      $date: { $numberLong: '1740499516555' },
-      isNN: true,
+    _id: { $oid: '1234567890abcdef12345678' },
+    user: {
+      name: 'Ada Lovelace',
+      age: { $numberInt: '36' },
+      premiumUser: true,
+      email: 'ada@babbage.com',
+      preferences: {
+        theme: 'dark',
+        notifications: { email: true, sms: false },
+      },
     },
-    __v: { $numberInt: '0' },
+    itemsPurchased: [
+      { item: 'Mechanical Keyboard', price: { $numberDouble: '99.99' } },
+      { item: 'Gaming Mouse', price: { $numberDouble: '49.99' } },
+    ],
+    createdAt: { $date: { $numberLong: '1740499516555' }, isNN: true },
+    version: { $numberInt: '1' },
   },
   null,
   2
@@ -57,12 +69,8 @@ export const ImportPanel: React.FC<ImportPanelProps> = props => {
     const newValue = e.currentTarget.value;
     setJsonContent(newValue);
 
-    try {
-      JSON.parse(newValue);
-      setJsonError(null);
-    } catch (error) {
-      setJsonError('El JSON no es válido');
-    }
+    const validationError = validateJsonSchema(newValue);
+    setJsonError(validationError);
   };
 
   const handleChangeTableName = (e: React.ChangeEvent<HTMLInputElement>) => {

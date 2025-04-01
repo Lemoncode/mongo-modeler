@@ -107,3 +107,21 @@ export function parseJsonToFieldVm(obj: Record<string, unknown>): FieldVm[] {
 function isObjectWithIsNN(value: unknown): value is { isNN: boolean } {
 	return typeof value === 'object' && value !== null && 'isNN' in value;
 }
+
+export const validateJsonSchema = (jsonString: string): string | null => {
+	try {
+		const parsed = JSON.parse(jsonString);
+
+		if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+			return 'El JSON debe ser un objeto válido';
+		}
+
+		if (Array.isArray(parsed) && parsed.length === 1 && typeof parsed[0] === 'object' && Object.keys(parsed[0]).length === 0) {
+			return 'El JSON no puede ser [{}]';
+		}
+
+		return null;
+	} catch {
+		return 'El JSON no es válido';
+	}
+};
