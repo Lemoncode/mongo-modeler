@@ -59,7 +59,7 @@ export const ImportPanel: React.FC<ImportPanelProps> = props => {
       };
       onSave(mapEditTableVmToTableVm(newTable));
     } catch (error) {
-      setJsonError('El JSON no es válido');
+      setJsonError('The JSON is not valid');
     }
   };
 
@@ -91,9 +91,13 @@ export const ImportPanel: React.FC<ImportPanelProps> = props => {
           />
         </label>
       </div>
+      <label>
+        Copy here a document (you can copy it from a collection using a tool
+        like Mongo Compass)
+      </label>
       <div className={classes.jsonTextarea}>
         <label>
-          JSON Schema:
+          JSON Document:
           <textarea
             value={jsonContent}
             onChange={handleJsonContentChange}

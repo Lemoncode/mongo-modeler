@@ -1,40 +1,5 @@
 import { GenerateGUID } from '@/core/model';
-
-export type FieldType =
-	| 'any'
-	| 'array'
-	| 'binData'
-	| 'bool'
-	| 'date'
-	| 'dbPointer'
-	| 'decimal'
-	| 'double'
-	| 'enum'
-	| 'int'
-	| 'javascript'
-	| 'long'
-	| 'maxKey'
-	| 'minKey'
-	| 'null'
-	| 'object'
-	| 'objectId'
-	| 'regex'
-	| 'string'
-	| 'symbol'
-	| 'timestamp'
-	| 'undefined';
-
-export interface FieldVm {
-	id: string;
-	PK: boolean;
-	FK: boolean;
-	name: string;
-	type: FieldType;
-	children?: FieldVm[];
-	isCollapsed?: boolean;
-	isArray?: boolean;
-	isNN?: boolean;
-}
+import { FieldType, FieldVm } from './import-panel.model';
 
 function inferMongoType(value: object | string | number | boolean | null | undefined): FieldType {
 	if (value === null) return 'null';
@@ -113,15 +78,15 @@ export const validateJsonSchema = (jsonString: string): string | null => {
 		const parsed = JSON.parse(jsonString);
 
 		if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
-			return 'El JSON debe ser un objeto válido';
+			return 'Current version only accepts a single document object';
 		}
 
 		if (Array.isArray(parsed) && parsed.length === 1 && typeof parsed[0] === 'object' && Object.keys(parsed[0]).length === 0) {
-			return 'El JSON no puede ser [{}]';
+			return 'The JSON is not valid';
 		}
 
 		return null;
 	} catch {
-		return 'El JSON no es válido';
+		return 'The JSON is not valid';
 	}
 };

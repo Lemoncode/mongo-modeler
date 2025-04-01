@@ -35,7 +35,6 @@
 
 .json-textarea textarea {
 	flex: 1;
-	max-width: 700px;
 	padding: 8px;
 	height: 40px;
 }
