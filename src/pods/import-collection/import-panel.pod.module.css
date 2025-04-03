@@ -1,3 +1,10 @@
+.text-info {
+	background-color: var(--background-dialog);
+	padding-top: var(--space-md);
+	display: flex;
+	justify-content: center;
+}
+
 .table-name,
 .json-textarea {
 	background-color: var(--background-dialog);

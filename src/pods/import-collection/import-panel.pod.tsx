@@ -76,6 +76,11 @@ export const ImportPanel: React.FC<ImportPanelProps> = props => {
   const handleChangeTableName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const tableName: string = e.currentTarget.value;
     setEditTable({ ...editTable, tableName });
+    if (e.currentTarget.value.length === 0) {
+      setJsonError('Name cannot be empty');
+    } else {
+      setJsonError(null);
+    }
   };
 
   return (
@@ -91,7 +96,7 @@ export const ImportPanel: React.FC<ImportPanelProps> = props => {
           />
         </label>
       </div>
-      <label>
+      <label className={classes.textInfo}>
         Copy here a document (you can copy it from a collection using a tool
         like Mongo Compass)
       </label>
