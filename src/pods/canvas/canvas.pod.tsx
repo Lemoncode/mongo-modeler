@@ -48,6 +48,7 @@ export const CanvasPod: React.FC = () => {
   } = useCanvasSchemaContext();
   const {
     canvasViewSettings,
+    setCanvasViewSize,
     setScrollPosition,
     setLoadSample,
     setViewBoxSize,
@@ -123,6 +124,34 @@ export const CanvasPod: React.FC = () => {
   };
 
   const containerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (containerRef.current) {
+      const container = containerRef.current;
+
+      // TODO: Rename setOffSetZoomToCoords so that it does not only apply to coords
+      // maybe setOffsetZoom?
+
+      const CANVAS_VIEW_SIZE_WITH_APPLIED_ZOOM_OFFSET = setOffSetZoomToCoords(
+        container.clientWidth + containerRef.current.scrollLeft * 2,
+        container.clientHeight + containerRef.current.scrollTop * 2,
+        viewBoxSize,
+        canvasSize,
+        zoomFactor
+      );
+
+      setCanvasViewSize({
+        width: CANVAS_VIEW_SIZE_WITH_APPLIED_ZOOM_OFFSET.x,
+        height: CANVAS_VIEW_SIZE_WITH_APPLIED_ZOOM_OFFSET.y,
+      });
+    }
+  }, [
+    containerRef.current?.clientWidth,
+    containerRef.current?.scrollLeft,
+    containerRef.current?.clientHeight,
+    containerRef.current?.scrollTop,
+    viewBoxSize,
+  ]);
 
   const handleScroll = () => {
     if (containerRef.current) {

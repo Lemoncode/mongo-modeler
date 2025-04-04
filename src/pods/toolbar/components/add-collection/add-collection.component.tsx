@@ -10,8 +10,10 @@ import {
 } from '@/core/providers/canvas-schema';
 import { ADD_COLLECTION_TITLE } from '@/common/components/modal-dialog';
 import { SHORTCUTS } from '../../shortcut/shortcut.const';
-
-const BORDER_MARGIN = 40;
+import { findFreePositionOrMinCollision } from '@/common/autoarrange-table';
+import { getTableSize } from './add-collection.helper';
+import { mapTableVMtoBoxVMMapper } from './add-collection.mapper';
+import { TABLE_GAP } from './add-collection.model';
 
 export const AddCollection = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -19,10 +21,30 @@ export const AddCollection = () => {
   const { canvasViewSettings, setLoadSample } = useCanvasViewSettingsContext();
 
   const handleAddTable = (newTable: TableVm) => {
-    const updatedTable = {
+    if (!newTable) {
+      return;
+    }
+
+    const position = findFreePositionOrMinCollision(
+      mapTableVMtoBoxVMMapper(canvasSchema.tables),
+      {
+        width: getTableSize(newTable.fields).width,
+        height: getTableSize(newTable.fields).height,
+      },
+      {
+        width: canvasViewSettings.canvasViewSize.width,
+        height: canvasViewSettings.canvasViewSize.height,
+      }
+    );
+
+    if (!position) {
+      return;
+    }
+
+    const updatedTable: TableVm = {
       ...newTable,
-      x: canvasViewSettings.scrollPosition.x + BORDER_MARGIN,
-      y: canvasViewSettings.scrollPosition.y + BORDER_MARGIN,
+      x: position.x + TABLE_GAP,
+      y: position.y,
     };
 
     addTable(updatedTable);
@@ -40,9 +62,11 @@ export const AddCollection = () => {
       ADD_COLLECTION_TITLE
     );
   };
+
   const handleCloseModal = () => {
     closeModal();
   };
+
   return (
     <ToolbarButton
       icon={<TableIcon />}
