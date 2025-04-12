@@ -17,6 +17,7 @@ interface Props {
   onUpdateTablePosition: UpdatePositionFn;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
   onEditTable: (tableInfo: TableVm) => void;
+  onManageIndex: (tableInfo: TableVm) => void;
   onEditRelation: (relationId: GUID) => void;
   onSelectElement: (relationId: GUID | null) => void;
   isTabletOrMobileDevice: boolean;
@@ -31,6 +32,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     onUpdateTablePosition,
     onToggleCollapse,
     onEditTable,
+    onManageIndex,
     onEditRelation,
     onSelectElement,
     isTabletOrMobileDevice,
@@ -63,6 +65,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           updatePosition={onUpdateTablePosition}
           onToggleCollapse={onToggleCollapse}
           onEditTable={onEditTable}
+          onManageIndex={onManageIndex}
           canvasSize={canvasSize}
           isSelected={canvasSchema.selectedElementId === table.id}
           selectTable={onSelectElement}

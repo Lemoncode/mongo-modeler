@@ -6,26 +6,43 @@ import { SELECT_AN_OPTION } from './dropdown.const';
 import { useA11ySelect } from '@/common/a11y';
 import { Tick } from '../icons/tick-icon.component';
 
-// import { handleFocus, handleNextFocus } from './dropdown.business';
-
 interface Props {
   name: string;
   options: DropdownOptionVm[];
-  value?: string;
-  onChange: (field: string) => void;
+  value?: string[]; // Change to an array for multi-selection
+  onChange: (fields: string[]) => void; // Update to handle multiple selections
   selectTitle?: string;
-  //TODO: css class?
   isError?: boolean;
+  multiSelect?: boolean; // Add multiSelect prop
 }
 
 export const Dropdown: React.FC<Props> = props => {
-  const { name, options, selectTitle, value, onChange, isError } = props;
+  const {
+    name,
+    options,
+    selectTitle,
+    value = [],
+    onChange,
+    isError,
+    multiSelect,
+  } = props;
 
-  const findSelectedOption = (value: string | undefined) => {
-    return options.find(option => option.id === value);
+  const findSelectedOptions = (value: string[] | undefined) => {
+    return options.filter(option => value?.includes(option.id));
   };
+
   const handleChange = (option: DropdownOptionVm | undefined) => {
-    option ? onChange(option.id) : onChange('');
+    if (!option) return; // Handle undefined case
+    if (multiSelect) {
+      // Handle multi-selection logic
+      const newValue = value.includes(option.id)
+        ? value.filter(v => v !== option.id) // Remove if already selected
+        : [...value, option.id]; // Add if not selected
+      onChange(newValue);
+    } else {
+      // Handle single selection
+      onChange([option.id]);
+    }
   };
 
   const {
@@ -36,12 +53,11 @@ export const Dropdown: React.FC<Props> = props => {
     setIsOpen,
     options: a11yOptions,
     selectedOption,
-    setSelectedOption,
     onFocusOption,
   } = useA11ySelect(
     options,
     option => option.id,
-    findSelectedOption(value),
+    multiSelect ? undefined : findSelectedOptions(value)[0], // Handle single or multi-select
     handleChange
   );
 
@@ -64,7 +80,13 @@ export const Dropdown: React.FC<Props> = props => {
         tabIndex={0}
       >
         <p className={classes.selectText}>
-          {selectedOption?.label || selectTitle || SELECT_AN_OPTION}
+          {multiSelect
+            ? value
+                .map(id => options.find(option => option.id === id)?.label)
+                .join(', ') ||
+              selectTitle ||
+              SELECT_AN_OPTION
+            : selectedOption?.label || selectTitle || SELECT_AN_OPTION}
         </p>
         <ExpandDown />
         {isOpen && (
@@ -88,12 +110,12 @@ export const Dropdown: React.FC<Props> = props => {
                   key={option.id}
                   role="option"
                   tabIndex={option.tabIndex}
-                  aria-selected={selectedOption?.id === option.id}
-                  onClick={() => setSelectedOption(option.id)}
+                  aria-selected={value.includes(option.id)} // Check if the option is selected
+                  onClick={() => handleChange(option)}
                   ref={onFocusOption(option)}
                 >
                   <div className={classes.svg} aria-hidden="true">
-                    {selectedOption?.id === option.id ? <Tick /> : ''}
+                    {value.includes(option.id) ? <Tick /> : ''}
                   </div>
                   {option.label}
                 </li>
