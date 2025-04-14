@@ -15,6 +15,7 @@ interface Props {
   onDeleteField: (fieldId: GUID) => void;
   onAddField: (fieldId: GUID, isChildren: boolean, newFieldId: GUID) => void;
   updateTableName: (value: string) => void;
+  updateTableComment: (value: string) => void;
   onMoveDownField: (fieldId: GUID) => void;
   onMoveUpField: (fieldId: GUID) => void;
   onDragField: (fields: FieldVm[], id?: GUID) => void;
@@ -27,6 +28,7 @@ export const EditTableComponent: React.FC<Props> = props => {
     onDeleteField,
     onAddField,
     updateTableName,
+    updateTableComment,
     onMoveDownField,
     onMoveUpField,
     onDragField,
@@ -62,6 +64,10 @@ export const EditTableComponent: React.FC<Props> = props => {
     updateTableName(e.currentTarget.value);
   };
 
+  const handleChangeTableComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    updateTableComment(e.currentTarget.value);
+  };
+
   return (
     <>
       <div className={classes.tableName}>
@@ -72,6 +78,17 @@ export const EditTableComponent: React.FC<Props> = props => {
             value={table.tableName}
             onChange={handleChangeTableName}
             onFocus={e => e.currentTarget.select()}
+          />
+        </label>
+      </div>
+      <div className={classes.tableName}>
+        <label>
+          Comment:
+          <textarea
+            value={table.comment}
+            onChange={handleChangeTableComment}
+            onFocus={e => e.currentTarget.select()}
+            rows={3}
           />
         </label>
       </div>

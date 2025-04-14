@@ -72,6 +72,10 @@ export const EditTablePod: React.FC<Props> = props => {
     setEditTable({ ...editTable, tableName });
   };
 
+  const updateTableComment = (comment: string) => {
+    setEditTable({ ...editTable, comment });
+  };
+
   const onMoveDownField = (fieldId: GUID) => {
     setEditTable(currentTable => moveDownField(currentTable, fieldId));
   };
@@ -103,6 +107,7 @@ export const EditTablePod: React.FC<Props> = props => {
         onDeleteField={onDeleteField}
         onAddField={onAddField}
         updateTableName={updateTableName}
+        updateTableComment={updateTableComment}
         onMoveDownField={onMoveDownField}
         onMoveUpField={onMoveUpField}
         onDragField={onDragField}
