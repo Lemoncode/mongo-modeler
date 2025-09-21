@@ -16,6 +16,7 @@ interface Props {
   tableName: string;
   onSelectTable: () => void;
   isTabletOrMobileDevice: boolean;
+  width: number;
 }
 
 export const DatabaseTableHeader: React.FC<Props> = props => {
@@ -25,6 +26,7 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
     tableName,
     onSelectTable,
     isTabletOrMobileDevice,
+    width,
   } = props;
 
   const handlePencilIconClick = (
@@ -49,7 +51,7 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
       <rect
         x="0"
         y={TABLE_CONST.HEADER_HEIGHT - 5}
-        width={TABLE_CONST.TABLE_WIDTH}
+        width={width}
         height="5"
         className={classes.tableHeader}
       />
@@ -59,7 +61,7 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
         rx={TABLE_BORDER_RADIUS}
         x="0"
         y="0"
-        width={TABLE_CONST.TABLE_WIDTH}
+        width={width}
         height={TABLE_CONST.HEADER_HEIGHT}
         className={classes.tableHeader}
       />
@@ -67,13 +69,13 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
         text={tableName}
         x={TITLE_MARGIN_LEFT}
         y={4}
-        width={TABLE_CONST.TABLE_WIDTH - TITLE_MARGIN_LEFT}
+        width={width - TITLE_MARGIN_LEFT}
         height={TABLE_CONST.FONT_SIZE}
         textClass={classes.tableText}
       />
       {isSelected && !isTabletOrMobileDevice && (
         <g
-          transform={`translate(${TABLE_CONST.TABLE_WIDTH - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
+          transform={`translate(${width - (PENCIL_ICON_WIDTH - PENCIL_MARGIN_RIGHT)}, 2)`}
           onClick={handlePencilIconClick}
         >
           <rect
@@ -92,11 +94,7 @@ export const DatabaseTableHeader: React.FC<Props> = props => {
       <rect
         x="0"
         y="0"
-        width={
-          isSelected
-            ? TABLE_CONST.TABLE_WIDTH - PENCIL_ICON_WIDTH
-            : TABLE_CONST.TABLE_WIDTH
-        }
+        width={isSelected ? width - PENCIL_ICON_WIDTH : width}
         height={TABLE_CONST.HEADER_HEIGHT}
         fill="transparent"
         onClick={handleClick}

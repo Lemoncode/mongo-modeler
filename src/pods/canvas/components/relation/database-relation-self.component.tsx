@@ -42,7 +42,7 @@ export const DatabaseRelationSelfComponent: React.FC<
   M ${startCoords.x} ${startCoords.y} 
   H ${startCoords.x - TABLE_CONST.HORIZONTAL_LEFT_EXTENSION} 
   V ${endCoords.y} 
-  H ${endCoords.x - TABLE_CONST.TABLE_WIDTH}
+  H ${endCoords.x - TABLE_CONST.DEFAULT_TABLE_WIDTH}
   `;
 
   const oneToManyRelationSelfPath = `
@@ -56,7 +56,7 @@ export const DatabaseRelationSelfComponent: React.FC<
   M ${originXMinusFork} ${startCoords.y} 
   H ${startCoords.x - TABLE_CONST.HORIZONTAL_LEFT_EXTENSION} 
   V ${endCoords.y}
-  H ${endCoords.x - TABLE_CONST.TABLE_WIDTH}
+  H ${endCoords.x - TABLE_CONST.DEFAULT_TABLE_WIDTH}
   `;
 
   const getRelationPathBasedOnType = (relationType: RelationType) => {

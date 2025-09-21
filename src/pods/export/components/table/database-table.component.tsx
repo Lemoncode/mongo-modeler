@@ -68,14 +68,14 @@ export const DatabaseTable: React.FC<Props> = ({ tableInfo }) => {
       <rect
         x="0"
         y="0"
-        width={TABLE_CONST.TABLE_WIDTH}
+        width={TABLE_CONST.DEFAULT_TABLE_WIDTH}
         height={totalHeight + HEADER_TITLE_GAP}
         style={{ fill: `${exportStylesVariables.SECONDARY_BACKGROUND}` }}
       />
       <rect
         x="0"
         y="0"
-        width={TABLE_CONST.TABLE_WIDTH}
+        width={TABLE_CONST.DEFAULT_TABLE_WIDTH}
         height={TABLE_CONST.HEADER_HEIGHT}
         style={{ fill: `${exportStylesVariables.HIGHLIGHT_COLOR}` }}
       />
@@ -96,7 +96,7 @@ export const DatabaseTable: React.FC<Props> = ({ tableInfo }) => {
       <rect
         x="0"
         y="0"
-        width={TABLE_CONST.TABLE_WIDTH}
+        width={TABLE_CONST.DEFAULT_TABLE_WIDTH}
         height={totalHeight + HEADER_TITLE_GAP}
         style={{
           fill: 'none',

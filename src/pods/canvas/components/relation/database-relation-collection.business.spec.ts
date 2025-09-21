@@ -5,7 +5,7 @@ import { isOverLapping } from './database-relation-collection.business';
 describe('database-relation-collection.business', () => {
   describe('isOverLapping function tests', () => {
     it('non-overlapping tables (before)', () => {
-      vi.spyOn(TABLE_CONST, 'TABLE_WIDTH', 'get').mockReturnValue(100);
+      vi.spyOn(TABLE_CONST, 'DEFAULT_TABLE_WIDTH', 'get').mockReturnValue(100);
       console.log(
         `
         Table A |====|
@@ -25,7 +25,7 @@ describe('database-relation-collection.business', () => {
     });
 
     it('non-overlapping tables (after)', () => {
-      vi.spyOn(TABLE_CONST, 'TABLE_WIDTH', 'get').mockReturnValue(100);
+      vi.spyOn(TABLE_CONST, 'DEFAULT_TABLE_WIDTH', 'get').mockReturnValue(100);
       console.log(
         `
         Table A           |====|
@@ -45,7 +45,7 @@ describe('database-relation-collection.business', () => {
     });
 
     it('overlapping tables (partial)', () => {
-      vi.spyOn(TABLE_CONST, 'TABLE_WIDTH', 'get').mockReturnValue(100);
+      vi.spyOn(TABLE_CONST, 'DEFAULT_TABLE_WIDTH', 'get').mockReturnValue(100);
       console.log(
         `
         Table A |====|
@@ -65,7 +65,7 @@ describe('database-relation-collection.business', () => {
     });
 
     it('overlapping tables (partial - reverse)', () => {
-      vi.spyOn(TABLE_CONST, 'TABLE_WIDTH', 'get').mockReturnValue(100);
+      vi.spyOn(TABLE_CONST, 'DEFAULT_TABLE_WIDTH', 'get').mockReturnValue(100);
       console.log(
         `
         Table A    |====|
@@ -85,7 +85,7 @@ describe('database-relation-collection.business', () => {
     });
 
     it('overlapping tables (full)', () => {
-      vi.spyOn(TABLE_CONST, 'TABLE_WIDTH', 'get').mockReturnValue(100);
+      vi.spyOn(TABLE_CONST, 'DEFAULT_TABLE_WIDTH', 'get').mockReturnValue(100);
       console.log(
         `
         Table A |====|
@@ -105,7 +105,7 @@ describe('database-relation-collection.business', () => {
     });
 
     it('overlapping tables (edge)', () => {
-      vi.spyOn(TABLE_CONST, 'TABLE_WIDTH', 'get').mockReturnValue(100);
+      vi.spyOn(TABLE_CONST, 'DEFAULT_TABLE_WIDTH', 'get').mockReturnValue(100);
       console.log(
         `
         Table A |====|
@@ -125,7 +125,7 @@ describe('database-relation-collection.business', () => {
     });
 
     it('overlapping tables (edge - reverse)', () => {
-      vi.spyOn(TABLE_CONST, 'TABLE_WIDTH', 'get').mockReturnValue(100);
+      vi.spyOn(TABLE_CONST, 'DEFAULT_TABLE_WIDTH', 'get').mockReturnValue(100);
       console.log(
         `
         Table A      |====|

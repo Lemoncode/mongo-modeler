@@ -4,3 +4,4 @@ export * from './database-table-header.component';
 export * from './database-table-row.component';
 export * from './selected-table-filter-highlight.component';
 export * from './truncated-text.component';
+export * from './table-resize-handles.component';

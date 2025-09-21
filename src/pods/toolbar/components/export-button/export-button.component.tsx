@@ -55,7 +55,7 @@ export const ExportButton = () => {
     () => ({
       width:
         getMaxPositionXFromTables(tablesWithExpandedFields) +
-        TABLE_CONST.TABLE_WIDTH +
+        TABLE_CONST.DEFAULT_TABLE_WIDTH +
         TABLE_CONST.CANVAS_PADDING,
       height:
         getMaxPositionYFromTables(tablesWithExpandedFields) +

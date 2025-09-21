@@ -1,4 +1,5 @@
 import { FieldType, GUID, GenerateGUID } from '@/core/model';
+import { TABLE_CONST } from '@/core/providers/canvas-schema/canvas.const';
 
 // EditTableVm is different from canvas FK field
 // We will need to create a mapper taking into account
@@ -29,6 +30,7 @@ export interface TableVm {
   tableName: string;
   x: number; // Canvas X Position
   y: number; // Canvas Y Position
+  width?: number; // Table width, defaults to DEFAULT_TABLE_WIDTH if not specified
 }
 
 export const createDefaultTable = (): TableVm => ({
@@ -46,6 +48,7 @@ export const createDefaultTable = (): TableVm => ({
   ],
   x: 0,
   y: 0,
+  width: TABLE_CONST.DEFAULT_TABLE_WIDTH,
 });
 
 interface OptionEntry {

@@ -11,31 +11,41 @@ interface Props {
   level: number;
   currentY: number;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
+  tableWidth: number;
 }
 
 const MARGIN_LEFT = 10;
 const MARGIN_RIGHT = 14;
-const TABLE_CLEAN_WIDTH =
-  TABLE_CONST.DEFAULT_TABLE_WIDTH - MARGIN_LEFT - MARGIN_RIGHT;
 const COLUMN_TYPE_PIXEL_WIDTH = 80;
 const COLUMN_NOTNULL_PIXEL_WIDTH = 23;
-
 const COLUMN_SPACE_PIXEL_WIDTH = TABLE_CONST.FONT_SIZE * 1.5;
-const COLUMN_NAME_PIXEL_WIDTH = calculateColumNameWidth(
-  [
-    COLUMN_TYPE_PIXEL_WIDTH,
-    COLUMN_SPACE_PIXEL_WIDTH,
-    COLUMN_NOTNULL_PIXEL_WIDTH,
-    COLUMN_SPACE_PIXEL_WIDTH,
-  ],
-  TABLE_CLEAN_WIDTH
-);
 
 const SPACE_ARROW_TEXT = TABLE_CONST.FONT_SIZE * 1.35;
 const PIXELS_CENTER_ARROW = 1.5;
 
 export const DatabaseTableRow: React.FC<Props> = props => {
-  const { field, tableInfo, level, currentY, onToggleCollapse } = props;
+  const { field, tableInfo, level, currentY, onToggleCollapse, tableWidth } =
+    props;
+
+  // Calculate dynamic column width for field name based on table width
+  const tableCleanWidth = tableWidth - MARGIN_LEFT - MARGIN_RIGHT;
+  const columnNamePixelWidth = calculateColumNameWidth(
+    [
+      COLUMN_TYPE_PIXEL_WIDTH,
+      COLUMN_SPACE_PIXEL_WIDTH,
+      COLUMN_NOTNULL_PIXEL_WIDTH,
+      COLUMN_SPACE_PIXEL_WIDTH,
+    ],
+    tableCleanWidth
+  );
+
+  // Debug: Log the calculated values
+  console.log(
+    'TableWidth:',
+    tableWidth,
+    'ColumnNameWidth:',
+    columnNamePixelWidth
+  );
 
   const isExpandable =
     field.type === 'object' && (field.children?.length ?? 0) > 0;
@@ -59,7 +69,7 @@ export const DatabaseTableRow: React.FC<Props> = props => {
           x={SPACE_ARROW_TEXT}
           y={0}
           width={
-            COLUMN_NAME_PIXEL_WIDTH -
+            columnNamePixelWidth -
             SPACE_ARROW_TEXT -
             level * TABLE_CONST.LEVEL_INDENTATION
           }
@@ -68,7 +78,7 @@ export const DatabaseTableRow: React.FC<Props> = props => {
       </g>
       <TruncatedText
         text={`${field.type}${field.isArray ? `[]` : ''}`}
-        x={COLUMN_NAME_PIXEL_WIDTH + COLUMN_SPACE_PIXEL_WIDTH}
+        x={columnNamePixelWidth + COLUMN_SPACE_PIXEL_WIDTH}
         y={0}
         width={COLUMN_TYPE_PIXEL_WIDTH}
         height={TABLE_CONST.FONT_SIZE}
@@ -76,7 +86,7 @@ export const DatabaseTableRow: React.FC<Props> = props => {
       <TruncatedText
         text={`${field.isNN ? `NN` : ''}`}
         x={
-          COLUMN_NAME_PIXEL_WIDTH +
+          columnNamePixelWidth +
           COLUMN_SPACE_PIXEL_WIDTH +
           COLUMN_TYPE_PIXEL_WIDTH +
           COLUMN_SPACE_PIXEL_WIDTH
