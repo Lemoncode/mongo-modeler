@@ -5,7 +5,7 @@ import {
 } from './export-button.business';
 
 const calculateTableEndXCoordinate = (table: TableVm): number =>
-  table.x + TABLE_CONST.DEFAULT_TABLE_WIDTH;
+  table.x + (table.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH);
 
 const calculateTableButtonCoordinate = (table: TableVm): number =>
   calculateTableEndYPosition({

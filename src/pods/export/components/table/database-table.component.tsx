@@ -14,6 +14,9 @@ const HEADER_TITLE_GAP = 15;
 export const DatabaseTable: React.FC<Props> = ({ tableInfo }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
 
+  // Get the table width, using DEFAULT_TABLE_WIDTH as fallback
+  const tableWidth = tableInfo.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH;
+
   const renderRows = (
     fields: FieldVm[],
     level: number,
@@ -31,6 +34,7 @@ export const DatabaseTable: React.FC<Props> = ({ tableInfo }) => {
           field={field}
           level={level}
           currentY={currentY}
+          tableWidth={tableWidth}
         />
       );
 
@@ -68,14 +72,14 @@ export const DatabaseTable: React.FC<Props> = ({ tableInfo }) => {
       <rect
         x="0"
         y="0"
-        width={TABLE_CONST.DEFAULT_TABLE_WIDTH}
+        width={tableWidth}
         height={totalHeight + HEADER_TITLE_GAP}
         style={{ fill: `${exportStylesVariables.SECONDARY_BACKGROUND}` }}
       />
       <rect
         x="0"
         y="0"
-        width={TABLE_CONST.DEFAULT_TABLE_WIDTH}
+        width={tableWidth}
         height={TABLE_CONST.HEADER_HEIGHT}
         style={{ fill: `${exportStylesVariables.HIGHLIGHT_COLOR}` }}
       />
@@ -96,7 +100,7 @@ export const DatabaseTable: React.FC<Props> = ({ tableInfo }) => {
       <rect
         x="0"
         y="0"
-        width={TABLE_CONST.DEFAULT_TABLE_WIDTH}
+        width={tableWidth}
         height={totalHeight + HEADER_TITLE_GAP}
         style={{
           fill: 'none',
