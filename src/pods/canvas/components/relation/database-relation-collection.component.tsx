@@ -52,7 +52,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
 
     const getLayoutType = (): LayoutType => {
       if (relation.fromTableId === relation.toTableId) return 'self';
-      if (isOverLapping(fromTable.x, toTable.x)) return 'overlapping';
+      if (isOverLapping(fromTable, toTable)) return 'overlapping';
       return 'straight';
     };
 
