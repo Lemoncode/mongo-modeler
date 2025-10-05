@@ -1,6 +1,10 @@
 import React from 'react';
 import { Coords, GUID } from '@/core/model';
-import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
+import {
+  DatabaseSchemaVm,
+  RelationVm,
+  TABLE_CONST,
+} from '@/core/providers/canvas-schema';
 import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
@@ -70,6 +74,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
               startCoords={startCoords}
               endCoords={endCoords}
               isSelected={relation.id === schema.selectedElementId}
+              tableWidth={fromTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH}
             />
           );
         case 'overlapping':

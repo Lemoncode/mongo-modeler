@@ -8,10 +8,12 @@ interface Props {
   endCoords: Coords;
   onClick: (relationId: GUID) => void;
   onDoubleClick: (relationId: GUID) => void;
+  tableWidth: number;
 }
 
 export const ClickableSelfComponent: React.FC<Props> = props => {
-  const { id, startCoords, endCoords, onClick, onDoubleClick } = props;
+  const { id, startCoords, endCoords, onClick, onDoubleClick, tableWidth } =
+    props;
 
   const handleClick = (e: React.MouseEvent<SVGLineElement, MouseEvent>) => {
     onClick(id);
@@ -22,7 +24,7 @@ export const ClickableSelfComponent: React.FC<Props> = props => {
   M ${startCoords.x} ${startCoords.y} 
   H ${startCoords.x - TABLE_CONST.HORIZONTAL_LEFT_EXTENSION} 
   V ${endCoords.y} 
-  H ${endCoords.x - TABLE_CONST.DEFAULT_TABLE_WIDTH}
+  H ${endCoords.x - tableWidth}
   `;
 
   return (

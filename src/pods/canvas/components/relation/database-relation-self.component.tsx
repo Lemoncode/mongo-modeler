@@ -14,6 +14,7 @@ interface DatabaseSelfRelationshipProps {
   onClick: (relationId: GUID) => void;
   onDoubleClick: (relationId: GUID) => void;
   isSelected: boolean;
+  tableWidth: number;
 }
 
 export const DatabaseRelationSelfComponent: React.FC<
@@ -27,6 +28,7 @@ export const DatabaseRelationSelfComponent: React.FC<
     isSelected,
     onClick,
     onDoubleClick,
+    tableWidth,
   } = props;
 
   // Determine the direction of the fork
@@ -42,7 +44,7 @@ export const DatabaseRelationSelfComponent: React.FC<
   M ${startCoords.x} ${startCoords.y} 
   H ${startCoords.x - TABLE_CONST.HORIZONTAL_LEFT_EXTENSION} 
   V ${endCoords.y} 
-  H ${endCoords.x - TABLE_CONST.DEFAULT_TABLE_WIDTH}
+  H ${endCoords.x - tableWidth}
   `;
 
   const oneToManyRelationSelfPath = `
@@ -56,7 +58,7 @@ export const DatabaseRelationSelfComponent: React.FC<
   M ${originXMinusFork} ${startCoords.y} 
   H ${startCoords.x - TABLE_CONST.HORIZONTAL_LEFT_EXTENSION} 
   V ${endCoords.y}
-  H ${endCoords.x - TABLE_CONST.DEFAULT_TABLE_WIDTH}
+  H ${endCoords.x - tableWidth}
   `;
 
   const getRelationPathBasedOnType = (relationType: RelationType) => {
@@ -112,6 +114,7 @@ export const DatabaseRelationSelfComponent: React.FC<
         endCoords={endCoords}
         onClick={onClick}
         onDoubleClick={onDoubleClick}
+        tableWidth={tableWidth}
       />
     </svg>
   );
