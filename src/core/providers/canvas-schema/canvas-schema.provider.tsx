@@ -60,6 +60,37 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     );
   };
 
+  const updateTableWidth = (
+    tableId: GUID,
+    width: number,
+    saveToHistory: boolean = false
+  ) => {
+    if (saveToHistory) {
+      // Save to history for undo/redo
+      setSchema(prevSchema => {
+        const table = prevSchema.tables.find(t => t.id === tableId);
+        if (table) {
+          const updatedTable = { ...table, width };
+          return updateTable(updatedTable, {
+            ...prevSchema,
+            isPristine: false,
+          });
+        }
+        return prevSchema;
+      });
+    } else {
+      // Skip history for real-time updates during drag
+      setSchemaSkipHistory(prevSchema =>
+        produce(prevSchema, (draft: DatabaseSchemaVm) => {
+          const table = draft.tables.find((t: TableVm) => t.id === tableId);
+          if (table) {
+            table.width = width;
+          }
+        })
+      );
+    }
+  };
+
   // TODO: #56 created to track this
   // https://github.com/Lemoncode/mongo-modeler/issues/56
   const addTable = (table: TableVm) => {
@@ -250,6 +281,7 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         copySelectedTable,
         pasteTable,
         hasClipboardContent: Boolean(clipboardTable),
+        updateTableWidth,
       }}
     >
       {children}

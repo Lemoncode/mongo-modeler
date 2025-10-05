@@ -8,30 +8,30 @@ interface Props {
   field: FieldVm;
   level: number;
   currentY: number;
+  tableWidth: number;
 }
 
-const MARGIN_LEFT = 10;
-const MARGIN_RIGHT = 14;
-const TABLE_CLEAN_WIDTH =
-  TABLE_CONST.DEFAULT_TABLE_WIDTH - MARGIN_LEFT - MARGIN_RIGHT;
-const COLUMN_TYPE_PIXEL_WIDTH = 80;
-const COLUMN_NOTNULL_PIXEL_WIDTH = 22;
-
-const COLUMN_SPACE_PIXEL_WIDTH = TABLE_CONST.FONT_SIZE * 1.5;
-const COLUMN_NAME_PIXEL_WIDTH = calculateColumNameWidth(
-  [
-    COLUMN_TYPE_PIXEL_WIDTH,
-    COLUMN_SPACE_PIXEL_WIDTH,
-    COLUMN_NOTNULL_PIXEL_WIDTH,
-    COLUMN_SPACE_PIXEL_WIDTH,
-  ],
-  TABLE_CLEAN_WIDTH
-);
-const SPACE_BELOW_TEXT = 3;
-const SPACE_ARROW_TEXT = TABLE_CONST.FONT_SIZE * 1.5;
-
 export const DatabaseTableRow: React.FC<Props> = props => {
-  const { field, level, currentY } = props;
+  const { field, level, currentY, tableWidth } = props;
+
+  const MARGIN_LEFT = 10;
+  const MARGIN_RIGHT = 14;
+  const TABLE_CLEAN_WIDTH = tableWidth - MARGIN_LEFT - MARGIN_RIGHT;
+  const COLUMN_TYPE_PIXEL_WIDTH = 80;
+  const COLUMN_NOTNULL_PIXEL_WIDTH = 22;
+
+  const COLUMN_SPACE_PIXEL_WIDTH = TABLE_CONST.FONT_SIZE * 1.5;
+  const COLUMN_NAME_PIXEL_WIDTH = calculateColumNameWidth(
+    [
+      COLUMN_TYPE_PIXEL_WIDTH,
+      COLUMN_SPACE_PIXEL_WIDTH,
+      COLUMN_NOTNULL_PIXEL_WIDTH,
+      COLUMN_SPACE_PIXEL_WIDTH,
+    ],
+    TABLE_CLEAN_WIDTH
+  );
+  const SPACE_BELOW_TEXT = 3;
+  const SPACE_ARROW_TEXT = TABLE_CONST.FONT_SIZE * 1.5;
 
   const isExpandable =
     field.type === 'object' && (field.children?.length ?? 0) > 0;
