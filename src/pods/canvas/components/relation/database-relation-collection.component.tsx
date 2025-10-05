@@ -87,6 +87,10 @@ export const DatabaseRelationCollectionComponent: React.FC<
               startCoords={startCoords}
               endCoords={endCoords}
               isSelected={relation.id === schema.selectedElementId}
+              startTableWidth={
+                fromTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH
+              }
+              endTableWidth={toTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH}
             />
           );
         case 'straight':
@@ -99,6 +103,10 @@ export const DatabaseRelationCollectionComponent: React.FC<
               startCoords={startCoords}
               endCoords={endCoords}
               isSelected={relation.id === schema.selectedElementId}
+              startTableWidth={
+                fromTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH
+              }
+              endTableWidth={toTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH}
             />
           );
       }

@@ -5,46 +5,48 @@ import { FORK_WIDTH } from './relation.vm';
 export const getRelationPath = (
   relationType: RelationType,
   startCoords: Coords,
-  endCoords: Coords
+  endCoords: Coords,
+  startTableWidth: number = TABLE_CONST.DEFAULT_TABLE_WIDTH,
+  _endTableWidth: number = TABLE_CONST.DEFAULT_TABLE_WIDTH
 ) => {
   const leftHandSideOneToOnePath = `
-M ${startCoords.x - TABLE_CONST.DEFAULT_TABLE_WIDTH} ${startCoords.y} 
-H ${startCoords.x - (TABLE_CONST.DEFAULT_TABLE_WIDTH + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION)} 
+M ${startCoords.x - startTableWidth} ${startCoords.y} 
+H ${startCoords.x - (startTableWidth + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION)} 
 V ${endCoords.y} 
 H ${endCoords.x}
 `;
 
   const rightHandSideOneToOnePath = `
-M ${startCoords.x + TABLE_CONST.DEFAULT_TABLE_WIDTH} ${startCoords.y}
-H ${startCoords.x + TABLE_CONST.DEFAULT_TABLE_WIDTH + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION}
+M ${startCoords.x + startTableWidth} ${startCoords.y}
+H ${startCoords.x + startTableWidth + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION}
 V ${endCoords.y}
 H ${endCoords.x}
 `;
 
   const leftHandSideOneToManyPath = `
-M ${startCoords.x - TABLE_CONST.DEFAULT_TABLE_WIDTH} ${startCoords.y} 
-H ${startCoords.x - (TABLE_CONST.DEFAULT_TABLE_WIDTH + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION)} 
+M ${startCoords.x - startTableWidth} ${startCoords.y} 
+H ${startCoords.x - (startTableWidth + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION)} 
 V ${endCoords.y} 
 H ${endCoords.x - FORK_WIDTH}
 `;
 
   const rightHandSideOneToManyPath = `
-M ${startCoords.x + TABLE_CONST.DEFAULT_TABLE_WIDTH} ${startCoords.y}
-H ${startCoords.x + TABLE_CONST.DEFAULT_TABLE_WIDTH + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION}
+M ${startCoords.x + startTableWidth} ${startCoords.y}
+H ${startCoords.x + startTableWidth + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION}
 V ${endCoords.y}
 H ${endCoords.x + FORK_WIDTH}
 `;
 
   const leftHandSideManyToOnePath = `
-M ${startCoords.x - TABLE_CONST.DEFAULT_TABLE_WIDTH - FORK_WIDTH} ${startCoords.y}
-H ${startCoords.x - (TABLE_CONST.DEFAULT_TABLE_WIDTH + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION)}
+M ${startCoords.x - startTableWidth - FORK_WIDTH} ${startCoords.y}
+H ${startCoords.x - (startTableWidth + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION)}
 V ${endCoords.y}
 H ${endCoords.x}
 `;
 
   const rightHandSideManyToOnePath = `
-M ${startCoords.x + TABLE_CONST.DEFAULT_TABLE_WIDTH + FORK_WIDTH} ${startCoords.y}
-H ${startCoords.x + TABLE_CONST.DEFAULT_TABLE_WIDTH + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION}
+M ${startCoords.x + startTableWidth + FORK_WIDTH} ${startCoords.y}
+H ${startCoords.x + startTableWidth + TABLE_CONST.HORIZONTAL_LEFT_EXTENSION}
 V ${endCoords.y}
 H ${endCoords.x}
 `;
@@ -71,7 +73,9 @@ H ${endCoords.x}
 export const getForkCoords = (
   relationType: RelationType,
   startCoords: Coords,
-  endCoords: Coords
+  endCoords: Coords,
+  startTableWidth: number = TABLE_CONST.DEFAULT_TABLE_WIDTH,
+  _endTableWidth: number = TABLE_CONST.DEFAULT_TABLE_WIDTH
 ): Coords => {
   const leftForkCoordsOneToManyPath: Coords = {
     x: endCoords.x - FORK_WIDTH,
@@ -83,12 +87,12 @@ export const getForkCoords = (
   };
 
   const leftForkCoordsManyToOnePath: Coords = {
-    x: startCoords.x - TABLE_CONST.DEFAULT_TABLE_WIDTH - FORK_WIDTH,
+    x: startCoords.x - startTableWidth - FORK_WIDTH,
     y: startCoords.y,
   };
 
   const rightForkCoordsManyToOnePath: Coords = {
-    x: startCoords.x + TABLE_CONST.DEFAULT_TABLE_WIDTH + FORK_WIDTH,
+    x: startCoords.x + startTableWidth + FORK_WIDTH,
     y: startCoords.y,
   };
 
