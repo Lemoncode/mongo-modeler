@@ -17,6 +17,8 @@ interface DatabaseRelationshipTwoTablesProps {
   onClick: (relationId: GUID) => void;
   onDoubleClick: (relationId: GUID) => void;
   isSelected: boolean;
+  startTableWidth?: number;
+  endTableWidth?: number;
 }
 
 export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
@@ -29,7 +31,13 @@ export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
   isSelected,
   onClick,
   onDoubleClick,
+  startTableWidth,
+  endTableWidth,
 }) => {
+  // Suppress unused parameter warnings - these are used for interface compatibility
+  void startTableWidth;
+  void endTableWidth;
+
   // Determine the direction of the fork
   const isDrawLeftToRight = isDrawLeftToRightLogic(
     relationType,

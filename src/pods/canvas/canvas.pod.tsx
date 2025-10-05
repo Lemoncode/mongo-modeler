@@ -45,6 +45,7 @@ export const CanvasPod: React.FC = () => {
     duplicateSelectedTable,
     copySelectedTable,
     pasteTable,
+    updateTableWidth,
   } = useCanvasSchemaContext();
   const {
     canvasViewSettings,
@@ -290,6 +291,7 @@ export const CanvasPod: React.FC = () => {
           onEditRelation={handleEditRelation}
           onSelectElement={onSelectElement}
           isTabletOrMobileDevice={isTabletOrMobileDevice}
+          updateTableWidth={updateTableWidth}
         />
         {!loadSample && (
           <CanvasAccessible

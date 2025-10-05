@@ -4,6 +4,46 @@ import { doTablesOverlap } from './export-coordinate.helpers';
 export const getMaxPositionXFromTables = (tables: TableVm[]): number =>
   tables.length === 0 ? 0 : Math.max(...tables.map(table => table.x));
 
+export const getMaxEndPositionXFromTables = (tables: TableVm[]): number =>
+  tables.length === 0
+    ? 0
+    : Math.max(
+        ...tables.map(
+          table => table.x + (table.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH)
+        )
+      );
+
+export const getMinPositionXFromTables = (tables: TableVm[]): number =>
+  tables.length === 0 ? 0 : Math.min(...tables.map(table => table.x));
+
+export const getTotalCanvasWidthFromTables = (tables: TableVm[]): number => {
+  if (tables.length === 0) return 0;
+
+  const minX = getMinPositionXFromTables(tables);
+  const maxEndX = getMaxEndPositionXFromTables(tables);
+
+  // Si hay tablas en posiciones negativas, calculamos el ancho total
+  // desde la posición más a la izquierda hasta la más a la derecha
+  return maxEndX - Math.min(minX, 0);
+};
+
+export const normalizeTablesForExport = (tables: TableVm[]): TableVm[] => {
+  if (tables.length === 0) return tables;
+
+  const minX = getMinPositionXFromTables(tables);
+
+  // Si hay tablas en posiciones negativas, las desplazamos todas hacia la derecha
+  const offsetX =
+    minX < 0
+      ? Math.abs(minX) + TABLE_CONST.CANVAS_PADDING
+      : TABLE_CONST.CANVAS_PADDING;
+
+  return tables.map(table => ({
+    ...table,
+    x: table.x + offsetX,
+  }));
+};
+
 export const getFieldsCount = (fields: FieldVm[]): number =>
   fields.reduce((acc, field) => {
     if (field.children && field.children.length > 0 && !field.isCollapsed) {
@@ -116,7 +156,10 @@ export const getPropertyJsonSchema = (field: FieldVm): string => {
   return `"${field.name}": { bsonType: "${field.type}" }`;
 };
 
-export const getPropertiesJsonSchema = (fields: FieldVm[], useTab = true): string => {
+export const getPropertiesJsonSchema = (
+  fields: FieldVm[],
+  useTab = true
+): string => {
   const separator = useTab ? ',\n        ' : ', ';
   return fields.map(getPropertyJsonSchema).join(separator);
 };

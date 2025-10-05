@@ -5,10 +5,11 @@ import classes from '../database-table.module.css';
 interface Props {
   totalHeight: number;
   isSelected: boolean;
+  width: number;
 }
 
 export const DatabaseTableBorder: React.FC<Props> = props => {
-  const { totalHeight, isSelected } = props;
+  const { totalHeight, isSelected, width } = props;
 
   const rectStyle = {
     filter: isSelected ? 'url(#table_component_selected)' : 'none', // Apply SVG filter if the table is selected (highlight selected table)
@@ -19,7 +20,7 @@ export const DatabaseTableBorder: React.FC<Props> = props => {
       x="0"
       y="0"
       rx={TABLE_BORDER_RADIUS}
-      width={TABLE_CONST.TABLE_WIDTH}
+      width={width}
       height={totalHeight + TABLE_CONST.HEADER_TITLE_GAP}
       className={classes.tableBackground}
       style={rectStyle}

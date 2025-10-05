@@ -20,6 +20,7 @@ interface Props {
   onEditRelation: (relationId: GUID) => void;
   onSelectElement: (relationId: GUID | null) => void;
   isTabletOrMobileDevice: boolean;
+  updateTableWidth: (tableId: GUID, width: number) => void;
 }
 
 export const CanvasSvgComponent: React.FC<Props> = props => {
@@ -34,6 +35,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     onEditRelation,
     onSelectElement,
     isTabletOrMobileDevice,
+    updateTableWidth,
   } = props;
 
   const clearSelection = () => {
@@ -69,6 +71,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           isTabletOrMobileDevice={isTabletOrMobileDevice}
           viewBoxSize={viewBoxSize}
           zoomFactor={zoomFactor}
+          updateTableWidth={updateTableWidth}
         />
       ))}
     </svg>

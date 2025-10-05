@@ -8,6 +8,7 @@ interface Info {
   level: number;
   startY: number;
   rowHeight: number;
+  tableWidth: number;
 }
 
 interface Events {
@@ -18,7 +19,7 @@ export const renderRows = (
   info: Info,
   events: Events
 ): [JSX.Element[], number] => {
-  const { tableInfo, fields, level, rowHeight, startY } = info;
+  const { tableInfo, fields, level, rowHeight, startY, tableWidth } = info;
   const { onToggleCollapse } = events;
 
   let currentY = startY;
@@ -35,6 +36,7 @@ export const renderRows = (
         level={level}
         currentY={currentY}
         onToggleCollapse={onToggleCollapse}
+        tableWidth={tableWidth}
       />
     );
 
@@ -49,6 +51,7 @@ export const renderRows = (
           level: level + 1,
           startY: currentY,
           rowHeight,
+          tableWidth,
         },
         events
       );

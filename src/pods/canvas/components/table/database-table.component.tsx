@@ -8,9 +8,11 @@ import {
   DatabaseTableHeader,
   DatabaseTableBorder,
   DatabaseTableBody,
+  TableResizeHandles,
 } from './components';
 import { renderRows } from './database-table-render-rows.helper';
 import classes from './database-table.module.css';
+import { useTableResize } from './table-resize.hook';
 
 // TODO: We should add an optional field to indicate FONT_SIZE in case we override the standard class
 // TODO: There's is a solution more elaborated (using JS) to show elipsis ... if text is too long
@@ -25,6 +27,7 @@ interface Props {
   isTabletOrMobileDevice: boolean;
   viewBoxSize: Size;
   zoomFactor: number;
+  updateTableWidth: (tableId: GUID, width: number) => void;
 }
 
 export const DatabaseTable: React.FC<Props> = ({
@@ -38,8 +41,12 @@ export const DatabaseTable: React.FC<Props> = ({
   isTabletOrMobileDevice,
   viewBoxSize,
   zoomFactor,
+  updateTableWidth,
 }) => {
   const rowHeight = TABLE_CONST.FONT_SIZE + TABLE_CONST.ROW_PADDING;
+
+  // Get the table width, using DEFAULT_TABLE_WIDTH as fallback
+  const tableWidth = tableInfo.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH;
 
   const [renderedRows, totalHeight] = React.useMemo((): [
     JSX.Element[],
@@ -52,13 +59,26 @@ export const DatabaseTable: React.FC<Props> = ({
         level: 0,
         startY: TABLE_CONST.HEADER_HEIGHT,
         rowHeight,
+        tableWidth,
       },
       {
         onToggleCollapse,
       }
     );
     return [rows, totalY + TABLE_CONST.ROW_PADDING]; // Adjust for the last padding
-  }, [tableInfo.fields]);
+  }, [tableInfo.fields, tableWidth, onToggleCollapse]);
+
+  // Add resize functionality
+  const { handleLeftBorderMouseDown, handleRightBorderMouseDown } =
+    useTableResize(
+      tableInfo.id,
+      tableWidth,
+      { x: tableInfo.x, y: tableInfo.y },
+      totalHeight + TABLE_CONST.HEADER_TITLE_GAP,
+      canvasSize,
+      updateTableWidth,
+      updatePosition
+    );
 
   const { onMouseDown, onTouchStart, ref } = useDraggable(
     tableInfo.id,
@@ -89,15 +109,28 @@ export const DatabaseTable: React.FC<Props> = ({
       className={classes.tableContainer}
       ref={ref as React.LegacyRef<SVGGElement> | undefined}
     >
-      <DatabaseTableBorder totalHeight={totalHeight} isSelected={isSelected} />
+      <DatabaseTableBorder
+        totalHeight={totalHeight}
+        isSelected={isSelected}
+        width={tableWidth}
+      />
       <DatabaseTableHeader
         onEditTable={handleDoubleClick}
         onSelectTable={handleSelectTable}
         isSelected={isSelected}
         tableName={tableInfo.tableName}
         isTabletOrMobileDevice={isTabletOrMobileDevice}
+        width={tableWidth}
       />
       <DatabaseTableBody renderedRows={renderedRows} />
+
+      {/* Resize handles - always available on hover */}
+      <TableResizeHandles
+        tableHeight={totalHeight + TABLE_CONST.HEADER_TITLE_GAP}
+        tableWidth={tableWidth}
+        onLeftBorderMouseDown={handleLeftBorderMouseDown}
+        onRightBorderMouseDown={handleRightBorderMouseDown}
+      />
     </g>
   );
 };
