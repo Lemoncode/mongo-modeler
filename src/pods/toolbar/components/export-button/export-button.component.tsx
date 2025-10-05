@@ -60,7 +60,7 @@ export const ExportButton = () => {
     () => ({
       width:
         getTotalCanvasWidthFromTables(tablesWithExpandedFields) +
-        TABLE_CONST.CANVAS_PADDING * 2, // Padding a ambos lados
+        TABLE_CONST.CANVAS_PADDING * 2, // Padding on both sides
       height:
         getMaxPositionYFromTables(tablesWithExpandedFields) +
         TABLE_CONST.CANVAS_PADDING,
