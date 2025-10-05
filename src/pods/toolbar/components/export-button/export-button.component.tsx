@@ -17,7 +17,8 @@ import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
 import {
   expandAllFieldsInTables,
   getMaxPositionYFromTables,
-  getMaxPositionXFromTables,
+  getTotalCanvasWidthFromTables,
+  normalizeTablesForExport,
   getSchemaScriptFromTableVmArray,
   placeAllTablesWithoutOverlap,
 } from './export-button.business';
@@ -43,20 +44,23 @@ export const ExportButton = () => {
     [canvasSchema.tables]
   );
 
-  const getExportSchema = (showAllFieldsExpanded: boolean) =>
-    showAllFieldsExpanded
-      ? {
-          ...canvasSchema,
-          tables: tablesWithExpandedFields,
-        }
-      : canvasSchema;
+  const getExportSchema = (showAllFieldsExpanded: boolean) => {
+    const tablesToUse = showAllFieldsExpanded
+      ? tablesWithExpandedFields
+      : canvasSchema.tables;
+    const normalizedTables = normalizeTablesForExport(tablesToUse);
+
+    return {
+      ...canvasSchema,
+      tables: normalizedTables,
+    };
+  };
 
   const downloadCanvasSize: Size = React.useMemo<Size>(
     () => ({
       width:
-        getMaxPositionXFromTables(tablesWithExpandedFields) +
-        TABLE_CONST.DEFAULT_TABLE_WIDTH +
-        TABLE_CONST.CANVAS_PADDING,
+        getTotalCanvasWidthFromTables(tablesWithExpandedFields) +
+        TABLE_CONST.CANVAS_PADDING * 2, // Padding a ambos lados
       height:
         getMaxPositionYFromTables(tablesWithExpandedFields) +
         TABLE_CONST.CANVAS_PADDING,
