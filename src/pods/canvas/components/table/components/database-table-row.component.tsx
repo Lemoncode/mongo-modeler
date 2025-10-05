@@ -39,14 +39,6 @@ export const DatabaseTableRow: React.FC<Props> = props => {
     tableCleanWidth
   );
 
-  // Debug: Log the calculated values
-  console.log(
-    'TableWidth:',
-    tableWidth,
-    'ColumnNameWidth:',
-    columnNamePixelWidth
-  );
-
   const isExpandable =
     field.type === 'object' && (field.children?.length ?? 0) > 0;
   const isExpanded = !field.isCollapsed;
