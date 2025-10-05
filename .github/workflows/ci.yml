@@ -7,32 +7,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      # Temporary workaround
-      # See this bug on Vite + Rollup node v 20  
-      # https://github.com/vitejs/vite/issues/15492
-      - name: Use Node.js 18.13.0
-        uses: actions/setup-node@v2
+        uses: actions/checkout@v4
+      
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.13.0' 
+          node-version: '20' 
           cache: 'npm'
-      - name: Install front
-        run: npm install
-      - name: Build
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Check TypeScript Types
         run: npm run tsc-check
-      - name: Tests front
+      
+      - name: Run tests
         run: npm test
 
   e2e-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Use Node.js 18.13.0
-        uses: actions/setup-node@v2
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.13.0'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
