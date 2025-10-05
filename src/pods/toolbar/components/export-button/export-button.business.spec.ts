@@ -1868,8 +1868,8 @@ describe('export-button.business', () => {
         for (let i = 0; i < result.length; i++) {
           if (i !== index) {
             const isOverlapping = !(
-              table.x >= result[i].x + TABLE_CONST.TABLE_WIDTH ||
-              table.x + TABLE_CONST.TABLE_WIDTH <= result[i].x ||
+              table.x >= result[i].x + TABLE_CONST.DEFAULT_TABLE_WIDTH ||
+              table.x + TABLE_CONST.DEFAULT_TABLE_WIDTH <= result[i].x ||
               table.y >= result[i].y + TABLE_CONST.ROW_HEIGHT ||
               table.y + TABLE_CONST.ROW_HEIGHT <= result[i].y
             );
@@ -1941,8 +1941,8 @@ describe('export-button.business', () => {
         for (let i = 0; i < result.length; i++) {
           if (i !== index) {
             const isOverlapping = !(
-              table.x >= result[i].x + TABLE_CONST.TABLE_WIDTH ||
-              table.x + TABLE_CONST.TABLE_WIDTH <= result[i].x ||
+              table.x >= result[i].x + TABLE_CONST.DEFAULT_TABLE_WIDTH ||
+              table.x + TABLE_CONST.DEFAULT_TABLE_WIDTH <= result[i].x ||
               table.y >= result[i].y + TABLE_CONST.ROW_HEIGHT ||
               table.y + TABLE_CONST.ROW_HEIGHT <= result[i].y
             );

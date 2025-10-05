@@ -1,6 +1,10 @@
 import React from 'react';
 import { Coords, GUID } from '@/core/model';
-import { DatabaseSchemaVm, RelationVm } from '@/core/providers/canvas-schema';
+import {
+  DatabaseSchemaVm,
+  RelationVm,
+  TABLE_CONST,
+} from '@/core/providers/canvas-schema';
 import {
   calculateRelationXCoordinate,
   calculateRelationYCoordinate,
@@ -52,7 +56,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
 
     const getLayoutType = (): LayoutType => {
       if (relation.fromTableId === relation.toTableId) return 'self';
-      if (isOverLapping(fromTable.x, toTable.x)) return 'overlapping';
+      if (isOverLapping(fromTable, toTable)) return 'overlapping';
       return 'straight';
     };
 
@@ -70,6 +74,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
               startCoords={startCoords}
               endCoords={endCoords}
               isSelected={relation.id === schema.selectedElementId}
+              tableWidth={fromTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH}
             />
           );
         case 'overlapping':
@@ -82,6 +87,10 @@ export const DatabaseRelationCollectionComponent: React.FC<
               startCoords={startCoords}
               endCoords={endCoords}
               isSelected={relation.id === schema.selectedElementId}
+              startTableWidth={
+                fromTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH
+              }
+              endTableWidth={toTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH}
             />
           );
         case 'straight':
@@ -94,6 +103,10 @@ export const DatabaseRelationCollectionComponent: React.FC<
               startCoords={startCoords}
               endCoords={endCoords}
               isSelected={relation.id === schema.selectedElementId}
+              startTableWidth={
+                fromTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH
+              }
+              endTableWidth={toTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH}
             />
           );
       }

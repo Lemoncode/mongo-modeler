@@ -83,18 +83,23 @@ export const moveTableToTop = (
 export const calculateRelationXCoordinateOrigin = (
   tableOrigin: TableVm,
   tableDestination: TableVm
-): number =>
-  tableOrigin.x < tableDestination.x
-    ? tableOrigin.x + TABLE_CONST.DEFAULT_TABLE_WIDTH
+): number => {
+  const tableOriginWidth = tableOrigin.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH;
+  return tableOrigin.x < tableDestination.x
+    ? tableOrigin.x + tableOriginWidth
     : tableOrigin.x;
+};
 
 export const calculateRelationXCoordinateEnd = (
   tableOrigin: TableVm,
   tableDestination: TableVm
-): number =>
-  tableDestination.x <= tableOrigin.x
-    ? tableDestination.x + TABLE_CONST.DEFAULT_TABLE_WIDTH
+): number => {
+  const tableDestinationWidth =
+    tableDestination.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH;
+  return tableDestination.x <= tableOrigin.x
+    ? tableDestination.x + tableDestinationWidth
     : tableDestination.x;
+};
 
 export interface XRelationCoords {
   xOrigin: number;

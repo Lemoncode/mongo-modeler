@@ -9,7 +9,7 @@ import { ClickablePathComponent } from './components/clickable-path.component';
 import { isDrawLeftToRightLogic } from './relation.business';
 import { ForkComponent } from './components';
 import classes from './database-relation.component.module.css';
-interface DatabaseRelationshipMiddleProps {
+interface DatabaseRelationshipTwoTablesProps {
   id: GUID;
   relationType: RelationType;
   startCoords: Coords;
@@ -17,10 +17,12 @@ interface DatabaseRelationshipMiddleProps {
   onClick: (relationId: GUID) => void;
   onDoubleClick: (relationId: GUID) => void;
   isSelected: boolean;
+  startTableWidth?: number;
+  endTableWidth?: number;
 }
 
 export const DatabaseRelationshipTwoTablePathComponent: React.FC<
-  DatabaseRelationshipMiddleProps
+  DatabaseRelationshipTwoTablesProps
 > = ({
   id,
   startCoords,
@@ -29,6 +31,8 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
   isSelected,
   onClick,
   onDoubleClick,
+  startTableWidth,
+  endTableWidth,
 }) => {
   const isDrawLeftToRight = isDrawLeftToRightLogic(
     relationType,
@@ -49,7 +53,13 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
         </filter>
       </defs>
       <path
-        d={getRelationPath(relationType, startCoords, endCoords)}
+        d={getRelationPath(
+          relationType,
+          startCoords,
+          endCoords,
+          startTableWidth,
+          endTableWidth
+        )}
         className={
           isSelected ? classes.selectedRelation : classes.nonSelectedRelation
         }
@@ -60,14 +70,26 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
       {relationType === '1:M' && (
         <ForkComponent
           isSelected={isSelected}
-          forkCoords={getForkCoords(relationType, startCoords, endCoords)}
+          forkCoords={getForkCoords(
+            relationType,
+            startCoords,
+            endCoords,
+            startTableWidth,
+            endTableWidth
+          )}
           drawLeftToRight={!isDrawLeftToRight}
         />
       )}
       {relationType === 'M:1' && (
         <ForkComponent
           isSelected={isSelected}
-          forkCoords={getForkCoords(relationType, startCoords, endCoords)}
+          forkCoords={getForkCoords(
+            relationType,
+            startCoords,
+            endCoords,
+            startTableWidth,
+            endTableWidth
+          )}
           drawLeftToRight={isDrawLeftToRight}
         />
       )}
