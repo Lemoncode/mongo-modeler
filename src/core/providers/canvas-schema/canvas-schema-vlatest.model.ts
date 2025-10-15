@@ -6,6 +6,7 @@ export interface TableVm {
   tableName: string;
   x: number; // Canvas X Position
   y: number; // Canvas Y Position
+  width?: number; // Table width, defaults to DEFAULT_TABLE_WIDTH if not specified
 }
 
 export interface FieldVm {
@@ -78,4 +79,9 @@ export interface CanvasSchemaContextVm {
   updateFullRelation: (relation: RelationVm) => void;
   deleteSelectedItem: (selectedElementId: GUID) => void;
   switchIsPristine: (isPristine: boolean) => void;
+  duplicateSelectedTable: () => void;
+  copySelectedTable: () => void;
+  pasteTable: () => void;
+  hasClipboardContent: boolean;
+  updateTableWidth: (tableId: GUID, width: number) => void;
 }

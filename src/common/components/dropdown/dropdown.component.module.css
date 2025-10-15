@@ -11,6 +11,10 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-xs);
+  text-align: left;
+  font-size: var(--fs-m);
+  font-weight: var(--fw-regular);
+  line-height: 1.5em;
 }
 
 .select-chosen {
@@ -32,8 +36,8 @@
   padding: 8px;
   padding-left: 36px;
   margin: 0;
-  display: none;
   position: absolute;
+  text-align: left;
   z-index: 3;
   top: calc(0% + var(--border-select-width));
   left: calc(0px - var(--border-select-width));
@@ -42,12 +46,14 @@
   border-top: none;
   background-color: var(--bg-input);
   border-radius: var(--border-radius-xs);
+  max-height: 300px;
 }
 
 .select-select:hover {
   --border-select-color: var(--input-border-color-active);
   box-shadow: 0 0 4px var(--hover-checkbox);
   background-color: var(--hover-input);
+  color: inherit;
 }
 .select-active {
   --border-select-color: var(--input-border-color-active);
@@ -70,7 +76,6 @@
 .options li {
   font-size: 16px;
   color: var(--text-color);
-  position: relative;
   cursor: pointer;
 }
 
@@ -80,8 +85,7 @@
 
 .svg {
   position: absolute;
-  top: 0;
-  left: -28px;
+  left: 8px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -90,17 +94,12 @@
   color: var(--input-border-color-active);
 }
 
-/*Veil works because it is being used within a modal*/
 .veil {
-  z-index: 2;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: var(--veil-modal);
   opacity: 0.5;
 }

@@ -1,123 +1,107 @@
 import React from 'react';
 import classes from './dropdown.component.module.css';
-import { OptionGroup } from './components/option-group.component';
 import { ExpandDown } from '../icons/expand-down-icon.component';
 import { DropdownOptionVm } from './dropdown.model';
 import { SELECT_AN_OPTION } from './dropdown.const';
-import { handleFocus, handleNextFocus } from './dropdown.business';
+import { useA11ySelect } from '@/common/a11y';
+import { Tick } from '../icons/tick-icon.component';
+
+// import { handleFocus, handleNextFocus } from './dropdown.business';
 
 interface Props {
   name: string;
   options: DropdownOptionVm[];
-  value?: DropdownOptionVm;
-  onChange: (field: DropdownOptionVm) => void;
+  value?: string;
+  onChange: (field: string) => void;
   selectTitle?: string;
   //TODO: css class?
   isError?: boolean;
-  label?: string;
 }
 
 export const Dropdown: React.FC<Props> = props => {
-  const { name, options, value, selectTitle, onChange, isError, label } = props;
-  const [optionsListVisible, setOptionsListVisible] = React.useState(false);
+  const { name, options, selectTitle, value, onChange, isError } = props;
 
-  const [selectedPath, setSelectedPath] = React.useState(value?.label);
-  const [currentSelectedKeyFieldId, setCurrentSelectedKeyFieldId] =
-    React.useState(value?.id || '');
-
-  const handleOptionClick = (option: DropdownOptionVm) => {
-    setCurrentSelectedKeyFieldId(option.id);
-    setSelectedPath(option.label);
-    setOptionsListVisible(false);
-    onChange(option);
+  const findSelectedOption = (value: string | undefined) => {
+    return options.find(option => option.id === value);
   };
-  const modalRef = React.useRef<HTMLUListElement>(null);
-  const selectRef = React.useRef<HTMLDivElement>(null);
+  const handleChange = (option: DropdownOptionVm | undefined) => {
+    option ? onChange(option.id) : onChange('');
+  };
 
-  React.useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setOptionsListVisible(false);
-      }
-    };
-    const handleFocusOut = (event: FocusEvent) => {
-      if (
-        optionsListVisible &&
-        modalRef.current &&
-        !modalRef.current.contains(event.relatedTarget as Node)
-      ) {
-        setOptionsListVisible(false);
-      }
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        setOptionsListVisible(false);
-      }
-    };
-
-    if (optionsListVisible) {
-      document.addEventListener('keydown', handleKeyDown);
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('focusout', handleFocusOut);
-      handleFocus(selectRef, modalRef);
-      const activeID = `${name}-option-${currentSelectedKeyFieldId}`;
-      selectRef.current?.setAttribute('aria-activedescendant', activeID);
-    } else {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('mousedown', handleClickOutside);
-      handleNextFocus(selectRef);
-      selectRef.current?.setAttribute('aria-activedescendant', '');
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('focusout', handleFocusOut);
-    };
-  }, [optionsListVisible]);
+  const {
+    optionListRef,
+    buttonRef,
+    veilRef,
+    isOpen,
+    setIsOpen,
+    options: a11yOptions,
+    selectedOption,
+    setSelectedOption,
+    onFocusOption,
+  } = useA11ySelect(
+    options,
+    option => option.id,
+    findSelectedOption(value),
+    handleChange
+  );
 
   return (
     <>
-      <div
-        className={`${classes.selectSelect} ${isError && classes.selectError} ${optionsListVisible && classes.selectActive}`}
-        ref={selectRef}
+      <button
+        className={`${classes.selectSelect} ${isError && classes.selectError} ${isOpen && classes.selectActive}`}
+        ref={buttonRef}
+        id={`combobox-${name}`}
+        type="button"
         role="combobox"
         aria-haspopup="listbox"
-        aria-expanded={optionsListVisible}
-        aria-live="polite"
-        aria-controls={`${name}-select`}
-        aria-activedescendant=""
+        aria-expanded={isOpen}
+        aria-controls={`listbox-${name}`}
+        aria-activedescendant={selectedOption?.id}
         onClick={() => {
-          setOptionsListVisible(!optionsListVisible);
+          setIsOpen(!isOpen);
         }}
-        aria-label={label}
+        aria-labelledby={name}
+        tabIndex={0}
       >
         <p className={classes.selectText}>
-          {selectedPath || selectTitle || SELECT_AN_OPTION}
+          {selectedOption?.label || selectTitle || SELECT_AN_OPTION}
         </p>
         <ExpandDown />
-      </div>
-      {optionsListVisible && (
-        <>
-          <div
-            className={classes.veil}
-            onClick={() => setOptionsListVisible(!optionsListVisible)}
-          ></div>
-          <OptionGroup
-            name={name}
-            options={options}
-            optionsListVisible={optionsListVisible}
-            handleOptionClick={handleOptionClick}
-            selectedOption={currentSelectedKeyFieldId}
-            modalRef={modalRef}
-            label={label}
-          />
-        </>
-      )}
+        {isOpen && (
+          <>
+            <div
+              ref={veilRef}
+              className={classes.veil}
+              aria-hidden="true"
+            ></div>
+            <ul
+              id={`listbox-${name}`}
+              role="listbox"
+              aria-labelledby={name}
+              tabIndex={-1}
+              ref={optionListRef}
+              className={classes.options}
+              onClick={e => e.stopPropagation()}
+            >
+              {a11yOptions.map(option => (
+                <li
+                  key={option.id}
+                  role="option"
+                  tabIndex={option.tabIndex}
+                  aria-selected={selectedOption?.id === option.id}
+                  onClick={() => setSelectedOption(option.id)}
+                  ref={onFocusOption(option)}
+                >
+                  <div className={classes.svg} aria-hidden="true">
+                    {selectedOption?.id === option.id ? <Tick /> : ''}
+                  </div>
+                  {option.label}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </button>
     </>
   );
 };

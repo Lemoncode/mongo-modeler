@@ -10,11 +10,7 @@ interface Props {
 export const FieldList: React.FC<Props> = props => {
   const { fieldList, listName } = props;
 
-  return (
-    <ul>
-      {fieldList.map(field => (
-        <Field field={field} listName={listName} key={field.id} />
-      ))}
-    </ul>
-  );
+  return fieldList.map(field => (
+    <Field field={field} listName={listName} key={field.id} />
+  ));
 };

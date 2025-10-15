@@ -94,17 +94,19 @@
         padding-top: 0;
         padding-bottom: 4rem;
       }
-      .info__company {
+      h1 {
         display: flex;
-        align-items: center;
-        gap: 3%;
+        flex-direction: column;
       }
       .info__company img {
         width: 12%;
         height: 100%;
         margin-top: 4px;
       }
-      .info__company h2 {
+      .info__company {
+        display: flex;
+        align-items: center;
+        gap: 3%;
         font-size: clamp(55px, 9vw, 10rem);
         color: var(--accent);
         background-image: linear-gradient(69deg, #96d9ab 30%, #ffffff 75%);
@@ -127,11 +129,11 @@
         padding-top: 0.9rem;
         width: 50%;
       }
-      .info__text h3 {
+      .info__first {
         font-weight: 400;
         font-size: 30px;
       }
-      .info__text p {
+      .info__community {
         font-size: 24px;
         padding-top: 1.2rem;
         color: #fc5969;
@@ -149,6 +151,7 @@
         font-weight: 600;
         letter-spacing: 0.2px;
         font-size: 20px;
+        cursor: pointer;
       }
       .info__group {
         display: flex;
@@ -198,10 +201,10 @@
         .info__text {
           padding-top: 0;
         }
-        .info__text h3 {
+        .info__first {
           font-size: 26px;
         }
-        .info__text p {
+        .info__community {
           font-size: 20px;
         }
         .info__group {
@@ -284,10 +287,10 @@
           font-size: 18px;
         }
 
-        .info__text h3 {
+        .info__first {
           font-size: 22px;
         }
-        .info__text p {
+        .info__community {
           font-size: 19px;
         }
         .github p {
@@ -304,7 +307,7 @@
           width: 70px;
           margin-top: 0;
         }
-        .info__company h2 {
+        .info__company {
           line-height: 1.1;
         }
       }
@@ -339,25 +342,28 @@
       </a>
     </header>
     <main class="main">
-      <div class="info container">
-        <div class="info__company">
-          <img
-            src="/assets/logo_mongo_modeler_dark_mode.svg"
-            alt="Mongo Modeler Logo"
-          />
-          <h2 class="info__company">Mongo Modeler</h2>
-        </div>
-        <h1 class="info__claim">
-          A free, online Data Modeling tool for MongoDB.
+      <section class="info container">
+        <h1>
+          <span class="info__company">
+            <img
+              src="/assets/logo_mongo_modeler_dark_mode.svg"
+              alt="Mongo Modeler Logo"
+            />
+            Mongo Modeler</span
+          >
+          <span class="info__claim">
+            A free, online Data Modeling tool for MongoDB.
+          </span>
         </h1>
         <div class="info__detail">
           <div class="info__text">
-            <h3>
+            <p class="info__first">
               Mongo Modeler is a <span class="highlight">free</span>, open
               source <span class="highlight">tool</span> for visualization of
               <span class="highlight">MongoDB</span> schema design
-            </h3>
-            <p>Community preview</p>
+            </p>
+
+            <p class="info__community">Community preview</p>
             <div class="info__group">
               <a href="./editor.html" class="info__link"
                 >Launch MongoDB Designer</a
@@ -374,17 +380,17 @@
             ></iframe>
           </div>
         </div>
-      </div>
-      <div class="github">
-        <p class="container">
-          Interested in suggesting a new feature or reporting a bug? Visit our
-          project's Github page to make your contribution.
-          <a href="https://github.com/Lemoncode/mongo-modeler" target="_blank"
-            >Go to Github</a
-          >
-        </p>
-      </div>
+      </section>
     </main>
+    <footer class="github">
+      <p class="container">
+        Interested in suggesting a new feature or reporting a bug? Visit our
+        project's Github page to make your contribution.
+        <a href="https://github.com/Lemoncode/mongo-modeler" target="_blank"
+          >Go to Github</a
+        >
+      </p>
+    </footer>
     <script>
       let installPrompt = null;
       const installButton = document.querySelector('#install');

@@ -42,6 +42,10 @@ export const CanvasPod: React.FC = () => {
     doRedo,
     deleteSelectedItem,
     loadSchema,
+    duplicateSelectedTable,
+    copySelectedTable,
+    pasteTable,
+    updateTableWidth,
   } = useCanvasSchemaContext();
   const {
     canvasViewSettings,
@@ -221,6 +225,24 @@ export const CanvasPod: React.FC = () => {
           deleteSelectedItem(canvasSchema.selectedElementId);
         }
       }
+
+      // Add Cmd/Ctrl+D for duplicate
+      if ((e.metaKey || e.ctrlKey) && e.key === 'd') {
+        e.preventDefault(); // Prevent browser default
+        duplicateSelectedTable();
+      }
+
+      // Add Cmd/Ctrl+C for copy
+      if ((e.metaKey || e.ctrlKey) && e.key === 'c') {
+        e.preventDefault(); // Prevent browser default
+        copySelectedTable();
+      }
+
+      // Add Cmd/Ctrl+V for paste
+      if ((e.metaKey || e.ctrlKey) && e.key === 'v') {
+        e.preventDefault(); // Prevent browser default
+        pasteTable();
+      }
     };
 
     modalDialog.isOpen
@@ -233,7 +255,7 @@ export const CanvasPod: React.FC = () => {
   }, [modalDialog.isOpen, canvasSchema.selectedElementId]);
 
   return (
-    <div
+    <main
       className={classes.container}
       ref={containerRef}
       onScroll={handleScroll}
@@ -269,6 +291,7 @@ export const CanvasPod: React.FC = () => {
           onEditRelation={handleEditRelation}
           onSelectElement={onSelectElement}
           isTabletOrMobileDevice={isTabletOrMobileDevice}
+          updateTableWidth={updateTableWidth}
         />
         {!loadSample && (
           <CanvasAccessible
@@ -282,6 +305,6 @@ export const CanvasPod: React.FC = () => {
           />
         )}
       </div>
-    </div>
+    </main>
   );
 };

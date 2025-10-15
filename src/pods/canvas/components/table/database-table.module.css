@@ -36,3 +36,16 @@
   fill: var(--text-color);
   font-size: 11px;
 }
+
+.resizeHandle {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.resizeHandle:hover {
+  opacity: 0.3 !important;
+  fill: var(--primary-border-color) !important;
+}
+
+.table-container:hover .resizeHandle {
+  opacity: 0.1;
+}

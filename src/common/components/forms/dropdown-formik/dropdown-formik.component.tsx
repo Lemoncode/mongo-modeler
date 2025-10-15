@@ -4,7 +4,6 @@ import classes from './dropdown.component.module.css';
 import { Dropdown, DropdownOptionVm } from '../../dropdown';
 
 interface DropDownFormikProps {
-  value?: DropdownOptionVm;
   name: string;
   options: DropdownOptionVm[];
   selectTitle?: string;
@@ -19,7 +18,7 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
   const [field, meta, helpers] = useField(props.name ?? '');
 
   // If the field doesn't exist then treat this as a normal input
-  const inputFieldProps = Boolean(field) ? field : props;
+
   const { setValue } = helpers;
 
   // We only want to display the field validation error message
@@ -31,7 +30,7 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
   const selectContainerRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     if (
-      inputFieldProps.name === Object.keys(formik.errors)[0] &&
+      field.name === Object.keys(formik.errors)[0] &&
       isError &&
       selectContainerRef.current
     ) {
@@ -41,29 +40,24 @@ export const DropdownFormik: React.FC<DropDownFormikProps> = props => {
   }, [isError]);
 
   return (
-    <div className={classes.select} id={inputFieldProps.name}>
-      <p className={classes.selectLabel}>{label ? label : ''}</p>
+    <div className={classes.select}>
+      <p className={classes.selectLabel} id={field.name}>
+        {label ? label : ''}
+      </p>
       <div
         className={classes.selectContainer}
         ref={selectContainerRef}
         tabIndex={-1}
       >
         <Dropdown
-          name={inputFieldProps.name}
+          name={field.name}
           options={options}
           selectTitle={selectTitle}
-          value={inputFieldProps.value}
+          value={field.value}
           isError={isError}
-          onChange={field => {
-            if (inputFieldProps.name === 'fromTableId') {
-              formik.setFieldValue('fromFieldId', { id: '', label: '' });
-            }
-            if (inputFieldProps.name === 'toTableId') {
-              formik.setFieldValue('toFieldId', { id: '', label: '' });
-            }
-            setValue(field);
+          onChange={id => {
+            setValue(id);
           }}
-          label={label}
         ></Dropdown>
         {isError && (
           <span className={classes.error} aria-live="polite">

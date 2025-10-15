@@ -2,64 +2,47 @@ import { Tick } from '../../icons/tick-icon.component';
 import { PkOptionVm } from '../table-pk-picker.model';
 import classes from '../table-pk-picker.component.module.css';
 import React from 'react';
+import { A11yNestedSelectOption } from '@/common/a11y';
+import { NestedOptions } from './nested-options.component';
 // TODO:
 // #116 Add unit test support to fieldTreeBusiness
 //https://github.com/Lemoncode/mongo-modeler/issues/116
 
 interface Props {
-  name: string;
-  options: PkOptionVm[];
-  parentPath: string;
-  handleSelectPKField: (option: PkOptionVm, parentPath: string) => void;
-  selectedPKField?: string;
+  options: A11yNestedSelectOption<PkOptionVm>[];
+  selectedOption: string | undefined;
+  onOptionClick: (id: string) => void;
+  onFocusOption: (
+    option: A11yNestedSelectOption<PkOptionVm>
+  ) => (element: any) => void;
 }
 export const GenerateOptions: React.FC<Props> = props => {
-  const { name, options, parentPath, handleSelectPKField, selectedPKField } =
-    props;
-  return options.map(option => (
-    <React.Fragment key={option.id}>
-      {option.children && option.children.length > 0 ? (
-        <>
-          <li
-            role="textbox"
-            aria-disabled="true"
-            className={classes.liDisabled}
-          >
-            {option.label}
-          </li>
-          <div
-            role="listbox"
-            aria-label={`nested fields of ${option.label}`}
-            className={classes.liGroup}
-          >
-            <GenerateOptions
-              name={name}
-              options={option.children}
-              parentPath={
-                parentPath
-                  ? `${parentPath} > ${option.label}`
-                  : `${option.label}`
-              }
-              handleSelectPKField={handleSelectPKField}
-              selectedPKField={selectedPKField}
-            />
-          </div>
-        </>
-      ) : (
-        <>
-          <li
-            onClick={() => handleSelectPKField(option, parentPath)}
-            role="option"
-            aria-selected={selectedPKField === option.id}
-            id={`${name}-option-${option.id}`}
-          >
-            {option.label}
-            <div className={classes.svg}>
-              {selectedPKField === option.id ? <Tick /> : ''}
-            </div>
-          </li>
-        </>
-      )}
-    </React.Fragment>
-  ));
+  const { options, selectedOption, onFocusOption, onOptionClick } = props;
+
+  return options.map(option => {
+    return option.children ? (
+      <NestedOptions
+        onOptionClick={onOptionClick}
+        option={option}
+        selectedOption={selectedOption}
+        onFocusOption={onFocusOption}
+        key={option.id}
+      ></NestedOptions>
+    ) : (
+      <li
+        key={option.id}
+        id={option.id}
+        role="treeitem"
+        tabIndex={option.tabIndex}
+        aria-selected={selectedOption === option.id}
+        onClick={() => onOptionClick(option.id)}
+        ref={onFocusOption(option)}
+      >
+        <div className={classes.svg} aria-hidden="true">
+          {selectedOption === option.id ? <Tick /> : ''}
+        </div>
+        {option.label}
+      </li>
+    );
+  });
 };
