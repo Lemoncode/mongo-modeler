@@ -22,9 +22,8 @@ import {
   getSchemaScriptFromTableVmArray,
   placeAllTablesWithoutOverlap,
 } from './export-button.business';
-import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
-import { SHORTCUTS } from '../../shortcut/shortcut.const';
+import { ActionButton } from '@/common/components/action-button';
+import { SHORTCUTS } from '@/common/shortcut';
 
 export const ExportButton = () => {
   const { openModal } = useModalDialogContext();
@@ -125,11 +124,11 @@ export const ExportButton = () => {
   };
 
   return (
-    <ToolbarButton
+    <ActionButton
       icon={<ExportIcon />}
       label="Export"
       onClick={handleExportClick}
-      className={`${classes.button} hide-mobile`}
+      className="hide-mobile"
       shortcutOptions={SHORTCUTS.export}
       disabled={canvasSchema.tables.length < 1}
     />

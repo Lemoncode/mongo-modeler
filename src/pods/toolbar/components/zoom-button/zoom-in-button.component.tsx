@@ -1,8 +1,7 @@
 import { useCanvasViewSettingsContext } from '@/core/providers';
-import { ToolbarButton } from '../toolbar-button';
 import { ZoomIn } from '@/common/components/icons';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
-import { SHORTCUTS } from '../../shortcut/shortcut.const';
+import { ActionButton } from '@/common/components/action-button';
+import { SHORTCUTS } from '@/common/shortcut';
 
 const MINIMUM_ZOOM_FACTOR_ALLOWED = 2.5;
 
@@ -10,11 +9,11 @@ export const ZoomInButton = () => {
   const { zoomIn, canvasViewSettings } = useCanvasViewSettingsContext();
 
   return (
-    <ToolbarButton
+    <ActionButton
       icon={<ZoomIn />}
       label="Zoom In"
       onClick={zoomIn}
-      className={classes.button}
+      className="hide-desktop"
       disabled={canvasViewSettings.zoomFactor < MINIMUM_ZOOM_FACTOR_ALLOWED}
       shortcutOptions={SHORTCUTS.zoomIn}
     />

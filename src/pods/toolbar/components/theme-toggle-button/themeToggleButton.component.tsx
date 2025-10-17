@@ -1,7 +1,6 @@
 import { useThemeContext } from '@/core/providers';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
 import { DarkIcon, LightIcon } from '@/common/components/icons';
-import { ToolbarButton } from '../toolbar-button';
+import { ActionButton } from '@/common/components/action-button';
 
 interface Props {
   darkLabel: string;
@@ -14,8 +13,8 @@ export const ThemeToggleButton: React.FC<Props> = ({
   const { theme, toggleTheme } = useThemeContext();
   const label = theme.themeMode === 'dark' ? lightLabel : darkLabel;
   return (
-    <ToolbarButton
-      className={`${classes.button} hide-mobile`}
+    <ActionButton
+      className="hide-mobile"
       icon={theme.themeMode === 'dark' ? <LightIcon /> : <DarkIcon />}
       label={label}
       onClick={toggleTheme}
