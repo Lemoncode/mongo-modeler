@@ -12,7 +12,7 @@
 
 .zoomButtons {
   display: flex;
-  gap: 20px;
+  gap: var(--space-xs);
 }
 
 @media (max-width: 1090px) {
