@@ -6,9 +6,13 @@
   background-color: var(--footer-background);
   color: var(--footer-text-color);
   text-align: left;
-  padding: var(--space-unit) var(--space-md);
-  padding-right: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
   font-size: var(--fs-xs);
+}
+
+.zoomButtons {
+  display: flex;
+  gap: var(--space-xs);
 }
 
 @media (max-width: 1090px) {
