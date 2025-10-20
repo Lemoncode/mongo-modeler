@@ -1,7 +1,8 @@
 import React from 'react';
-import useShortcut from '../../shortcut/shortcut.hook';
 import { isMacOS } from '@/common/helpers/platform.helpers';
-import { ShortcutOptions } from '../../shortcut/shortcut.model';
+import classes from './action-button.component.module.css';
+import { ShortcutOptions } from '@/common/shortcut';
+import useShortcut from '@/common/shortcut/shortcut.hook';
 
 interface Props {
   icon?: React.ReactNode;
@@ -10,19 +11,32 @@ interface Props {
   className?: string;
   disabled?: boolean;
   shortcutOptions?: ShortcutOptions;
+  showLabel?: boolean;
+  tooltipPosition?: 'top' | 'bottom';
 }
 
-export const ToolbarButton: React.FC<Props> = ({
+export const ActionButton: React.FC<Props> = ({
   disabled,
   icon,
   onClick = () => {},
   className,
   label,
   shortcutOptions,
+  showLabel = true,
+  tooltipPosition = 'bottom',
 }) => {
   const shortcutCommand = isMacOS() ? 'Ctrl' : 'Alt';
   const showTooltip = shortcutOptions && !disabled;
   const tooltipText = `(${shortcutCommand} + ${shortcutOptions?.targetKeyLabel})`;
+
+  const tooltipPositionClass =
+    tooltipPosition === 'top' ? classes.tooltipTop : classes.tooltipBottom;
+
+  const tooltipClasses = `${classes.tooltip} ${tooltipPositionClass}`;
+
+  const buttonClasses = className
+    ? `${classes.button} ${className}`.trim()
+    : classes.button;
 
   useShortcut({
     ...shortcutOptions,
@@ -32,15 +46,19 @@ export const ToolbarButton: React.FC<Props> = ({
 
   return (
     <button
-      className={className}
+      className={buttonClasses}
       onClick={onClick}
       disabled={disabled === true}
       aria-describedby={shortcutOptions?.id}
     >
       <span aria-hidden={true}>{icon}</span>
-      <span>{label}</span>
+      {showLabel && <span>{label}</span>}
       {showTooltip && (
-        <span role="tooltip" id={shortcutOptions?.id}>
+        <span
+          className={tooltipClasses}
+          role="tooltip"
+          id={shortcutOptions?.id}
+        >
           {tooltipText}
         </span>
       )}

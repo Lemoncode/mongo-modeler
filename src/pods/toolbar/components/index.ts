@@ -1,4 +1,3 @@
-export * from './toolbar-button';
 export * from './theme-toggle-button';
 export * from './zoom-button';
 export * from './relation-button';

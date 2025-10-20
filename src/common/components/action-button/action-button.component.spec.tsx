@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { ToolbarButton } from './toolbarButton.component';
 import { vi } from 'vitest';
-import { ShortcutOptions } from '../../shortcut/shortcut.model';
+import { ActionButton } from './action-button.component';
+import { ShortcutOptions } from '@/common/shortcut';
 
-describe('ToolbarButton', () => {
+describe('ActionButton', () => {
   let onClick: () => void;
   let shortcutOptions: ShortcutOptions;
 
@@ -25,7 +25,7 @@ describe('ToolbarButton', () => {
 
   it('should render the button with the provided label and icon', () => {
     render(
-      <ToolbarButton
+      <ActionButton
         icon={<span>Icon</span>}
         label="Label"
         onClick={onClick}
@@ -39,7 +39,7 @@ describe('ToolbarButton', () => {
 
   it('should call the onClick callback when the button is clicked', () => {
     const { getByText } = render(
-      <ToolbarButton
+      <ActionButton
         icon={<span>Icon</span>}
         label="Label"
         onClick={onClick}
@@ -54,7 +54,7 @@ describe('ToolbarButton', () => {
 
   it('should render the tooltip with the correct shortcut key', () => {
     const { getByRole } = render(
-      <ToolbarButton
+      <ActionButton
         icon={<span>Icon</span>}
         label="Label"
         onClick={onClick}
@@ -69,7 +69,7 @@ describe('ToolbarButton', () => {
 
   it('should disable the button if the disabled prop is true', () => {
     const { getByText } = render(
-      <ToolbarButton
+      <ActionButton
         icon={<span>Icon</span>}
         label="Label"
         onClick={onClick}
@@ -81,5 +81,48 @@ describe('ToolbarButton', () => {
     const button = getByText('Label').closest('button');
 
     expect(button).toHaveProperty('disabled', true);
+  });
+
+  it('should hide the label when showLabel is false', () => {
+    render(
+      <ActionButton
+        icon={<span>Icon</span>}
+        label="Label"
+        onClick={onClick}
+        showLabel={false}
+        shortcutOptions={shortcutOptions}
+      />
+    );
+
+    expect(screen.queryByText('Label')).toBeNull();
+  });
+
+  it('should apply tooltipBottom by default when tooltipPosition is not provided', () => {
+    const { getByRole } = render(
+      <ActionButton
+        icon={<span>Icon</span>}
+        label="Label"
+        onClick={onClick}
+        shortcutOptions={shortcutOptions}
+      />
+    );
+
+    const tooltip = getByRole('tooltip');
+    expect(tooltip.className).toContain('tooltipBottom');
+  });
+
+  it('should apply tooltipTop class when tooltipPosition is top', () => {
+    const { getByRole } = render(
+      <ActionButton
+        icon={<span>Icon</span>}
+        label="Label"
+        onClick={onClick}
+        tooltipPosition="top"
+        shortcutOptions={shortcutOptions}
+      />
+    );
+
+    const tooltip = getByRole('tooltip');
+    expect(tooltip.className).toContain('tooltipTop');
   });
 });

@@ -11,6 +11,7 @@ import {
   getFileNameCanvasIsPristine,
   getFileNameCanvasDirty,
 } from '@/pods/footer/footer.business';
+import { ZoomInButton, ZoomOutButton } from './components/zoom-button';
 
 const NEW_DOCUMENT_NAME = 'New Document';
 const ASTERISK = '*';
@@ -31,6 +32,10 @@ export const FooterComponent: React.FC = () => {
   return (
     <footer className={classes.footerText}>
       <span>{isDevice ? documentNameMobile() : documentName()}</span>
+      <div className={classes.zoomButtons}>
+        <ZoomOutButton />
+        <ZoomInButton />
+      </div>
       <button onClick={toggleTheme} className="mobile-only">
         {theme.themeMode === 'dark' ? <LightIcon /> : <DarkIcon />}
       </button>

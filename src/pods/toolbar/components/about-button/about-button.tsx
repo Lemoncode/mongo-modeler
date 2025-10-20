@@ -1,9 +1,8 @@
 import { useModalDialogContext } from '@/core/providers/modal-dialog-provider';
 import { AboutIcon } from '@/common/components/icons';
-import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
 import { ABOUT_TITLE } from '@/common/components';
 import { AboutPod } from '@/pods/about';
+import { ActionButton } from '@/common/components/action-button';
 
 export const AboutButton = () => {
   const { openModal } = useModalDialogContext();
@@ -13,11 +12,10 @@ export const AboutButton = () => {
   };
 
   return (
-    <ToolbarButton
+    <ActionButton
       icon={<AboutIcon />}
       label="About us"
       onClick={handleRelationClick}
-      className={classes.button}
     />
   );
 };

@@ -1,10 +1,9 @@
 import { useModalDialogContext } from '@/core/providers/modal-dialog-provider';
 import { CanvasSettingsComponent } from '@/pods/canvas-settings';
-import { ToolbarButton } from '../toolbar-button';
 import { CanvasSetting } from '@/common/components/icons';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
 import { CANVAS_SETTINGS_TITLE } from '@/common/components/modal-dialog';
-import { SHORTCUTS } from '../../shortcut/shortcut.const';
+import { ActionButton } from '@/common/components/action-button';
+import { SHORTCUTS } from '@/common/shortcut';
 
 export const CanvasSettingButton = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -21,11 +20,11 @@ export const CanvasSettingButton = () => {
   };
 
   return (
-    <ToolbarButton
+    <ActionButton
       icon={<CanvasSetting />}
       label="Settings"
       onClick={handleCanvasSettings}
-      className={`${classes.button} hide-mobile`}
+      className="hide-mobile"
       shortcutOptions={SHORTCUTS.settings}
     />
   );
