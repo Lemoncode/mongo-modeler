@@ -3,8 +3,6 @@ import {
   // CanvasSettingButton,
   ZoomInButton,
   ZoomOutButton,
-  RelationButton,
-  AddCollection,
   ThemeToggleButton,
   ExportButton,
   NewButton,
@@ -29,9 +27,7 @@ export const ToolbarPod: React.FC = () => {
       <SaveButton />
       <ZoomInButton />
       <ZoomOutButton />
-      <AddCollection />
       <ImportButton />
-      <RelationButton />
       <CopyButton />
       <PasteButton />
       <UndoButton />
