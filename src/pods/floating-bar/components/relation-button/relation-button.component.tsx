@@ -38,7 +38,7 @@ export const RelationButton = () => {
       icon={<Relation />}
       label="Add Relation"
       onClick={handleRelationClick}
-      className={`${classes.button} hide-mobile`}
+      className={`${classes.button} hide-mobile relation-button`}
       shortcutOptions={SHORTCUTS.addRelation}
       disabled={canvasSchema.tables.length < 1}
       showLabel={false}

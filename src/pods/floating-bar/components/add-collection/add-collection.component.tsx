@@ -49,7 +49,7 @@ export const AddCollection = () => {
       icon={<TableIcon />}
       label="Add Collection"
       onClick={handleEditTableClick}
-      className={`${classes.button} hide-mobile`}
+      className={`${classes.button} hide-mobile add-collection-button`}
       shortcutOptions={SHORTCUTS.addCollection}
       showLabel={false}
       tooltipPosition="top"
