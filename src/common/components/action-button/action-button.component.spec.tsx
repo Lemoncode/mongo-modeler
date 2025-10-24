@@ -64,7 +64,7 @@ describe('ActionButton', () => {
 
     const tooltip = getByRole('tooltip');
 
-    expect(tooltip.textContent).toContain('Ctrl + A');
+    expect(tooltip.textContent).toContain('⌘ + A');
   });
 
   it('should disable the button if the disabled prop is true', () => {
@@ -124,5 +124,24 @@ describe('ActionButton', () => {
 
     const tooltip = getByRole('tooltip');
     expect(tooltip.className).toContain('tooltipTop');
+  });
+
+  it('should render the tooltip without modifier when noModifier is true', () => {
+    const shortcutOptionsNoMod = {
+      ...shortcutOptions,
+      noModifier: true,
+    };
+
+    const { getByRole } = render(
+      <ActionButton
+        icon={<span>Icon</span>}
+        label="Label"
+        onClick={onClick}
+        shortcutOptions={shortcutOptionsNoMod}
+      />
+    );
+
+    const tooltip = getByRole('tooltip');
+    expect(tooltip.textContent).toBe('A');
   });
 });
