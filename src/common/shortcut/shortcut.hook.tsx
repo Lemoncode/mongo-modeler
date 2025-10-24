@@ -17,12 +17,12 @@ export interface ShortcutHookProps {
 
 const useShortcut = ({ targetKey, callback }: ShortcutHookProps) => {
   const handleKeyPress = (event: KeyboardEvent) => {
-    const isAltKeyPressed = event.getModifierState('Alt');
+    const isMetaKeyPressed = event.getModifierState('Meta');
     const isCtrlKeyPressed = event.getModifierState('Control');
 
     if (
-      (isWindowsOrLinux() && isAltKeyPressed) ||
-      (isMacOS() && isCtrlKeyPressed)
+      (isWindowsOrLinux() && isCtrlKeyPressed) ||
+      (isMacOS() && isMetaKeyPressed)
     ) {
       if (targetKey.includes(event.key)) {
         event.preventDefault();

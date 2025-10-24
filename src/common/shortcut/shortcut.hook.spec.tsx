@@ -22,7 +22,7 @@ describe('useShortcut', () => {
     const event = new KeyboardEvent('keydown', {
       key: 'a',
       code: 'KeyA',
-      ctrlKey: true,
+      metaKey: true,
     });
 
     window.dispatchEvent(event);
@@ -44,26 +44,12 @@ describe('useShortcut', () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
-  it('should add "Alt" to the event if the user is on Windows or Linux', async () => {
+  it('should add "Ctrl" to the event if the user is on Windows or Linux', async () => {
     Object.defineProperty(window.navigator, 'userAgent', {
       value: 'Windows',
       configurable: true,
     });
 
-    renderHook(() => useShortcut({ targetKey, callback }));
-
-    const event = new KeyboardEvent('keydown', {
-      key: 'a',
-      code: 'KeyA',
-      altKey: true,
-    });
-
-    window.dispatchEvent(event);
-
-    expect(callback).toHaveBeenCalled();
-  });
-
-  it('should add "Ctrl" to the event if the user is on MacOS', async () => {
     renderHook(() => useShortcut({ targetKey, callback }));
 
     const event = new KeyboardEvent('keydown', {
@@ -77,13 +63,27 @@ describe('useShortcut', () => {
     expect(callback).toHaveBeenCalled();
   });
 
-  it('should not call the callback when the user is on Mac and "Alt" is pressed', async () => {
+  it('should add "⌘" to the event if the user is on MacOS', async () => {
     renderHook(() => useShortcut({ targetKey, callback }));
 
     const event = new KeyboardEvent('keydown', {
       key: 'a',
       code: 'KeyA',
-      altKey: true,
+      metaKey: true,
+    });
+
+    window.dispatchEvent(event);
+
+    expect(callback).toHaveBeenCalled();
+  });
+
+  it('should not call the callback when the user is on Mac and "Ctrl" is pressed', async () => {
+    renderHook(() => useShortcut({ targetKey, callback }));
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'a',
+      code: 'KeyA',
+      ctrlKey: true,
     });
 
     window.dispatchEvent(event);
@@ -91,7 +91,7 @@ describe('useShortcut', () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
-  it('should not call the callback when the user is on Windows or Linux and "Ctrl" is pressed', async () => {
+  it('should not call the callback when the user is on Windows or Linux and "⌘" is pressed', async () => {
     Object.defineProperty(window.navigator, 'userAgent', {
       value: 'Windows',
       configurable: true,
@@ -102,7 +102,7 @@ describe('useShortcut', () => {
     const event = new KeyboardEvent('keydown', {
       key: 'a',
       code: 'KeyA',
-      ctrlKey: true,
+      metaKey: true,
     });
 
     window.dispatchEvent(event);
