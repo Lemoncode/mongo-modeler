@@ -13,7 +13,7 @@ export const PasteButton = () => {
       onClick={pasteTable}
       className="hide-mobile"
       disabled={!hasClipboardContent}
-      shortcutOptions={SHORTCUTS.Paste}
+      shortcutOptions={SHORTCUTS.paste}
     />
   );
 };

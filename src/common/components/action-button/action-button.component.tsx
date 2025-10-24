@@ -25,9 +25,11 @@ export const ActionButton: React.FC<Props> = ({
   showLabel = true,
   tooltipPosition = 'bottom',
 }) => {
-  const shortcutCommand = isMacOS() ? 'Ctrl' : 'Alt';
+  const shortcutCommand = isMacOS() ? '⌘' : 'Ctrl';
   const showTooltip = shortcutOptions && !disabled;
-  const tooltipText = `(${shortcutCommand} + ${shortcutOptions?.targetKeyLabel})`;
+  const tooltipText = shortcutOptions?.noModifier
+    ? `${shortcutOptions.targetKeyLabel}`
+    : `(${shortcutCommand} + ${shortcutOptions?.targetKeyLabel})`;
 
   const tooltipPositionClass =
     tooltipPosition === 'top' ? classes.tooltipTop : classes.tooltipBottom;
