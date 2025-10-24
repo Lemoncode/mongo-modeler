@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 export interface ShortcutHookProps {
   targetKey: string[];
   callback: () => void;
+  noModifier?: boolean;
 }
 
 /**
@@ -15,19 +16,23 @@ export interface ShortcutHookProps {
  * @return {void}
  */
 
-const useShortcut = ({ targetKey, callback }: ShortcutHookProps) => {
+const useShortcut = ({
+  targetKey,
+  callback,
+  noModifier,
+}: ShortcutHookProps) => {
   const handleKeyPress = (event: KeyboardEvent) => {
     const isMetaKeyPressed = event.getModifierState('Meta');
     const isCtrlKeyPressed = event.getModifierState('Control');
 
-    if (
-      (isWindowsOrLinux() && isCtrlKeyPressed) ||
-      (isMacOS() && isMetaKeyPressed)
-    ) {
-      if (targetKey.includes(event.key)) {
-        event.preventDefault();
-        callback();
-      }
+    const hasCorrectModifier = noModifier
+      ? !isMetaKeyPressed && !isCtrlKeyPressed
+      : (isWindowsOrLinux() && isCtrlKeyPressed) ||
+        (isMacOS() && isMetaKeyPressed);
+
+    if (hasCorrectModifier && targetKey.includes(event.key)) {
+      event.preventDefault();
+      callback();
     }
   };
 

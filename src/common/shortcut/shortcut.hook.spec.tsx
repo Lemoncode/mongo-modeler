@@ -109,4 +109,62 @@ describe('useShortcut', () => {
 
     expect(callback).not.toHaveBeenCalled();
   });
+
+  it('should call the callback when noModifier is true and only the key is pressed', () => {
+    renderHook(() =>
+      useShortcut({
+        targetKey,
+        callback,
+        noModifier: true,
+      })
+    );
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'a',
+      code: 'KeyA',
+    });
+
+    window.dispatchEvent(event);
+
+    expect(callback).toHaveBeenCalled();
+  });
+
+  it('should not call the callback when noModifier is true and modifier is pressed', () => {
+    renderHook(() =>
+      useShortcut({
+        targetKey,
+        callback,
+        noModifier: true,
+      })
+    );
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'a',
+      code: 'KeyA',
+      ctrlKey: true,
+    });
+
+    window.dispatchEvent(event);
+
+    expect(callback).not.toHaveBeenCalled();
+  });
+
+  it('should not call the callback when noModifier is false and no modifier is pressed', () => {
+    renderHook(() =>
+      useShortcut({
+        targetKey,
+        callback,
+        noModifier: false,
+      })
+    );
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'a',
+      code: 'KeyA',
+    });
+
+    window.dispatchEvent(event);
+
+    expect(callback).not.toHaveBeenCalled();
+  });
 });
