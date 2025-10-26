@@ -10,21 +10,21 @@ export const SHORTCUTS: Shortcut = {
     id: 'add-collection-button-shortcut',
     targetKey: ['c'],
     targetKeyLabel: 'Collection "C"',
-    noModifier: true,
+    modifierType: 'none',
   },
   addRelation: {
     description: 'Add Relation',
     id: 'add-relation-button-shortcut',
     targetKey: ['r'],
     targetKeyLabel: 'Relation "R"',
-    noModifier: true,
+    modifierType: 'none',
   },
   delete: {
     description: 'Delete',
     id: 'delete-button-shortcut',
     targetKey: ['backspace'],
     targetKeyLabel: 'Backspace',
-    noModifier: true,
+    modifierType: 'none',
   },
   export: {
     description: 'Export',
@@ -37,6 +37,7 @@ export const SHORTCUTS: Shortcut = {
     id: 'new-button-shortcut',
     targetKey: ['n'],
     targetKeyLabel: 'N',
+    modifierType: 'alt',
   },
   open: {
     description: 'Open',

@@ -1,11 +1,12 @@
 import { isMacOS, isWindowsOrLinux } from '@/common/helpers/platform.helpers';
 import { useModalDialogContext } from '@/core/providers';
 import { useEffect } from 'react';
+import { ModifierType } from './shortcut.model';
 
 export interface ShortcutHookProps {
   targetKey: string[];
   callback: () => void;
-  noModifier?: boolean;
+  modifierType?: ModifierType;
 }
 
 /**
@@ -20,7 +21,7 @@ export interface ShortcutHookProps {
 const useShortcut = ({
   targetKey,
   callback,
-  noModifier,
+  modifierType = 'system',
 }: ShortcutHookProps) => {
   const { modalDialog } = useModalDialogContext();
 
@@ -31,13 +32,17 @@ const useShortcut = ({
 
     const isMetaKeyPressed = event.getModifierState('Meta');
     const isCtrlKeyPressed = event.getModifierState('Control');
+    const isAltKeyPressed = event.getModifierState('Alt');
 
-    const hasCorrectModifier = noModifier
-      ? !isMetaKeyPressed && !isCtrlKeyPressed
-      : (isWindowsOrLinux() && isCtrlKeyPressed) ||
-        (isMacOS() && isMetaKeyPressed);
+    const isValidModifier = {
+      none: !isMetaKeyPressed && !isCtrlKeyPressed && !isAltKeyPressed,
+      system:
+        (isWindowsOrLinux() && isCtrlKeyPressed) ||
+        (isMacOS() && isMetaKeyPressed),
+      alt: isAltKeyPressed && !isCtrlKeyPressed && !isMetaKeyPressed,
+    }[modifierType];
 
-    if (hasCorrectModifier && targetKey.includes(event.key)) {
+    if (isValidModifier && targetKey.includes(event.key)) {
       event.preventDefault();
       callback();
     }

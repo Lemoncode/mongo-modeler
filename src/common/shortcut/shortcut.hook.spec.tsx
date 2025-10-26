@@ -1,12 +1,27 @@
 import { renderHook } from '@testing-library/react';
 import useShortcut from './shortcut.hook';
 import { vi } from 'vitest';
+import { useModalDialogContext } from '@/core/providers';
+
+vi.mock('@/core/providers', () => ({
+  useModalDialogContext: vi.fn(),
+}));
 
 describe('useShortcut', () => {
   let targetKey: string[];
   let callback: () => void;
 
   beforeEach(() => {
+    vi.mocked(useModalDialogContext).mockReturnValue({
+      modalDialog: {
+        isOpen: false,
+        selectedComponent: null,
+        title: '',
+      },
+      openModal: vi.fn(),
+      closeModal: vi.fn(),
+    });
+
     targetKey = ['a'];
     callback = vi.fn();
 
@@ -110,51 +125,51 @@ describe('useShortcut', () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
-  it('should call the callback when noModifier is true and only the key is pressed', () => {
+  it('should call callback with alt modifier', () => {
     renderHook(() =>
       useShortcut({
         targetKey,
         callback,
-        noModifier: true,
+        modifierType: 'alt',
       })
     );
 
     const event = new KeyboardEvent('keydown', {
       key: 'a',
       code: 'KeyA',
+      altKey: true,
     });
 
     window.dispatchEvent(event);
-
     expect(callback).toHaveBeenCalled();
   });
 
-  it('should not call the callback when noModifier is true and modifier is pressed', () => {
+  it('should not call callback if other modifiers are pressed with alt', () => {
     renderHook(() =>
       useShortcut({
         targetKey,
         callback,
-        noModifier: true,
+        modifierType: 'alt',
       })
     );
 
     const event = new KeyboardEvent('keydown', {
       key: 'a',
       code: 'KeyA',
-      ctrlKey: true,
+      altKey: true,
+      ctrlKey: true, // No debería funcionar con otros modificadores
     });
 
     window.dispatchEvent(event);
-
     expect(callback).not.toHaveBeenCalled();
   });
 
-  it('should not call the callback when noModifier is false and no modifier is pressed', () => {
+  it('should call callback with no modifiers', () => {
     renderHook(() =>
       useShortcut({
         targetKey,
         callback,
-        noModifier: false,
+        modifierType: 'none',
       })
     );
 
@@ -164,7 +179,53 @@ describe('useShortcut', () => {
     });
 
     window.dispatchEvent(event);
+    expect(callback).toHaveBeenCalled();
+  });
 
+  it('should not call callback if any modifier is pressed', () => {
+    renderHook(() =>
+      useShortcut({
+        targetKey,
+        callback,
+        modifierType: 'none',
+      })
+    );
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'a',
+      code: 'KeyA',
+      altKey: true,
+    });
+
+    window.dispatchEvent(event);
+    expect(callback).not.toHaveBeenCalled();
+  });
+
+  it('should not call callback when modal is open', () => {
+    vi.mocked(useModalDialogContext).mockReturnValueOnce({
+      modalDialog: {
+        isOpen: true,
+        selectedComponent: null,
+        title: '',
+      },
+      openModal: vi.fn(),
+      closeModal: vi.fn(),
+    });
+
+    renderHook(() =>
+      useShortcut({
+        targetKey,
+        callback,
+        modifierType: 'none',
+      })
+    );
+
+    const event = new KeyboardEvent('keydown', {
+      key: 'r',
+      code: 'KeyR',
+    });
+
+    window.dispatchEvent(event);
     expect(callback).not.toHaveBeenCalled();
   });
 });

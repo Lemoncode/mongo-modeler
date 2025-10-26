@@ -2,12 +2,27 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import { ActionButton } from './action-button.component';
 import { ShortcutOptions } from '@/common/shortcut';
+import { useModalDialogContext } from '@/core/providers';
+
+vi.mock('@/core/providers', () => ({
+  useModalDialogContext: vi.fn(),
+}));
 
 describe('ActionButton', () => {
   let onClick: () => void;
   let shortcutOptions: ShortcutOptions;
 
   beforeEach(() => {
+    vi.mocked(useModalDialogContext).mockReturnValue({
+      modalDialog: {
+        isOpen: false,
+        selectedComponent: null,
+        title: '',
+      },
+      openModal: vi.fn(),
+      closeModal: vi.fn(),
+    });
+
     onClick = vi.fn();
 
     shortcutOptions = {
@@ -52,19 +67,84 @@ describe('ActionButton', () => {
     expect(onClick).toHaveBeenCalled();
   });
 
-  it('should render the tooltip with the correct shortcut key', () => {
-    const { getByRole } = render(
-      <ActionButton
-        icon={<span>Icon</span>}
-        label="Label"
-        onClick={onClick}
-        shortcutOptions={shortcutOptions}
-      />
-    );
+  describe('tooltip display', () => {
+    it('should render system modifier correctly', () => {
+      // Test Mac
+      const { getByRole, rerender } = render(
+        <ActionButton
+          icon={<span>Icon</span>}
+          label="Label"
+          onClick={onClick}
+          shortcutOptions={{
+            ...shortcutOptions,
+            modifierType: 'system',
+          }}
+        />
+      );
+      expect(getByRole('tooltip').textContent).toBe('(⌘ + A)');
 
-    const tooltip = getByRole('tooltip');
+      // Test Windows
+      Object.defineProperty(window.navigator, 'userAgent', {
+        value: 'Windows',
+        configurable: true,
+      });
+      rerender(
+        <ActionButton
+          icon={<span>Icon</span>}
+          label="Label"
+          onClick={onClick}
+          shortcutOptions={{
+            ...shortcutOptions,
+            modifierType: 'system',
+          }}
+        />
+      );
+      expect(getByRole('tooltip').textContent).toBe('(Ctrl + A)');
+    });
 
-    expect(tooltip.textContent).toContain('⌘ + A');
+    it('should render alt tooltip correctly', () => {
+      const { getByRole } = render(
+        <ActionButton
+          icon={<span>Icon</span>}
+          label="Label"
+          onClick={onClick}
+          shortcutOptions={{
+            ...shortcutOptions,
+            modifierType: 'alt',
+          }}
+        />
+      );
+      expect(getByRole('tooltip').textContent).toBe('(Alt + A)');
+    });
+
+    it('should render mo-modifier tooltip correctly', () => {
+      const { getByRole } = render(
+        <ActionButton
+          icon={<span>Icon</span>}
+          label="Label"
+          onClick={onClick}
+          shortcutOptions={{
+            ...shortcutOptions,
+            modifierType: 'none',
+          }}
+        />
+      );
+      expect(getByRole('tooltip').textContent).toBe('(A)');
+    });
+
+    it('should not show tooltip when disabled', () => {
+      const { queryByRole } = render(
+        <ActionButton
+          icon={<span>Icon</span>}
+          label="Label"
+          onClick={onClick}
+          disabled
+          shortcutOptions={shortcutOptions}
+        />
+      );
+
+      expect(queryByRole('tooltip')).toBeNull();
+    });
   });
 
   it('should disable the button if the disabled prop is true', () => {
@@ -124,24 +204,5 @@ describe('ActionButton', () => {
 
     const tooltip = getByRole('tooltip');
     expect(tooltip.className).toContain('tooltipTop');
-  });
-
-  it('should render the tooltip without modifier when noModifier is true', () => {
-    const shortcutOptionsNoMod = {
-      ...shortcutOptions,
-      noModifier: true,
-    };
-
-    const { getByRole } = render(
-      <ActionButton
-        icon={<span>Icon</span>}
-        label="Label"
-        onClick={onClick}
-        shortcutOptions={shortcutOptionsNoMod}
-      />
-    );
-
-    const tooltip = getByRole('tooltip');
-    expect(tooltip.textContent).toBe('A');
   });
 });
