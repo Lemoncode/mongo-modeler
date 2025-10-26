@@ -1,4 +1,5 @@
 import { isMacOS, isWindowsOrLinux } from '@/common/helpers/platform.helpers';
+import { useModalDialogContext } from '@/core/providers';
 import { useEffect } from 'react';
 
 export interface ShortcutHookProps {
@@ -21,7 +22,13 @@ const useShortcut = ({
   callback,
   noModifier,
 }: ShortcutHookProps) => {
+  const { modalDialog } = useModalDialogContext();
+
   const handleKeyPress = (event: KeyboardEvent) => {
+    if (modalDialog.isOpen) {
+      return;
+    }
+
     const isMetaKeyPressed = event.getModifierState('Meta');
     const isCtrlKeyPressed = event.getModifierState('Control');
 
