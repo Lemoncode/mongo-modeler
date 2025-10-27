@@ -10,11 +10,13 @@ export interface ShortcutHookProps {
 }
 
 /**
- * This hook is used to create a keyboard shortcut
- * it uses Ctrl + key for Windows and Cmd + key for Mac
- * to avoid conflicts with the browser shortcuts
+ * * This hook is used to create keyboard shortcuts with different modifier types:
+ * - system: Uses Ctrl (Windows/Linux) or Cmd (Mac) as modifier
+ * - alt: Uses Alt key as modifier (same behavior in all platforms)
+ * - none: No modifier required, direct key press
  * @param  {String[]} targetKey The key that will trigger the shortcut
  * @param  {Function} callback  The function to be called when the shortcut is triggered
+ * @param  {ModifierType} modifierType The type of modifier to use ('system' | 'alt' | 'none')
  * @return {void}
  */
 

@@ -157,7 +157,7 @@ describe('useShortcut', () => {
       key: 'a',
       code: 'KeyA',
       altKey: true,
-      ctrlKey: true, // No debería funcionar con otros modificadores
+      ctrlKey: true,
     });
 
     window.dispatchEvent(event);
