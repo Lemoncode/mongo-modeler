@@ -12,9 +12,7 @@ test('opens MongoDB Designer, adds collection, and checks "New Collection" visib
   await expect(newButton).toBeVisible();
   await newButton.click();
 
-  const addCollectionButton = page
-    .getByRole('button', { name: 'Add Collection' })
-    .first();
+  const addCollectionButton = page.locator('.add-collection-button');
   await expect(addCollectionButton).toBeVisible();
   await addCollectionButton.click();
 
