@@ -10,6 +10,7 @@ import {
 import { ADD_COLLECTION_TITLE } from '@/common/components/modal-dialog';
 import { ActionButton } from '@/common/components/action-button';
 import { SHORTCUTS } from '@/common/shortcut';
+import classes from '../floating-bar-components.module.css';
 
 const BORDER_MARGIN = 40;
 
@@ -48,8 +49,10 @@ export const AddCollection = () => {
       icon={<TableIcon />}
       label="Add Collection"
       onClick={handleEditTableClick}
-      className="hide-mobile"
+      className={`${classes.button} hide-mobile add-collection-button`}
       shortcutOptions={SHORTCUTS.addCollection}
+      showLabel={false}
+      tooltipPosition="top"
     />
   );
 };

@@ -1,33 +1,52 @@
 import { isMacOS, isWindowsOrLinux } from '@/common/helpers/platform.helpers';
+import { useModalDialogContext } from '@/core/providers';
 import { useEffect } from 'react';
+import { ModifierType } from './shortcut.model';
 
 export interface ShortcutHookProps {
   targetKey: string[];
   callback: () => void;
+  modifierType?: ModifierType;
 }
 
 /**
- * This hook is used to create a keyboard shortcut
- * it uses Ctrl + key for Windows and Cmd + key for Mac
- * to avoid conflicts with the browser shortcuts
+ * * This hook is used to create keyboard shortcuts with different modifier types:
+ * - system: Uses Ctrl (Windows/Linux) or Cmd (Mac) as modifier
+ * - alt: Uses Alt key as modifier (same behavior in all platforms)
+ * - none: No modifier required, direct key press
  * @param  {String[]} targetKey The key that will trigger the shortcut
  * @param  {Function} callback  The function to be called when the shortcut is triggered
+ * @param  {ModifierType} modifierType The type of modifier to use ('system' | 'alt' | 'none')
  * @return {void}
  */
 
-const useShortcut = ({ targetKey, callback }: ShortcutHookProps) => {
-  const handleKeyPress = (event: KeyboardEvent) => {
-    const isAltKeyPressed = event.getModifierState('Alt');
-    const isCtrlKeyPressed = event.getModifierState('Control');
+const useShortcut = ({
+  targetKey,
+  callback,
+  modifierType = 'system',
+}: ShortcutHookProps) => {
+  const { modalDialog } = useModalDialogContext();
 
-    if (
-      (isWindowsOrLinux() && isAltKeyPressed) ||
-      (isMacOS() && isCtrlKeyPressed)
-    ) {
-      if (targetKey.includes(event.key)) {
-        event.preventDefault();
-        callback();
-      }
+  const handleKeyPress = (event: KeyboardEvent) => {
+    if (modalDialog.isOpen) {
+      return;
+    }
+
+    const isMetaKeyPressed = event.getModifierState('Meta');
+    const isCtrlKeyPressed = event.getModifierState('Control');
+    const isAltKeyPressed = event.getModifierState('Alt');
+
+    const isValidModifier = {
+      none: !isMetaKeyPressed && !isCtrlKeyPressed && !isAltKeyPressed,
+      system:
+        (isWindowsOrLinux() && isCtrlKeyPressed) ||
+        (isMacOS() && isMetaKeyPressed),
+      alt: isAltKeyPressed && !isCtrlKeyPressed && !isMetaKeyPressed,
+    }[modifierType];
+
+    if (isValidModifier && targetKey.includes(event.key)) {
+      event.preventDefault();
+      callback();
     }
   };
 

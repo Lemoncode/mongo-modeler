@@ -1,0 +1,21 @@
+.floating-bar-container {
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  bottom: 80px;
+  z-index: 2;
+}
+
+.floating-bar {
+  position: relative;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 6px 12px;
+  gap: var(--space-sm);
+  background-color: var(--bg-toolbar);
+  border-radius: var(--border-radius-m);
+  border: var(--border-toolbar);
+}

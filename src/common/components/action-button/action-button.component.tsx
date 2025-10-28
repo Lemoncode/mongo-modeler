@@ -1,7 +1,7 @@
 import React from 'react';
 import { isMacOS } from '@/common/helpers/platform.helpers';
 import classes from './action-button.component.module.css';
-import { ShortcutOptions } from '@/common/shortcut';
+import { ModifierType, ShortcutOptions } from '@/common/shortcut';
 import useShortcut from '@/common/shortcut/shortcut.hook';
 
 interface Props {
@@ -25,9 +25,28 @@ export const ActionButton: React.FC<Props> = ({
   showLabel = true,
   tooltipPosition = 'bottom',
 }) => {
-  const shortcutCommand = isMacOS() ? 'Ctrl' : 'Alt';
+  const getModifierSymbol = (modifierType: ModifierType = 'system') => {
+    switch (modifierType) {
+      case 'none':
+        return '';
+      case 'alt':
+        return 'Alt';
+      case 'system':
+      default:
+        return isMacOS() ? '⌘' : 'Ctrl';
+    }
+  };
+
+  const shortcutCommand = getModifierSymbol(shortcutOptions?.modifierType);
+
   const showTooltip = shortcutOptions && !disabled;
-  const tooltipText = `(${shortcutCommand} + ${shortcutOptions?.targetKeyLabel})`;
+  const tooltipText =
+    shortcutOptions &&
+    `(${
+      shortcutOptions.modifierType === 'none'
+        ? shortcutOptions.targetKeyLabel
+        : `${shortcutCommand} + ${shortcutOptions.targetKeyLabel}`
+    })`;
 
   const tooltipPositionClass =
     tooltipPosition === 'top' ? classes.tooltipTop : classes.tooltipBottom;

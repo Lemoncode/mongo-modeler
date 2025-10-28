@@ -8,6 +8,7 @@ import {
 } from '@/core/providers/canvas-schema';
 import { ActionButton } from '@/common/components/action-button';
 import { SHORTCUTS } from '@/common/shortcut';
+import classes from '../floating-bar-components.module.css';
 
 export const RelationButton = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -37,9 +38,11 @@ export const RelationButton = () => {
       icon={<Relation />}
       label="Add Relation"
       onClick={handleRelationClick}
-      className="hide-mobile"
+      className={`${classes.button} hide-mobile relation-button`}
       shortcutOptions={SHORTCUTS.addRelation}
       disabled={canvasSchema.tables.length < 1}
+      showLabel={false}
+      tooltipPosition="top"
     />
   );
 };
