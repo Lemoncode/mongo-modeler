@@ -114,7 +114,7 @@ export const placeTableWithoutOverlap = (
   }
 
   // If relocated table still overlaps, restore original posotion.
-  if (doesTableOverlap(newTable, tables)) {
+  if ((newTable.width) && (newTable.width > TABLE_CONST.TABLE_SHIFT_DISTANCE) && doesTableOverlap(newTable, tables)) {
     newTable.x = table.x;
     newTable.y = table.y;
   }
