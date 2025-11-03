@@ -1,0 +1,46 @@
+.noteTitle {
+  fill: #f8f4d3;
+}
+
+.noteText {
+  font-size: 14px;
+  fill: var(--text-dark);
+}
+
+.noteBody {
+  fill: #f8f4d3;
+}
+
+.noteBodyText {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-dark);
+}
+
+.noteBorder {
+  fill: none;
+  stroke: #d4c896;
+  stroke-width: 1;
+}
+
+.noteBorderSelected {
+  fill: none;
+  stroke: #c9b155;
+  stroke-width: 3;
+}
+
+.noteContainer {
+  cursor: grabbing;
+}
+
+.editIcon {
+  color: #000000;
+  fill: #000000;
+}
