@@ -31,12 +31,23 @@ export interface RelationVm {
   type: RelationType;
 }
 
+export interface NoteVm {
+  id: GUID;
+  title?: string;
+  description: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 export type Versions = '0.1';
 
 export interface DatabaseSchemaVm {
   version: Versions;
   tables: TableVm[];
   relations: RelationVm[];
+  notes: NoteVm[];
   selectedElementId: GUID | null;
   isPristine?: boolean;
 }
@@ -45,6 +56,7 @@ export const createDefaultDatabaseSchemaVm = (): DatabaseSchemaVm => ({
   version: '0.1',
   tables: [],
   relations: [],
+  notes: [],
   selectedElementId: null,
   isPristine: true,
 });
@@ -71,6 +83,9 @@ export interface CanvasSchemaContextVm {
   updateFullTable: (table: TableVm) => void;
   addTable: (table: TableVm) => void;
   addRelation: (relation: RelationVm) => void;
+  addNote: (note: NoteVm) => void;
+  updateFullNote: (note: NoteVm) => void;
+  updateNotePosition: UpdatePositionFn;
   doSelectElement: (id: GUID | null) => void;
   canUndo: () => boolean;
   canRedo: () => boolean;

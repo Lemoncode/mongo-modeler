@@ -3,7 +3,7 @@ import * as schemaV0 from './canvas-schema-v0.model';
 
 const mapSchemaFromNoVersionToLatestVersion = (
   newSchema: schemaV0.DatabaseSchemaVmV0
-): DatabaseSchemaVm => ({ ...newSchema, version: '0.1' });
+): DatabaseSchemaVm => ({ ...newSchema, version: '0.1', notes: [] });
 
 // TODO: Add unit test to mapSchemaToLatestVersion
 // #277
