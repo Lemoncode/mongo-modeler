@@ -7,6 +7,7 @@ import {
 import { GUID, Size } from '@/core/model';
 import classes from './canvas.pod.module.css';
 import {
+  NoteVm,
   RelationVm,
   TableVm,
   useCanvasSchemaContext,
@@ -34,6 +35,7 @@ export const CanvasPod: React.FC = () => {
     addTable,
     addRelation,
     updateTablePosition,
+    updateNotePosition,
     updateFullTable,
     doFieldToggleCollapse,
     doSelectElement,
@@ -121,6 +123,11 @@ export const CanvasPod: React.FC = () => {
       />,
       EDIT_COLLECTION_TITLE
     );
+  };
+
+  const handleEditNote = (noteInfo: NoteVm) => {
+    console.log('Edit note:', noteInfo);
+    // TODO: Open edit note modal
   };
 
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -286,9 +293,11 @@ export const CanvasPod: React.FC = () => {
           zoomFactor={zoomFactor}
           canvasSchema={canvasSchema}
           onUpdateTablePosition={updateTablePosition}
+          onUpdateNotePosition={updateNotePosition}
           onToggleCollapse={handleToggleCollapse}
           onEditTable={handleEditTable}
           onEditRelation={handleEditRelation}
+          onEditNote={handleEditNote}
           onSelectElement={onSelectElement}
           isTabletOrMobileDevice={isTabletOrMobileDevice}
           updateTableWidth={updateTableWidth}
