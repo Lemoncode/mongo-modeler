@@ -1,5 +1,5 @@
 import React from 'react';
-import { NOTE_CONST } from '../note.const';
+import { NOTE_COMPONENT_CONST } from '../note.const';
 import classes from '../note.module.css';
 import { TruncatedText } from '../../table/components';
 import { Edit } from '@/common/components';
@@ -46,40 +46,45 @@ export const NoteTitle: React.FC<Props> = props => {
         x="0"
         y="0"
         width={width}
-        height={NOTE_CONST.TITLE_HEIGHT}
+        height={NOTE_COMPONENT_CONST.TITLE_HEIGHT}
         className={classes.noteTitle}
       />
 
       <TruncatedText
         text={title ?? ''}
-        x={NOTE_CONST.PADDING_X}
+        x={NOTE_COMPONENT_CONST.PADDING_X}
         y={-5}
-        width={width - NOTE_CONST.PADDING_X - NOTE_CONST.PENCIL_ICON_WIDTH}
-        height={NOTE_CONST.TITLE_HEIGHT - 8}
+        width={
+          width -
+          NOTE_COMPONENT_CONST.PADDING_X -
+          NOTE_COMPONENT_CONST.PENCIL_ICON_WIDTH
+        }
+        height={NOTE_COMPONENT_CONST.TITLE_HEIGHT - 8}
         textClass={classes.noteText}
       />
 
       <line
         x1="0"
-        y1={NOTE_CONST.TITLE_HEIGHT}
+        y1={NOTE_COMPONENT_CONST.TITLE_HEIGHT}
         x2={width}
-        y2={NOTE_CONST.TITLE_HEIGHT}
+        y2={NOTE_COMPONENT_CONST.TITLE_HEIGHT}
         stroke="#d1be70"
         strokeWidth="1"
       />
       {isSelected && !isTabletOrMobileDevice && (
         <g
-          transform={`translate(${width - (NOTE_CONST.PENCIL_ICON_WIDTH - NOTE_CONST.PENCIL_MARGIN_RIGHT)}, 2)`}
+          transform={`translate(${width - (NOTE_COMPONENT_CONST.PENCIL_ICON_WIDTH - NOTE_COMPONENT_CONST.PENCIL_MARGIN_RIGHT)}, 2)`}
           onClick={handlePencilIconClick}
         >
           <rect
             x="0"
             y="0"
             width={
-              NOTE_CONST.PENCIL_ICON_WIDTH + NOTE_CONST.PENCIL_MARGIN_RIGHT
+              NOTE_COMPONENT_CONST.PENCIL_ICON_WIDTH +
+              NOTE_COMPONENT_CONST.PENCIL_MARGIN_RIGHT
             }
             fill="transparent"
-            height={NOTE_CONST.PENCIL_ICON_HEIGHT}
+            height={NOTE_COMPONENT_CONST.PENCIL_ICON_HEIGHT}
             onClick={handlePencilIconClick}
             style={{ cursor: 'pointer' }}
           />
@@ -92,8 +97,10 @@ export const NoteTitle: React.FC<Props> = props => {
       <rect
         x="0"
         y="0"
-        width={isSelected ? width - NOTE_CONST.PENCIL_ICON_WIDTH : width}
-        height={NOTE_CONST.TITLE_HEIGHT}
+        width={
+          isSelected ? width - NOTE_COMPONENT_CONST.PENCIL_ICON_WIDTH : width
+        }
+        height={NOTE_COMPONENT_CONST.TITLE_HEIGHT}
         fill="transparent"
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}
