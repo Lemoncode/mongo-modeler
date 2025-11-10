@@ -6,6 +6,7 @@ import {
   DatabaseSchemaVm,
   createDefaultDatabaseSchemaVm,
 } from '@/core/providers';
+import { mapSchemaToLatestVersion } from '../providers/canvas-schema/canvas-schema.mapper';
 
 export interface AutosaveCanvasSchema {
   filename: string | undefined;
@@ -47,7 +48,7 @@ export const retrieveLocalSchema = (
     if (retrievedValue && retrievedValue.canvasSchema.tables.length !== 0) {
       setLoadSample(false);
       setFilename(retrievedValue.filename);
-      return retrievedValue.canvasSchema;
+      return mapSchemaToLatestVersion(retrievedValue.canvasSchema);
     } else {
       return defaultSchema(setLoadSample, setFilename);
     }

@@ -19,9 +19,9 @@ export const mapSchemaToLatestVersion = (newSchema: any) => {
 
   switch (newSchema.version) {
     case '0.1': // Latest
-      return newSchema;
+      return { ...newSchema, notes: newSchema.notes || [] };
     default:
-      return newSchema;
+      return { ...newSchema, notes: newSchema.notes || [] };
   }
   return newSchema;
 };
