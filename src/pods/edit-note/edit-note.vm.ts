@@ -3,7 +3,7 @@ import { NOTE_CONST } from '@/core/providers';
 
 export interface NoteVm {
   id: GUID;
-  title: string;
+  title?: string;
   description: string;
   x: number;
   y: number;

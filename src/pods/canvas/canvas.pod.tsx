@@ -18,6 +18,7 @@ import {
   EDIT_COLLECTION_TITLE,
   ADD_COLLECTION_TITLE,
   ADD_RELATION_TITLE,
+  EDIT_NOTE_TITLE,
 } from '@/common/components/modal-dialog';
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
@@ -26,6 +27,7 @@ import { CanvasAccessible } from './components/canvas-accessible';
 import useAutosave from '@/core/autosave/autosave.hook';
 import { CANVAS_MAX_WIDTH } from '@/core/providers';
 import { setOffSetZoomToCoords } from '@/common/helpers/set-off-set-zoom-to-coords.helper';
+import { EditNotePod } from '../edit-note';
 const HEIGHT_OFFSET = 200;
 const BORDER_MARGIN = 40;
 export const CanvasPod: React.FC = () => {
@@ -37,6 +39,7 @@ export const CanvasPod: React.FC = () => {
     updateTablePosition,
     updateNotePosition,
     updateFullTable,
+    updateFullNote,
     doFieldToggleCollapse,
     doSelectElement,
     updateFullRelation,
@@ -126,8 +129,20 @@ export const CanvasPod: React.FC = () => {
   };
 
   const handleEditNote = (noteInfo: NoteVm) => {
-    console.log('Edit note:', noteInfo);
-    // TODO: Open edit note modal
+    if (isTabletOrMobileDevice) return;
+    openModal(
+      <EditNotePod
+        note={noteInfo}
+        onSave={handleNoteEditUpdate}
+        onClose={handleCloseModal}
+      />,
+      EDIT_NOTE_TITLE
+    );
+  };
+
+  const handleNoteEditUpdate = (note: NoteVm) => {
+    updateFullNote(note);
+    closeModal();
   };
 
   const containerRef = React.useRef<HTMLDivElement>(null);

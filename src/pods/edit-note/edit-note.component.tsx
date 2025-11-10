@@ -27,7 +27,7 @@ export const EditNoteComponent: React.FC<Props> = props => {
           Title:
           <input
             type="text"
-            value={note.title}
+            value={note.title ?? ''}
             onChange={handleChangeTitle}
             placeholder="Enter note title"
             onFocus={e => e.currentTarget.select()}
