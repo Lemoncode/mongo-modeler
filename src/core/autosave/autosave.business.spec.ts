@@ -108,6 +108,7 @@ describe('retrieveLocalSchema', () => {
         },
       ],
       relations: [],
+      notes: [],
       selectedElementId: null,
     };
 

@@ -182,6 +182,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const expected = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       relations: [
         {
           id: '30',
@@ -391,6 +392,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const expected = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       relations: [],
       tables: [],
     };
