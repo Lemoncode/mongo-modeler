@@ -20,5 +20,7 @@
 
 .formField textarea {
   min-height: 120px;
-  resize: vertical;
+  max-height: 120px;
+  resize: none;
+  overflow-y: auto;
 }
