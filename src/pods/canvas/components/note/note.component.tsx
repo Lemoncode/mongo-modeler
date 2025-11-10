@@ -5,6 +5,7 @@ import { useDraggable } from '@/common/canvas-draggable';
 import { NoteBody, NoteBorder, NoteTitle } from './components';
 import classes from './note.module.css';
 import { NOTE_COMPONENT_CONST } from './note.const';
+import { calculateNoteAutoHeight } from './note.business';
 
 interface Props {
   noteInfo: NoteVm;
@@ -32,7 +33,7 @@ export const Note: React.FC<Props> = props => {
   } = props;
 
   const noteWidth = noteInfo.width ?? NOTE_CONST.DEFAULT_NOTE_WIDTH;
-  const noteHeight = noteInfo.height ?? NOTE_CONST.DEFAULT_NOTE_HEIGHT;
+  const noteHeight = calculateNoteAutoHeight(noteInfo.description, noteWidth);
 
   const bodyHeight = noteHeight - NOTE_COMPONENT_CONST.TITLE_HEIGHT;
 

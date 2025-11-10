@@ -16,12 +16,17 @@
   height: 100%;
   text-align: left;
   overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 12;
+  line-clamp: 12;
   word-wrap: break-word;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
+  word-break: break-word;
   font-size: 14px;
   line-height: 1.4;
   color: var(--text-dark);
+  white-space: pre-wrap;
 }
 
 .noteBorder {
