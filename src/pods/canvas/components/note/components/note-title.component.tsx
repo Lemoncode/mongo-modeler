@@ -89,7 +89,7 @@ export const NoteTitle: React.FC<Props> = props => {
             onClick={handlePencilIconClick}
             style={{ cursor: 'pointer' }}
           />
-          <g className={classes.editIcon}>
+          <g>
             <Edit />
           </g>
         </g>

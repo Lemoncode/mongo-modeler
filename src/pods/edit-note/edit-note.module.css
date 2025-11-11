@@ -27,11 +27,11 @@
 }
 
 .error {
-  border: 1px solid red;
+  border: 1px solid var(--color-error);
 }
 
 .errorMessage {
-  color: red;
+  color: var(--color-error);
   font-size: 12px;
   margin-top: 4px;
   height: 15px;
