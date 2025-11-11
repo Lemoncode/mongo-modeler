@@ -34,7 +34,7 @@ export const calculateNoteAutoHeight = (
 
   const textHeight = totalLines * NOTE_COMPONENT_CONST.LINE_HEIGHT;
   const calculatedHeight =
-    NOTE_COMPONENT_CONST.TITLE_HEIGHT +
+    NOTE_COMPONENT_CONST.TITLE_CONTAINER_HEIGHT +
     NOTE_COMPONENT_CONST.PADDING_Y * 2 +
     textHeight;
 

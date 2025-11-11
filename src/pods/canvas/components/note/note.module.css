@@ -1,10 +1,17 @@
-.noteTitle {
+.noteTitleContainer {
   fill: #f8f4d3;
 }
 
-.noteText {
+.noteTitle {
+  width: 100%;
+  text-align: left;
   font-size: 14px;
-  fill: var(--text-dark);
+  font-weight: bold;
+  line-height: 1.4;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .noteBody {

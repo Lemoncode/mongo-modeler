@@ -4,7 +4,7 @@ import { NOTE_COMPONENT_CONST } from './note.const';
 
 describe('calculateNoteAutoHeight', () => {
   const {
-    TITLE_HEIGHT,
+    TITLE_CONTAINER_HEIGHT,
     PADDING_Y,
     LINE_HEIGHT,
     MIN_NOTE_WIDTH,
@@ -31,7 +31,8 @@ describe('calculateNoteAutoHeight', () => {
 
     it('should calculate correct height for multiple lines with newlines', () => {
       const description = 'First line\nSecond line\nThird line';
-      const expectedHeight = TITLE_HEIGHT + PADDING_Y * 2 + LINE_HEIGHT * 3;
+      const expectedHeight =
+        TITLE_CONTAINER_HEIGHT + PADDING_Y * 2 + LINE_HEIGHT * 3;
 
       const result = calculateNoteAutoHeight(description, MIN_NOTE_WIDTH);
 
@@ -40,7 +41,8 @@ describe('calculateNoteAutoHeight', () => {
 
     it('should respect empty lines (paragraph separation)', () => {
       const description = 'Paragraph 1\n\nParagraph 2';
-      const expectedHeight = TITLE_HEIGHT + PADDING_Y * 2 + LINE_HEIGHT * 3;
+      const expectedHeight =
+        TITLE_CONTAINER_HEIGHT + PADDING_Y * 2 + LINE_HEIGHT * 3;
 
       const result = calculateNoteAutoHeight(description, MIN_NOTE_WIDTH);
 

@@ -14,14 +14,17 @@ export const NoteBody: React.FC<Props> = props => {
     <g>
       <rect
         x="0"
-        y={NOTE_COMPONENT_CONST.TITLE_HEIGHT}
+        y={NOTE_COMPONENT_CONST.TITLE_CONTAINER_HEIGHT}
         width={width}
         height={height}
         className={classes.noteBody}
       />
       <foreignObject
         x={NOTE_COMPONENT_CONST.PADDING_X}
-        y={NOTE_COMPONENT_CONST.TITLE_HEIGHT + NOTE_COMPONENT_CONST.PADDING_Y}
+        y={
+          NOTE_COMPONENT_CONST.TITLE_CONTAINER_HEIGHT +
+          NOTE_COMPONENT_CONST.PADDING_Y
+        }
         width={width - NOTE_COMPONENT_CONST.PADDING_X * 2}
         height={height - NOTE_COMPONENT_CONST.PADDING_Y * 2}
       >

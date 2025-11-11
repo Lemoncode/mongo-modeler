@@ -35,7 +35,7 @@ export const Note: React.FC<Props> = props => {
   const noteWidth = noteInfo.width ?? NOTE_CONST.DEFAULT_NOTE_WIDTH;
   const noteHeight = calculateNoteAutoHeight(noteInfo.description, noteWidth);
 
-  const bodyHeight = noteHeight - NOTE_COMPONENT_CONST.TITLE_HEIGHT;
+  const bodyHeight = noteHeight - NOTE_COMPONENT_CONST.TITLE_CONTAINER_HEIGHT;
 
   const { onMouseDown, onTouchStart, ref } = useDraggable(
     noteInfo.id,
