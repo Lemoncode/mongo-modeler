@@ -15,16 +15,22 @@ export const EditNotePod: React.FC<Props> = props => {
     () => note || createDefaultNote()
   );
 
+  const [hasError, setHasError] = useState(false);
+
   const updateTitle = (title: string) => {
     setEditNote(prev => ({ ...prev, title }));
   };
 
   const updateDescription = (description: string) => {
     setEditNote(prev => ({ ...prev, description }));
+    if (hasError && description.trim()) {
+      setHasError(false);
+    }
   };
 
   const handleSubmit = () => {
     if (!editNote.description.trim()) {
+      setHasError(true);
       return;
     }
     onSave(editNote);
@@ -36,6 +42,7 @@ export const EditNotePod: React.FC<Props> = props => {
         note={editNote}
         updateTitle={updateTitle}
         updateDescription={updateDescription}
+        hasError={hasError}
       />
       <div className="two-buttons">
         <button className="button-secondary" onClick={handleSubmit}>

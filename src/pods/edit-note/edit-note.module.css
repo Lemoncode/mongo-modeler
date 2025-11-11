@@ -12,6 +12,7 @@
   flex-direction: column;
   gap: var(--space-xs);
 }
+
 .formField input,
 .formField textarea {
   width: 700px;
@@ -23,4 +24,16 @@
   max-height: 120px;
   resize: none;
   overflow-y: auto;
+}
+
+.error {
+  border: 1px solid red;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+  height: 15px;
+  text-align: start;
 }

@@ -5,10 +5,11 @@ interface Props {
   note: NoteVm;
   updateTitle: (value: string) => void;
   updateDescription: (value: string) => void;
+  hasError?: boolean;
 }
 
 export const EditNoteComponent: React.FC<Props> = props => {
-  const { note, updateTitle, updateDescription } = props;
+  const { note, updateTitle, updateDescription, hasError } = props;
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateTitle(e.currentTarget.value);
@@ -45,8 +46,12 @@ export const EditNoteComponent: React.FC<Props> = props => {
             required
             rows={5}
             onFocus={e => e.currentTarget.select()}
+            className={hasError ? classes.error : ''}
           />
         </label>
+        <div className={classes.errorMessage}>
+          <span>{hasError ? 'Description is required' : ''}</span>
+        </div>
       </div>
     </div>
   );
