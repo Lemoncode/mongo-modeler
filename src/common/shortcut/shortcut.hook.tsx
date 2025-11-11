@@ -1,5 +1,4 @@
 import { isMacOS, isWindowsOrLinux } from '@/common/helpers/platform.helpers';
-import { useModalDialogContext } from '@/core/providers';
 import { useEffect } from 'react';
 import { ModifierType } from './shortcut.model';
 
@@ -25,10 +24,15 @@ const useShortcut = ({
   callback,
   modifierType = 'system',
 }: ShortcutHookProps) => {
-  const { modalDialog } = useModalDialogContext();
-
   const handleKeyPress = (event: KeyboardEvent) => {
-    if (modalDialog.isOpen) {
+    const target = event.target as HTMLElement;
+    const isTypingInInput =
+      target.tagName === 'INPUT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.isContentEditable;
+
+    // Block single-key shortcuts when typing in inputs
+    if (isTypingInInput && modifierType === 'none') {
       return;
     }
 
@@ -45,7 +49,9 @@ const useShortcut = ({
     }[modifierType];
 
     if (isValidModifier && targetKey.includes(event.key)) {
-      event.preventDefault();
+      if (!isTypingInInput) {
+        event.preventDefault();
+      }
       callback();
     }
   };
