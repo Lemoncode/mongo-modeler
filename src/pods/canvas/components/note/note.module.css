@@ -51,3 +51,7 @@
 .noteContainer {
   cursor: grabbing;
 }
+
+.editIcon {
+  color: var(--text-dark);
+}
