@@ -51,7 +51,7 @@ export const NoteTitle: React.FC<Props> = props => {
 
       <foreignObject
         x={NOTE_COMPONENT_CONST.PADDING_X}
-        y={12}
+        y={NOTE_COMPONENT_CONST.PADDING_Y}
         width={
           width -
           NOTE_COMPONENT_CONST.PENCIL_ICON_WIDTH -
