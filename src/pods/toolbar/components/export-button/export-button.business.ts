@@ -1,5 +1,12 @@
-import { FieldVm, TableVm, TABLE_CONST } from '@/core/providers';
+import {
+  FieldVm,
+  TableVm,
+  TABLE_CONST,
+  NoteVm,
+  NOTE_CONST,
+} from '@/core/providers';
 import { doTablesOverlap } from './export-coordinate.helpers';
+import { calculateNoteAutoHeight } from '@/pods/canvas/components/note';
 
 export const getMaxPositionXFromTables = (tables: TableVm[]): number =>
   tables.length === 0 ? 0 : Math.max(...tables.map(table => table.x));
@@ -117,10 +124,10 @@ export const placeTableWithoutOverlap = (
 };
 
 export const placeAllTablesWithoutOverlap = (tables: TableVm[]): TableVm[] => {
-  let placedTables: TableVm[] = [];
+  const placedTables: TableVm[] = [];
 
-  for (let table of tables) {
-    let newTable = placeTableWithoutOverlap(table, placedTables);
+  for (const table of tables) {
+    const newTable = placeTableWithoutOverlap(table, placedTables);
     placedTables.push(newTable);
   }
 
@@ -191,4 +198,57 @@ export const getSchemaScriptFromTableVm = (table: TableVm): string => {
 
 export const getSchemaScriptFromTableVmArray = (tables: TableVm[]): string => {
   return tables.map(getSchemaScriptFromTableVm).join('\n\n');
+};
+
+export const getMaxEndPositionXFromNotes = (notes: NoteVm[]): number =>
+  notes.length === 0
+    ? 0
+    : Math.max(
+        ...notes.map(
+          note => note.x + (note.width ?? NOTE_CONST.DEFAULT_NOTE_WIDTH)
+        )
+      );
+
+export const getMaxPositionYFromNotes = (notes: NoteVm[]): number => {
+  if (notes.length === 0) return 0;
+
+  return Math.max(
+    ...notes.map(note => {
+      const noteHeight = calculateNoteAutoHeight(
+        note.description,
+        note.width ?? NOTE_CONST.DEFAULT_NOTE_WIDTH
+      );
+      return note.y + noteHeight;
+    })
+  );
+};
+
+export const normalizeNotesForExport = (
+  notes: NoteVm[],
+  offsetX: number
+): NoteVm[] => {
+  return notes.map(note => ({
+    ...note,
+    x: note.x + offsetX,
+  }));
+};
+
+export const getTotalCanvasWidthFromSchema = (
+  tables: TableVm[],
+  notes: NoteVm[]
+): number => {
+  const tableWidth = getTotalCanvasWidthFromTables(tables);
+  const noteMaxX = getMaxEndPositionXFromNotes(notes);
+
+  return Math.max(tableWidth, noteMaxX);
+};
+
+export const getMaxPositionYFromSchema = (
+  tables: TableVm[],
+  notes: NoteVm[]
+): number => {
+  const tableMaxY = getMaxPositionYFromTables(tables);
+  const noteMaxY = getMaxPositionYFromNotes(notes);
+
+  return Math.max(tableMaxY, noteMaxY);
 };
