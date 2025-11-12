@@ -92,4 +92,11 @@ export const memberList: Member[] = [
     urlLinkedin: 'https://www.linkedin.com/in/manuelgallegobarra/',
     image: './assets/manuel-gallego-barra.jpeg',
   },
+  {
+    id: '13',
+    name: 'Guste',
+    surname: 'Gaubaite',
+    urlLinkedin: 'https://www.linkedin.com/in/gustegaubaite/',
+    image: './assets/guste-gaubaite.jpg',
+  },
 ];
