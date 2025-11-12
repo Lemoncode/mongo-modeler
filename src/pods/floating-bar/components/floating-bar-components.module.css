@@ -1,0 +1,13 @@
+.button {
+  padding: 5px;
+}
+
+.button :global svg {
+  width: 1.8em;
+  height: 1.8em;
+}
+
+.button :global([role='tooltip']) {
+  transform: translate(0, -60px);
+  white-space: nowrap;
+}
