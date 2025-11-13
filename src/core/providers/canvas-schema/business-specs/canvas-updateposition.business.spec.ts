@@ -65,6 +65,7 @@ describe('calculateTablePosition', () => {
     const schema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       tables,
       relations,
     };
@@ -194,6 +195,7 @@ describe('calculateTablePosition', () => {
     const schema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       tables,
       relations,
     };
@@ -329,6 +331,7 @@ describe('calculateTablePosition', () => {
     const schema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       tables,
       relations,
     };
@@ -459,6 +462,7 @@ describe('calculateTablePosition', () => {
     const schema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       tables,
       relations,
     };
@@ -589,6 +593,7 @@ describe('calculateTablePosition', () => {
     const schema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       tables,
       relations,
     };

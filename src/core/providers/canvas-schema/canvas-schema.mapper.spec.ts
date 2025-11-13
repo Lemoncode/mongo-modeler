@@ -17,6 +17,7 @@ describe('mapSchemaToLatestVersion', () => {
       version: '0.1',
       tables: [],
       relations: [],
+      notes: [],
       selectedElementId: null,
     };
     // Act
@@ -37,6 +38,7 @@ describe('mapSchemaToLatestVersion', () => {
       version: '0.1',
       tables: [],
       relations: [],
+      notes: [],
       selectedElementId: null,
     };
     // Act
@@ -51,12 +53,14 @@ describe('mapSchemaToLatestVersion', () => {
       version: '1.0',
       tables: [],
       relations: [],
+      notes: [],
       selectedElementId: null,
     };
     const expectedResult: DatabaseSchemaVm = {
       version: '1.0' as Versions,
       tables: [],
       relations: [],
+      notes: [],
       selectedElementId: null,
     };
     // Act

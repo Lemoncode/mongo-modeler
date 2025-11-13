@@ -23,7 +23,10 @@ const useAutosave = () => {
   const autosaveHandler = () => {
     if (autosaveError > 1) stopAutosave();
 
-    if (canvasSchema.tables.length !== 0 && canvasViewSettings.autoSave) {
+    if (
+      (canvasSchema.tables.length !== 0 || canvasSchema.notes.length !== 0) &&
+      canvasViewSettings.autoSave
+    ) {
       saveToLocal(
         AUTOSAVE_KEY,
         {

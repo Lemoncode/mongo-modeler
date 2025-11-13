@@ -2,6 +2,7 @@ import { GUID, Size } from '@/core/model';
 import classes from './canvas.pod.module.css';
 import {
   DatabaseSchemaVm,
+  NoteVm,
   TableVm,
   UpdatePositionFn,
 } from '@/core/providers/canvas-schema';
@@ -9,14 +10,18 @@ import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
 import { SelectedTableFilterHighlightComponent } from './components/table/components/selected-table-filter-highlight.component';
 import { CANVAS_MAX_HEIGHT, CANVAS_MAX_WIDTH } from '@/core/providers';
+import { Note } from './components/note';
+
 interface Props {
   viewBoxSize: Size;
   canvasSize: Size;
   zoomFactor: number;
   canvasSchema: DatabaseSchemaVm;
   onUpdateTablePosition: UpdatePositionFn;
+  onUpdateNotePosition: UpdatePositionFn;
   onToggleCollapse: (tableId: GUID, fieldId: GUID) => void;
   onEditTable: (tableInfo: TableVm) => void;
+  onEditNote: (noteInfo: NoteVm) => void;
   onEditRelation: (relationId: GUID) => void;
   onSelectElement: (relationId: GUID | null) => void;
   isTabletOrMobileDevice: boolean;
@@ -30,8 +35,10 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
     zoomFactor,
     canvasSchema,
     onUpdateTablePosition,
+    onUpdateNotePosition,
     onToggleCollapse,
     onEditTable,
+    onEditNote,
     onEditRelation,
     onSelectElement,
     isTabletOrMobileDevice,
@@ -72,6 +79,20 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
           viewBoxSize={viewBoxSize}
           zoomFactor={zoomFactor}
           updateTableWidth={updateTableWidth}
+        />
+      ))}
+      {canvasSchema.notes.map(note => (
+        <Note
+          key={note.id}
+          noteInfo={note}
+          updatePosition={onUpdateNotePosition}
+          onEditNote={onEditNote}
+          canvasSize={canvasSize}
+          isSelected={canvasSchema.selectedElementId === note.id}
+          selectNote={onSelectElement}
+          isTabletOrMobileDevice={isTabletOrMobileDevice}
+          viewBoxSize={viewBoxSize}
+          zoomFactor={zoomFactor}
         />
       ))}
     </svg>

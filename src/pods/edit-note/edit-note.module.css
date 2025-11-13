@@ -1,0 +1,39 @@
+.noteForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  margin: var(--space-md);
+}
+
+.formField label {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.formField input,
+.formField textarea {
+  width: 700px;
+  align-items: center;
+}
+
+.formField textarea {
+  min-height: 120px;
+  max-height: 120px;
+  resize: none;
+  overflow-y: auto;
+}
+
+.error {
+  border: 1px solid var(--color-error);
+}
+
+.errorMessage {
+  color: var(--color-error);
+  font-size: 12px;
+  margin-top: 4px;
+  height: 15px;
+  text-align: start;
+}
