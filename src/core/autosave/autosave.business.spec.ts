@@ -48,6 +48,7 @@ describe('saveToLocal', () => {
         tables: [{ id: '1', fields: [], tableName: 'tableName', x: 0, y: 0 }],
         relations: [],
         selectedElementId: null,
+        notes: [],
       },
     };
     const autosaveError = 0;
@@ -107,6 +108,7 @@ describe('retrieveLocalSchema', () => {
         },
       ],
       relations: [],
+      notes: [],
       selectedElementId: null,
     };
 

@@ -1,4 +1,4 @@
-import { AddCollection } from './components';
+import { AddCollection, AddNote } from './components';
 import { RelationButton } from './components';
 import classes from './floating-bar.pod.module.css';
 
@@ -9,6 +9,7 @@ export const FloatingBarComponent: React.FC = () => {
         <div className={classes.floatingBar}>
           <AddCollection />
           <RelationButton />
+          <AddNote />
         </div>
       </div>
     </>

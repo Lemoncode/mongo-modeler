@@ -674,5 +674,6 @@ export const mFlix: DatabaseSchemaVm = {
       toTableId: '4d88b10a-d79f-4889-af2b-103946262e39',
     },
   ],
+  notes: [],
   selectedElementId: '4c6b9f3e-7cc6-463b-ad68-aafc89f38175',
 };

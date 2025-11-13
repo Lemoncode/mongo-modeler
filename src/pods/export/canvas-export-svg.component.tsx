@@ -2,6 +2,7 @@ import { Size } from '@/core/model';
 import { DatabaseSchemaVm } from '@/core/providers/canvas-schema';
 import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
+import { DatabaseNote } from './components/note';
 
 interface Props {
   canvasSize: Size;
@@ -18,10 +19,13 @@ export const CanvasExportSvgComponent: React.FC<Props> = props => {
       width={canvasSize.width}
       height={canvasSize.height}
     >
+      <DatabaseRelationCollectionComponent schema={canvasSchema} />
       {canvasSchema.tables.map(table => (
         <DatabaseTable key={table.id} tableInfo={table} />
       ))}
-      <DatabaseRelationCollectionComponent schema={canvasSchema} />
+      {canvasSchema.notes.map(note => (
+        <DatabaseNote key={note.id} noteInfo={note} />
+      ))}
     </svg>
   );
 };

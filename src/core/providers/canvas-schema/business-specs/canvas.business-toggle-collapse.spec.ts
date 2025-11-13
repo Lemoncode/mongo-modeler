@@ -7,6 +7,7 @@ describe('doFieldToggleCollapseLogic', () => {
     const currentSchema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       tables: [
         {
           id: 'table1',
@@ -50,6 +51,7 @@ describe('doFieldToggleCollapseLogic', () => {
     const currentSchema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       tables: [
         {
           id: 'table1',

@@ -11,11 +11,13 @@ describe('useStateWithInterceptor', () => {
       tables: [],
       relations: [],
       selectedElementId: null,
+      notes: [],
     };
 
     const newSchema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       relations: [],
       tables: [
         {
@@ -69,11 +71,13 @@ describe('useStateWithInterceptor', () => {
       tables: [],
       relations: [],
       selectedElementId: null,
+      notes: [],
     };
 
     const newSchema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       relations: [],
       tables: [
         {

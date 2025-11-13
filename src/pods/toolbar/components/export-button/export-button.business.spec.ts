@@ -1,4 +1,10 @@
-import { FieldVm, TABLE_CONST, TableVm } from '@/core/providers';
+import {
+  FieldVm,
+  TABLE_CONST,
+  TableVm,
+  NoteVm,
+  NOTE_CONST,
+} from '@/core/providers';
 import {
   calculateTableEndYPosition,
   calculateTableHeight,
@@ -14,6 +20,11 @@ import {
   getRequiredFields,
   getSchemaScriptFromTableVm,
   getSchemaScriptFromTableVmArray,
+  getMaxEndPositionXFromNotes,
+  getMaxPositionYFromNotes,
+  normalizeNotesForExport,
+  getTotalCanvasWidthFromSchema,
+  getMaxPositionYFromSchema,
 } from './export-button.business';
 
 describe('export-button.business', () => {
@@ -2164,5 +2175,458 @@ db.createCollection("Table1", {
 });`;
 
     expect(result).toEqual(expectedScript);
+  });
+});
+
+describe('Note Export Functions', () => {
+  describe('getMaxEndPositionXFromNotes', () => {
+    it('should return 0 when notes array is empty', () => {
+      // Arrange
+      const notes: NoteVm[] = [];
+
+      // Act
+      const result = getMaxEndPositionXFromNotes(notes);
+
+      // Assert
+      expect(result).toEqual(0);
+    });
+
+    it('should return the rightmost X position of a single note', () => {
+      // Arrange
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Test description',
+          x: 100,
+          y: 50,
+          width: 240,
+          height: 150,
+        },
+      ];
+
+      // Act
+      const result = getMaxEndPositionXFromNotes(notes);
+
+      // Assert
+      expect(result).toEqual(340);
+    });
+
+    it('should return the rightmost X position from multiple notes', () => {
+      // Arrange
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Test description',
+          x: 100,
+          y: 50,
+          width: 240,
+          height: 150,
+        },
+        {
+          id: '2',
+          title: 'Note 2',
+          description: 'Test description',
+          x: 400,
+          y: 100,
+          width: 240,
+          height: 150,
+        },
+      ];
+
+      // Act
+      const result = getMaxEndPositionXFromNotes(notes);
+
+      // Assert
+      expect(result).toEqual(640);
+    });
+
+    it('should use default width when note width is undefined', () => {
+      // Arrange
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Test description',
+          x: 100,
+          y: 50,
+          width: NOTE_CONST.DEFAULT_NOTE_WIDTH,
+          height: 150,
+        },
+      ];
+
+      // Act
+      const result = getMaxEndPositionXFromNotes(notes);
+
+      // Assert
+      expect(result).toEqual(100 + NOTE_CONST.DEFAULT_NOTE_WIDTH);
+    });
+  });
+
+  describe('getMaxPositionYFromNotes', () => {
+    it('should return 0 when notes array is empty', () => {
+      // Arrange
+      const notes: NoteVm[] = [];
+
+      // Act
+      const result = getMaxPositionYFromNotes(notes);
+
+      // Assert
+      expect(result).toEqual(0);
+    });
+
+    it('should return the bottommost Y position of a single note', () => {
+      // Arrange
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Short note',
+          x: 100,
+          y: 50,
+          width: 240,
+          height: 150,
+        },
+      ];
+
+      // Act
+      const result = getMaxPositionYFromNotes(notes);
+
+      // Assert
+      expect(result).toBeGreaterThan(50);
+    });
+
+    it('should return the bottommost Y position from multiple notes', () => {
+      // Arrange
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Short note',
+          x: 100,
+          y: 50,
+          width: 240,
+          height: 150,
+        },
+        {
+          id: '2',
+          title: 'Note 2',
+          description: 'Another short note',
+          x: 400,
+          y: 200,
+          width: 240,
+          height: 150,
+        },
+      ];
+
+      // Act
+      const result = getMaxPositionYFromNotes(notes);
+
+      // Assert
+      expect(result).toBeGreaterThan(200);
+    });
+
+    it('should handle notes with long descriptions', () => {
+      // Arrange
+      const longDescription =
+        'This is a very long note description that will span multiple lines and should result in a taller note height when calculated.';
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: longDescription,
+          x: 100,
+          y: 50,
+          width: 240,
+          height: 300,
+        },
+      ];
+
+      // Act
+      const result = getMaxPositionYFromNotes(notes);
+
+      // Assert
+      expect(result).toBeGreaterThan(50);
+    });
+  });
+
+  describe('normalizeNotesForExport', () => {
+    it('should return empty array when notes array is empty', () => {
+      // Arrange
+      const notes: NoteVm[] = [];
+      const offsetX = 100;
+
+      // Act
+      const result = normalizeNotesForExport(notes, offsetX);
+
+      // Assert
+      expect(result).toEqual([]);
+    });
+
+    it('should adjust X position of a single note by offsetX', () => {
+      // Arrange
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Test description',
+          x: 50,
+          y: 100,
+          width: 240,
+          height: 150,
+        },
+      ];
+      const offsetX = 100;
+
+      // Act
+      const result = normalizeNotesForExport(notes, offsetX);
+
+      // Assert
+      expect(result[0].x).toEqual(150);
+      expect(result[0].y).toEqual(100);
+    });
+
+    it('should adjust X positions of multiple notes by offsetX', () => {
+      // Arrange
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Test description',
+          x: 50,
+          y: 100,
+          width: 240,
+          height: 150,
+        },
+        {
+          id: '2',
+          title: 'Note 2',
+          description: 'Test description',
+          x: 300,
+          y: 150,
+          width: 240,
+          height: 150,
+        },
+      ];
+      const offsetX = 100;
+
+      // Act
+      const result = normalizeNotesForExport(notes, offsetX);
+
+      // Assert
+      expect(result[0].x).toEqual(150);
+      expect(result[1].x).toEqual(400);
+      expect(result[0].y).toEqual(100);
+      expect(result[1].y).toEqual(150);
+    });
+
+    it('should handle negative offsetX', () => {
+      // Arrange
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Test description',
+          x: 200,
+          y: 100,
+          width: 240,
+          height: 150,
+        },
+      ];
+      const offsetX = -50;
+
+      // Act
+      const result = normalizeNotesForExport(notes, offsetX);
+
+      // Assert
+      expect(result[0].x).toEqual(150);
+    });
+  });
+
+  describe('getTotalCanvasWidthFromSchema', () => {
+    it('should return 0 when both tables and notes are empty', () => {
+      // Arrange
+      const tables: TableVm[] = [];
+      const notes: NoteVm[] = [];
+
+      // Act
+      const result = getTotalCanvasWidthFromSchema(tables, notes);
+
+      // Assert
+      expect(result).toEqual(0);
+    });
+
+    it('should return table width when no notes exist', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [],
+          tableName: 'table1',
+          x: 100,
+          y: 100,
+        },
+      ];
+      const notes: NoteVm[] = [];
+
+      // Act
+      const result = getTotalCanvasWidthFromSchema(tables, notes);
+
+      // Assert
+      expect(result).toBeGreaterThan(0);
+    });
+
+    it('should return note width when no tables exist', () => {
+      // Arrange
+      const tables: TableVm[] = [];
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Test',
+          x: 100,
+          y: 100,
+          width: 240,
+          height: 150,
+        },
+      ];
+
+      // Act
+      const result = getTotalCanvasWidthFromSchema(tables, notes);
+
+      // Assert
+      expect(result).toEqual(340);
+    });
+
+    it('should return the maximum width when both tables and notes exist', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [],
+          tableName: 'table1',
+          x: 100,
+          y: 100,
+        },
+      ];
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Test',
+          x: 500,
+          y: 100,
+          width: 240,
+          height: 150,
+        },
+      ];
+
+      // Act
+      const result = getTotalCanvasWidthFromSchema(tables, notes);
+
+      // Assert
+      expect(result).toBeGreaterThan(0);
+    });
+  });
+
+  describe('getMaxPositionYFromSchema', () => {
+    it('should return 0 when both tables and notes are empty', () => {
+      // Arrange
+      const tables: TableVm[] = [];
+      const notes: NoteVm[] = [];
+
+      // Act
+      const result = getMaxPositionYFromSchema(tables, notes);
+
+      // Assert
+      expect(result).toEqual(0);
+    });
+
+    it('should return table height when no notes exist', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table1',
+          x: 100,
+          y: 100,
+        },
+      ];
+      const notes: NoteVm[] = [];
+
+      // Act
+      const result = getMaxPositionYFromSchema(tables, notes);
+
+      // Assert
+      expect(result).toBeGreaterThan(100);
+    });
+
+    it('should return note height when no tables exist', () => {
+      // Arrange
+      const tables: TableVm[] = [];
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Test description',
+          x: 100,
+          y: 100,
+          width: 240,
+          height: 150,
+        },
+      ];
+
+      // Act
+      const result = getMaxPositionYFromSchema(tables, notes);
+
+      // Assert
+      expect(result).toBeGreaterThan(100);
+    });
+
+    it('should return the maximum height when both tables and notes exist', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            {
+              id: '1',
+              PK: true,
+              name: 'field1',
+              type: 'string',
+            },
+          ],
+          tableName: 'table1',
+          x: 100,
+          y: 50,
+        },
+      ];
+      const notes: NoteVm[] = [
+        {
+          id: '1',
+          title: 'Note 1',
+          description: 'Test description',
+          x: 100,
+          y: 300,
+          width: 240,
+          height: 150,
+        },
+      ];
+
+      // Act
+      const result = getMaxPositionYFromSchema(tables, notes);
+
+      // Assert
+      expect(result).toBeGreaterThan(300);
+    });
   });
 });

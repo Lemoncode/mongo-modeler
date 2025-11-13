@@ -308,19 +308,21 @@ textarea {
   width: 100%;
   border: none;
   outline: none;
-
+  font-family: inherit;
   border: 1px solid var(--input-border-color);
   transition: all 0.2s ease;
 }
 
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
   border: 1px solid var(--input-border-color-active);
   background-color: var(--hover-input);
 }
 
 select:hover,
-input:hover {
+input:hover,
+textarea:hover {
   background-color: var(--hover-input);
   box-shadow: 0 0 4px var(--hover-checkbox);
 }

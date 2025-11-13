@@ -6,6 +6,7 @@ describe('doesRelationAlreadyExists', () => {
     const alreadyExists: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       tables: [
         {
           id: '1',
@@ -77,6 +78,7 @@ describe('doesRelationAlreadyExists', () => {
   it('should return false if relation does not exist', () => {
     const alreadyExists: DatabaseSchemaVm = {
       version: '0.1',
+      notes: [],
       selectedElementId: null,
       tables: [
         {
