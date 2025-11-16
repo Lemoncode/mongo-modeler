@@ -1,15 +1,14 @@
 import { useModalDialogContext } from '@/core/providers/modal-dialog-provider';
-import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
 import { useCanvasViewSettingsContext } from '@/core/providers';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
 import {
   TableVm,
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
 import { IMPORT_COLLECTION_TITLE } from '@/common/components/modal-dialog';
-import { SHORTCUTS } from '../../shortcut/shortcut.const';
 import { ImportIcon } from '@/common/components/icons/import-icon.component';
 import { ImportPanel } from '@/pods/import-collection/import-panel.pod';
+import { ActionButton } from '@/common/components/action-button';
+import { SHORTCUTS } from '@/common/shortcut';
 
 const BORDER_MARGIN = 40;
 
@@ -45,11 +44,11 @@ export const ImportButton = () => {
   };
 
   return (
-    <ToolbarButton
+    <ActionButton
       icon={<ImportIcon />}
       label={'Import JSON'}
       onClick={handleImportClick}
-      className={`${classes.button} hide-mobile`}
+      className="hide-mobile"
       shortcutOptions={SHORTCUTS.import}
     />
   );

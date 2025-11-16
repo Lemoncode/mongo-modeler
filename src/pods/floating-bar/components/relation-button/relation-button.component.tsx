@@ -1,14 +1,14 @@
 import { useModalDialogContext } from '@/core/providers/modal-dialog-provider';
 import { EditRelationPod } from '@/pods/edit-relation';
 import { Relation } from '@/common/components/icons';
-import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
 import { ADD_RELATION_TITLE } from '@/common/components';
 import {
   RelationVm,
   useCanvasSchemaContext,
 } from '@/core/providers/canvas-schema';
-import { SHORTCUTS } from '../../shortcut/shortcut.const';
+import { ActionButton } from '@/common/components/action-button';
+import { SHORTCUTS } from '@/common/shortcut';
+import classes from '../floating-bar-components.module.css';
 
 export const RelationButton = () => {
   const { openModal, closeModal } = useModalDialogContext();
@@ -34,13 +34,15 @@ export const RelationButton = () => {
   };
 
   return (
-    <ToolbarButton
+    <ActionButton
       icon={<Relation />}
       label="Add Relation"
       onClick={handleRelationClick}
-      className={`${classes.button} hide-mobile`}
+      className={`${classes.button} hide-mobile relation-button`}
       shortcutOptions={SHORTCUTS.addRelation}
       disabled={canvasSchema.tables.length < 1}
+      showLabel={false}
+      tooltipPosition="top"
     />
   );
 };

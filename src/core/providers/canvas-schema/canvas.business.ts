@@ -256,6 +256,7 @@ export const deleteItemFromCanvasSchema = (
 ) =>
   produce(currentSchema, draft => {
     draft.tables = draft.tables.filter(t => t.id !== selectedItemId);
+    draft.notes = draft.notes.filter(n => n.id !== selectedItemId);
     draft.relations = draft.relations.filter(
       r =>
         r.id !== selectedItemId &&

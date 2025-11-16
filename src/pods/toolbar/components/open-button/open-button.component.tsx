@@ -1,13 +1,12 @@
 import React from 'react';
 import { OpenIcon } from '@/common/components/icons/open-icon.component';
-import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
 import {
   useCanvasSchemaContext,
   useCanvasViewSettingsContext,
 } from '@/core/providers';
 import { FileInput, OnFileSelectedCallback } from '@/common/file-input';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
-import { SHORTCUTS } from '../../shortcut/shortcut.const';
+import { ActionButton } from '@/common/components/action-button';
+import { SHORTCUTS } from '@/common/shortcut';
 
 export const OpenButton: React.FC = () => {
   const { loadSchema } = useCanvasSchemaContext();
@@ -34,11 +33,10 @@ export const OpenButton: React.FC = () => {
   };
 
   return (
-    <ToolbarButton
+    <ActionButton
       icon={<OpenIcon />}
       label={'Open'}
       onClick={() => FileInput(handleOpenButtonClick)}
-      className={classes.button}
       shortcutOptions={SHORTCUTS.open}
     />
   );

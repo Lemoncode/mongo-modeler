@@ -1,0 +1,4 @@
+.button :global([role='tooltip']) {
+  transform: translate(-60%, -90px);
+  white-space: nowrap;
+}

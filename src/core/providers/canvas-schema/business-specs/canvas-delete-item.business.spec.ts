@@ -9,6 +9,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const dbSchema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: '1',
+      notes: [],
       relations: [
         {
           id: '20',
@@ -78,6 +79,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const expected = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       relations: [],
       tables: [
         {
@@ -110,6 +112,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const dbSchema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: '20',
+      notes: [],
       relations: [
         {
           id: '20',
@@ -179,6 +182,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const expected = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       relations: [
         {
           id: '30',
@@ -240,6 +244,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const dbSchema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: '30',
+      notes: [],
       relations: [
         {
           id: '30',
@@ -301,6 +306,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const expected = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       relations: [],
       tables: [
         {
@@ -353,6 +359,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const dbSchema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: '1',
+      notes: [],
       relations: [],
       tables: [
         {
@@ -385,6 +392,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const expected = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       relations: [],
       tables: [],
     };
@@ -396,6 +404,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const dbSchema: DatabaseSchemaVm = {
       version: '0.1',
       selectedElementId: '11',
+      notes: [],
       relations: [
         {
           id: '20',
@@ -445,6 +454,7 @@ describe('deleteItemFromCanvasSchema', () => {
     const expected = {
       version: '0.1',
       selectedElementId: null,
+      notes: [],
       relations: [
         {
           id: '20',

@@ -16,15 +16,16 @@ import {
 import { ExportTablePod, CanvasExportSvgComponent } from '@/pods/export';
 import {
   expandAllFieldsInTables,
-  getMaxPositionYFromTables,
-  getTotalCanvasWidthFromTables,
+  getMaxPositionYFromSchema,
+  getTotalCanvasWidthFromSchema,
   normalizeTablesForExport,
+  normalizeNotesForExport,
   getSchemaScriptFromTableVmArray,
   placeAllTablesWithoutOverlap,
+  getMinPositionXFromTables,
 } from './export-button.business';
-import { ToolbarButton } from '../toolbar-button/toolbarButton.component';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
-import { SHORTCUTS } from '../../shortcut/shortcut.const';
+import { ActionButton } from '@/common/components/action-button';
+import { SHORTCUTS } from '@/common/shortcut';
 
 export const ExportButton = () => {
   const { openModal } = useModalDialogContext();
@@ -48,24 +49,41 @@ export const ExportButton = () => {
     const tablesToUse = showAllFieldsExpanded
       ? tablesWithExpandedFields
       : canvasSchema.tables;
+
+    const minX = getMinPositionXFromTables(tablesToUse);
+    const offsetX =
+      minX < 0
+        ? Math.abs(minX) + TABLE_CONST.CANVAS_PADDING
+        : TABLE_CONST.CANVAS_PADDING;
+
     const normalizedTables = normalizeTablesForExport(tablesToUse);
+    const normalizedNotes = normalizeNotesForExport(
+      canvasSchema.notes,
+      offsetX
+    );
 
     return {
       ...canvasSchema,
       tables: normalizedTables,
+      notes: normalizedNotes,
     };
   };
 
   const downloadCanvasSize: Size = React.useMemo<Size>(
     () => ({
       width:
-        getTotalCanvasWidthFromTables(tablesWithExpandedFields) +
+        getTotalCanvasWidthFromSchema(
+          tablesWithExpandedFields,
+          canvasSchema.notes
+        ) +
         TABLE_CONST.CANVAS_PADDING * 2, // Padding on both sides
       height:
-        getMaxPositionYFromTables(tablesWithExpandedFields) +
-        TABLE_CONST.CANVAS_PADDING,
+        getMaxPositionYFromSchema(
+          tablesWithExpandedFields,
+          canvasSchema.notes
+        ) + TABLE_CONST.CANVAS_PADDING,
     }),
-    [zoomFactor, canvasSize, tablesWithExpandedFields]
+    [zoomFactor, canvasSize, tablesWithExpandedFields, canvasSchema.notes]
   );
 
   const exportSvg = (areAllFieldsExpanded: boolean) => {
@@ -125,13 +143,13 @@ export const ExportButton = () => {
   };
 
   return (
-    <ToolbarButton
+    <ActionButton
       icon={<ExportIcon />}
       label="Export"
       onClick={handleExportClick}
-      className={`${classes.button} hide-mobile`}
+      className="hide-mobile"
       shortcutOptions={SHORTCUTS.export}
-      disabled={canvasSchema.tables.length < 1}
+      disabled={canvasSchema.tables.length < 1 && canvasSchema.notes.length < 1}
     />
   );
 };

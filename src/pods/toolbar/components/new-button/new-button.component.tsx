@@ -3,9 +3,8 @@ import {
   useCanvasSchemaContext,
   useCanvasViewSettingsContext,
 } from '@/core/providers';
-import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
-import { SHORTCUTS } from '../../shortcut/shortcut.const';
+import { ActionButton } from '@/common/components/action-button';
+import { SHORTCUTS } from '@/common/shortcut';
 
 export const NewButton = () => {
   const { createEmptySchema } = useCanvasSchemaContext();
@@ -18,11 +17,11 @@ export const NewButton = () => {
   };
 
   return (
-    <ToolbarButton
+    <ActionButton
       icon={<NewIcon />}
       label="New"
       onClick={handleNewButtonClick}
-      className={`${classes.button} hide-mobile`}
+      className="hide-mobile"
       shortcutOptions={SHORTCUTS.new}
     />
   );

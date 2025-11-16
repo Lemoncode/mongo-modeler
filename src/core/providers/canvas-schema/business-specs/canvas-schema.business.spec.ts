@@ -23,6 +23,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -54,6 +55,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -114,6 +116,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -145,6 +148,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -198,6 +202,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -229,6 +234,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [],
         tables: [
           {
@@ -273,6 +279,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -316,6 +323,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -382,6 +390,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -451,6 +460,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -537,6 +547,7 @@ describe('canvas-schema.business', () => {
       const dbSchema: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -568,6 +579,7 @@ describe('canvas-schema.business', () => {
       const expectedResult: DatabaseSchemaVm = {
         version: '0.1',
         selectedElementId: null,
+        notes: [],
         relations: [
           {
             id: '20',
@@ -678,6 +690,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
       const expectedResult: DatabaseSchemaVm = {
         version: '0.1',
@@ -751,6 +764,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
 
       // Act
@@ -855,6 +869,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
       const expectedResult: DatabaseSchemaVm = {
         version: '0.1',
@@ -950,6 +965,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
 
       // Act
@@ -1003,6 +1019,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
       const expectedResult: DatabaseSchemaVm = {
         version: '0.1',
@@ -1048,6 +1065,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
 
       // Act
@@ -1113,6 +1131,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
 
       const expectedResult: DatabaseSchemaVm = {
@@ -1144,6 +1163,7 @@ describe('canvas-schema.business', () => {
 
         relations: [],
         selectedElementId: null,
+        notes: [],
       };
 
       // Act
@@ -1206,6 +1226,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
 
       const expectedResult: DatabaseSchemaVm = {
@@ -1237,6 +1258,7 @@ describe('canvas-schema.business', () => {
 
         relations: [],
         selectedElementId: null,
+        notes: [],
       };
 
       // Act
@@ -1342,6 +1364,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
 
       const expectedResult: DatabaseSchemaVm = {
@@ -1403,6 +1426,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
 
       // Act
@@ -1506,6 +1530,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
 
       const expectedResult: DatabaseSchemaVm = {
@@ -1565,6 +1590,7 @@ describe('canvas-schema.business', () => {
           },
         ],
         selectedElementId: null,
+        notes: [],
       };
 
       // Act
@@ -1619,6 +1645,7 @@ describe('canvas-schema.business', () => {
 
         relations: [],
         selectedElementId: null,
+        notes: [],
       };
 
       const expectedResult: DatabaseSchemaVm = {
@@ -1648,6 +1675,7 @@ describe('canvas-schema.business', () => {
         ],
         relations: [],
         selectedElementId: null,
+        notes: [],
       };
 
       // Act

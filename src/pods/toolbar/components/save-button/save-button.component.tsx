@@ -1,12 +1,11 @@
+import { ActionButton } from '@/common/components/action-button';
 import { SaveIcon } from '@/common/components/icons/save-icon.component';
 import { downloadFile, saveFileModern } from '@/common/export';
+import { SHORTCUTS } from '@/common/shortcut';
 import {
   useCanvasSchemaContext,
   useCanvasViewSettingsContext,
 } from '@/core/providers';
-import { ToolbarButton } from '@/pods/toolbar/components/toolbar-button';
-import classes from '@/pods/toolbar/toolbar.pod.module.css';
-import { SHORTCUTS } from '../../shortcut/shortcut.const';
 
 const DEFAULT_FILE_NAME = 'diagram';
 const DEFAULT_EXTENSION_DESCRIPTION = 'Mongo Modeler';
@@ -45,11 +44,11 @@ export const SaveButton = () => {
   };
 
   return (
-    <ToolbarButton
+    <ActionButton
       icon={<SaveIcon />}
       label={'Save'}
       onClick={() => saveFile(canvasViewSettings.filename)}
-      className={`${classes.button} hide-mobile`}
+      className="hide-mobile"
       shortcutOptions={SHORTCUTS.save}
       disabled={canvasSchema.tables.length < 1}
     />

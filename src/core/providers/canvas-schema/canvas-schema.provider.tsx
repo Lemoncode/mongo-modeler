@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import { CanvasSchemaContext } from './canvas-schema.context';
 import {
   DatabaseSchemaVm,
+  NoteVm,
   RelationVm,
   TableVm,
   UpdatePositionItemInfo,
@@ -16,7 +17,9 @@ import {
   deleteItemFromCanvasSchema,
 } from './canvas.business';
 import {
+  addNewNote,
   addNewTable,
+  updateNote,
   updateRelation,
   updateTable,
 } from './canvas-schema.business';
@@ -133,6 +136,48 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
       : setSchemaSkipHistory(prevSchema =>
           moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
         );
+  };
+
+  const addNote = (note: NoteVm) => {
+    setSchema(prevSchema =>
+      addNewNote(note, { ...prevSchema, isPristine: false })
+    );
+  };
+
+  const updateFullNote = (note: NoteVm) => {
+    setSchema(prevSchema =>
+      updateNote(note, { ...prevSchema, isPristine: false })
+    );
+  };
+
+  const updateNotePosition = (
+    noteItemInfo: UpdatePositionItemInfo,
+    isDragFinished: boolean
+  ) => {
+    const { id, position } = noteItemInfo;
+    if (isDragFinished) {
+      setSchema(prevSchema =>
+        produce(prevSchema, (draft: DatabaseSchemaVm) => {
+          const noteIndex = draft.notes.findIndex((n: NoteVm) => n.id === id);
+          if (noteIndex !== -1) {
+            draft.notes[noteIndex].x = position.x;
+            draft.notes[noteIndex].y = position.y;
+            draft.isPristine = false;
+          }
+        })
+      );
+    } else {
+      // Dragging in progress - skip history for performance
+      setSchemaSkipHistory(prevSchema =>
+        produce(prevSchema, (draft: DatabaseSchemaVm) => {
+          const noteIndex = draft.notes.findIndex((n: NoteVm) => n.id === id);
+          if (noteIndex !== -1) {
+            draft.notes[noteIndex].x = position.x;
+            draft.notes[noteIndex].y = position.y;
+          }
+        })
+      );
+    }
   };
 
   // TODO: #57 created to track this
@@ -269,6 +314,9 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
         updateFullTable,
         addTable,
         addRelation,
+        addNote,
+        updateFullNote,
+        updateNotePosition,
         doSelectElement,
         canUndo,
         canRedo,

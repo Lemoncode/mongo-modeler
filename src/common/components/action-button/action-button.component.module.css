@@ -1,0 +1,68 @@
+.button {
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  fill: var(--text-color);
+}
+
+@media screen and (max-device-width: 1090px) {
+  .button {
+    padding: 6px;
+    font-size: var(--fs-s);
+  }
+}
+
+.tooltip {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: hsla(0, 0%, 20%, 0.7);
+  border-radius: 3px;
+  color: var(--text-color);
+  font-size: 14px;
+  line-height: 14px;
+  padding: 7px 14px;
+  position: absolute;
+  transform: translate(0%, 90px);
+  visibility: hidden;
+  z-index: 2;
+}
+
+.tooltipBottom {
+  transform: translate(0%, 90px);
+}
+
+.tooltipTop {
+  transform: translate(0%, -90px);
+}
+
+.tooltipTopLeft {
+  transform: translate(-50%, -90px);
+}
+
+@media (hover: hover) {
+  .button:hover .tooltip {
+    animation: fadeIn 1s linear;
+    animation-fill-mode: forwards;
+  }
+}
+
+@media screen and (max-device-width: 1090px) {
+  .tooltip {
+    display: none;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}

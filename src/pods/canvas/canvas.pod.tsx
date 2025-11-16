@@ -7,6 +7,7 @@ import {
 import { GUID, Size } from '@/core/model';
 import classes from './canvas.pod.module.css';
 import {
+  NoteVm,
   RelationVm,
   TableVm,
   useCanvasSchemaContext,
@@ -17,6 +18,7 @@ import {
   EDIT_COLLECTION_TITLE,
   ADD_COLLECTION_TITLE,
   ADD_RELATION_TITLE,
+  EDIT_NOTE_TITLE,
 } from '@/common/components/modal-dialog';
 import { CanvasSvgComponent } from './canvas-svg.component';
 import { EditRelationPod } from '../edit-relation';
@@ -25,6 +27,7 @@ import { CanvasAccessible } from './components/canvas-accessible';
 import useAutosave from '@/core/autosave/autosave.hook';
 import { CANVAS_MAX_WIDTH } from '@/core/providers';
 import { setOffSetZoomToCoords } from '@/common/helpers/set-off-set-zoom-to-coords.helper';
+import { EditNotePod } from '../edit-note';
 const HEIGHT_OFFSET = 200;
 const BORDER_MARGIN = 40;
 export const CanvasPod: React.FC = () => {
@@ -34,7 +37,9 @@ export const CanvasPod: React.FC = () => {
     addTable,
     addRelation,
     updateTablePosition,
+    updateNotePosition,
     updateFullTable,
+    updateFullNote,
     doFieldToggleCollapse,
     doSelectElement,
     updateFullRelation,
@@ -121,6 +126,23 @@ export const CanvasPod: React.FC = () => {
       />,
       EDIT_COLLECTION_TITLE
     );
+  };
+
+  const handleEditNote = (noteInfo: NoteVm) => {
+    if (isTabletOrMobileDevice) return;
+    openModal(
+      <EditNotePod
+        note={noteInfo}
+        onSave={handleNoteEditUpdate}
+        onClose={handleCloseModal}
+      />,
+      EDIT_NOTE_TITLE
+    );
+  };
+
+  const handleNoteEditUpdate = (note: NoteVm) => {
+    updateFullNote(note);
+    closeModal();
   };
 
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -286,9 +308,11 @@ export const CanvasPod: React.FC = () => {
           zoomFactor={zoomFactor}
           canvasSchema={canvasSchema}
           onUpdateTablePosition={updateTablePosition}
+          onUpdateNotePosition={updateNotePosition}
           onToggleCollapse={handleToggleCollapse}
           onEditTable={handleEditTable}
           onEditRelation={handleEditRelation}
+          onEditNote={handleEditNote}
           onSelectElement={onSelectElement}
           isTabletOrMobileDevice={isTabletOrMobileDevice}
           updateTableWidth={updateTableWidth}

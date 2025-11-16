@@ -1,0 +1,57 @@
+.noteTitleContainer {
+  fill: #f8f4d3;
+}
+
+.noteTitle {
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.4;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.noteBody {
+  fill: #f8f4d3;
+}
+
+.noteBodyText {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 11;
+  line-clamp: 11;
+  word-wrap: break-word;
+  word-break: break-word;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-dark);
+  white-space: pre-wrap;
+}
+
+.noteBorder {
+  fill: none;
+  stroke: #d4c896;
+  stroke-width: 1;
+}
+
+.noteBorderSelected {
+  fill: none;
+  stroke: #c9b155;
+  stroke-width: 3;
+}
+
+.noteContainer {
+  cursor: grabbing;
+}
+
+.editIcon {
+  color: var(--text-dark);
+}
