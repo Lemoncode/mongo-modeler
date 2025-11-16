@@ -99,10 +99,10 @@ export const placeTableWithoutOverlap = (
 ): TableVm => {
   let newTable = table;
   let attempts = 0;
-
+  
   while (
     doesTableOverlap(newTable, tables) &&
-    attempts < TABLE_CONST.MAX_PLACEMENT_ATTEMPTS
+    attempts < TABLE_CONST.MAX_PLACEMENT_ATTEMPTS 
   ) {
     newTable = {
       ...newTable,
@@ -118,6 +118,12 @@ export const placeTableWithoutOverlap = (
     }
 
     attempts++;
+  }
+
+  // If relocated table still overlaps, restore original position.
+  if ((newTable.width) && (newTable.width > TABLE_CONST.DEFAULT_TABLE_WIDTH) && doesTableOverlap(newTable, tables)) {
+    newTable.x = table.x;
+    newTable.y = table.y;
   }
 
   return newTable;
