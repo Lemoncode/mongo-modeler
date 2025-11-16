@@ -1946,6 +1946,7 @@ describe('export-button.business', () => {
 
       // Act
       const result = placeAllTablesWithoutOverlap(tables);
+      
 
       // Assert
       result.forEach((table, index) => {
@@ -1962,6 +1963,122 @@ describe('export-button.business', () => {
         }
       });
     });
+
+    it('Wide tables shouldnt be on the left border overlapping other tables after relocating. ', () => {
+      // Arrange
+      const tables: TableVm[] = [
+        {
+          id: '1',
+          fields: [
+            { id: '1', PK: true, name: 'campo1', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '2', PK: true, name: 'campo2', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '3', PK: true, name: 'campo3', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '4', PK: true, name: 'campo4', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '5', PK: true, name: 'campo5', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '6', PK: true, name: 'campo6', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '7', PK: true, name: 'campo7', type: 'string', children: [], isCollapsed: false, isArray: false},
+          ],
+          tableName: 'table1',
+          x: 100,
+          y: 300
+        },
+        {
+          id: '2',
+          fields: [
+            { id: '1', PK: true, name: 'campo1', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '2', PK: true, name: 'campo2', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '3', PK: true, name: 'campo3', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '4', PK: true, name: 'campo4', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '5', PK: true, name: 'campo5', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '6', PK: true, name: 'campo6', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '7', PK: true, name: 'campo7', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '8', PK: true, name: 'campo8', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '9', PK: true, name: 'campo9', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '10', PK: true, name: 'campo10', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '11', PK: true, name: 'campo11', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '12', PK: true, name: 'campo12', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '13', PK: true, name: 'campo13', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '14', PK: true, name: 'campo14', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '15', PK: true, name: 'campo15', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '16', PK: true, name: 'campo16', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '17', PK: true, name: 'campo17', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '18', PK: true, name: 'campo18', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '19', PK: true, name: 'campo19', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '20', PK: true, name: 'campo20', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '21', PK: true, name: 'campo21', type: 'string', children: [], isCollapsed: false, isArray: false},
+            { id: '22', PK: true, name: 'campo22', type: 'string', children: [], isCollapsed: false, isArray: false},
+          ],
+          tableName: 'table2',
+          x: 450,
+          y: 100,
+          width: 780
+        },
+        {
+          id: '3',
+          fields: [],
+          tableName: 'table3',
+          x: 1200,
+          y: 700
+        },
+        {
+          id: '4',
+          fields: [],
+          tableName: 'table4',
+          x: 1500,
+          y: 100
+        },
+         {
+          id: '5',
+          fields: [],
+          tableName: 'table5',
+          x: 300,
+          y: 100,
+        },
+        {
+          id: '6',
+          fields: [],
+          tableName: 'table6',
+          x: 100,
+          y: 150,
+        },
+        {
+          id: '7',
+          fields: [],
+          tableName: 'table7',
+          x: 150,
+          y: 150,
+        },
+      ];
+
+      // Act
+      const result = placeAllTablesWithoutOverlap(tables);
+      
+
+      // Assert
+      result.forEach((table, index) => {
+        const tableWidth = table.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH;
+        const tableHeight = calculateTableHeight(table.fields);
+        for (let i = 0; i < result.length; i++) {
+          if (i !== index) {
+          const iWidth = result[i].width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH;
+          const iHeight = calculateTableHeight(result[i].fields);
+
+            const isOverlapping = !(
+              table.x >= result[i].x + iWidth ||
+              table.x + tableWidth <= result[i].x ||
+              table.y >= result[i].y + iHeight ||
+              table.y + tableHeight <= result[i].y 
+            );
+                        
+            const hasBadPosition = (isOverlapping) && 
+              (table.x <= TABLE_CONST.TABLE_SHIFT_DISTANCE) &&
+              (tableWidth > TABLE_CONST.DEFAULT_TABLE_WIDTH);
+
+            expect(hasBadPosition).toBe(false);
+          }
+        }
+      });
+    });  
   });
 });
 
@@ -1981,6 +2098,27 @@ describe('getPropertyJsonSchema', () => {
     //Assert
     expect(result).toBe('"fieldName": { bsonType: "string" }');
   });
+});
+
+
+
+describe('getPropertyJsonSchema', () => {
+  it('should generate json schema for non-array field', () => {
+    //Arrange
+    const field: FieldVm = {
+      id: '1',
+      PK: false,
+      name: 'fieldName',
+      type: 'string',
+    };
+
+    //Act
+    const result = getPropertyJsonSchema(field);
+
+    //Assert
+    expect(result).toBe('"fieldName": { bsonType: "string" }');
+  });
+
 
   it('should generate json schema for array field', () => {
     //Arrange
