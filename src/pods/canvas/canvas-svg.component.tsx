@@ -9,6 +9,7 @@ import {
 import { DatabaseTable } from './components/table/database-table.component';
 import { DatabaseRelationCollectionComponent } from './components/relation';
 import { SelectedTableFilterHighlightComponent } from './components/table/components/selected-table-filter-highlight.component';
+import { SelectedNoteFilterHighlightComponent } from './components/note/components';
 import { CANVAS_MAX_HEIGHT, CANVAS_MAX_WIDTH } from '@/core/providers';
 import { Note } from './components/note';
 
@@ -65,6 +66,7 @@ export const CanvasSvgComponent: React.FC<Props> = props => {
         onSelectRelation={onSelectElement}
       />
       <SelectedTableFilterHighlightComponent />
+      <SelectedNoteFilterHighlightComponent />
       {canvasSchema.tables.map(table => (
         <DatabaseTable
           key={table.id}

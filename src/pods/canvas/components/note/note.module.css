@@ -1,5 +1,5 @@
 .noteTitleContainer {
-  fill: #f8f4d3;
+  fill: var(--bg-note);
 }
 
 .noteTitle {
@@ -15,7 +15,7 @@
 }
 
 .noteBody {
-  fill: #f8f4d3;
+  fill: var(--bg-note);
 }
 
 .noteBodyText {
@@ -36,20 +36,14 @@
   white-space: pre-wrap;
 }
 
-.noteBorder {
-  fill: none;
-  stroke: #d4c896;
-  stroke-width: 1;
-}
-
-.noteBorderSelected {
-  fill: none;
-  stroke: #c9b155;
-  stroke-width: 3;
-}
-
 .noteContainer {
   cursor: grabbing;
+}
+
+.noteBorder {
+  fill: var(--bg-note);
+  stroke: var(--border-note);
+  stroke-width: 1;
 }
 
 .editIcon {
