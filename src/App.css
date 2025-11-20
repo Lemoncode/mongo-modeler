@@ -106,6 +106,11 @@
   --bg-table: var(--background-700);
   --header-table: var(--primary-300);
 
+  /* Note */
+  --bg-note: #f8f4d3;
+  --border-note: #d4c896;
+  --shadow-note: #9a8550;
+
   /* Input */
   --bg-input: var(--background-500);
   --bg-input-disabled: var(--background-600);
@@ -164,6 +169,11 @@ body {
   --bg-canvas: #f9fafb;
   --bg-table: #f6f7f9;
   --header-table: var(--primary-300);
+
+  /* Note */
+  --bg-note: #f8f4d3;
+  --border-note: #d4c896;
+  --shadow-note: #9a8550;
 
   /* Toolbar */
   --bg-toolbar: #f0f2f5;
