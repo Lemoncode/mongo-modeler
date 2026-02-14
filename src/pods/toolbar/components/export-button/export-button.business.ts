@@ -158,13 +158,11 @@ export const getPropertyJsonSchema = (field: FieldVm): string => {
   return `"${field.name}": ${getItemType(field)}`;
 };
 
-export const getItemType = (field: FieldVm, useTab = true): string => {
+export const getItemType = (field: FieldVm): string => {
   if (field.children && field.children.length > 0) {
-    const separator = useTab ? ',\n        ' : ', ';
-    const tabSeparator = useTab ? '\n        ' : ' ';
     const properties = getPropertiesJsonSchema(field.children);
     
-        return `{ ${tabSeparator} bsonType: "object" ${separator} title: "${field.name}" ${separator} required: [${getRequiredFields(field.children)}] ${separator} properties: {${properties}} } `;
+    return `{ bsonType: "object", title: "${field.name}", required: [${getRequiredFields(field.children)}], properties: {${properties}} } `;
   } 
   return `{ bsonType: "${field.type}" }`;
 }
