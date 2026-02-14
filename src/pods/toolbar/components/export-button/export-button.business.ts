@@ -161,8 +161,11 @@ export const getPropertyJsonSchema = (field: FieldVm): string => {
 export const getItemType = (field: FieldVm): string => {
   if (field.children && field.children.length > 0) {
     const properties = getPropertiesJsonSchema(field.children);
-    
-    return `{ bsonType: "object", title: "${field.name}", required: [${getRequiredFields(field.children)}], properties: {${properties}} } `;
+
+    return `{ bsonType: "object", title: "${field.name}", properties: {${properties}} } `;
+
+    // Perhaps to be changed for this later.
+    //return `{ bsonType: "object", title: "${field.name}", required: [${getRequiredFields(field.children)}], properties: {${properties}} } `;
   } 
   return `{ bsonType: "${field.type}" }`;
 }
