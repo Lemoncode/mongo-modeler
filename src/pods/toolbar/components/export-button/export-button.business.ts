@@ -160,7 +160,7 @@ export const getPropertyJsonSchema = (field: FieldVm): string => {
 
 export const getItemType = (field: FieldVm): string => {
   if (field.children && field.children.length > 0) {
-    const properties = getPropertiesJsonSchema(field.children);
+    const properties = getPropertiesJsonSchema(field.children, false);
 
     return `{ bsonType: "object", title: "${field.name}", properties: {${properties}} } `;
 
