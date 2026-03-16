@@ -47,6 +47,7 @@
   background-color: var(--bg-input);
   border-radius: var(--border-radius-xs);
   max-height: 300px;
+  overflow-y: auto;
 }
 
 .select-select:hover {
