@@ -159,15 +159,22 @@ export const expandAllFieldsInTables = (table: TableVm[]) =>
 // Export Schema functions
 export const getPropertyJsonSchema = (field: FieldVm): string => {
   if (field.isArray) {
-    return `"${field.name}": { bsonType: "array", items: { bsonType: "${field.type}" } }`;
+    return `"${field.name}": { bsonType: "array", items: ${getItemType(field)} }`;
   }
+  return `"${field.name}": ${getItemType(field)}`;
+};
 
+export const getItemType = (field: FieldVm): string => {
   if (field.children && field.children.length > 0) {
     const properties = getPropertiesJsonSchema(field.children, false);
-    return `"${field.name}": { bsonType: "object", title: "${field.name}", properties: { ${properties}, }, }`;
-  }
-  return `"${field.name}": { bsonType: "${field.type}" }`;
-};
+
+    return `{ bsonType: "object", title: "${field.name}", properties: { ${properties}, }, }`;
+
+    // Perhaps to be changed for this later.
+    //return `{ bsonType: "object", title: "${field.name}", required: [${getRequiredFields(field.children)}], properties: {${properties}} } `;
+  } 
+  return `{ bsonType: "${field.type}" }`;
+}
 
 export const getPropertiesJsonSchema = (
   fields: FieldVm[],
