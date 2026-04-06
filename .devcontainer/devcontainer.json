@@ -1,0 +1,30 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:dev-20",
+  "name": "MongoDB Library Sample App - Nodejs version",
+  "updateContentCommand": "", 
+  "postAttachCommand": {
+    "server": "npm install && npm run dev -- --host 0.0.0.0"
+  },
+  "customizations": {
+    "codespaces": {
+      "openFiles": [
+        "src/main.tsx"
+      ]
+    },
+    "vscode": {
+      "extensions": [
+        "mongodb.mongodb-vscode"
+      ]
+    }
+  },
+  "portsAttributes": {
+    "5173": {
+      "label": "Server",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "forwardPorts": [
+    5173 
+  ],
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
+}
