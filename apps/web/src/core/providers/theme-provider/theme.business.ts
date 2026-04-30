@@ -7,7 +7,7 @@ import {
 export const saveThemePreferenceToLocalStorage = (themeValue: string) => {
   try {
     saveValueToLocalStorage<string>('themeMode', themeValue);
-  } catch (e) {
+  } catch {
     console.warn('Failed to save in localStorage');
   }
 };
