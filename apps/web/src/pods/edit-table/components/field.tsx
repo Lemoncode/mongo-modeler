@@ -10,6 +10,7 @@ import {
   Checkbox,
 } from '@/common/components';
 import { FieldVm, fieldTypeOptions } from '../edit-table.vm';
+// oxlint-disable-next-line import/no-cycle -- mutually recursive tree component
 import { NestedFieldGrid } from './nested-field-grid';
 import { FieldType, GUID } from '@/core/model';
 
