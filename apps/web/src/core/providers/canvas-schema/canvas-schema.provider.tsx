@@ -125,17 +125,19 @@ export const CanvasSchemaProvider: React.FC<Props> = props => {
     isDragFinished: boolean
   ) => {
     const { id, position, totalHeight, canvasSize } = itemInfo;
-    isDragFinished
-      ? setSchema(prevSchema =>
-          moveTableToTop(
-            { ...prevSchema, isPristine: false },
-            { id, position, totalHeight },
-            canvasSize
-          )
+    if (isDragFinished) {
+      setSchema(prevSchema =>
+        moveTableToTop(
+          { ...prevSchema, isPristine: false },
+          { id, position, totalHeight },
+          canvasSize
         )
-      : setSchemaSkipHistory(prevSchema =>
-          moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
-        );
+      );
+    } else {
+      setSchemaSkipHistory(prevSchema =>
+        moveTableToTop(prevSchema, { id, position, totalHeight }, canvasSize)
+      );
+    }
   };
 
   const addNote = (note: NoteVm) => {
