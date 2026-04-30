@@ -54,7 +54,7 @@ export const TablePkPickerFormik: React.FC<Props> = props => {
             value={field.value}
             isError={isError}
             onChange={id => {
-              id ? setValue(id) : setValue('');
+              setValue(id ? id : '');
             }}
             disabled={disabled}
           ></TablePkPicker>
