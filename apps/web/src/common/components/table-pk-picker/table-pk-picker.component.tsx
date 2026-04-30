@@ -39,7 +39,7 @@ export const TablePkPicker: React.FC<Props> = props => {
   };
 
   const handleChange = (option: FlatOption<PkOptionVm> | undefined) => {
-    option ? onChange(option.id) : onChange(undefined);
+    onChange(option ? option.id : undefined);
   };
 
   const {
