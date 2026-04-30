@@ -18,7 +18,7 @@ export const CheckboxFormik: React.FC<InputFormikProps> = props => {
   // useField allows us to extract all formik metadata about that field
   const [field, meta] = useField(props.name ?? '');
   // If the field doesn't exist then treat this as a normal input
-  const inputFieldProps = Boolean(field) ? field : props;
+  const inputFieldProps = field ? field : props;
   // We only want to display the field validation error message
   // if Formik is enabled, and is the field has been touched
   // not a very good UX experience to show a blank form full
