@@ -8,37 +8,37 @@ import * as editTableModel from './edit-table.vm';
 //  2. We could split this method (one function per case)
 const extractFieldIDThatIsFk =
   (tableId: GUID) =>
-  (relation: canvasModel.RelationVm): GUID => {
-    let result: GUID = '-1';
-    switch (relation.type) {
-      case '1:1':
-        if (
-          relation.fromTableId === tableId ||
-          relation.toTableId === tableId
-        ) {
-          return relation.fromFieldId;
-        }
-        if (
-          relation.fromTableId === tableId ||
-          relation.toTableId === tableId
-        ) {
-          return relation.fromFieldId;
-        }
-        break;
-      case '1:M':
-        if (relation.toTableId === tableId) {
-          return relation.toFieldId;
-        }
-        break;
-      case 'M:1':
-        if (relation.fromTableId === tableId) {
-          return relation.fromFieldId;
-        }
-        break;
-    }
+    (relation: canvasModel.RelationVm): GUID => {
+      let result: GUID = '-1';
+      switch (relation.type) {
+        case '1:1':
+          if (
+            relation.fromTableId === tableId ||
+            relation.toTableId === tableId
+          ) {
+            return relation.fromFieldId;
+          }
+          if (
+            relation.fromTableId === tableId ||
+            relation.toTableId === tableId
+          ) {
+            return relation.fromFieldId;
+          }
+          break;
+        case '1:M':
+          if (relation.toTableId === tableId) {
+            return relation.toFieldId;
+          }
+          break;
+        case 'M:1':
+          if (relation.fromTableId === tableId) {
+            return relation.fromFieldId;
+          }
+          break;
+      }
 
-    return result;
-  };
+      return result;
+    };
 
 const markFKFields = (
   fields: canvasModel.FieldVm[],
@@ -96,7 +96,7 @@ const mapEditTableFieldsToTableVmFields = (
   let result: canvasModel.FieldVm[] = [];
 
   fields.forEach(field => {
-    const { ...editFieldVm } = field;
+    const { FK: _FK, ...editFieldVm } = field;
     result.push({
       ...editFieldVm,
       children: !field.children
