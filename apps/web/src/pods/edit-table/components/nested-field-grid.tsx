@@ -4,6 +4,7 @@ import { GUID } from '@/core/model';
 import { FieldVm } from '../edit-table.vm';
 
 import { AnimatePresence, Reorder } from 'framer-motion';
+// oxlint-disable-next-line import/no-cycle -- mutually recursive tree component
 import { Field } from './field';
 
 interface NestedFieldGridProps {
