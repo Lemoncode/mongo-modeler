@@ -25,7 +25,7 @@ export const Dropdown: React.FC<Props> = props => {
     return options.find(option => option.id === value);
   };
   const handleChange = (option: DropdownOptionVm | undefined) => {
-    option ? onChange(option.id) : onChange('');
+    onChange(option ? option.id : '');
   };
 
   const {
