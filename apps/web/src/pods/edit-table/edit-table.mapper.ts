@@ -96,7 +96,7 @@ const mapEditTableFieldsToTableVmFields = (
   let result: canvasModel.FieldVm[] = [];
 
   fields.forEach(field => {
-    const { FK, ...editFieldVm } = field;
+    const { ...editFieldVm } = field;
     result.push({
       ...editFieldVm,
       children: !field.children
