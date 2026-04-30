@@ -6,8 +6,8 @@ export const updateFocusBySelectedOption =
     selectedOption: Option | undefined
   ) =>
   (options: Option[]): A11ySelectOption<Option>[] => {
-    const selectedOptionId = Boolean(selectedOption)
-      ? getOptionId(selectedOption!)
+    const selectedOptionId = selectedOption
+      ? getOptionId(selectedOption)
       : undefined;
 
     const a11ySelectionOptions = options.map(option => ({
