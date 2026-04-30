@@ -267,9 +267,11 @@ export const CanvasPod: React.FC = () => {
       }
     };
 
-    modalDialog.isOpen
-      ? document.removeEventListener('keydown', handleKeyDown)
-      : document.addEventListener('keydown', handleKeyDown);
+    if (modalDialog.isOpen) {
+      document.removeEventListener('keydown', handleKeyDown)
+    } else {
+      document.addEventListener('keydown', handleKeyDown);
+    }
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
