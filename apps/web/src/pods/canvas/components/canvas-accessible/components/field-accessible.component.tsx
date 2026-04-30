@@ -1,5 +1,6 @@
 import React from 'react';
 import { FieldVm } from '@/core/providers';
+// oxlint-disable-next-line import/no-cycle -- mutually recursive tree component
 import { FieldList } from './field-list-accessible.component';
 
 interface Props {
