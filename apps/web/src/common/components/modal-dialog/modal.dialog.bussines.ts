@@ -22,7 +22,7 @@ export const handleEscapeKeyDown = (
   e: KeyboardEvent,
   closeModal: () => void
 ) => {
-  e.key === 'Escape' && closeModal();
+  if (e.key === 'Escape') closeModal();
 };
 
 export const handleFocus = (
