@@ -29,7 +29,7 @@ export const saveFileModern = async (
     const writableStream = await newFileHandle.createWritable();
     await writableStream.write(content);
     await writableStream.close();
-  } catch (error) {
+  } catch {
     // Nothing to do here if user aborts filename
     // TODO: add later on more elaborated error handling
     // throw new Error('Error save file: ' + error);
