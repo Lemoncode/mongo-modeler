@@ -3,7 +3,7 @@ name: CI Workflow
 on: pull_request
 
 jobs:
-  unit-tests:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
