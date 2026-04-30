@@ -1,49 +1,85 @@
-name: CI workflow
+name: CI Workflow
 
 on: pull_request
 
 jobs:
-  ci:
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v6
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Check TypeScript Types
-        run: npm run tsc-check
+      - name: Install test browsers
+        run: node --run install:test-browsers
+
+      - name: Lint
+        run: node --run lint
+
+      - name: Check TypeScript types
+        run: node --run check-types
+
+      - name: Build
+        run: node --run build
 
       - name: Run tests
-        run: npm test
+        run: node --run test
 
   e2e-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v6
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Install test browsers
+        run: node --run install:test-browsers
 
-      - name: Check TypeScript Types
-        run: npm run tsc-check
+      - name: Build
+        run: node --run build
 
       - name: Run E2E tests
-        run: npm run ci:e2e
+        run: node --run ci:e2e
+
+  changeset-check:
+    if: github.event.pull_request.base.ref != 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Check for changeset
+        run: |
+          BASE=${{ github.event.pull_request.base.sha }}
+          HEAD=${{ github.event.pull_request.head.sha }}
+
+          PACKAGES_CHANGED=$(git diff --name-only "$BASE" "$HEAD" -- packages/ | head -1)
+
+          if [ -n "$PACKAGES_CHANGED" ]; then
+            CHANGESET_ADDED=$(git diff --name-only "$BASE" "$HEAD" -- '.changeset/*.md' | head -1)
+            if [ -z "$CHANGESET_ADDED" ]; then
+              echo "::error::This PR modifies packages/ but has no changeset. Run 'node --run changeset' to add one."
+              exit 1
+            fi
+            echo "Changeset found for package changes."
+          else
+            echo "No package changes detected, skipping changeset check."
+          fi

@@ -1,3 +1,20 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+dist-ssr
+
+# Turbo
+.turbo
+
+# Test outputs
+coverage
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+
 # Logs
 logs
 *.log
@@ -7,14 +24,14 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Local env files
 *.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
 .idea
 .DS_Store
 *.suo
@@ -22,7 +39,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
+
+# Vite
+.vite
+
+# Temporary LICENSE copies (created by publish scripts)
+packages/*/LICENSE

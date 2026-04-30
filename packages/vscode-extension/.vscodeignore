@@ -1,0 +1,11 @@
+src/**
+node_modules/**
+scripts/**
+*.ts
+tsconfig.json
+tsdown.config.ts
+vitest.config.ts
+.turbo/**
+.env*
+coverage/**
+*.vsix

@@ -1,0 +1,10 @@
+{
+  "name": "@lemoncode/typescript-config",
+  "private": true,
+  "version": "0.0.0",
+  "exports": {
+    "./base": "./base.json",
+    "./browser": "./browser.json",
+    "./node": "./node.json"
+  }
+}
