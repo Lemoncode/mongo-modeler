@@ -58,7 +58,7 @@ export const ImportPanel: React.FC<ImportPanelProps> = props => {
         fields: parsedFields,
       };
       onSave(mapEditTableVmToTableVm(newTable));
-    } catch (error) {
+    } catch {
       setJsonError('The JSON is not valid');
     }
   };
