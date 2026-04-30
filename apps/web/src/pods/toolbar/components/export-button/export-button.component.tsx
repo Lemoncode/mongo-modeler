@@ -33,7 +33,6 @@ export const ExportButton = () => {
   const { canvasViewSettings } = useCanvasViewSettingsContext();
 
   const { canvasSize, zoomFactor } = canvasViewSettings;
-  canvasSchema.tables;
 
   const tablesWithoutOverlap = React.useMemo<TableVm[]>(
     () => placeAllTablesWithoutOverlap(canvasSchema.tables),

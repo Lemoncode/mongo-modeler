@@ -2,7 +2,7 @@ import { TABLE_CONST, TableVm } from '@/core/providers';
 import {
   calculateTableEndYPosition,
   expandTableFields,
-} from './export-button.business';
+} from './table-geometry.helpers';
 
 const calculateTableEndXCoordinate = (table: TableVm): number =>
   table.x + (table.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH);
