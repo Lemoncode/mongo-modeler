@@ -5,13 +5,13 @@ import {
   useCanvasViewSettingsContext,
 } from '@/core/providers';
 
-import { saveToLocal, retrieveLocalSchema } from '@/core/autosave';
+import { saveToLocal, retrieveLocalSchema } from './autosave.business';
 
 const useAutosave = () => {
   const AUTOSAVE_INTERVAL = 60000;
   const AUTOSAVE_KEY = 'autoSaveFile';
 
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const autoSaveRef = useRef<boolean | null>(null);
 
   const { canvasSchema, setCanvasSchema } = useCanvasSchemaContext();
