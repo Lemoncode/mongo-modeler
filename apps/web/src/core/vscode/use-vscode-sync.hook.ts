@@ -1,5 +1,6 @@
 import { useVSCodeAutoSave } from './use-vscode-auto-save.hook';
 import { useVSCodeFileLoad } from './use-vscode-file-load.hook';
+import { useVSCodeTheme } from './use-vscode-theme.hook';
 
 /**
  * Wires the VS Code webview bridge. The inner hooks no-op when not running
@@ -8,4 +9,5 @@ import { useVSCodeFileLoad } from './use-vscode-file-load.hook';
 export const useVSCodeSync = (): void => {
   const hasReceivedFileRef = useVSCodeFileLoad();
   useVSCodeAutoSave(hasReceivedFileRef);
+  useVSCodeTheme();
 };

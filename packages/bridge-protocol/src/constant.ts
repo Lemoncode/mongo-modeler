@@ -2,6 +2,7 @@ export const HOST_MESSAGE_TYPE = {
   LOAD: 'mm:load',
   SAVED: 'mm:saved',
   LOAD_FILE: 'LOAD_FILE',
+  THEME: 'mm:theme',
 } as const;
 
 export const APP_MESSAGE_TYPE = {

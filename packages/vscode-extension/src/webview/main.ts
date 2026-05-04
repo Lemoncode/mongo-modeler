@@ -1,4 +1,5 @@
 import { setupBridge } from './bridge';
+import { setupThemeSync } from './theme';
 
 const appUrl = document.body.dataset.appUrl;
 if (!appUrl) {
@@ -18,3 +19,4 @@ iframe.title = 'Mongo Modeler Application';
 document.body.appendChild(iframe);
 
 setupBridge(iframe, appOrigin);
+setupThemeSync(iframe, appOrigin);

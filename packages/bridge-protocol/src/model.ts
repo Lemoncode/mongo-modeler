@@ -5,13 +5,20 @@ export interface LoadFilePayload {
   fileName: string;
 }
 
+export interface ThemePayload {
+  background: string;
+  backgroundSecondary: string;
+  foreground: string;
+}
+
 export type HostMessage =
   | {
       type: typeof HOST_MESSAGE_TYPE.LOAD;
       payload: { content: string; fileName: string };
     }
   | { type: typeof HOST_MESSAGE_TYPE.SAVED }
-  | { type: typeof HOST_MESSAGE_TYPE.LOAD_FILE; payload: LoadFilePayload };
+  | { type: typeof HOST_MESSAGE_TYPE.LOAD_FILE; payload: LoadFilePayload }
+  | { type: typeof HOST_MESSAGE_TYPE.THEME; payload: ThemePayload };
 
 export type AppMessage =
   | { type: typeof APP_MESSAGE_TYPE.READY }
