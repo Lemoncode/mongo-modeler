@@ -12,10 +12,6 @@ export interface ThemePayload {
 }
 
 export type HostMessage =
-  | {
-      type: typeof HOST_MESSAGE_TYPE.LOAD;
-      payload: { content: string; fileName: string };
-    }
   | { type: typeof HOST_MESSAGE_TYPE.SAVED }
   | { type: typeof HOST_MESSAGE_TYPE.LOAD_FILE; payload: LoadFilePayload }
   | { type: typeof HOST_MESSAGE_TYPE.THEME; payload: ThemePayload };

@@ -68,9 +68,15 @@ export class MongoModelerEditorProvider
     _cancel: vscode.CancellationToken
   ): Promise<void> {
     doc.content = await readFile(doc.uri);
+    let data: unknown;
+    try {
+      data = JSON.parse(doc.content);
+    } catch {
+      data = doc.content;
+    }
     this.broadcast(doc, {
-      type: HOST_MESSAGE_TYPE.LOAD,
-      payload: { content: doc.content, fileName: basename(doc.uri.fsPath) },
+      type: HOST_MESSAGE_TYPE.LOAD_FILE,
+      payload: { data, fileName: basename(doc.uri.fsPath) },
     });
   }
 

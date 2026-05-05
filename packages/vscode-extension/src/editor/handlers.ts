@@ -15,13 +15,6 @@ export const handleWebviewMessage = async (
   postMessage: PostMessageFn
 ): Promise<void> => {
   switch (msg.type) {
-    case APP_MESSAGE_TYPE.READY:
-      postMessage({
-        type: HOST_MESSAGE_TYPE.LOAD,
-        payload: { content: doc.content, fileName: basename(doc.uri.fsPath) },
-      });
-      break;
-
     case APP_MESSAGE_TYPE.WEBVIEW_READY: {
       let data: unknown;
       try {

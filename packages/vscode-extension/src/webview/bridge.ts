@@ -9,7 +9,6 @@ declare function acquireVsCodeApi(): { postMessage(msg: AppMessage): void };
 const vscode = acquireVsCodeApi();
 
 const FORWARDED_TO_IFRAME: ReadonlySet<string> = new Set([
-  HOST_MESSAGE_TYPE.LOAD,
   HOST_MESSAGE_TYPE.SAVED,
   HOST_MESSAGE_TYPE.LOAD_FILE,
 ]);
