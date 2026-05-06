@@ -16,8 +16,7 @@ import { handleWebviewMessage } from './handlers';
 import { getHtml } from './panel';
 
 export class MongoModelerEditorProvider
-  implements vscode.CustomEditorProvider<MongoModelerDocument>
-{
+  implements vscode.CustomEditorProvider<MongoModelerDocument> {
   static register(context: vscode.ExtensionContext): vscode.Disposable {
     const provider = new MongoModelerEditorProvider(context.extensionUri);
     const editorRegistration = vscode.window.registerCustomEditorProvider(
@@ -32,7 +31,7 @@ export class MongoModelerEditorProvider
     return vscode.Disposable.from(editorRegistration, configListener);
   }
 
-  constructor(private readonly extensionUri: vscode.Uri) {}
+  constructor(private readonly extensionUri: vscode.Uri) { }
 
   private readonly _onDidChangeCustomDocument = new vscode.EventEmitter<
     vscode.CustomDocumentContentChangeEvent<MongoModelerDocument>
@@ -91,7 +90,7 @@ export class MongoModelerEditorProvider
       delete: () => {
         vscode.workspace.fs
           .delete(context.destination)
-          .then(undefined, () => {});
+          .then(undefined, () => { });
       },
     };
   }
@@ -112,17 +111,18 @@ export class MongoModelerEditorProvider
       enableScripts: true,
       localResourceRoots: [this.extensionUri],
     };
-    panel.webview.html = getHtml(
-      panel.webview,
-      this.extensionUri,
-      getEditorAppUrl()
-    );
 
     panel.webview.onDidReceiveMessage(async (msg: AppMessage) => {
       await handleWebviewMessage(msg, doc, reply =>
         panel.webview.postMessage(reply satisfies HostMessage)
       );
     });
+
+    panel.webview.html = getHtml(
+      panel.webview,
+      this.extensionUri,
+      getEditorAppUrl()
+    );
   }
 
   private broadcast(doc: MongoModelerDocument, msg: HostMessage): void {
