@@ -6,6 +6,6 @@ export const mapInternalSelectOptionToOption = <Option>(
   if (!internalSelectedOption) {
     return undefined;
   }
-  const { ...option } = internalSelectedOption;
+  const { isSelectable: _isSelectable, tabIndex: _tabIndex, ...option } = internalSelectedOption;
   return option as Option;
 };
