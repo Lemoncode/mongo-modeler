@@ -1,10 +1,12 @@
-import { basename } from 'node:path';
+import { MONGO_MODELER_NEW_DIAGRAM_COMMAND_ID } from '#commands';
 import {
   APP_MESSAGE_TYPE,
   type AppMessage,
   HOST_MESSAGE_TYPE,
   type HostMessage,
 } from '@lemoncode/mongo-modeler-bridge-protocol';
+import { basename } from 'node:path';
+import * as vscode from 'vscode';
 import { type MongoModelerDocument, writeFile } from './document';
 
 type PostMessageFn = (msg: HostMessage) => void;
@@ -33,6 +35,10 @@ export const handleWebviewMessage = async (
       doc.content = msg.payload.content;
       await writeFile(doc.uri, doc.content);
       postMessage({ type: HOST_MESSAGE_TYPE.SAVED });
+      break;
+
+    case APP_MESSAGE_TYPE.NEW_DIAGRAM:
+      await vscode.commands.executeCommand(MONGO_MODELER_NEW_DIAGRAM_COMMAND_ID);
       break;
   }
 };

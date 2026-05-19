@@ -19,7 +19,8 @@ export type HostMessage =
 export type AppMessage =
   | { type: typeof APP_MESSAGE_TYPE.READY }
   | { type: typeof APP_MESSAGE_TYPE.WEBVIEW_READY }
-  | { type: typeof APP_MESSAGE_TYPE.SAVE; payload: { content: string } };
+  | { type: typeof APP_MESSAGE_TYPE.SAVE; payload: { content: string } }
+  | { type: typeof APP_MESSAGE_TYPE.NEW_DIAGRAM };
 
 export type PayloadOf<U extends { type: string }, T extends U['type']> =
   Extract<U, { type: T }> extends { payload: infer P } ? P : undefined;
