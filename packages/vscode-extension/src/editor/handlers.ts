@@ -1,4 +1,4 @@
-import { MONGO_MODELER_NEW_DIAGRAM_COMMAND_ID } from '#commands';
+import { MONGO_MODELER_NEW_DIAGRAM_COMMAND_ID } from '#commands/new-diagram/new-diagram.id';
 import {
   APP_MESSAGE_TYPE,
   type AppMessage,
