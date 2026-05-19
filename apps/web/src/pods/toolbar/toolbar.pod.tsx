@@ -21,11 +21,13 @@ import {
 import classes from './toolbar.pod.module.css';
 
 export const ToolbarPod: React.FC = () => {
+  const isVSCode = isVSCodeEnv();
+
   return (
     <header className={classes.container}>
       <NewButton />
-      <OpenButton />
-      <SaveButton />
+      {!isVSCode && <OpenButton />}
+      {!isVSCode && <SaveButton />}
       <ZoomInButton />
       <ZoomOutButton />
       <ImportButton />
@@ -37,7 +39,7 @@ export const ToolbarPod: React.FC = () => {
       <DeleteButton />
       <CanvasSettingButton />
       <AboutButton />
-      {!isVSCodeEnv() && (
+      {!isVSCode && (
         <ThemeToggleButton darkLabel="Dark Mode" lightLabel="Light Mode" />
       )}
     </header>
