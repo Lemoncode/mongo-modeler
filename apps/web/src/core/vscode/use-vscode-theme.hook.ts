@@ -14,8 +14,15 @@ const CSS_VAR_MAP: Record<keyof ThemePayload, readonly string[]> = {
     '--bg-input',
     '--background-700',
     '--background-400',
+    '--border-checkbox',
   ],
-  foreground: ['--text-color'],
+  foreground: [
+    '--text-color',
+    '--input-border-color',
+    '--input-radio-border-color',
+    '--hover-checkbox',
+    '--primary-500',
+  ],
 };
 
 const applyTheme = (theme: ThemePayload): void => {
