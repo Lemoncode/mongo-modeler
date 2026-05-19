@@ -1,5 +1,5 @@
 import { logError } from '#core';
-import { writeFile } from '#editor';
+import { writeFile } from '#editor/document';
 import * as vscode from 'vscode';
 
 const VIEW_TYPE = 'mongo-modeler.editor';
