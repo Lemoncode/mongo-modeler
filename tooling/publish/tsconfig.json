@@ -1,0 +1,4 @@
+{
+  "extends": "@lemoncode/typescript-config/node",
+  "include": ["./**/*.ts"]
+}

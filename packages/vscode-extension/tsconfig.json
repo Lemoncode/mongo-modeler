@@ -1,0 +1,11 @@
+{
+  "extends": "@lemoncode/typescript-config/node",
+  "include": ["src"],
+  "compilerOptions": {
+    "rootDir": "src",
+    "lib": ["ES2024", "DOM"],
+    "paths": {
+      "#*": ["./src/*"]
+    }
+  }
+}

@@ -1,58 +1,36 @@
 {
-  "name": "boilerplate",
+  "name": "@lemoncode/mongo-modeler-monorepo",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "packageManager": "npm@11.9.0",
+  "engines": {
+    "node": ">=24",
+    "npm": ">=11"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tooling/*"
+  ],
   "scripts": {
-    "postinstall": "npm run install:e2e-browsers",
-    "install:e2e-browsers": "npx playwright install",
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
+    "start": "node --run dev",
+    "dev": "tsx tooling/dev-cli/dev.ts",
+    "build": "turbo build",
+    "test": "turbo test",
+    "test:watch": "tsx tooling/dev-cli/test-watch.ts",
+    "test:coverage": "turbo test:coverage",
+    "check-types": "turbo check-types",
+    "e2e": "turbo e2e",
+    "ci:e2e": "turbo ci:e2e",
+    "install:test-browsers": "npx playwright install --with-deps",
+    "lint": "oxlint . --quiet",
+    "lint:fix": "oxlint --fix .",
     "format": "prettier --write .",
-    "test": "vitest",
-    "prepare": "husky || \"No need to install husky\"",
-    "tsc-check": "tsc --noEmit",
-    "e2e": "playwright test --ui",
-    "ci:e2e": "playwright test"
-  },
-  "dependencies": {
-    "@lemoncode/fonk": "^1.5.4",
-    "@lemoncode/fonk-formik": "^4.0.1",
-    "@lemoncode/fonk-is-number-validator": "^1.1.2",
-    "@lemoncode/fonk-min-number-validator": "^1.2.0",
-    "classnames": "^2.5.1",
-    "formik": "^2.4.5",
-    "framer-motion": "^11.0.3",
-    "immer": "^10.0.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.48.1",
-    "@testing-library/dom": "^9.3.4",
-    "@testing-library/react": "^14.2.1",
-    "@types/jest": "^29.5.11",
-    "@types/node": "^20.10.5",
-    "@types/react": "^18.2.46",
-    "@types/react-dom": "^18.2.18",
-    "@types/wicg-file-system-access": "^2023.10.4",
-    "@typescript-eslint/eslint-plugin": "^6.16.0",
-    "@typescript-eslint/parser": "^6.16.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.56.0",
-    "eslint-plugin-prettier": "^5.1.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
-    "husky": "^8.0.3",
-    "jsdom": "^23.2.0",
-    "lint-staged": "^15.2.0",
-    "prettier": "^3.1.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.10",
-    "vite-plugin-checker": "^0.6.2",
-    "vitest": "^1.2.2"
+    "format:check": "prettier --check .",
+    "changeset": "changeset",
+    "publish:vscode": "tsx tooling/publish/publish-vscode.ts",
+    "package:vscode": "node --run build && cd packages/vscode-extension && npx vsce package --no-dependencies --out ./dist",
+    "prepare": "husky || \"No need to install husky\""
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -61,5 +39,16 @@
     "*.css": [
       "prettier --write"
     ]
+  },
+  "devDependencies": {
+    "@changesets/cli": "2.30.0",
+    "@types/node": "24.12.2",
+    "husky": "9.1.7",
+    "lint-staged": "16.4.0",
+    "oxlint": "1.60.0",
+    "prettier": "3.8.3",
+    "tsx": "4.21.0",
+    "turbo": "2.9.6",
+    "typescript": "6.0.2"
   }
 }

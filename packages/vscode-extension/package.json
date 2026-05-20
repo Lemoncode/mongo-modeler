@@ -1,0 +1,92 @@
+{
+  "name": "mongo-modeler",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "imports": {
+    "#*": "./src/*"
+  },
+  "scripts": {
+    "dev": "node --run build -- --watch --sourcemap",
+    "build": "tsdown",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@lemoncode/mongo-modeler-bridge-protocol": "*",
+    "@lemoncode/tsdown-config": "*",
+    "@lemoncode/typescript-config": "*",
+    "@lemoncode/vitest-config": "*",
+    "@types/vscode": "1.115.0",
+    "@vscode/vsce": "3.9.0"
+  },
+  "publisher": "Lemoncoders",
+  "displayName": "Mongo Modeler",
+  "description": "Mongo Modeler VSCode extension. Design and model your MongoDB databases visually.",
+  "keywords": [
+    "mongo",
+    "mongodb",
+    "modeler",
+    "schema",
+    "database",
+    "diagram",
+    "design"
+  ],
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "author": "Lemoncode",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lemoncode/mongo-modeler",
+    "directory": "packages/vscode-extension"
+  },
+  "engines": {
+    "vscode": "^1.115.0"
+  },
+  "icon": "./assets/app-icon.png",
+  "galleryBanner": {
+    "color": "#17191E",
+    "theme": "dark"
+  },
+  "qna": false,
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "mongo-modeler.editor",
+        "displayName": "Mongo Modeler",
+        "selector": [
+          {
+            "filenamePattern": "*.mml"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "mongo-modeler.newDiagram",
+        "title": "Mongo Modeler: New Diagram"
+      }
+    ],
+    "configuration": {
+      "title": "Mongo Modeler",
+      "properties": {
+        "mongo-modeler.appUrl": {
+          "type": "string",
+          "default": "https://mongomodeler.com/editor.html",
+          "format": "uri",
+          "markdownDescription": "Base URL of the Mongo Modeler web app used by the custom editor. The extension automatically appends `?env=vscode` for the webview. Changing this refreshes open editors."
+        }
+      }
+    }
+  }
+}

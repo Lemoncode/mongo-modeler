@@ -1,0 +1,11 @@
+{
+  "name": "dev-cli",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@clack/prompts": "1.2.0"
+  },
+  "devDependencies": {
+    "@lemoncode/typescript-config": "*"
+  }
+}

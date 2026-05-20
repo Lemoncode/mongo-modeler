@@ -1,0 +1,21 @@
+{
+  "extends": "@lemoncode/typescript-config/browser",
+  "include": [
+    "src",
+    "e2e"
+  ],
+  "compilerOptions": {
+    "rootDir": ".",
+    "useDefineForClassFields": true,
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": false,
+    "noUncheckedIndexedAccess": false,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}
