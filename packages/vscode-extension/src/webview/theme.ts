@@ -24,7 +24,7 @@ const IFRAME_READY_TYPES: ReadonlySet<string> = new Set([
 export const setupThemeSync = (
   iframe: HTMLIFrameElement,
   appOrigin: string
-): (() => void) => {
+): void => {
   const sendTheme = (): void => {
     iframe.contentWindow?.postMessage(
       { type: HOST_MESSAGE_TYPE.THEME, payload: extractTheme() },
@@ -39,14 +39,15 @@ export const setupThemeSync = (
   };
   window.addEventListener('message', onIframeReady);
 
-  const observer = new MutationObserver(sendTheme);
+  let rafId = 0;
+  const sendThemeDebounced = (): void => {
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(sendTheme);
+  };
+
+  const observer = new MutationObserver(sendThemeDebounced);
   observer.observe(document.body, {
     attributes: true,
     attributeFilter: ['class', 'style'],
   });
-
-  return () => {
-    window.removeEventListener('message', onIframeReady);
-    observer.disconnect();
-  };
 };
