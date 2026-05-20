@@ -25,7 +25,7 @@
     "formik": "^2.4.5",
     "framer-motion": "^11.0.3",
     "immer": "^10.0.3",
-    "react": "^18.2.0",
+    "react": "^19.2.6",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
@@ -34,7 +34,7 @@
     "@playwright/test": "^1.48.1",
     "@testing-library/dom": "^9.3.4",
     "@testing-library/react": "^14.2.1",
-    "@types/react": "^18.2.46",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^18.2.18",
     "@types/wicg-file-system-access": "^2023.10.4",
     "@vitejs/plugin-react": "^6.0.1",
