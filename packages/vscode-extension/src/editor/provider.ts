@@ -104,7 +104,11 @@ export class MongoModelerEditorProvider
     this.panels.set(key, [...(this.panels.get(key) ?? []), panel]);
     panel.onDidDispose(() => {
       const remaining = (this.panels.get(key) ?? []).filter(p => p !== panel);
-      this.panels.set(key, remaining);
+      if (remaining.length === 0) {
+        this.panels.delete(key);
+      } else {
+        this.panels.set(key, remaining);
+      }
     });
 
     panel.webview.options = {
