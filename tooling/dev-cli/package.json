@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@clack/prompts": "1.2.0"
+    "@clack/prompts": "1.4.0"
   },
   "devDependencies": {
     "@lemoncode/typescript-config": "*"

@@ -9,11 +9,11 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.9.1",
-    "@vitest/browser": "4.1.4",
-    "@vitest/browser-playwright": "4.1.4",
-    "@vitest/coverage-v8": "4.1.4",
-    "@vitest/ui": "4.1.4",
-    "playwright": "1.59.1",
-    "vitest": "4.1.4"
+    "@vitest/browser": "4.1.7",
+    "@vitest/browser-playwright": "4.1.7",
+    "@vitest/coverage-v8": "4.1.7",
+    "@vitest/ui": "4.1.7",
+    "playwright": "1.60.0",
+    "vitest": "4.1.7"
   }
 }
