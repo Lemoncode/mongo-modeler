@@ -5,4 +5,4 @@ export const deserializeSchema = (data: unknown): DatabaseSchemaVm =>
   mapSchemaToLatestVersion(data);
 
 export const serializeSchema = (schema: DatabaseSchemaVm): string =>
-  JSON.stringify(schema);
+  JSON.stringify(schema, null, 2);
