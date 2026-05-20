@@ -48,6 +48,10 @@ npm run dev
 
 Sample models can be found [HERE](https://github.com/Lemoncode/mongo-modeler/tree/main/db-examples).
 
+### VS Code extension
+
+If you prefer to work inside VS Code, install the [Mongo Modeler VS Code extension](./packages/vscode-extension/README.md). It adds a custom editor for `.mml` files and lets you create new diagrams from the editor.
+
 ## Contributing
 
 Your feedback and contributions are welcome! If you have ideas for new features or have found a bug, we would love to hear about it. Here's how you can contribute:
