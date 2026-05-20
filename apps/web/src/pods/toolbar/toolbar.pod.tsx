@@ -1,21 +1,22 @@
+import { isVSCodeEnv } from '@/core/vscode/env.helpers';
 import React from 'react';
 import {
-  // CanvasSettingButton,
-  ZoomInButton,
-  ZoomOutButton,
-  ThemeToggleButton,
-  ExportButton,
-  NewButton,
-  OpenButton,
-  SaveButton,
-  UndoButton,
-  RedoButton,
-  DeleteButton,
   AboutButton,
   CanvasSettingButton,
   CopyButton,
-  PasteButton,
+  DeleteButton,
+  ExportButton,
   ImportButton,
+  NewButton,
+  OpenButton,
+  PasteButton,
+  RedoButton,
+  SaveButton,
+  ThemeToggleButton,
+  UndoButton,
+  // CanvasSettingButton,
+  ZoomInButton,
+  ZoomOutButton,
 } from './components';
 import classes from './toolbar.pod.module.css';
 
@@ -36,7 +37,9 @@ export const ToolbarPod: React.FC = () => {
       <DeleteButton />
       <CanvasSettingButton />
       <AboutButton />
-      <ThemeToggleButton darkLabel="Dark Mode" lightLabel="Light Mode" />
+      {!isVSCodeEnv() && (
+        <ThemeToggleButton darkLabel="Dark Mode" lightLabel="Light Mode" />
+      )}
     </header>
   );
 };
