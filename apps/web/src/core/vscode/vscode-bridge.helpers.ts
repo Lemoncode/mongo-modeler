@@ -15,6 +15,8 @@ const handlers = new Map<string, Set<AnyHandler>>();
 
 export const sendToExtension = (msg: AppMessage): void => {
   if (!isVSCodeEnv()) return;
+  // In VS Code webviews the parent origin is not a stable app URL.
+  // We post to parent and rely on origin/source checks in the bridge listeners.
   window.parent.postMessage(msg, '*');
 };
 
@@ -22,7 +24,7 @@ export const onMessage = <T extends HostMessage['type']>(
   type: T,
   handler: HandlerFor<T>
 ): (() => void) => {
-  if (!isVSCodeEnv()) return () => {};
+  if (!isVSCodeEnv()) return () => { };
 
   const existing = handlers.get(type) ?? new Set<AnyHandler>();
   existing.add(handler as AnyHandler);
