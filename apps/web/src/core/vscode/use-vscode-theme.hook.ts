@@ -7,6 +7,7 @@ import { isVSCodeEnv } from './env.helpers';
 import { onMessage } from './vscode-bridge.helpers';
 
 const CSS_VAR_MAP: Record<keyof ThemePayload, readonly string[]> = {
+  // VS Code sends a reduced palette; we fan out colors to existing app tokens in a simplified way.
   background: ['--bg-canvas', '--background-800', '--background-900'],
   backgroundSecondary: [
     '--bg-toolbar',

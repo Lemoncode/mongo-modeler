@@ -10,6 +10,7 @@ const appOrigin = new URL(appUrl).origin;
 
 const iframe = document.createElement('iframe');
 iframe.src = appUrl;
+// keep same-origin enabled so the hosted app can use its browser storage/session APIs.
 iframe.setAttribute(
   'sandbox',
   'allow-scripts allow-same-origin allow-downloads'

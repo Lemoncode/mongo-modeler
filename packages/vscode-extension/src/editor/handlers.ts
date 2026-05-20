@@ -30,6 +30,7 @@ export const handleWebviewMessage = async (
     }
 
     case APP_MESSAGE_TYPE.SAVE:
+      // This editor is auto-save driven, so SAVE writes directly to disk.
       doc.content = msg.payload.content;
       await writeFile(doc.uri, doc.content);
       postMessage({ type: HOST_MESSAGE_TYPE.SAVED });

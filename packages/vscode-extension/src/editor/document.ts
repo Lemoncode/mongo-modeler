@@ -13,7 +13,7 @@ export const openDocument = async (
     ? vscode.Uri.parse(openContext.backupId)
     : uri;
   const content = await readFile(source);
-  return { uri, content, dispose: () => {} };
+  return { uri, content, dispose: () => { } }; // no resources to release
 };
 
 export const readFile = async (uri: vscode.Uri): Promise<string> => {
