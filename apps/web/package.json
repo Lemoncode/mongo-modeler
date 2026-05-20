@@ -26,7 +26,7 @@
     "framer-motion": "^11.0.3",
     "immer": "^10.0.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^19.2.6"
   },
   "devDependencies": {
     "@lemoncode/typescript-config": "*",
@@ -35,7 +35,7 @@
     "@testing-library/dom": "^9.3.4",
     "@testing-library/react": "^14.2.1",
     "@types/react": "^18.2.46",
-    "@types/react-dom": "^18.2.18",
+    "@types/react-dom": "^19.2.3",
     "@types/wicg-file-system-access": "^2023.10.4",
     "@vitejs/plugin-react": "^6.0.1",
     "jsdom": "^23.2.0",
