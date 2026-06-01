@@ -66,6 +66,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
               relationType={relation.type}
               startCoords={startCoords}
               endCoords={endCoords}
+              relationColor={relation.color}
             />
           );
         case 'overlapping':
@@ -74,6 +75,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
               relationType={relation.type}
               startCoords={startCoords}
               endCoords={endCoords}
+              relationColor={relation.color}
             />
           );
         case 'straight':
@@ -82,6 +84,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
               relationType={relation.type}
               startCoords={startCoords}
               endCoords={endCoords}
+              relationColor={relation.color}
             />
           );
       }
