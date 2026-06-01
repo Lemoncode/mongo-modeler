@@ -19,6 +19,7 @@ interface DatabaseRelationshipTwoTablesProps {
   isSelected: boolean;
   startTableWidth?: number;
   endTableWidth?: number;
+  relationColor?: string;
 }
 
 export const DatabaseRelationshipTwoTablePathComponent: React.FC<
@@ -33,12 +34,17 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
   onDoubleClick,
   startTableWidth,
   endTableWidth,
+  relationColor,
 }) => {
   const isDrawLeftToRight = isDrawLeftToRightLogic(
     relationType,
     startCoords,
     endCoords
   );
+
+  const relationStrokeStyle = relationColor
+    ? { stroke: relationColor }
+    : undefined;
 
   return (
     <svg>
@@ -63,6 +69,7 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
         className={
           isSelected ? classes.selectedRelation : classes.nonSelectedRelation
         }
+        style={relationStrokeStyle}
         filter={isSelected ? `url(#table_glow)` : ''}
       />
 
@@ -78,6 +85,7 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
             endTableWidth
           )}
           drawLeftToRight={!isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
       {relationType === 'M:1' && (
@@ -91,6 +99,7 @@ export const DatabaseRelationshipTwoTablePathComponent: React.FC<
             endTableWidth
           )}
           drawLeftToRight={isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
 

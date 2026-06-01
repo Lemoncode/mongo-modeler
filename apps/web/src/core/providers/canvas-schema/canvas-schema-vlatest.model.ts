@@ -29,6 +29,7 @@ export interface RelationVm {
   fromFieldId: string;
   toFieldId: string;
   type: RelationType;
+  color?: string;  //
 }
 
 export interface NoteVm {

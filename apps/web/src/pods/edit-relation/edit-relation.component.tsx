@@ -4,7 +4,7 @@ import { DatabaseSchemaVm } from '@/core/providers/canvas-schema';
 import { mapTablesFieldsToPkOptionVm } from './edit-relation.business';
 import { PkOptionVm } from '@/common/components';
 import { RelationFormVm } from './edit-relation.vm';
-import { DropdownFormik, TablePkPickerFormik } from '@/common/components/forms';
+import { DropdownFormik, InputFormik, TablePkPickerFormik } from '@/common/components/forms';
 
 const DROPDOWN_ORIGIN_TABLE_TITLE = 'Select origin collection';
 const DROPDOWN_DESTINATION_TABLE_TITLE = 'Select destination collection';
@@ -68,6 +68,11 @@ export const EditRelationComponent: React.FC<Props> = props => {
         selectTitle={DROPDOWN_DESTINATION_FIELD}
         disabled={!values.toTableId}
       ></TablePkPickerFormik>
+      <InputFormik
+        name="color"
+        label="Relation color"
+        type="color"
+      ></InputFormik>
     </>
   );
 };

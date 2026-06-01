@@ -4,4 +4,5 @@ export interface RelationFormVm {
   toFieldId: string;
   toTableId: string;
   type: string;
+  color: string; 
 }
