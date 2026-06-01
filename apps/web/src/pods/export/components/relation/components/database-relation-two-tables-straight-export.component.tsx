@@ -13,12 +13,13 @@ interface Props {
   relationType: RelationType;
   startCoords: Coords;
   endCoords: Coords;
+  relationColor?: string;
 }
 
 export const DatabaseRelationshipTwoTablesStraightExportComponent: React.FC<
   Props
 > = props => {
-  const { relationType, startCoords, endCoords } = props;
+  const { relationType, startCoords, endCoords, relationColor } = props;
   // Determine the direction of the fork
   const isDrawLeftToRight = isDrawLeftToRightLogic(
     relationType,
@@ -57,7 +58,7 @@ export const DatabaseRelationshipTwoTablesStraightExportComponent: React.FC<
         y1={startCoords.y}
         x2={destinationXMinusFork}
         y2={endCoords.y}
-        stroke={exportStylesVariables.RELATION_COLOR}
+        stroke={relationColor ?? exportStylesVariables.RELATION_COLOR}
         strokeWidth={2}
       />
 
@@ -66,12 +67,14 @@ export const DatabaseRelationshipTwoTablesStraightExportComponent: React.FC<
         <ForkExportComponent
           forkCoords={{ x: destinationXMinusFork, y: endCoords.y }}
           drawLeftToRight={isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
       {relationType === 'M:1' && (
         <ForkExportComponent
           forkCoords={{ x: originXMinusFork, y: startCoords.y }}
           drawLeftToRight={isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
     </svg>

@@ -75,6 +75,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
               endCoords={endCoords}
               isSelected={relation.id === schema.selectedElementId}
               tableWidth={fromTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH}
+              relationColor={relation.color}
             />
           );
         case 'overlapping':
@@ -91,6 +92,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
                 fromTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH
               }
               endTableWidth={toTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH}
+              relationColor={relation.color}
             />
           );
         case 'straight':
@@ -107,6 +109,7 @@ export const DatabaseRelationCollectionComponent: React.FC<
                 fromTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH
               }
               endTableWidth={toTable.width ?? TABLE_CONST.DEFAULT_TABLE_WIDTH}
+              relationColor={relation.color}
             />
           );
       }

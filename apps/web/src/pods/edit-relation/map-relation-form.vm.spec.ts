@@ -14,6 +14,7 @@ describe('mapRelationFormVmToRelationVM', () => {
       toFieldId: '3',
       toTableId: '4',
       type: '1:1',
+      color: '#000000',
     };
 
     vi.spyOn(generate, 'GenerateGUID').mockReturnValue('55');
@@ -29,6 +30,7 @@ describe('mapRelationFormVmToRelationVM', () => {
       toFieldId: '3',
       toTableId: '4',
       type: '1:1',
+      color: '#000000',
     });
   });
   it('Should return RelationVm and ID when passing FormRelationVm an ID', () => {
@@ -39,6 +41,7 @@ describe('mapRelationFormVmToRelationVM', () => {
       toFieldId: '3',
       toTableId: '4',
       type: '1:1',
+      color: '#000000',
     };
 
     const id = '33';
@@ -54,6 +57,7 @@ describe('mapRelationFormVmToRelationVM', () => {
       toFieldId: '3',
       toTableId: '4',
       type: '1:1',
+      color: '#000000',
     });
   });
   it('Should return type "1:M" and ID when passing FormRelationVm type "1:M"', () => {
@@ -64,6 +68,7 @@ describe('mapRelationFormVmToRelationVM', () => {
       toFieldId: '3',
       toTableId: '4',
       type: '1:M',
+      color: '#000000',
     };
 
     const id = '33';
@@ -79,6 +84,7 @@ describe('mapRelationFormVmToRelationVM', () => {
       toFieldId: '3',
       toTableId: '4',
       type: '1:M',
+      color: '#000000',
     });
   });
   it('Should return type "M:1" and ID when passing FormRelationVm type "M:1"', () => {
@@ -89,6 +95,7 @@ describe('mapRelationFormVmToRelationVM', () => {
       toFieldId: '3',
       toTableId: '4',
       type: 'M:1',
+      color: '#000000',
     };
 
     const id = '33';
@@ -104,6 +111,7 @@ describe('mapRelationFormVmToRelationVM', () => {
       toFieldId: '3',
       toTableId: '4',
       type: 'M:1',
+      color: '#000000',
     });
   });
 });

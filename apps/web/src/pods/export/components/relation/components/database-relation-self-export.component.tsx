@@ -10,10 +10,11 @@ interface Props {
   relationType: RelationType;
   startCoords: Coords;
   endCoords: Coords;
+  relationColor?: string;
 }
 
 export const DatabaseRelationSelfExportComponent: React.FC<Props> = props => {
-  const { relationType, startCoords, endCoords } = props;
+  const { relationType, startCoords, endCoords, relationColor } = props;
   const isDrawLeftToRight = isDrawLeftToRightLogic(
     relationType,
     startCoords,
@@ -69,7 +70,7 @@ export const DatabaseRelationSelfExportComponent: React.FC<Props> = props => {
       <path
         d={getRelationPathBasedOnType(relationType)}
         fill="none"
-        stroke={exportStylesVariables.RELATION_COLOR}
+        stroke={relationColor ?? exportStylesVariables.RELATION_COLOR}
         strokeWidth={2}
       />
 
@@ -78,12 +79,14 @@ export const DatabaseRelationSelfExportComponent: React.FC<Props> = props => {
         <ForkExportComponent
           forkCoords={{ x: originXMinusFork, y: endCoords.y }}
           drawLeftToRight={isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
       {relationType === 'M:1' && (
         <ForkExportComponent
           forkCoords={{ x: originXMinusFork, y: startCoords.y }}
           drawLeftToRight={!isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
     </svg>

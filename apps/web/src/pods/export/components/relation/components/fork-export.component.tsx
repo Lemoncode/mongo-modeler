@@ -8,11 +8,13 @@ import { exportStylesVariables } from '@/pods/export/export-variables.const';
 interface Props {
   forkCoords: Coords;
   drawLeftToRight: boolean;
+  relationColor?: string;
 }
 
 export const ForkExportComponent: React.FC<Props> = props => {
-  const { forkCoords, drawLeftToRight } = props;
+  const { forkCoords, drawLeftToRight, relationColor } = props;
   const direction = drawLeftToRight ? 1 : -1;
+  const strokeColor = relationColor ?? exportStylesVariables.RELATION_COLOR;
 
   return (
     <g>
@@ -22,7 +24,7 @@ export const ForkExportComponent: React.FC<Props> = props => {
         y1={forkCoords.y}
         x2={forkCoords.x + FORK_WIDTH * direction}
         y2={forkCoords.y}
-        stroke={exportStylesVariables.RELATION_COLOR}
+        stroke={strokeColor}
         strokeWidth={2}
       />
       <line
@@ -30,7 +32,7 @@ export const ForkExportComponent: React.FC<Props> = props => {
         y1={forkCoords.y}
         x2={forkCoords.x + FORK_WIDTH * direction}
         y2={forkCoords.y - FORK_LINE_SPACING}
-        stroke={exportStylesVariables.RELATION_COLOR}
+        stroke={strokeColor}
         strokeWidth={2}
       />
       <line
@@ -38,7 +40,7 @@ export const ForkExportComponent: React.FC<Props> = props => {
         y1={forkCoords.y}
         x2={forkCoords.x + FORK_WIDTH * direction}
         y2={forkCoords.y + FORK_LINE_SPACING}
-        stroke={exportStylesVariables.RELATION_COLOR}
+        stroke={strokeColor}
         strokeWidth={2}
       />
     </g>

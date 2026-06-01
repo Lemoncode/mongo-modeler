@@ -13,12 +13,13 @@ interface Props {
   relationType: RelationType;
   startCoords: Coords;
   endCoords: Coords;
+  relationColor?: string;
 }
 
 export const DatabaseRelationshipTwoTablePathExportComponent: React.FC<
   Props
 > = props => {
-  const { relationType, startCoords, endCoords } = props;
+  const { relationType, startCoords, endCoords, relationColor } = props;
 
   const isDrawLeftToRight = isDrawLeftToRightLogic(
     relationType,
@@ -41,7 +42,7 @@ export const DatabaseRelationshipTwoTablePathExportComponent: React.FC<
       <path
         d={getRelationPath(relationType, startCoords, endCoords)}
         fill="none"
-        stroke={exportStylesVariables.RELATION_COLOR}
+        stroke={relationColor ?? exportStylesVariables.RELATION_COLOR}
         strokeWidth={2}
       />
 
@@ -50,12 +51,14 @@ export const DatabaseRelationshipTwoTablePathExportComponent: React.FC<
         <ForkExportComponent
           forkCoords={getForkCoords(relationType, startCoords, endCoords)}
           drawLeftToRight={!isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
       {relationType === 'M:1' && (
         <ForkExportComponent
           forkCoords={getForkCoords(relationType, startCoords, endCoords)}
           drawLeftToRight={isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
     </svg>

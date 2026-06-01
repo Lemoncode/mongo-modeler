@@ -20,6 +20,7 @@ export const mapRelationFormVmToRelationVM = (
     fromFieldId: values.fromFieldId,
     toFieldId: values.toFieldId,
     toTableId: values.toTableId,
+    color: values.color,
   };
 };
 
@@ -168,7 +169,7 @@ export const createInitialIdValues = (
   canvasSchema: DatabaseSchemaVm
 ): RelationFormVm => {
   const relation = findRelation(canvasSchema.relations, relationId);
-  const { fromFieldId, fromTableId, toFieldId, toTableId, type } = relation;
+  const { fromFieldId, fromTableId, toFieldId, toTableId, type, color } = relation;
 
   return {
     fromTableId,
@@ -176,6 +177,7 @@ export const createInitialIdValues = (
     fromFieldId,
     toFieldId,
     type,
+    color: color ?? '#ecad5a',
   };
 };
 
@@ -185,4 +187,5 @@ export const createInitialValues = (): RelationFormVm => ({
   toFieldId: '',
   toTableId: '',
   type: '1:1',
+  color: '#ecad5a',
 });

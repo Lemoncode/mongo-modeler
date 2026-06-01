@@ -15,6 +15,7 @@ interface DatabaseSelfRelationshipProps {
   onDoubleClick: (relationId: GUID) => void;
   isSelected: boolean;
   tableWidth: number;
+  relationColor?: string;
 }
 
 export const DatabaseRelationSelfComponent: React.FC<
@@ -29,6 +30,7 @@ export const DatabaseRelationSelfComponent: React.FC<
     onClick,
     onDoubleClick,
     tableWidth,
+    relationColor,
   } = props;
 
   // Determine the direction of the fork
@@ -72,6 +74,10 @@ export const DatabaseRelationSelfComponent: React.FC<
     }
   };
 
+  const relationStrokeStyle = relationColor
+    ? { stroke: relationColor }
+    : undefined;
+
   return (
     <svg>
       {/* Glow filter if selected */}
@@ -89,6 +95,7 @@ export const DatabaseRelationSelfComponent: React.FC<
         className={
           isSelected ? classes.selectedRelation : classes.nonSelectedRelation
         }
+        style={relationStrokeStyle}
         filter={isSelected ? `url(#table_glow)` : ''}
       />
 
@@ -98,6 +105,7 @@ export const DatabaseRelationSelfComponent: React.FC<
           isSelected={isSelected}
           forkCoords={{ x: originXMinusFork, y: endCoords.y }}
           drawLeftToRight={isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
       {relationType === 'M:1' && (
@@ -105,6 +113,7 @@ export const DatabaseRelationSelfComponent: React.FC<
           isSelected={isSelected}
           forkCoords={{ x: originXMinusFork, y: startCoords.y }}
           drawLeftToRight={!isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
 

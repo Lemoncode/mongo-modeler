@@ -19,6 +19,7 @@ interface DatabaseRelationshipTwoTablesProps {
   isSelected: boolean;
   startTableWidth?: number;
   endTableWidth?: number;
+  relationColor?: string;
 }
 
 export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
@@ -33,10 +34,15 @@ export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
   onDoubleClick,
   startTableWidth,
   endTableWidth,
+  relationColor,
 }) => {
   // Suppress unused parameter warnings - these are used for interface compatibility
   void startTableWidth;
   void endTableWidth;
+
+  const relationStrokeStyle = relationColor
+    ? { stroke: relationColor }
+    : undefined;
 
   // Determine the direction of the fork
   const isDrawLeftToRight = isDrawLeftToRightLogic(
@@ -79,6 +85,7 @@ export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
         className={
           isSelected ? classes.selectedRelation : classes.nonSelectedRelation
         }
+        style={relationStrokeStyle}
         filter={isSelected ? `url(#table_glow)` : ''}
       />
 
@@ -88,6 +95,7 @@ export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
           isSelected={isSelected}
           forkCoords={{ x: destinationXMinusFork, y: endCoords.y }}
           drawLeftToRight={isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
       {relationType === 'M:1' && (
@@ -95,6 +103,7 @@ export const DatabaseRelationshipTwoTablesStraightComponent: React.FC<
           isSelected={isSelected}
           forkCoords={{ x: originXMinusFork, y: startCoords.y }}
           drawLeftToRight={isDrawLeftToRight}
+          relationColor={relationColor}
         />
       )}
 
