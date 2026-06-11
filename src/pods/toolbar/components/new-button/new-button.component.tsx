@@ -5,16 +5,32 @@ import {
 } from '@/core/providers';
 import { ActionButton } from '@/common/components/action-button';
 import { SHORTCUTS } from '@/common/shortcut';
+import { useModalDialogContext } from '@/core/providers';
+import { NEW_MODEL_CONFIRMATION_TITLE } from '@/common/components';
+import { NewModelDialog } from './new-model-dialog.component';
 
 export const NewButton = () => {
-  const { createEmptySchema } = useCanvasSchemaContext();
+  const { canvasSchema, createEmptySchema } = useCanvasSchemaContext();
   const { setFilename, setLoadSample } = useCanvasViewSettingsContext();
+  const { openModal, closeModal } = useModalDialogContext();
 
-  const handleNewButtonClick = () => {
+  const doCreateNew = () => {
     setFilename('');
     createEmptySchema();
     setLoadSample(false);
+    closeModal();
   };
+
+  const handleNewButtonClick = () => {
+    if (!canvasSchema.isPristine) {
+      openModal(
+        <NewModelDialog onConfirm={doCreateNew} onCancel={closeModal}/>,
+        NEW_MODEL_CONFIRMATION_TITLE
+      )
+    } else {
+      doCreateNew();
+    }
+  }
 
   return (
     <ActionButton
