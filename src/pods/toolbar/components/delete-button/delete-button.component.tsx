@@ -29,7 +29,8 @@ export const DeleteButton: React.FC = () => {
     if (hasChildren) {
       openModal(
         <DeleteTableDialog onConfirm={doDeleteSelectedItem} onCancel={closeModal} />,
-        REMOVE_TABLE_CONFIRMATION_TABLE
+        REMOVE_TABLE_CONFIRMATION_TABLE,
+        true
       )
     } else {
       doDeleteSelectedItem();
