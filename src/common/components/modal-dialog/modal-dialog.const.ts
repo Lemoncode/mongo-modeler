@@ -8,3 +8,4 @@ export const EDIT_NOTE_TITLE = 'Edit Note';
 export const ABOUT_TITLE = 'About us';
 export const EXPORT_MODEL_TITLE = 'Export Model';
 export const IMPORT_COLLECTION_TITLE = 'Import JSON Document';
+export const NEW_MODEL_CONFIRMATION_TITLE = 'New Model';

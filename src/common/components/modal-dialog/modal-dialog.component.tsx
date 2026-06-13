@@ -53,7 +53,7 @@ export const ModalDialog: React.FC = () => {
           transition={{ duration: 0.4 }}
         >
           <motion.div
-            className={styles.dialog}
+            className={`${styles.dialog} ${modalDialog.compact ? styles.dialogCompact : ''}`}
             role="dialog"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
