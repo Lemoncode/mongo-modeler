@@ -14,6 +14,7 @@ import {
   doMapOrCreateTable,
 } from './edit-table.business';
 import { updateFieldValueLogic } from './edit-table.business';
+import { EditModelDialog } from './edit-table-dialog.component';
 
 interface Props {
   table?: canvasVm.TableVm; // TODO: should we have our own Vm?
@@ -40,6 +41,8 @@ export const EditTablePod: React.FC<Props> = props => {
     doMapOrCreateTable(relations, table)
   );
 
+  const [pendingDeleteFieldId, setPendingDeleteFieldId] = React.useState<GUID | null>(null);
+
   const handleSubmit = (table: editTableVm.TableVm) => {
     onSave(mapEditTableVmToTableVm(table));
   };
@@ -59,7 +62,21 @@ export const EditTablePod: React.FC<Props> = props => {
   };
 
   const onDeleteField = (fieldId: GUID) => {
-    setEditTable(currentTable => removeField(currentTable, fieldId));
+    const field = findFieldRecursively(editTable.fields, fieldId);
+    const hasChildren = (field?.children?.length ?? 0) > 0;
+
+    if (hasChildren) {
+      setPendingDeleteFieldId(fieldId);
+    } else {
+      setEditTable(currentTable => removeField(currentTable, fieldId));
+    }
+  };
+
+  const handleConfirmDelete = () => {
+    if (pendingDeleteFieldId) {
+      setEditTable(currentTable => removeField(currentTable, pendingDeleteFieldId));
+      setPendingDeleteFieldId(null);
+    }
   };
 
   const onAddField = (fieldId: GUID, isChildren: boolean, newFieldId: GUID) => {
@@ -94,6 +111,15 @@ export const EditTablePod: React.FC<Props> = props => {
       setEditTable({ ...editTable, fields });
     }
   };
+
+  if (pendingDeleteFieldId) {
+    return (
+      <EditModelDialog
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setPendingDeleteFieldId(null)}
+      />
+    );
+  }
 
   return (
     <>

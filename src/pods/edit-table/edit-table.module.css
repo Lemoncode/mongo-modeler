@@ -82,6 +82,13 @@
   gap: 5px;
 }
 
+.menssage {
+    font-size: var(--fs-m);
+    color: var(--text-color);
+    text-align: center;
+    margin: 0 0 var(--space-md);
+}
+
 @supports (grid-template-columns: subgrid) {
   .tableEditor {
     grid-template-columns: repeat(7, auto);
