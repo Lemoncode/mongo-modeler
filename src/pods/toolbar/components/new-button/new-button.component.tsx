@@ -25,7 +25,8 @@ export const NewButton = () => {
     if (!canvasSchema.isPristine) {
       openModal(
         <NewModelDialog onConfirm={doCreateNew} onCancel={closeModal}/>,
-        NEW_MODEL_CONFIRMATION_TITLE
+        NEW_MODEL_CONFIRMATION_TITLE,
+        true
       )
     } else {
       doCreateNew();
