@@ -15,11 +15,12 @@ export const ModalDialogProvider: React.FC<Props> = props => {
     createInitialModalDialog()
   );
 
-  const openModal = (component: React.ReactNode | null, title: string) => {
+  const openModal = (component: React.ReactNode | null, title: string, compact?: boolean) => {
     setModalDialog({
       isOpen: true,
       selectedComponent: component,
       title,
+      compact,
     });
   };
 

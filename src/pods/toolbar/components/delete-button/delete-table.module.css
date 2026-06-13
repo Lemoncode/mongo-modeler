@@ -1,0 +1,6 @@
+.menssage {
+    font-size: var(--fs-m);
+    color: var(--text-color);
+    text-align: center;
+    margin: 0 0 var(--space-md);
+}

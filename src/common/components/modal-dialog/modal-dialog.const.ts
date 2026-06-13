@@ -8,3 +8,5 @@ export const EDIT_NOTE_TITLE = 'Edit Note';
 export const ABOUT_TITLE = 'About us';
 export const EXPORT_MODEL_TITLE = 'Export Model';
 export const IMPORT_COLLECTION_TITLE = 'Import JSON Document';
+export const EDIT_TABLE_CONFIRMATION_DIALOG = 'Edit Table';
+export const REMOVE_TABLE_CONFIRMATION_TABLE = 'Remove Table';
