@@ -14,7 +14,7 @@ jobs:
     name: Deploy Mongo Modeler
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Use Node.js
         uses: actions/setup-node@v6
